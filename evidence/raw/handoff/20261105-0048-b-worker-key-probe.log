@@ -1,0 +1,6 @@
+b_key /v1/work (claim 正确)      -> 200   body={"job":null,"cancel":[]}
+b_key /v1/state (owner 专用)     -> 401   body={"error":"要本人自己的密钥"}
+a_worker_key /v1/work            -> 200   body={"job":null,"cancel":[]}
+owner /v1/work (种类不符)         -> 401   body={"error":"要接单程序自己的密钥"}
+owner /v1/state                  -> 200   body={"now":"2026-11-04T16:34:10.790Z","timezone":"Asia/Shanghai","spending":{"today":{"rounds":0,"tokens":0,"cost":0,"missingTokens":0,"missingCost":0},"week":{"rounds":10,"tokens":5131,"cost":0,"missingT
+bogus /v1/work                   -> 401   body={"error":"要接单程序自己的密钥"}

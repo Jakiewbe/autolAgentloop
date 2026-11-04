@@ -323,6 +323,32 @@ index 0000000..a17d3bc
 +    process.kill(-pid, force ? "SIGKILL" : "SIGTERM");
 +  } catch {}
 +}
+diff --git a/host/server.ts b/host/server.ts
+index 059a83f..e7d6bf3 100644
+--- a/host/server.ts
++++ b/host/server.ts
+@@ -1,7 +1,7 @@
+ // What the kernel's doors need from this machine: the clock, a timer for the next deadline, long polls to wake, the
+ // rules file to watch, the log as a stream and the webhook plugins.
+ import { watch } from "node:fs";
+-import { dirname } from "node:path";
++import { basename, dirname } from "node:path";
+ import { RULES_FILE } from "./home.ts";
+ import { loadPlugin } from "./plugins.ts";
+ import * as hub from "./runtime.ts";
+@@ -94,8 +94,11 @@ export function makeHandler(commit = "dev") {
+     if (!justSeen || facts.some((fact) => fact.changes.some((change) => change.table === "cards"))) wake();
+     arm();
+   });
++  // basename, not split("/"): on Windows RULES_FILE has only backslashes, so splitting on "/" kept the whole path
++  // and the watcher then ignored every change (rules.json edits never took effect until a restart).
++  const rulesName = basename(RULES_FILE);
+   const watcher = watch(dirname(RULES_FILE), (_event, file) => {
+-    if (file !== RULES_FILE.split("/").at(-1)) return;
++    if (file !== rulesName) return;
+     hub.tick();
+     arm();
+   });
 diff --git a/host/service.ts b/host/service.ts
 index 731b258..341b264 100644
 --- a/host/service.ts
@@ -520,11 +546,51 @@ index 651895d..bbc3785 100644
    if (!result.notice?.length && attempts === 3) {
      const clock = { timeZone: draft.rules.timezone, hour: "2-digit", minute: "2-digit", hourCycle: "h23" } as const;
      const time = new Intl.DateTimeFormat("zh-CN", clock).format(notBefore);
+diff --git a/plugins/claude-go/agent.ts b/plugins/claude-go/agent.ts
+new file mode 100644
+index 0000000..165d71e
+--- /dev/null
++++ b/plugins/claude-go/agent.ts
+@@ -0,0 +1,34 @@
++// Go uses the existing Claude protocol; the deployment supplies its executable and private provider settings explicitly.
++import claude from "../claude/agent.ts";
++import type { Adapter, Reading } from "../../worker/agents.ts";
++
++export default {
++  command(turn) {
++    const [program, settings] = turn.command ?? [];
++    if (!program || !settings) throw new Error("Claude/Go 的 command 必须提供执行文件和私有配置路径");
++    return [
++      program,
++      "-p",
++      turn.prompt,
++      "--output-format",
++      "json",
++      "--settings",
++      settings,
++      "--strict-mcp-config",
++      ...(turn.resume ? ["--resume", turn.resume] : ["--session-id", turn.session]),
++      ...(turn.model ? ["--model", turn.model] : []),
++      "--permission-mode",
++      { read: "plan", edit: "acceptEdits", full: "bypassPermissions" }[turn.access],
++      "--add-dir",
++      turn.folder,
++      "--disallowedTools=EnterWorktree,ExitWorktree",
++    ];
++  },
++  read(stdout, code, stderr) {
++    const result: Reading = claude.read(stdout, code, stderr);
++    // Claude's local price estimate is not the amount charged by OpenCode Go.
++    if (result.usage) delete result.usage.cost;
++    return result;
++  },
++  link: claude.link,
++} satisfies Adapter;
 diff --git a/plugins/command/agent.ts b/plugins/command/agent.ts
-index d9b2ac0..3397690 100644
+index d9b2ac0..4e38394 100644
 --- a/plugins/command/agent.ts
 +++ b/plugins/command/agent.ts
-@@ -1,20 +1,89 @@
+@@ -1,20 +1,90 @@
  // Anything with a print mode: its command line in rules.json, its last message on stdout. A script is an agent too, and
  // a plain command needn't take the prompt at all: it finds what it needs through the environment (AGENT_AUTOLOOP_CONTEXT).
 -import { tail, type Adapter } from "../../worker/agents.ts";
@@ -618,7 +684,8 @@ index d9b2ac0..3397690 100644
 -    return { text: stdout };
 +    const session = sessionOf(stdout);
 +    if (code === null) return session ? { session } : {};
-+    if (code !== 0) return { error: `退出码 ${code}：${tail(stderr || stdout) || "没留下原因"}`, ...(session ? { session } : {}) };
++    if (code !== 0)
++      return { error: `退出码 ${code}：${tail(stderr || stdout) || "没留下原因"}`, ...(session ? { session } : {}) };
 +    return { text: messageOf(stdout) ?? stdout, ...(session ? { session } : {}) };
    },
  } satisfies Adapter;
@@ -902,12 +969,79 @@ index e6dea70..146b80b 100644
      ["skill", isText, NOT_EMPTY, true],
      ["prompt", isText, NOT_EMPTY, true],
      ["group", isText, NOT_EMPTY, true],
+diff --git a/tests/claude-go.test.ts b/tests/claude-go.test.ts
+new file mode 100644
+index 0000000..04dc967
+--- /dev/null
++++ b/tests/claude-go.test.ts
+@@ -0,0 +1,61 @@
++// Failure modes: a Go deployment uses a different executable/profile, loses the session or model, or bypasses permissions.
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import adapter from "../plugins/claude-go/agent.ts";
++import type { Turn } from "../worker/agents.ts";
++
++const turn: Turn = {
++  prompt: "do approved work",
++  session: "new-session",
++  resume: null,
++  cwd: "D:/project",
++  access: "edit",
++  model: "deepseek-v4.1-flash",
++  contextFile: "D:/context.json",
++  folder: "D:/run",
++  command: ["D:/claude.exe", "D:/private/go.json"],
++};
++test("uses the configured executable, profile and exact model", () => {
++  const args = adapter.command(turn);
++  assert.equal(args[0], "D:/claude.exe");
++  assert.equal(args[args.indexOf("--settings") + 1], "D:/private/go.json");
++  assert.equal(args[args.indexOf("--model") + 1], "deepseek-v4.1-flash");
++  assert.equal(args[args.indexOf("--permission-mode") + 1], "acceptEdits");
++  assert.ok(!args.includes("--dangerously-skip-permissions"));
++});
++test("resumes only the named session and keeps model configuration", () => {
++  const args = adapter.command({ ...turn, resume: "old-session" });
++  assert.equal(args[args.indexOf("--resume") + 1], "old-session");
++  assert.ok(!args.includes("--session-id"));
++  assert.ok(args.includes("deepseek-v4.1-flash"));
++});
++test("fails without an explicit executable and private profile", () => {
++  assert.throws(() => adapter.command({ ...turn, command: undefined }));
++});
++test("keeps the native Claude result parser instead of accepting raw output", () => {
++  assert.equal(adapter.read("echo prompt", 0, "").error, "echo prompt");
++  const result = adapter.read(
++    JSON.stringify({ type: "result", subtype: "success", is_error: false, result: "done", session_id: "s1" }),
++    0,
++    "",
++  );
++  assert.equal(result.text, "done");
++  assert.equal(result.session, "s1");
++});
++
++test("does not report Claude's estimate as a verified Go charge", () => {
++  const result = adapter.read(
++    JSON.stringify({
++      type: "result",
++      subtype: "success",
++      result: "done",
++      session_id: "s1",
++      total_cost_usd: 12,
++      usage: { input_tokens: 3, output_tokens: 2 },
++    }),
++    0,
++    "",
++  );
++  assert.equal(result.usage?.input, 3);
++  assert.equal(result.usage?.cost, undefined);
++});
 diff --git a/tests/command-adapter.test.ts b/tests/command-adapter.test.ts
 new file mode 100644
-index 0000000..5501581
+index 0000000..c328557
 --- /dev/null
 +++ b/tests/command-adapter.test.ts
-@@ -0,0 +1,67 @@
+@@ -0,0 +1,69 @@
 +// Failure modes: the resume flag goes on the first turn as well (codex's resume takes no -C), the session id an agent
 +// prints is dropped so every turn starts over, and a part that is only a placeholder is passed through as that word.
 +import assert from "node:assert/strict";
@@ -949,7 +1083,9 @@ index 0000000..5501581
 +});
 +
 +test("the session an agent says it is in comes back from its output", () => {
-+  const stdout = ['{"type":"thread.started","thread_id":"t-9"}', '{"type":"item","text":"好了"}', "最后一句话"].join("\n");
++  const stdout = ['{"type":"thread.started","thread_id":"t-9"}', '{"type":"item","text":"好了"}', "最后一句话"].join(
++    "\n",
++  );
 +  assert.deepEqual(adapter.read(stdout, 0, ""), { text: stdout, session: "t-9" });
 +  assert.deepEqual(adapter.read(stdout, null, ""), { session: "t-9" });
 +  assert.deepEqual(adapter.read("没有 json\n", 0, ""), { text: "没有 json\n" });
@@ -1423,7 +1559,7 @@ index 0000000..c95f1fc
 +// Nothing to do but wait: the marker keeps this process identifiable while the turn runs.
 +void marker;
 diff --git a/worker/worker.ts b/worker/worker.ts
-index 9e4138a..e976c5b 100644
+index 9e4138a..feff94f 100644
 --- a/worker/worker.ts
 +++ b/worker/worker.ts
 @@ -2,7 +2,7 @@
@@ -1540,16 +1676,14 @@ index 9e4138a..e976c5b 100644
    }
  
    function endWith(entry: Entry, result: Result) {
-@@ -249,8 +210,7 @@ export function createWorker({
+@@ -249,7 +210,6 @@ export function createWorker({
        session: job.session ?? randomUUID(),
        resume: job.session,
        repairs: 0,
 -      triedFresh: false,
--    };
-+      };
+     };
      // Kept before anything slow: a worker stopped from here on still has the job.
      save(entry);
-     try {
 @@ -302,20 +262,15 @@ export function createWorker({
      if (seen.error !== undefined || !seen.text?.trim()) {
        const error = seen.error || "没留下结果";

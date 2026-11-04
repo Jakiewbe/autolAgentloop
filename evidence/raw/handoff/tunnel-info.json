@@ -1,0 +1,8 @@
+{
+  "public_url": "https://obconic-subtetanic-tamika.ngrok-free.dev",
+  "proto": "https",
+  "target": "http://127.0.0.1:3350",
+  "provider": "ngrok",
+  "fidelity": "免费档随机域名，隧道进程重启即换地址；地址以本文件为准",
+  "checked_at": "2026-11-04T16:34:23.856Z"
+}

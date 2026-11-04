@@ -1,0 +1,20 @@
+== typecheck ==
+typecheck_done
+== before: pid in up.pid = 60464
+成功: 已终止 PID 为 60464 的进程。
+2026-11-04T16:33:27.306Z [worker] worker desktop-lm7rki1 started
+(node:62124) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+2026-11-04T16:33:27.333Z [hub] listening on 127.0.0.1:3350
+new_pid=62124
+healthz=200
+== agents after restart ==
+agent|desktop-lm7rki1|Agent
+slowtest|desktop-lm7rki1|鎱㈡祴
+claude-go-review|desktop-lm7rki1|Claude Code / DeepSeek锛堝彧璇婚獙鏀讹級
+b-magicbook14|b-magicbook14|B / MagicBook14
+== hot reload probe: rename agent, no restart ==
+after_patch=B / MagicBook14 (reload-probe)
+after_revert=B / MagicBook14
+runs=13
+pid_still=62124 now=62124

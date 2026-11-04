@@ -1,0 +1,17 @@
+== cpolar version ==
+cpolar version 3.3.18
+== service ==
+
+SERVICE_NAME: cpolar 
+        TYPE               : 10  WIN32_OWN_PROCESS  
+        STATE              : 4  RUNNING 
+                                (STOPPABLE, NOT_PAUSABLE, ACCEPTS_SHUTDOWN)
+        WIN32_EXIT_CODE    : 0  (0x0)
+== try http tunnel (12s) ==
+time="2026-11-05T00:28:22+08:00" level=info msg="Reading configuration file C:\\Users\\chs/.cpolar/cpolar.yml"
+time="2026-11-05T00:28:22+08:00" level=debug msg="没有启动守护进程，继续运行子进程"
+time="2026-11-05T00:28:22+08:00" level=info msg="Reading configuration file C:\\Users\\chs/.cpolar/cpolar.yml"
+time="2026-11-05T00:28:22+08:00" level=debug msg="New watchDog create, name: cpolard.cpolar.com:4443"
+time="2026-11-05T00:28:22+08:00" level=info msg="[:client] Trusting root CAs: [tls/cpolarroot.crt]"
+time="2026-11-05T00:28:22+08:00" level=error msg="启动时没有authtoken"
+not found authtoken.

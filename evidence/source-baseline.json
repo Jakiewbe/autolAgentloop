@@ -46,6 +46,7 @@
     ],
     "afterWindowsChanges": [
       " M cli/main.ts",
+      " M host/server.ts",
       " M host/service.ts",
       " M kernel/decide.ts",
       " M plugins/command/agent.ts",
@@ -58,7 +59,9 @@
       " M worker/worker.ts",
       "?? bin/agent-autoloop.cmd",
       "?? host/platform.ts",
+      "?? plugins/claude-go/",
       "?? pnpm-lock.yaml",
+      "?? tests/claude-go.test.ts",
       "?? tests/command-adapter.test.ts",
       "?? tests/windows-runtime.test.ts",
       "?? worker/runner.ts"
@@ -67,6 +70,7 @@
   "changedFiles": {
     "modified": [
       "cli/main.ts",
+      "host/server.ts",
       "host/service.ts",
       "kernel/decide.ts",
       "plugins/command/agent.ts",
@@ -81,6 +85,8 @@
     "added": [
       "bin/agent-autoloop.cmd",
       "host/platform.ts",
+      "plugins/claude-go/agent.ts",
+      "tests/claude-go.test.ts",
       "tests/command-adapter.test.ts",
       "tests/windows-runtime.test.ts",
       "worker/runner.ts"
@@ -93,7 +99,8 @@
     "patch": "evidence/raw/app/windows-changes.patch",
     "manifest": "evidence/raw/app/windows-changes.sha256",
     "base": "96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a",
-    "tar": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz"
+    "tar": "deploy/agent-autoloop-96b6c9c7-win3.tar.gz",
+    "patch_bytes": 72782
   },
   "verifiedAt": "2026-11-04T19:49:39+08:00",
   "upstreamMainHeadAtHandover_note": "克隆时记录的上游 main 头，来源 evidence/raw/app/01-clone.log；本机固定在更早的 96b6c9c，未跟随 main 前进",
@@ -104,6 +111,11 @@
         "path": "cli/main.ts",
         "upstream": "e7441e9fd4f233f66796e7036aa8deded50b4b90f1e4c5e131341469c7aa47b6",
         "local": "e06e0bfb0ad6a6e4f66f0ee5a33db0d51271d08f0934a0b0a2c20b5994b6775b"
+      },
+      {
+        "path": "host/server.ts",
+        "upstream": "5e988129a6eda8b45dc63be245361ce25eafb5489660a03c7550a97af8821c6f",
+        "local": "7ef50b1eae27c8a293b0fac95ad36429471fde909485b1fe09d82d8562b6ae5d"
       },
       {
         "path": "host/service.ts",
@@ -118,7 +130,7 @@
       {
         "path": "plugins/command/agent.ts",
         "upstream": "8289c98045d20b256c30250e691e3c59c523be58e0a4332978b8b3d0853ab89a",
-        "local": "36fac6b56da6a00625c996c32305f145e1b0cc053b53c6c7531a522514dc1fc2"
+        "local": "f821c0b0eb4ea303842f9b1f8b46ec400b021364fbe9c5cb96ba29490c934197"
       },
       {
         "path": "protocol/rules.ts",
@@ -133,7 +145,7 @@
       {
         "path": "tests/kernel.test.ts",
         "upstream": "4733f36d956097000940c751523178dbaf10028a51e00ed7565f709a7be6c549",
-        "local": "bb81cb715f9f7a5ef17da9d8d3d9f9f862eedb5a07b02d24bef2d131fb68dfb3"
+        "local": "086e5233ada59a536b1b3dbbb5f2d0a533e9b314d815f5e6745f2cc17e40a119"
       },
       {
         "path": "tests/rules.test.ts",
@@ -153,7 +165,7 @@
       {
         "path": "worker/worker.ts",
         "upstream": "e3604ff6c2576889c5d63bcae9e0f6c3217c568c42e74a871a75a7a2bf3f2bc2",
-        "local": "d911097b297ff24dc8f16ab393cc2eb33a070af2288de6c1c1a2a45f927abe30"
+        "local": "a68379be7cb47699f55b6246c85e87646a1e8de6d5bb75bddfc9e9e3bcaa2f80"
       }
     ],
     "added": [
@@ -166,8 +178,16 @@
         "sha256": "6b0492d006337e3927435a0f8c42e78dc4f5ae5b73e41bfec83c584c00f1c848"
       },
       {
+        "path": "plugins/claude-go/agent.ts",
+        "sha256": "ed0697add54b839c2c49b63ea2f24ac2b27bbc70bcce3bab49e28e47f7ab2837"
+      },
+      {
+        "path": "tests/claude-go.test.ts",
+        "sha256": "9d1abf9cc65047e55418fe0d6e11af5720493bcc69a65f72ee91a2f8319ddf13"
+      },
+      {
         "path": "tests/command-adapter.test.ts",
-        "sha256": "811179654a0f66767431365513e0f4258967c70eb8edb2cfee4efee553d2257b"
+        "sha256": "8cfb21e094dfde4014e188a8ca7fb15555ea778224311bc8869d84e0f83d1799"
       },
       {
         "path": "tests/windows-runtime.test.ts",
@@ -179,12 +199,12 @@
       }
     ],
     "bundle": {
-      "patch_sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+      "patch_sha256": "ffc58e26f0df0d5b4d0def7decb3eb2ab94f1badabcf162c6d136736876288df",
       "patch_bytes": 50527,
       "patch_lines": 1226,
-      "deploy_tarball": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz",
-      "deploy_sha256": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
-      "deploy_bytes": 318771
+      "deploy_tarball": "deploy/agent-autoloop-96b6c9c7-win3.tar.gz",
+      "deploy_sha256": "24d1e757fbb313897cda3f23d996cd80a2919b47922961f26cf884b2ca872c3a",
+      "deploy_bytes": 322871
     },
     "license_sha256": "0e170b2be5e73adb4892de4b511ba1e3b76a0adbc11957e96ef8b3ad581a059f"
   },
@@ -211,5 +231,5 @@
     "protocol/rules.ts 与 tests/rules.test.ts 是 18:1x 修 init 阻断时新增进改动集的，最初打包时只有 5 个 M",
     "工作区会随后续实现变化；哈希对应 2026-11-04 19:15 这一刻，变化后须重生成"
   ],
-  "lastRefreshNote": "20:05 重算：补上 decide/worker/adapter 三个修改与 tests/command-adapter.test.ts 新增，部署包换成 win2"
+  "lastRefreshNote": "2026-11-05 00:35 重算：新增 host/server.ts（rules watcher 在 Windows 上用 basename），部署包换为 win3。"
 }

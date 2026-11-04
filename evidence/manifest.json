@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T23:24:02+08:00",
+  "generated_at": "2026-11-05T00:35:35+08:00",
   "generated_by": "Lead（A 机，DESKTOP-LM7RKI1）",
   "scope": "A 机单机部署（唯一中台 + A 执行端）；B 机未接入，见 evidence/preflight/B_bootstrap.md",
   "host": {
@@ -28,8 +28,8 @@
   "artifacts": [
     {
       "path": "evidence/raw/app/windows-changes.patch",
-      "bytes": 67593,
-      "sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+      "bytes": 72782,
+      "sha256": "ffc58e26f0df0d5b4d0def7decb3eb2ab94f1badabcf162c6d136736876288df",
       "what": "Windows 适配改动（--binary，1226 行）"
     },
     {
@@ -120,6 +120,42 @@
       "path": "evidence/recovery.md",
       "bytes": 3464,
       "sha256": "f68f2bf4a6b73af429232a3dea4dd1a3a21e416e9edd878d2cf8fdcd40663eaa"
+    },
+    {
+      "path": "deploy/agent-autoloop-96b6c9c7-win3.tar.gz",
+      "note": "A 侧部署包（含 rules watcher 修复）",
+      "bytes": 322871,
+      "sha256": "24d1e757fbb313897cda3f23d996cd80a2919b47922961f26cf884b2ca872c3a"
+    },
+    {
+      "path": "evidence/handoff/A-to-B.md",
+      "note": "回应审核四项补充要求的 A→B 交接单",
+      "bytes": 9341,
+      "sha256": "64db3d63078a82ef697e6572b89ca6cdc0b934265a444ba4ba950642ea5d9d42"
+    },
+    {
+      "path": "evidence/raw/handoff/tunnel-info.json",
+      "note": "中心对外可达地址（ngrok）机器可读记录",
+      "bytes": 294,
+      "sha256": "bc79f6ed0fcae0149357ff0075023f9d96f043d0b03a12b30677340629f1b418"
+    },
+    {
+      "path": "evidence/raw/handoff/20261105-0045-center-restart.log",
+      "note": "中台重启与规则热加载实测",
+      "bytes": 780,
+      "sha256": "9a25456fafb1757f0527e0f4d3dabf4554db5fb259e160e1baeedbc2dbba9105"
+    },
+    {
+      "path": "evidence/raw/handoff/20261105-0048-b-worker-key-probe.log",
+      "note": "b-magicbook14 密钥种类隔离实测",
+      "bytes": 665,
+      "sha256": "4783c1eacfcf654cd35630131b185846993692c628aa43656408da536fae853e"
+    },
+    {
+      "path": "evidence/raw/handoff/rules.before-b-register.json",
+      "note": "登记 B 之前的活动规则备份",
+      "bytes": 3071,
+      "sha256": "45f0e60e81f6912c3414e9b12bd0e7a2842592791fb0ceb964b4f2b54a2cab83"
     }
   ],
   "runtime_state": {

@@ -1,0 +1,7 @@
+复用已在跑的隧道
+public_url=https://obconic-subtetanic-tamika.ngrok-free.dev
+healthz=200 tls_verify=0
+state_no_token=401
+state_with_owner=200
+work_with_b_key=200
+wrote evidence/raw/handoff/tunnel-info.json

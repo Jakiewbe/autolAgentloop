@@ -37,6 +37,18 @@ def sha256_file(p: Path) -> str:
     return sha256_bytes(p.read_bytes())
 
 
+def expand_dirs(entries: list[str]) -> list[str]:
+    """git 把新目录报成一条（末尾带 /），这里展开成逐个文件，跟基线里记录的粒度一致。"""
+    out: list[str] = []
+    for entry in entries:
+        target = APP / entry.rstrip("/")
+        if target.is_dir():
+            out.extend(str(f.relative_to(APP)).replace("\\", "/") for f in sorted(target.rglob("*")) if f.is_file())
+        else:
+            out.append(entry)
+    return sorted(out)
+
+
 def git(*args: str) -> bytes:
     out = subprocess.run(["git", *args], cwd=APP, capture_output=True)
     if out.returncode != 0:
@@ -82,7 +94,7 @@ def main() -> int:
 
     status = git("status", "--porcelain=v1").decode().splitlines()
     modified = sorted(line[3:] for line in status if line.startswith(" M"))
-    untracked = sorted(line[3:] for line in status if line.startswith("??"))
+    untracked = expand_dirs(sorted(line[3:] for line in status if line.startswith("??")))
     check("已改文件集合一致", modified == sorted(base["changedFiles"]["modified"]), ",".join(modified))
     expect_untracked = sorted(base["changedFiles"]["added"] + base["changedFiles"]["generated"])
     check("未跟踪文件集合一致", untracked == expect_untracked, ",".join(untracked))
