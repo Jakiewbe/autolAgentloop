@@ -126,7 +126,11 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\v
 **已知缺陷与修正版（2026-11-05T01:40 实测）**：原 `verify-b.ps1` 把 `-OutputDirectory` 的默认值写成 `(Join-Path $PSScriptRoot 'verification-output')`，在本机 PowerShell 5.1 下 `$PSScriptRoot` 求值为空，**不显式传 `-OutputDirectory` 就在参数绑定阶段报错**（`Join-Path : 无法将参数绑定到参数"Path"，因为该参数为空字符串`，`verify-b.ps1:6`），此时还没跑到任何模型调用。两种解法：
 
 1. 调用时显式带上 `-OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"`——已实测可以正常往下跑并写出 `model.stdout.jsonl`/`model.stderr.log`；
-2. 用同目录的 **`verify-b-fixed.ps1`**（sha256 `36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31`）：把默认值移进脚本体，不传 `-OutputDirectory` 也能跑，其余参数与校验逻辑不变。原包里那份不动，审核包哈希 `e0b4fb5b…9853` 因此仍然成立。
+2. 用同目录的 **`verify-b-fixed.ps1`**：把默认值移进脚本体，不传 `-OutputDirectory` 也能跑，其余参数与校验逻辑不变。
+
+**这个修正版的字节哈希以远端为准**：GitHub 上 `main` 的 `deploy/B-reviewed/verify-b-fixed.ps1` 是 2527 字节、sha256 `23458837f2782638dc6599d4d8582ddbf14afe1360f738fcd82daf69856beab9`（LF 换行，已实测在 PowerShell 5.1 下能正常执行）；A 工作副本是 2563 字节 CRLF 版本、sha256 `36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31`，两者内容等价。请按你实际拿到的**那一份**算哈希，不要按段落里另一个数去对。
+
+原包里那份 `verify-b.ps1` 不动，审核包哈希 `e0b4fb5b…9853` 因此仍然成立。
 
 它给模型一个本次随机生成的 `AGENT_VERIFY_<guid>` 令牌，要求模型只回这个令牌，再用 `agent_result.mjs` 校验 stdout、退出码和令牌是否一致；不通过就 throw。**它只证明模型真能回话，不证明编辑、命令执行或双机部署**。
 

@@ -15,3 +15,7 @@ Join-Path : ÎŞ·¨½«²ÎÊı°ó¶¨µ½²ÎÊı¡°Path¡±£¬ÒòÎª¸Ã²ÎÊıÎª¿Õ×Ö·û´®¡£
 == [5] æ˜¾å¼ -OutputDirectory æ—¶äº§ç‰© ==
 model.stderr.log
 model.stdout.jsonl
+== [6] è¿œç«¯å­—èŠ‚æ ¸å¯¹ï¼ˆGitHub rawï¼‰==
+verify-b-fixed.ps1 remote: 2527 bytes, sha256 23458837f2782638dc6599d4d8582ddbf14afe1360f738fcd82daf69856beab9ï¼ˆLFï¼‰
+verify-b-fixed.ps1 local : 2563 bytes, sha256 36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31ï¼ˆCRLFï¼‰
+LF ç‰ˆæœ¬åœ¨ PowerShell 5.1 ä¸‹å®æµ‹å¯æ‰§è¡Œï¼ˆæ­¢äºåŒç›®å½•ç¼ºå°‘ agent_result.mjsï¼Œå±é¢„æœŸï¼‰

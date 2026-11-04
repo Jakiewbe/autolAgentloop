@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T00:37:37+08:00",
+  "generated_at": "2026-11-05T01:36:57+08:00",
   "generated_by": "Lead（A 机，DESKTOP-LM7RKI1）",
   "scope": "A 机单机部署（唯一中台 + A 执行端）；B 机未接入，见 evidence/preflight/B_bootstrap.md",
   "host": {
@@ -130,8 +130,8 @@
     {
       "path": "evidence/handoff/A-to-B.md",
       "note": "回应审核四项补充要求的 A→B 交接单",
-      "bytes": 10087,
-      "sha256": "0c018a454aeea9e767bd2171ccdda493be6090ab76f9e40f4bf9d4500442a58f"
+      "bytes": 16071,
+      "sha256": "36148efeaf4b408680459a8e13ca1ab876d3fd29b86ceca0049ab61472321625"
     },
     {
       "path": "evidence/raw/handoff/tunnel-info.json",
