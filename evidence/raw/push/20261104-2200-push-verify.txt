@@ -1,0 +1,22 @@
+== remote ref ==
+717e4b85a41cae93a9f29398b8780dece95677ac	HEAD
+2f95400fd67b7b184ea557b952a5fcceb685f708	refs/heads/b
+717e4b85a41cae93a9f29398b8780dece95677ac	refs/heads/main
+== local ==
+717e4b8 A 侧交付快照：Windows 适配 + 模型通道 + Anchor 桥接 + 双机部署材料
+4fe815e Initial commit
+
+ M evidence/raw/push/20261104-2150-git-commit.log
+?? evidence/raw/push/20261104-2155-push-attempt.log
+?? evidence/raw/push/20261104-2200-push-verify.txt
+== remote tree spot-check ==
+files=809
+OK  app/host/platform.ts 11022
+OK  app/worker/runner.ts 1869
+OK  evidence/acceptance-codex.md 11153
+OK  evidence/manifest.json 5792
+OK  tools/anchor_bridge/bridge.mjs 10652
+OK  deploy/agent-autoloop-96b6c9c7-win2.tar.gz 321572
+OK  LICENSE 1084
+== hash match ==
+caf7048f4b6a5463
