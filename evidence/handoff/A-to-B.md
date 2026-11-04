@@ -157,3 +157,15 @@ e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853 *deploy/B-revie
 - B 侧守卫脚本的阻断缺陷（审核 FAIL 3）与 `deploy-b/` 哈希表漏 3 文件（审核 FAIL 6）：属 B 的改动。
 - B 的 codex 管道退出码原生捕获（审核证据不足 1）：属 B 的证据补采。
 - 固定域名（需人工在 ngrok 控制台操作）。
+## 7. 发布记录（发布后再核对，不是自证）
+
+| 项 | 值 |
+| --- | --- |
+| 提交 | `43b3c6f59e4bd50629a3dcb1b33fa92509dba594`（`main`） |
+| 远端 main HEAD | `git ls-remote` 返回同值 |
+| 包直链 | `https://github.com/Jakiewbe/autolAgentloop/raw/main/deploy/B-reviewed-delivery.zip` |
+| 匿名下载实测 | `http=200`，414436 字节 |
+| 下载后哈希 | `e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853`，与本地 `cmp` 逐字节相同 |
+| 日志 | `evidence/raw/handoff/20261105-0055-remote-package-check.log` |
+
+这把「A 手上有包」升级成「B 能从公开地址按哈希取到同一个包」。仍不等于 B 已收到——B 侧的下载、校验、解压、安装要由 B 自己留证。
