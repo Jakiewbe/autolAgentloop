@@ -3,17 +3,17 @@
   "kit_version": "1.5.1",
   "project_id": "4f13f187-5f5b-4523-9d50-dab2b97defc2",
   "name": "autoAgentloop",
-  "revision": 53,
+  "revision": 54,
   "task_revision": 43,
   "current_task_revision": 43,
   "goal_version": 1,
   "goal_approved": false,
-  "updated_at": "2026-11-04T13:33:43.435213+00:00",
+  "updated_at": "2026-11-04T13:44:51.126654+00:00",
   "snapshot_keep": 20,
   "log_max_bytes": 65536,
   "hashes": {
     "GOAL.md": "5d0fd9b760def65c659c410ac4ec1692508c9d9772701b35d35d09fba4329f3e",
-    "CURRENT.md": "621dbe0cc5de97adcf9e81425e54ef885b9d138024b4a37083dbf160f246b3ae",
+    "CURRENT.md": "a36fd7587353a32ce0f5fdba2afd9cc954c1ad0db60977aa49648387b754b49a",
     "DECISIONS.md": "6e099bcfed2c6a9c289615e2d37a24ab9294f90650e47d7cb99806cbdc8598e8",
     "LESSONS.md": "26b8cf42c33cfb2fc57993b2f40b3b832ff8336a12b9c4577202cd2f171fd6ac",
     "tasks.json": "bcbdf9ec2a997cbc65e34c3489d81d6e7ac48a18a2596afff733d46064fd11e1"
@@ -408,6 +408,21 @@
       "action": "state:update",
       "reason": "保存本轮平台约定及真实未验证事项，纠正旧任务关联",
       "timestamp": "2026-11-04T13:33:43.435213+00:00"
+    },
+    {
+      "action": "document-version",
+      "revision": 54,
+      "file": "CURRENT.md",
+      "previous_sha256": "621dbe0cc5de97adcf9e81425e54ef885b9d138024b4a37083dbf160f246b3ae",
+      "content": "# 当前断点\n\n## 当前阶段\n平台限制放宽为Windows原生或WSL；尚未选定迁移，整体仍未通过验收。\n\n## 当前任务\nT15：平台补充约定与材料一致性核对，已完成。\n两轮独立验收报告已存在，但T13账本仍为草案，不能作为已完成任务。\n\n## 已完成工作\n保留A侧既有源码、win2部署包、补丁及两轮原始验收报告。\n历史第二轮结果：14通过、3失败、6未验证；之后DSH提交修复及外部阻塞说明。\n本轮只读清单核对15项通过、源码基线38项通过，0失败；未跑第三轮完整验收。\n新增DEPLOYMENT_PLATFORM_UPDATE.md，同步T6草案；原任务书和冻结材料未变。\nT15两项claimed/self自查通过，不是程序部署或WSL功能验收。\n\n## 当前阻塞\nT3仍缺B实机报告；B和跨网络连接未独立验证，原依赖链不变。\nClaude Code/Go未成功接通；400/401记录不能全部武断归因为同一种凭据错误。\nWSL枚举返回E_ACCESSDENIED，本轮仅能标可用性未验证，不能认定未安装。\nGOAL仍未批准，本轮局部平台约定已明确授权，不替用户批准全项目。\n\n## 下一步动作\nDSH读取平台补充约定，在实际可用环境中确定部署方案，再提交对应实测材料。\n先补B盘点与模型通道缺口；对实际选定环境独立复验，不跨环境借用通过结论。\n\n## 状态修订\n以state.json和tasks.json为准；本轮CURRENT关联T15。\n\n## Git 检查\n根目录已是 Git 仓库（2026-11-04 22:00 初始化 main，远端 https://github.com/Jakiewbe/autolAgentloop）。\n已推送 717e4b8（A 侧交付快照，809 文件）与 f21525d（推送证据）；远端 main 见 ls-remote。\napp/ 仍为 detached HEAD 96b6c9c71671，11 修改 + 6 未跟踪保留，未改上游远端。\n未建分支/worktree（远端 refs/heads/b 2f95400 非本机推送）。\n",
+      "user_approved": false,
+      "timestamp": "2026-11-04T13:44:51.116775+00:00"
+    },
+    {
+      "revision": 54,
+      "action": "state:update",
+      "reason": "A 侧已推送 GitHub main，更新 Git 检查",
+      "timestamp": "2026-11-04T13:44:51.126654+00:00"
     }
   ],
   "focus": {
@@ -418,9 +433,7 @@
     "updated_at": "2026-11-04T13:31:58.826058+00:00"
   },
   "current_scope": {
-    "task_ids": [
-      "T15"
-    ],
+    "task_ids": [],
     "goal_version": 1,
     "task_revision": 43
   }

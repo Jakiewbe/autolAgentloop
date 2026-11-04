@@ -28,5 +28,7 @@ DSH读取平台补充约定，在实际可用环境中确定部署方案，再�
 以state.json和tasks.json为准；本轮CURRENT关联T15。
 
 ## Git 检查
-根目录不是Git仓库；app仍为detached HEAD 96b6c9c71671。
-本轮未改app，既有11项修改、6项未跟踪保留；未建分支/worktree、未提交推送。
+根目录已是 Git 仓库（2026-11-04 22:00 初始化 main，远端 https://github.com/Jakiewbe/autolAgentloop）。
+已推送 717e4b8（A 侧交付快照，809 文件）与 f21525d（推送证据）；远端 main 见 ls-remote。
+app/ 仍为 detached HEAD 96b6c9c71671，11 修改 + 6 未跟踪保留，未改上游远端。
+未建分支/worktree（远端 refs/heads/b 2f95400 非本机推送）。

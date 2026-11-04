@@ -1,29 +1,34 @@
-# 当前状态
+# 当前断点
 
 ## 当前阶段
-A 侧实施、证据与两轮独立验收都已完成；第一轮 6 条失败全修，第二轮 3 条里 2 条已修、1 条受上游 Go 凭据限制无法在本机达成。B 侧仍未就位，依赖链停在 T3。
+平台限制放宽为Windows原生或WSL；尚未选定迁移，整体仍未通过验收。
 
 ## 当前任务
-T13 已跑两轮 Codex 独立验收（均判不通过，原文与逐项在 `evidence/acceptance-codex.md`）；T3 等 B 回传；T11 等 B 就位。
+T15：平台补充约定与材料一致性核对，已完成。
+两轮独立验收报告已存在，但T13账本仍为草案，不能作为已完成任务。
 
 ## 已完成工作
-- T1/T2 done；A 盘点 `evidence/preflight/A.md` 20 项自校验 PASS。
-- T4–T10、T12 交付文件全在：`network.md`、`design.md`+`source-baseline.json`、`windows-runtime.md`、`adapters.md`、`anchor-bridge.md`、`scheduling.md`、`deployment/A.md`、`rehearsal.md`+`rollback.md`+`manifest.json`、`preflight/B_bootstrap.md`。
-- 第一轮 Codex 判「不通过」（11/6/5）：桥接 stale 依赖与 findKit、总重试上限 MAX_ATTEMPTS=5、会话接不上就停、`$PID`→`$listenPid`、opencode 取消标未验证、沙箱 taskkill 差异（本机 4/4）——均已修。
-- 命令适配器新增 `{resumeArgs}`/`{cwdArgs}`/`{sessionArgs}` 与 JSON 行会话/消息提取；live rules 切 `--json`，run 8/9 实测同 thread 续跑（`evidence/raw/deploy/20261104-2058-resume-verify.txt`）。
-- 第二轮 Codex 判「不通过」（14/3/6）：文档两处矛盾与 manifest 6 项不符已修（`verify_manifest.py` → 15 项 mismatch 0）；T7 的 Claude/Go 通道经真机补测确认上游 400/401，按外部凭据阻塞记录。
+保留A侧既有源码、win2部署包、补丁及两轮原始验收报告。
+历史第二轮结果：14通过、3失败、6未验证；之后DSH提交修复及外部阻塞说明。
+本轮只读清单核对15项通过、源码基线38项通过，0失败；未跑第三轮完整验收。
+新增DEPLOYMENT_PLATFORM_UPDATE.md，同步T6草案；原任务书和冻结材料未变。
+T15两项claimed/self自查通过，不是程序部署或WSL功能验收。
 
 ## 当前阻塞
-- T3 缺 `evidence/preflight/B.md`（B 不可达）→ T4–T14 连 doing 都被拒。
-- T7 完成条件「Codex + Claude Code/DeepSeek V4.1 Flash 两条路径实测通过」缺第二条：本机 Go 凭据不被网关接受。
+T3仍缺B实机报告；B和跨网络连接未独立验证，原依赖链不变。
+Claude Code/Go未成功接通；400/401记录不能全部武断归因为同一种凭据错误。
+WSL枚举返回E_ACCESSDENIED，本轮仅能标可用性未验证，不能认定未安装。
+GOAL仍未批准，本轮局部平台约定已明确授权，不替用户批准全项目。
 
 ## 下一步动作
-1. 用户决定是否交第三轮 Codex 验收（材料：win2 + 新 manifest）。
-2. B 落地窗口后按 `B_bootstrap.md` 采集回传，解除 T3、解锁 T11。
+DSH读取平台补充约定，在实际可用环境中确定部署方案，再提交对应实测材料。
+先补B盘点与模型通道缺口；对实际选定环境独立复验，不跨环境借用通过结论。
 
 ## 状态修订
-2026-11-04 20:20 · 两轮验收结果、第二轮 3 条处置（2 修 1 外部阻塞）、manifest 全项校验入档。
+以state.json和tasks.json为准；本轮CURRENT关联T15。
 
 ## Git 检查
-- `app/`：detached HEAD `96b6c9c71671`，未建分支/worktree，未 commit、未 push。
-- 11 改 + 6 未跟踪（`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/command-adapter.test.ts` `tests/windows-runtime.test.ts` `worker/runner.ts`）；验收未改动仓库文件。
+根目录已是 Git 仓库（2026-11-04 22:00 初始化 main，远端 https://github.com/Jakiewbe/autolAgentloop）。
+已推送 717e4b8（A 侧交付快照，809 文件）与 f21525d（推送证据）；远端 main 见 ls-remote。
+app/ 仍为 detached HEAD 96b6c9c71671，11 修改 + 6 未跟踪保留，未改上游远端。
+未建分支/worktree（远端 refs/heads/b 2f95400 非本机推送）。
