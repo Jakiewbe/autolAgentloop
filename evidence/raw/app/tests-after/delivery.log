@@ -1,0 +1,25 @@
+✔ review, full check, exact-head attestation, merge, Ship and health all finish (1.8558ms)
+✔ a missing label or closed PR launches nothing; forks are refused (0.523ms)
+✔ a PR pushed during review gets no attestation and is never merged (0.3239ms)
+✔ main advancing after review invalidates the merge gate (0.32ms)
+✔ findings and review-only mode stop before merge (0.5227ms)
+✔ review-only added during checks stops before the merge attestation (0.7813ms)
+✔ a merge response lost after acceptance is read back, never repeated (0.4909ms)
+✔ label removal reads back a lost response and does not report a false delivery failure (0.6475ms)
+✔ a different client merging during checks is followed without a second merge call (0.3719ms)
+✔ a merged PR resumes directly at Ship without reviewing or merging again (0.2662ms)
+✔ only the latest exact-head full workflow and successful required job count (0.284ms)
+✔ a cancelled draft-only workflow does not fail the new ready check (0.1166ms)
+✔ failed full checks never attest or merge and existing auto-merge is confirmed off (0.4014ms)
+✔ auto-merge cancellation reads back dropped requests and refuses unknown state (0.2683ms)
+✔ auto-merge read-back failure is retried but never treated as disabled (0.2256ms)
+✔ live health cannot hide incomplete or failed Ship (0.2469ms)
+✔ a completed delivery ignores later queued/failed releases; a successor needs to be live (0.3536ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 17
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 161.7059

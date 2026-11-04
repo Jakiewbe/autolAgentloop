@@ -1,0 +1,15 @@
+✔ schedules are parsed strictly (1.2413ms)
+✔ the next time is read in the rules' zone, strictly after the given moment (14.9801ms)
+✔ weekdays and days of the month work as in cron (1.0222ms)
+✔ a moment that doesn't exist is skipped, and one that happens twice runs the first time only (0.4002ms)
+✔ a schedule that never comes says so (0.4516ms)
+✔ the latest time due is found across a long gap without walking every minute of it (2.8893ms)
+✔ common schedules read in plain words (0.2809ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 156.5934

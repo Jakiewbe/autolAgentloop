@@ -1,0 +1,95 @@
+== 2026-11-04T18:45:47+08:00
+--- 1 新建一次性来源密钥（只用于这次联通验证，用完即撤）
+key_len=71
+--- 2 用桩治理程序跑桥接并发送（真实中台 127.0.0.1:3350）
+治理程序：D:/Vibe_coding-Project/autoAgentloop/tools/anchor_bridge/fixture-status.mjs（经 ANCHOR_KIT）
+项目：fixture-project · 账本 rev 7 · 任务 2 条 ⇒ 可领 1 条
+  F1 todo      可领
+  F2 todo      计划是 draft，没有批准
+F1 发送失败：401 {"error":"要来源自己的密钥"}
+已发送 0 条事件；发送记录 C:\Users\chs\.agent-autoloop\bridge\anchor-events.json
+emit_exit=0
+--- 3 再跑一次：同一条不重复发送
+治理程序：D:/Vibe_coding-Project/autoAgentloop/tools/anchor_bridge/fixture-status.mjs（经 ANCHOR_KIT）
+项目：fixture-project · 账本 rev 7 · 任务 2 条 ⇒ 可领 1 条
+  F1 todo      可领
+  F2 todo      计划是 draft，没有批准
+F1 发送失败：401 {"error":"要来源自己的密钥"}
+已发送 0 条事件；发送记录 C:\Users\chs\.agent-autoloop\bridge\anchor-events.json
+--- 4 中台看到的事件
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 桌面通知
+
+最近的卡片
+  #1 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+
+最近几轮
+  #2 试一下 做完了：你选了蓝色，试跑通过
+  #1 试一下 做完了：问了一个问题
+--- 5 撤回密钥
+密钥已失效。
+
+--- 6 重做连接中台验证（取密钥时改用第 1 行；上一轮 tail -1 取到了警告行，401 是这个原因）
+key_len=43
+治理程序：D:/Vibe_coding-Project/autoAgentloop/tools/anchor_bridge/fixture-status.mjs（经 ANCHOR_KIT）
+项目：fixture-project · 账本 rev 7 · 任务 2 条 ⇒ 可领 1 条
+  F1 todo      可领
+  F2 todo      计划是 draft，没有批准
+F1 发送失败：400 {"error":"subject 只能用字母、数字和 # . _ : / @ -"}
+已发送 0 条事件；发送记录 C:\Users\chs\.agent-autoloop\bridge\anchor-events.json
+--- 7 再跑一次：同一条不重复发送
+治理程序：D:/Vibe_coding-Project/autoAgentloop/tools/anchor_bridge/fixture-status.mjs（经 ANCHOR_KIT）
+项目：fixture-project · 账本 rev 7 · 任务 2 条 ⇒ 可领 1 条
+  F1 todo      可领
+  F2 todo      计划是 draft，没有批准
+F1 发送失败：400 {"error":"subject 只能用字母、数字和 # . _ : / @ -"}
+已发送 0 条事件；发送记录 C:\Users\chs\.agent-autoloop\bridge\anchor-events.json
+--- 8 中台状态（事件是否进来）
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 桌面通知
+
+最近的卡片
+  #1 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+--- 9 撤回密钥
+密钥已失效。
+--- 10 修好 subject 字符集后重跑（subject 改成 task/<project>/<task>，中文标题移到 summary；密钥第 1 行，43 字符）
+key_len=43
+治理程序：D:/Vibe_coding-Project/autoAgentloop/tools/anchor_bridge/fixture-status.mjs（经 ANCHOR_KIT）
+项目：fixture-project · 账本 rev 7 · 任务 2 条 ⇒ 可领 1 条
+  F1 todo      可领
+  F2 todo      计划是 draft，没有批准
+已发送 1 条事件；发送记录 C:\Users\chs\.agent-autoloop\bridge\anchor-events.json
+--- 11 再跑一次：同一条不重复发送（幂等）
+治理程序：D:/Vibe_coding-Project/autoAgentloop/tools/anchor_bridge/fixture-status.mjs（经 ANCHOR_KIT）
+项目：fixture-project · 账本 rev 7 · 任务 2 条 ⇒ 可领 1 条
+  F1 todo      可领
+  F2 todo      计划是 draft，没有批准
+已发送 0 条事件；发送记录 C:\Users\chs\.agent-autoloop\bridge\anchor-events.json
+--- 12 发送记录
+{
+  "anchor/fixture-project/F1/r7": "2026-11-04T10:46:37.953Z"
+}
+--- 13 中台状态
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 桌面通知
+
+最近的卡片
+  #1 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+
+最近几轮
+  #2 试一下 做完了：你选了蓝色，试跑通过
+  #1 试一下 做完了：问了一个问题
+
+没有规则接的事件
+  anchor-bridge-test3 task.claimable task/fixture-project/F1：F1 可领的一条：治理程序说这条已经批准、依赖完成、交付已声明
+--- 14 撤回密钥
+密钥已失效。

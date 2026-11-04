@@ -1,0 +1,84 @@
+### collected_at=2026-11-04T17:37:02.0089708+08:00 machine=DESKTOP-LM7RKI1 alias=A command=network elapsed_ms=2226
+
+IPAddress       InterfaceAlias                PrefixLength
+---------       --------------                ------------
+172.30.48.1     vEthernet (WSL)                         20
+169.254.54.94   蓝牙网络连接                            16
+192.168.79.1    VMware Network Adapter VMnet8           24
+192.168.177.1   VMware Network Adapter VMnet1           24
+172.16.184.69   以太网                                  21
+169.254.237.162 本地连接* 10                            16
+169.254.219.246 本地连接* 9                             16
+169.254.43.216  WLAN                                    16
+198.18.0.1      Mihomo                                  30
+
+
+default routes:
+
+NextHop      InterfaceAlias RouteMetric
+-------      -------------- -----------
+198.18.0.2   Mihomo                   0
+172.18.160.1 WLAN                     0
+172.16.184.1 以太网                   0
+
+
+neighbors:
+
+IPAddress       LinkLayerAddress  InterfaceAlias                    State
+---------       ----------------  --------------                    -----
+192.168.79.254  00-50-56-FD-16-49 VMware Network Adapter VMnet8     Stale
+192.168.177.254 00-50-56-E1-79-49 VMware Network Adapter VMnet1     Stale
+172.16.184.38   F0-4E-A4-F5-46-37 以太网                        Reachable
+172.16.184.1    D4-31-27-D3-3A-D7 以太网                        Reachable
+198.18.0.2                        Mihomo                        Reachable
+198.18.0.1                        Mihomo                            Stale
+
+
+listeners (non-loopback):
+
+LocalAddress  LocalPort OwningProcess
+------------  --------- -------------
+0.0.0.0             135          1448
+::                  135          1448
+192.168.79.1        139             4
+172.16.184.69       139             4
+172.30.48.1         139             4
+198.18.0.1          139             4
+192.168.177.1       139             4
+::                  445             4
+0.0.0.0             902          5828
+0.0.0.0             912          5828
+0.0.0.0            1115           392
+::                 1115           392
+172.16.184.69      3597         15696
+0.0.0.0            5040         10796
+::                 5357             4
+::                 7680         20932
+::                 7897         56176
+::                 8350         32684
+198.18.0.1         8906         15696
+172.16.184.69      8910         15696
+::                 9200          6620
+172.16.184.69     10793         15696
+172.16.184.69     11006         15696
+0.0.0.0           11738         15696
+::                49217          5312
+0.0.0.0           49217          5312
+0.0.0.0           49664           632
+::                49664           632
+::                49665           956
+0.0.0.0           49665           956
+0.0.0.0           49666          1144
+::                49666          1144
+0.0.0.0           49667           628
+::                49667           628
+
+
+mesh/vpn/remote-desktop services:
+
+Name             Status StartType
+----             ------ ---------
+SunloginService Stopped    Manual
+
+
+

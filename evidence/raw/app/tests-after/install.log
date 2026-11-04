@@ -1,0 +1,153 @@
+✖ installation keeps data private even when its root already exists with mode 0755 (3.6971ms)
+✖ the command goes in ~/.local/bin when that's on PATH, even behind another place it could go (3.2045ms)
+﹣ the same goes for dash, which is what sh is on Ubuntu (0.2563ms) # SKIP
+✖ with ~/.local/bin not on PATH it goes in the first place that is, and leaves ~/.local/bin alone (1.4172ms)
+✖ someone's own agent-autoloop stays as it was, and the next step doesn't send them to it (1.2846ms)
+✖ with nowhere on PATH to put it, the next step gives the full path and no link is left anywhere (1.1566ms)
+✖ the next step is try alone when a service has been started (1.3262ms)
+✖ with Node too old it says what to run, and those lines work as written (1.1759ms)
+✖ with Node missing it says what to run, and those lines work as written (1.0024ms)
+✖ running it again updates and doesn't set anything up over what's there (1.5804ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 387.5131
+
+✖ failing tests:
+
+test at tests\install.test.ts:88:1
+✖ installation keeps data private even when its root already exists with mode 0755 (3.6971ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:89:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:97:1
+✖ the command goes in ~/.local/bin when that's on PATH, even behind another place it could go (3.2045ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:98:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:116:1
+✖ with ~/.local/bin not on PATH it goes in the first place that is, and leaves ~/.local/bin alone (1.4172ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:117:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:129:1
+✖ someone's own agent-autoloop stays as it was, and the next step doesn't send them to it (1.2846ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:130:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:148:1
+✖ with nowhere on PATH to put it, the next step gives the full path and no link is left anywhere (1.1566ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:152:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:162:1
+✖ the next step is try alone when a service has been started (1.3262ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:163:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:174:3
+✖ with Node too old it says what to run, and those lines work as written (1.1759ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:175:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:174:3
+✖ with Node missing it says what to run, and those lines work as written (1.0024ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:175:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:195:1
+✖ running it again updates and doesn't set anything up over what's there (1.5804ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:196:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }

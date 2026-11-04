@@ -1,0 +1,26 @@
+{
+  "deploy/agent-autoloop-96b6c9c7-win2.tar.gz": {
+    "bytes": 321572,
+    "sha256": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3"
+  },
+  "evidence/raw/app/windows-changes.patch": {
+    "bytes": 67593,
+    "sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed"
+  },
+  "evidence/raw/app/windows-changes.sha256": {
+    "bytes": 1455,
+    "sha256": "e3ff4e5de15dd118af7cb2ea117814a9d1c9f50e07a314552b6fc8c35b0ff2c3"
+  },
+  "evidence/raw/app/windows-bundle.sha256": {
+    "bytes": 214,
+    "sha256": "d43355d7df475973e3958175d09de34762c2873e5f9bac92b39095844cfab30d"
+  },
+  "evidence/manifest.json": {
+    "bytes": 5791,
+    "sha256": "01e41a09d57569a057769ac9000f1ef6d5d99e4c3f5154ce5635f65da4eacf41"
+  },
+  "evidence/acceptance-codex.md": {
+    "bytes": 7970,
+    "sha256": "bb90c205b8f60c1ee257ca70de17a85211b110cecfee0f366b00b27551a94e88"
+  }
+}

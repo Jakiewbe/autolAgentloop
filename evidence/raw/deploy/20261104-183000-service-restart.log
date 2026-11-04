@@ -1,0 +1,48 @@
+== 2026-11-04T18:24:12+08:00
+--- 1 重复启动必须拒绝
+已经在跑了（进程 56328）
+--- 2 安装 Windows 后台启动
+EPERM: operation not permitted, open 'C:\Users\chs\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\agent-autoloop.cmd'
+--- 3 Startup 目录内容
+total 14
+drwxr-xr-x 1 chs 197121   0 Nov 20  2025 .
+drwxr-xr-x 1 chs 197121   0 Oct 17 23:48 ..
+-rwxr-xr-x 1 chs 197121 578 Nov 20  2025 MDI Jade 6.lnk
+-rw-r--r-- 1 chs 197121 174 Nov 15  2024 desktop.ini
+--- 4 启动项内容
+
+--- 5 service install 第二次尝试（第一次 EPERM，判断为瞬时）
+@echo off
+rem Starts it at sign-in, and again after ten seconds if it stops. Delete this file to stop that.
+set "AGENT_AUTOLOOP_HOME=C:\Users\chs\.agent-autoloop"
+:agent-autoloop
+"C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\Vibe_coding-Project\autoAgentloop\app\bin\agent-autoloop.ts" "up" >>"C:\Users\chs\.agent-autoloop\logs\up.log" 2>&1
+timeout /t 10 /nobreak >nul
+goto agent-autoloop
+--- 6 重启验证：先停掉手工起的进程
+�ɹ�: ����ֹ PID Ϊ 56328 �Ľ��̡�
+  TCP    127.0.0.1:1361         127.0.0.1:3350         TIME_WAIT       0
+  TCP    127.0.0.1:1362         127.0.0.1:3350         TIME_WAIT       0
+  TCP    127.0.0.1:1400         127.0.0.1:3350         TIME_WAIT       0
+--- 7 按启动项写的方式重新拉起
+  TCP    127.0.0.1:3350         0.0.0.0:0              LISTENING       53264
+--- 8 重启后状态（历史是否还在）
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 桌面通知
+
+最近的卡片
+  #1 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+
+最近几轮
+  #2 试一下 做完了：你选了蓝色，试跑通过
+  #1 试一下 做完了：问了一个问题
+--- 9 第二轮时间线
+第 2 轮 · 试一下
+11-04 18:21:04  规则版本 #1
+11-04 18:22:21  触发事件：来源 local · 类型 card.answered · 对象 无
+11-04 18:22:21  本人回答「试跑：选一个颜色」：蓝色
+11-04 18:22:21  desktop-lm7rki1 领取（Agent）
+11-04 18:22:56  结束：你选了蓝色，试跑通过

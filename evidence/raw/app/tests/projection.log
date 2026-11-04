@@ -1,0 +1,11 @@
+✔ a draft overlays filtered reads without changing the base (3.5322ms)
+✔ restart reuses projections and preserves deleted ID high water (5.12ms)
+✔ opening another process never exposes a missing SQL view (156.3732ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 306.4868

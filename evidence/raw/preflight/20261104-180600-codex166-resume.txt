@@ -1,0 +1,9 @@
+== start 2026-11-04T18:02:01+08:00
+version=codex-cli 0.166.0-alpha.5.1
+--- turn1 (jsonl to file)
+turn1_exit=0
+turn1_last=PROBE-C166-R1
+--- resume --last
+turn2_exit=1
+turn2_last=
+== done 2026-11-04T18:02:23+08:00

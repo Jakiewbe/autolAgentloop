@@ -1,0 +1,41 @@
+✔ health says which commit is running, and nothing else is open (46.6735ms)
+✔ each door takes its own kind of key and no other (36.4874ms)
+✔ a bad body is refused (23.2214ms)
+✔ a worker's wait: what arrives while it waits comes at once; nothing comes, it ends; a lost answer gets the work back (153.9686ms)
+✔ a source tells under its own name, once per key; a worker only as its own task (20.4528ms)
+✔ a channel comes for cards, reports them, and passes on who answered; the list decides (77.1755ms)
+✔ the owner's key reads everything, answers, resolves and stops; nothing else does, and there's no sign-in (54.6866ms)
+✔ a card's link is a plain page: it shows that card as words, runs nothing, and only a press answers (88.2167ms)
+✔ a card's link takes words of your own, and a notice has one button (123.2996ms)
+✔ someone else's webhook goes through its source's adapter: signed, or not taken (20.0981ms)
+✔ there's no other page: what's going on is read through the doors (4.4102ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.7639ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 11
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1018.0979
+
+✖ failing tests:
+
+test at tests\helpers.ts:13:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.7639ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-http-ITAa9U '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-http-ITAa9U'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:13:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-http-ITAa9U',
+    syscall: 'rm'
+  }

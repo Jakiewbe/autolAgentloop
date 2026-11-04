@@ -1,0 +1,36 @@
+✔ the default review status is neutral and projects can override it (0.9211ms)
+✔ release scope compares the entire healthy-live range and both sides of renames (2222.6729ms)
+✖ executable or symlink documents and unknown history always need release (270.3694ms)
+✔ only main provides configuration, with exact path patterns and explicit local health opt-in (84.5384ms)
+✔ unhealthy, redirected or malformed health cannot authorize skipping a release (20.1517ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3328.9976
+
+✖ failing tests:
+
+test at tests\delivery-scope.test.ts:56:1
+✖ executable or symlink documents and unknown history always need release (270.3694ms)
+  Error: Command failed: git -c user.name=test -c user.email=test@example.invalid commit -qm test
+      at genericNodeError (node:internal/errors:985:15)
+      at wrappedFn (node:internal/errors:539:14)
+      at checkExecSyncError (node:child_process:925:11)
+      at execFileSync (node:child_process:961:15)
+      at git (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/delivery-scope.test.ts:14:3)
+      at commit (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/delivery-scope.test.ts:21:3)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/delivery-scope.test.ts:64:46)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18) {
+    status: 1,
+    signal: null,
+    output: [ null, 'On branch main\nnothing to commit, working tree clean\n', '' ],
+    pid: 56472,
+    stdout: 'On branch main\nnothing to commit, working tree clean\n',
+    stderr: ''
+  }

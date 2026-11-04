@@ -1,0 +1,448 @@
+{
+  "schema": 1,
+  "project_id": "4f13f187-5f5b-4523-9d50-dab2b97defc2",
+  "timestamp": "2026-11-04T13:33:57.754898+00:00",
+  "session_id": "manual",
+  "revision": 53,
+  "state": {
+    "schema": 1,
+    "kit_version": "1.5.1",
+    "project_id": "4f13f187-5f5b-4523-9d50-dab2b97defc2",
+    "name": "autoAgentloop",
+    "revision": 53,
+    "task_revision": 43,
+    "current_task_revision": 43,
+    "goal_version": 1,
+    "goal_approved": false,
+    "updated_at": "2026-11-04T13:33:43.435213+00:00",
+    "snapshot_keep": 20,
+    "log_max_bytes": 65536,
+    "hashes": {
+      "GOAL.md": "5d0fd9b760def65c659c410ac4ec1692508c9d9772701b35d35d09fba4329f3e",
+      "CURRENT.md": "621dbe0cc5de97adcf9e81425e54ef885b9d138024b4a37083dbf160f246b3ae",
+      "DECISIONS.md": "6e099bcfed2c6a9c289615e2d37a24ab9294f90650e47d7cb99806cbdc8598e8",
+      "LESSONS.md": "26b8cf42c33cfb2fc57993b2f40b3b832ff8336a12b9c4577202cd2f171fd6ac",
+      "tasks.json": "bcbdf9ec2a997cbc65e34c3489d81d6e7ac48a18a2596afff733d46064fd11e1"
+    },
+    "history": [
+      {
+        "revision": 1,
+        "action": "task:add",
+        "reason": "登记用户明确要求的局部交接任务",
+        "timestamp": "2026-11-04T09:24:38.118510+00:00"
+      },
+      {
+        "revision": 2,
+        "action": "task:approve",
+        "reason": "用户明确要求拆分并罗列双机部署任务；仅批准本轮交接文档工作",
+        "timestamp": "2026-11-04T09:24:38.996481+00:00"
+      },
+      {
+        "revision": 3,
+        "action": "focus:set",
+        "reason": "本轮工作为双机部署任务拆分",
+        "timestamp": "2026-11-04T09:24:39.847153+00:00"
+      },
+      {
+        "revision": 4,
+        "action": "task:update",
+        "reason": "开始编制交接文件",
+        "timestamp": "2026-11-04T09:24:40.708588+00:00"
+      },
+      {
+        "revision": 5,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:19.186202+00:00"
+      },
+      {
+        "revision": 6,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:20.068275+00:00"
+      },
+      {
+        "revision": 7,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:20.957524+00:00"
+      },
+      {
+        "revision": 8,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:21.845767+00:00"
+      },
+      {
+        "revision": 9,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:22.754171+00:00"
+      },
+      {
+        "revision": 10,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:23.638288+00:00"
+      },
+      {
+        "revision": 11,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:24.543450+00:00"
+      },
+      {
+        "revision": 12,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:25.458026+00:00"
+      },
+      {
+        "revision": 13,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:26.347244+00:00"
+      },
+      {
+        "revision": 14,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:27.279978+00:00"
+      },
+      {
+        "revision": 15,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:28.171097+00:00"
+      },
+      {
+        "revision": 16,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:29.067082+00:00"
+      },
+      {
+        "revision": 17,
+        "action": "task:add",
+        "reason": "按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收",
+        "timestamp": "2026-11-04T09:30:30.033079+00:00"
+      },
+      {
+        "revision": 18,
+        "action": "verify:record",
+        "reason": "交接文档完成后先Review查Bug再检查是否可简化",
+        "timestamp": "2026-11-04T09:31:44.810297+00:00"
+      },
+      {
+        "revision": 19,
+        "action": "verify:record",
+        "reason": "交接文档完成后先Review查Bug再检查是否可简化",
+        "timestamp": "2026-11-04T09:31:45.739462+00:00"
+      },
+      {
+        "revision": 20,
+        "action": "task:update",
+        "reason": "交接文档两项自查通过；不代表任何部署任务完成",
+        "timestamp": "2026-11-04T09:31:46.673634+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 21,
+        "file": "DECISIONS.md",
+        "previous_sha256": "0369401d2d587a947fa6125e145e2f0a843896134b554d413f191514b3b52ee6",
+        "content": "# 重要决策\n\n仅记录已经确认的决策。每条包含时间、背景、备选方案、选择、原因、适用范围及变更情况。\n\n## 2026-11-04：双机角色和实施验收分工\n\n背景：用户有两台长期在线、经常不在同一网络的PC，运行Codex、Claude Code及DeepSeek Harness。\n选择：用户明确本机为A、另一台为B；DSH完善并部署，Codex后续验收。本回合先拆分详细前置与交接任务，不部署。\n依据：用户明确要求“本机暂时当A，另外一台当B”“我让DSH来完善和部署，你来验收”。\n适用范围：控制与交接目录为当前项目；T1交接已授权，T2—T14是待完善的实施草案。单中心等设计建议详见任务书，不冒充全部实现细节已批准。\n变化：首次记录；未更改或批准GOAL模板，未创建Git仓库、分支或worktree。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T09:31:47.594877+00:00"
+      },
+      {
+        "revision": 21,
+        "action": "state:update",
+        "reason": "保存用户明确的A/B角色、DSH实施与Codex验收决定",
+        "timestamp": "2026-11-04T09:31:47.601591+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 22,
+        "file": "CURRENT.md",
+        "previous_sha256": "86ffdad1e1d5c4dbd5f6909a291160081bb569a5b090f4773404bca30a39e103",
+        "content": "# 当前断点\n\n## 当前阶段\n部署交接准备完成；尚未创建fork、适配程序或部署。\n\n## 当前任务\nT1：双机部署任务书与验收交接，已完成；T2—T14为后续草案。\n\n## 已完成工作\n核对A本机入口及Node/Git版本；编制DSH_DEPLOYMENT_TASKBOOK.md。\n登记13项后续草案及依赖，列出20项独立验收场景。\nT1两项claimed/self自查通过；另4项文档一致性检查通过。\n\n## 当前阻塞\nT1无阻塞。B机器、跨网络连接和模型闭环未实机验证；这是后续盘点内容。\nGOAL仍为未批准模板，不阻塞已明确授权的局部任务，也不代表全项目计划获批。\n\n## 下一步动作\nDSH读取任务书和最新状态；A执行T2、B执行T3，先补齐真实交付物和检查。\n依用户具体授权批准后续任务，不因A/B角色和局部已定范围重复询问。\nDSH交付真实源码、部署版本和演练证据后，Codex执行T13独立复验。\n\n## 状态修订\n以state.json与tasks.json为准；当前断点关联T1。\n\n## Git 检查\n本目录不是Git仓库，未执行git init，未创建分支/worktree、提交或推送。\n新增治理文件及交接文档；当前没有业务源码或已部署成果。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T09:31:48.523495+00:00"
+      },
+      {
+        "revision": 22,
+        "action": "state:update",
+        "reason": "保存交接断点，明确DSH下一步和未部署事实",
+        "timestamp": "2026-11-04T09:31:48.530498+00:00"
+      },
+      {
+        "revision": 23,
+        "action": "task:update",
+        "reason": "T2草案补齐交付物、验收项与可执行检查",
+        "timestamp": "2026-11-04T10:05:11.844867+00:00"
+      },
+      {
+        "revision": 24,
+        "action": "task:approve",
+        "reason": "用户本轮明确要求按任务书完善并实施；批准T2盘点范围与检查",
+        "timestamp": "2026-11-04T10:05:20.243030+00:00"
+      },
+      {
+        "revision": 25,
+        "action": "task:update",
+        "reason": "T5草案补齐交付物与基线自校验命令",
+        "timestamp": "2026-11-04T10:06:53.304702+00:00"
+      },
+      {
+        "revision": 26,
+        "action": "task:approve",
+        "reason": "用户本轮授权按任务书实施；批准T5基线、设计与检查范围",
+        "timestamp": "2026-11-04T10:06:59.670193+00:00"
+      },
+      {
+        "revision": 27,
+        "action": "verify:record",
+        "reason": "运行基线自校验脚本，确认 source-baseline.json 与 app/ 实际状态一致且未伪造fork/提交",
+        "timestamp": "2026-11-04T10:07:06.367784+00:00"
+      },
+      {
+        "revision": 28,
+        "action": "verify:record",
+        "reason": "自查T5：基线与设计证据一致、未擅自分支或提交",
+        "timestamp": "2026-11-04T10:07:17.359944+00:00"
+      },
+      {
+        "revision": 29,
+        "action": "task:update",
+        "reason": "T3补齐交付物（B报告+B引导包）与检查（B报告自查）",
+        "timestamp": "2026-11-04T10:07:36.444184+00:00"
+      },
+      {
+        "revision": 30,
+        "action": "task:approve",
+        "reason": "用户本轮授权按任务书实施；批准T3 B盘点范围与检查（实际执行受B不可达阻塞）",
+        "timestamp": "2026-11-04T10:07:44.090280+00:00"
+      },
+      {
+        "revision": 31,
+        "action": "task:update",
+        "reason": "T3阻塞：B不可达，先交付引导包并记录真实阻塞原因",
+        "timestamp": "2026-11-04T10:07:52.602790+00:00"
+      },
+      {
+        "revision": 32,
+        "action": "verify:record",
+        "reason": "A 报告结构、证据引用、脱敏与自校验脚本实跑",
+        "timestamp": "2026-11-04T10:15:35.439704+00:00"
+      },
+      {
+        "revision": 33,
+        "action": "verify:record",
+        "reason": "T2 AC1 自查：报告分级与证据一致性",
+        "timestamp": "2026-11-04T10:15:53.908070+00:00"
+      },
+      {
+        "revision": 34,
+        "action": "verify:record",
+        "reason": "T2 AC2 自查：两通道原始日志与续接",
+        "timestamp": "2026-11-04T10:15:54.167668+00:00"
+      },
+      {
+        "revision": 35,
+        "action": "task:update",
+        "reason": "T2 检查已通过，先置 doing 再置 done（状态机要求）",
+        "timestamp": "2026-11-04T10:16:06.856378+00:00"
+      },
+      {
+        "revision": 36,
+        "action": "task:update",
+        "reason": "T2 三项检查均按当前材料 pass",
+        "timestamp": "2026-11-04T10:16:07.158746+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 37,
+        "file": "CURRENT.md",
+        "previous_sha256": "76ab39256cc10038fafe58a1ea1536fbfded436b261b7963d1eccdd6ae3351a7",
+        "content": "# 当前状态\n\n## 当前阶段\nA 侧真机部署已完成并有证据；B 侧未就位（不可达），依赖 B 的任务链停在 T3。\n\n## 当前任务\nT8 anchor 桥接 → T9 路由并发 → T12 演练/回退/manifest → T13 交 Codex 独立验收（T3 等 B 回传）。\n\n## 已完成工作\n- T1/T2 账本 done；A 盘点 `evidence/preflight/A.md`（20 项自校验 PASS）。\n- `evidence/windows-runtime.md`（240 行；§7 为真机阶段新增：init 阻断修复、测试收尾 EPERM 修复、service install 瞬时 EPERM、端到端结果）。\n- `evidence/adapters.md`（codex 0.166 可用 / 0.130 400 / opencode 可用 / claude 不可用 / DSH ACP 差异）。\n- `evidence/deployment/A.md`；部署包 `deploy/agent-autoloop-96b6c9c7-win1.tar.gz`（sha256 2ba21c42…d940）、补丁 `evidence/raw/app/windows-changes.patch`（f371da06…561d）。\n- `evidence/network.md`（首选 Tailscale，备选 cpolar/ngrok；不同网络实测未做）。\n\n## 当前阻塞\n- T3 缺 `evidence/preflight/B.md`：B 机器未确定、不可达；引导包 `evidence/preflight/B_bootstrap.md` 已交付等回传。\n- T3 blocked → `require_fresh()` 让 T4–T14 的 done 无法成立（交付文件已存在也不置 done）。\n\n## 下一步动作\n1. 写 T8 `evidence/anchor-bridge.md` 与桥接代码。\n2. 写 T9 `evidence/scheduling.md`，给具体上限值。\n3. A 侧真跑 T12 演练与回退，生成 `evidence/manifest.json`。\n4. T13 交 Codex 独立验收，不自行宣布通过。\n\n## 状态修订\n2026-11-04 18:40 · A 侧部署完成后刷新；任务状态未变（T3 blocked，其余 todo）。\n\n## Git 检查\n- `app/`：detached HEAD `96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a`，未建分支/worktree，未 commit、未 push。\n- 已改：`cli/main.ts` `host/service.ts` `protocol/rules.ts` `tests/helpers.ts` `tests/rules.test.ts` `worker/agents.ts` `worker/worker.ts`。\n- 未跟踪：`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/windows-runtime.test.ts` `worker/runner.ts`。\n- 现场残留（不进证据）：`C:\\Users\\chs\\.agent-autoloop-residue-20261104-1740`、`…-failed-init-20261104-1817`。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T10:43:38.363959+00:00"
+      },
+      {
+        "revision": 37,
+        "action": "state:update",
+        "reason": "A 侧部署完成、B 侧阻塞，记录真实状态与下一步",
+        "timestamp": "2026-11-04T10:43:38.371957+00:00"
+      },
+      {
+        "revision": 38,
+        "action": "verify:record",
+        "reason": "check_source_baseline.py 对当前工作区复核：29 项全过，含上游 blob 与本地哈希两列",
+        "timestamp": "2026-11-04T11:00:57.747887+00:00"
+      },
+      {
+        "revision": 39,
+        "action": "verify:record",
+        "reason": "T5 AC1 自查：设计覆盖目录/启动/包来源/验收输入，基线哈希可机器复核；fork 缺失已声明",
+        "timestamp": "2026-11-04T11:01:50.477981+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 40,
+        "file": "CURRENT.md",
+        "previous_sha256": "de946cd26ce5dae98a84e561c89c6e80bb20500149c3765bbf58dc355591204c",
+        "content": "# 当前状态\n\n## 当前阶段\nA 侧实施与证据已齐（T2/T5/T6/T7/T8/T9/T10/T12 的交付文件全在），B 侧仍未就位；依赖链按治理程序判定停在 T3，A 侧完成不了 done。\n\n## 当前任务\nT13 Codex 独立验收（材料哈希已固定，19:19 起跑）；T3 等 B 回传；T11 等 B 就位。\n\n## 已完成工作\n- T1/T2 done。A 盘点 `evidence/preflight/A.md`（20 项自校验 PASS）。\n- `evidence/design.md` + `evidence/source-baseline.json` + `tools/checks/check_source_baseline.py`：上游 blob 与本机哈希两列、7 改 4 新增、补丁与包哈希、改动集合比对；实测 29 项 FAIL=0（日志 `evidence/raw/app/20261104-191500-source-baseline-check.txt`）。\n- `evidence/windows-runtime.md`（T6）、`evidence/adapters.md`（T7）、`evidence/anchor-bridge.md`（T8）、`evidence/scheduling.md`（T9）、`evidence/deployment/A.md`（T10）、`evidence/rehearsal.md`+`evidence/rollback.md`+`evidence/manifest.json`（T12）、`evidence/network.md`（T4）。\n- 部署包 `deploy/agent-autoloop-96b6c9c7-win1.tar.gz`（sha256 2ba21c42…d940）、补丁 `evidence/raw/app/windows-changes.patch`（f371da06…561d）、哈希清单 `windows-changes.sha256`（11 行）+ `windows-bundle.sha256`（2 行），均 `sha256sum -c` 通过。\n\n## 当前阻塞\n- T3 缺 `evidence/preflight/B.md`：B 机不可达。引导包 `evidence/preflight/B_bootstrap.md` 与 `B_expected.md` 已交付，等 B 回传。\n- 影响面比预期大：T5 两条检查都已 pass（run d147e691…、review 4f12f91c…），但把 T5 从 todo 推进到 doing 也被拒：`FAIL: 任务 T3 的验收记录为 stale，需要当前材料对应的检查结果`（原文 `evidence/raw/kit/20261104-191600-t5-status-attempt.txt`）。即 T3 未过 ⇒ T4–T14 连 doing 都不成立，不只是 done。\n\n## 下一步动作\n1. 收 T13 Codex 验收输出 → 写 `evidence/acceptance-codex.md`（失败也照写，不自宣通过）。\n2. 用户给 B 的落地窗口后：按 `B_bootstrap.md` 三步采集 → 回传 `B.md` → 解除 T3 → 依赖链解锁。\n3.（可选，需用户授权）T13/T14 计划仍是 draft，若要入账需先批准范围。\n\n## 状态修订\n2026-11-04 19:16 · 补齐 T5 检查与哈希清单；记录「T3 stale 连 doing 都拦」的实际报错。\n\n## Git 检查\n- `app/`：detached HEAD `96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a`，未建分支/worktree，未 commit、未 push。\n- 已改：`cli/main.ts` `host/service.ts` `protocol/rules.ts` `tests/helpers.ts` `tests/rules.test.ts` `worker/agents.ts` `worker/worker.ts`。\n- 未跟踪：`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/windows-runtime.test.ts` `worker/runner.ts`。\n- 现场残留（不进证据）：`C:\\Users\\chs\\.agent-autoloop-residue-20261104-1740`、`…-failed-init-20261104-1817`。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T11:02:35.915201+00:00"
+      },
+      {
+        "revision": 40,
+        "action": "state:update",
+        "reason": "补齐 T5 检查与哈希清单，记录 T3 stale 阻断 doing 的实际报错",
+        "timestamp": "2026-11-04T11:02:35.924107+00:00"
+      },
+      {
+        "revision": 41,
+        "action": "task:update",
+        "reason": "把 T3 阻塞原因更新为「引导包已交付、等 B 回传」并列出四条回传通道",
+        "timestamp": "2026-11-04T11:02:46.741421+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 42,
+        "file": "CURRENT.md",
+        "previous_sha256": "ba2950bdd29c614ac0576975f7d5d0f99cc28ad9771d92dea2dc87e526c3fcd7",
+        "content": "# 当前状态\n\n## 当前阶段\nA 侧实施、证据与第一轮独立验收的修复都已完成并重算了材料哈希；B 侧仍未就位，治理依赖链停在 T3。\n\n## 当前任务\nT13 Codex 独立验收第二遍（材料 win2 + 补丁，20:00 起跑）；T3 等 B 回传；T11 等 B 就位。\n\n## 已完成工作\n- T1/T2 done；A 盘点 `evidence/preflight/A.md` 20 项自校验 PASS。\n- T4–T10、T12 交付文件全在：`evidence/network.md`、`design.md` + `source-baseline.json`、`windows-runtime.md`、`adapters.md`、`anchor-bridge.md`、`scheduling.md`、`deployment/A.md`、`rehearsal.md` + `rollback.md` + `manifest.json`、`preflight/B_bootstrap.md`。\n- 第一轮 Codex 验收（19:19–19:29）判「不通过」（通过 11 / 失败 6 / 未验证 5，原文 `evidence/raw/acceptance/codex-final-1.txt`）；6 条已逐条修：桥接检查依赖 verification_state + findKit 探 runtime.json、总重试上限 MAX_ATTEMPTS=5、会话接不上就停不新建、回退脚本 `$PID`→`$listenPid`、opencode 取消改 [未验证]、沙箱内 taskkill 差异（本机 4/4 pass）。\n- 命令适配器新增 `{resumeArgs}`/`{cwdArgs}`/`{sessionArgs}` 与 JSON 行会话/消息提取；live rules 已切 `--json`，run 8/9 实测同一 thread 续跑（`evidence/raw/deploy/20261104-2058-resume-verify.txt`）。\n- 材料重算：`win2.tar.gz` 321572 B `caf7048f…80a3`、修改补丁 67593 B `0faca142…04ed`、`windows-changes.sha256` 17 行、`windows-bundle.sha256` 2 行；`refresh_source_baseline.py` + `check_source_baseline.py` 38 项 FAIL=0。\n\n## 当前阻塞\n- T3 缺 `evidence/preflight/B.md`（B 机不可达）；依赖链使 T4–T14 连 doing 都被拒。\n- 无扣费数据（费用未知）；Claude Code 通道不可用；opencode 可用但未接中台。\n\n## 下一步动作\n1. 收第二轮 Codex 输出 → 写 `evidence/acceptance-codex.md` §4.2 并按最终文件刷 `manifest.json`。\n2. B 落地窗口后按 `B_bootstrap.md` 采集回传，解除 T3、解锁 T11。\n\n## 状态修订\n2026-11-04 20:15 · 记录两轮验收材料、6 条修复与会话接续实测；陈旧 win1 引用改为 win2。\n\n## Git 检查\n- `app/`：detached HEAD `96b6c9c71671`，未建分支/worktree，未 commit、未 push。\n- 11 改：`cli/main.ts` `host/service.ts` `kernel/decide.ts` `plugins/command/agent.ts` `protocol/rules.ts` `tests/helpers.ts` `tests/kernel.test.ts` `tests/rules.test.ts` `tests/worker.test.ts` `worker/agents.ts` `worker/worker.ts`。\n- 6 未跟踪：`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/command-adapter.test.ts` `tests/windows-runtime.test.ts` `worker/runner.ts`。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T11:55:10.731437+00:00"
+      },
+      {
+        "revision": 42,
+        "action": "state:update",
+        "reason": "记录两轮验收材料、6 条修复与会话接续实测",
+        "timestamp": "2026-11-04T11:55:10.739437+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 43,
+        "file": "CURRENT.md",
+        "previous_sha256": "23c7aad19b20c5eebbc4dce377427f10a073fac93cad681d148dd723598f76f4",
+        "content": "# 当前状态\n\n## 当前阶段\nA 侧实施、证据与两轮独立验收都已完成；第一轮 6 条失败全修，第二轮 3 条里 2 条已修、1 条受上游 Go 凭据限制无法在本机达成。B 侧仍未就位，依赖链停在 T3。\n\n## 当前任务\nT13 已跑两轮 Codex 独立验收（均判不通过，原文与逐项在 `evidence/acceptance-codex.md`）；T3 等 B 回传；T11 等 B 就位。\n\n## 已完成工作\n- T1/T2 done；A 盘点 `evidence/preflight/A.md` 20 项自校验 PASS。\n- T4–T10、T12 交付文件全在：`network.md`、`design.md`+`source-baseline.json`、`windows-runtime.md`、`adapters.md`、`anchor-bridge.md`、`scheduling.md`、`deployment/A.md`、`rehearsal.md`+`rollback.md`+`manifest.json`、`preflight/B_bootstrap.md`。\n- 第一轮 Codex 判「不通过」（11/6/5）：桥接 stale 依赖与 findKit、总重试上限 MAX_ATTEMPTS=5、会话接不上就停、`$PID`→`$listenPid`、opencode 取消标未验证、沙箱 taskkill 差异（本机 4/4）——均已修。\n- 命令适配器新增 `{resumeArgs}`/`{cwdArgs}`/`{sessionArgs}` 与 JSON 行会话/消息提取；live rules 切 `--json`，run 8/9 实测同 thread 续跑（`evidence/raw/deploy/20261104-2058-resume-verify.txt`）。\n- 第二轮 Codex 判「不通过」（14/3/6）：文档两处矛盾与 manifest 6 项不符已修（`verify_manifest.py` → 15 项 mismatch 0）；T7 的 Claude/Go 通道经真机补测确认上游 400/401，按外部凭据阻塞记录。\n\n## 当前阻塞\n- T3 缺 `evidence/preflight/B.md`（B 不可达）→ T4–T14 连 doing 都被拒。\n- T7 完成条件「Codex + Claude Code/DeepSeek V4.1 Flash 两条路径实测通过」缺第二条：本机 Go 凭据不被网关接受。\n\n## 下一步动作\n1. 用户决定是否交第三轮 Codex 验收（材料：win2 + 新 manifest）。\n2. B 落地窗口后按 `B_bootstrap.md` 采集回传，解除 T3、解锁 T11。\n\n## 状态修订\n2026-11-04 20:20 · 两轮验收结果、第二轮 3 条处置（2 修 1 外部阻塞）、manifest 全项校验入档。\n\n## Git 检查\n- `app/`：detached HEAD `96b6c9c71671`，未建分支/worktree，未 commit、未 push。\n- 11 改 + 6 未跟踪（`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/command-adapter.test.ts` `tests/windows-runtime.test.ts` `worker/runner.ts`）；验收未改动仓库文件。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T12:04:48.512926+00:00"
+      },
+      {
+        "revision": 43,
+        "action": "state:update",
+        "reason": "两轮验收结果与处置入档",
+        "timestamp": "2026-11-04T12:04:48.521925+00:00"
+      },
+      {
+        "revision": 44,
+        "action": "task:add",
+        "reason": "登记用户明确的局部平台限制变更与交接记录",
+        "timestamp": "2026-11-04T13:31:56.657795+00:00"
+      },
+      {
+        "revision": 45,
+        "action": "task:approve",
+        "reason": "用户明确不必限于Windows，WSL也可；本轮仅同步部署验收约定",
+        "timestamp": "2026-11-04T13:31:57.770445+00:00"
+      },
+      {
+        "revision": 46,
+        "action": "focus:set",
+        "reason": "本轮仅处理平台约定更新，不接管历史部署任务",
+        "timestamp": "2026-11-04T13:31:58.834055+00:00"
+      },
+      {
+        "revision": 47,
+        "action": "task:update",
+        "reason": "开始更新平台补充约定",
+        "timestamp": "2026-11-04T13:31:59.921667+00:00"
+      },
+      {
+        "revision": 48,
+        "action": "task:update",
+        "reason": "T6仍为草案，按用户明确允许WSL更新平台要求，不批准执行、不改变依赖",
+        "timestamp": "2026-11-04T13:32:01.005727+00:00"
+      },
+      {
+        "revision": 49,
+        "action": "verify:record",
+        "reason": "平台补充约定完成后先Review查Bug再检查简化",
+        "timestamp": "2026-11-04T13:33:38.854897+00:00"
+      },
+      {
+        "revision": 50,
+        "action": "verify:record",
+        "reason": "平台补充约定完成后先Review查Bug再检查简化",
+        "timestamp": "2026-11-04T13:33:39.994126+00:00"
+      },
+      {
+        "revision": 51,
+        "action": "task:update",
+        "reason": "仅完成平台补充约定，不代表任何部署或独立验收通过",
+        "timestamp": "2026-11-04T13:33:41.127793+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 52,
+        "file": "DECISIONS.md",
+        "previous_sha256": "abee3f100b69d8765f044bbab87a03b9c12d436a66432450218771fa65311fd1",
+        "content": "# 重要决策\n\n仅记录已经确认的决策。每条包含时间、背景、备选方案、选择、原因、适用范围及变更情况。\n\n## 2026-11-04：双机角色和实施验收分工\n\n背景：用户有两台长期在线、经常不在同一网络的PC，运行Codex、Claude Code及DeepSeek Harness。\n选择：用户明确本机为A、另一台为B；DSH完善并部署，Codex后续验收。本回合先拆分详细前置与交接任务，不部署。\n依据：用户明确要求“本机暂时当A，另外一台当B”“我让DSH来完善和部署，你来验收”。\n适用范围：控制与交接目录为当前项目；T1交接已授权，T2—T14是待完善的实施草案。单中心等设计建议详见任务书，不冒充全部实现细节已批准。\n变化：首次记录；未更改或批准GOAL模板，未创建Git仓库、分支或worktree。\n\n## 2026-11-04：允许Windows原生或WSL，按选定环境验收\n\n背景：已有Windows材料及两轮不通过的验收报告，用户明确表示“不一定Windows环境，可以WSL也行的”。\n选择：取消必须Windows原生的限制；可选Windows或WSL，不要求双平台同时支持，不等于已决定迁移。\n原因：用户允许采用其他运行环境；功能、模型通道和双机验收条件不降低。\n适用范围：DEPLOYMENT_PLATFORM_UPDATE.md替代原任务书的Windows专有限制，T6仍为草案并同步更新；原依赖与历史材料保留。\n执行阶段：本轮只读核对材料并保存约定，未安装迁移或重跑第三轮；B与Claude/Go缺口保留。\n核查：当前清单15项和源码基线38项只读核对通过；WSL枚举访问被拒，只标未验证。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T13:33:42.242197+00:00"
+      },
+      {
+        "revision": 52,
+        "action": "state:update",
+        "reason": "保存用户明确允许WSL的部署范围决定",
+        "timestamp": "2026-11-04T13:33:42.252198+00:00"
+      },
+      {
+        "action": "document-version",
+        "revision": 53,
+        "file": "CURRENT.md",
+        "previous_sha256": "a6c02ff9474cfcdf198cd09017a049ad60975a3ef0d9651b80f80fb4b4a92032",
+        "content": "# 当前断点\n\n## 当前阶段\n平台限制放宽为Windows原生或WSL；尚未选定迁移，整体仍未通过验收。\n\n## 当前任务\nT15：平台补充约定与材料一致性核对，已完成。\n两轮独立验收报告已存在，但T13账本仍为草案，不能作为已完成任务。\n\n## 已完成工作\n保留A侧既有源码、win2部署包、补丁及两轮原始验收报告。\n历史第二轮结果：14通过、3失败、6未验证；之后DSH提交修复及外部阻塞说明。\n本轮只读清单核对15项通过、源码基线38项通过，0失败；未跑第三轮完整验收。\n新增DEPLOYMENT_PLATFORM_UPDATE.md，同步T6草案；原任务书和冻结材料未变。\nT15两项claimed/self自查通过，不是程序部署或WSL功能验收。\n\n## 当前阻塞\nT3仍缺B实机报告；B和跨网络连接未独立验证，原依赖链不变。\nClaude Code/Go未成功接通；400/401记录不能全部武断归因为同一种凭据错误。\nWSL枚举返回E_ACCESSDENIED，本轮仅能标可用性未验证，不能认定未安装。\nGOAL仍未批准，本轮局部平台约定已明确授权，不替用户批准全项目。\n\n## 下一步动作\nDSH读取平台补充约定，在实际可用环境中确定部署方案，再提交对应实测材料。\n先补B盘点与模型通道缺口；对实际选定环境独立复验，不跨环境借用通过结论。\n\n## 状态修订\n以state.json和tasks.json为准；本轮CURRENT关联T15。\n\n## Git 检查\n根目录不是Git仓库；app仍为detached HEAD 96b6c9c71671。\n本轮未改app，既有11项修改、6项未跟踪保留；未建分支/worktree、未提交推送。\n",
+        "user_approved": false,
+        "timestamp": "2026-11-04T13:33:43.426213+00:00"
+      },
+      {
+        "revision": 53,
+        "action": "state:update",
+        "reason": "保存本轮平台约定及真实未验证事项，纠正旧任务关联",
+        "timestamp": "2026-11-04T13:33:43.435213+00:00"
+      }
+    ],
+    "focus": {
+      "task_ids": [
+        "T15"
+      ],
+      "reason": "本轮仅处理平台约定更新，不接管历史部署任务",
+      "updated_at": "2026-11-04T13:31:58.826058+00:00"
+    },
+    "current_scope": {
+      "task_ids": [
+        "T15"
+      ],
+      "goal_version": 1,
+      "task_revision": 43
+    }
+  },
+  "files": {
+    "GOAL.md": "# 项目目标\n\n## 核心目标\n待用户确认：填写一句话目标。\n\n## 项目背景\n待确认。\n\n## 关键约束\n保留原始文件，不保存凭据。\n\n## 非目标\n待确认。\n\n## 验收标准\n待确认：填写可验证的交付条件。\n\n## 目标版本\n1（初始草案；正式版本以 state.json 为准）\n",
+    "CURRENT.md": "# 当前断点\n\n## 当前阶段\n平台限制放宽为Windows原生或WSL；尚未选定迁移，整体仍未通过验收。\n\n## 当前任务\nT15：平台补充约定与材料一致性核对，已完成。\n两轮独立验收报告已存在，但T13账本仍为草案，不能作为已完成任务。\n\n## 已完成工作\n保留A侧既有源码、win2部署包、补丁及两轮原始验收报告。\n历史第二轮结果：14通过、3失败、6未验证；之后DSH提交修复及外部阻塞说明。\n本轮只读清单核对15项通过、源码基线38项通过，0失败；未跑第三轮完整验收。\n新增DEPLOYMENT_PLATFORM_UPDATE.md，同步T6草案；原任务书和冻结材料未变。\nT15两项claimed/self自查通过，不是程序部署或WSL功能验收。\n\n## 当前阻塞\nT3仍缺B实机报告；B和跨网络连接未独立验证，原依赖链不变。\nClaude Code/Go未成功接通；400/401记录不能全部武断归因为同一种凭据错误。\nWSL枚举返回E_ACCESSDENIED，本轮仅能标可用性未验证，不能认定未安装。\nGOAL仍未批准，本轮局部平台约定已明确授权，不替用户批准全项目。\n\n## 下一步动作\nDSH读取平台补充约定，在实际可用环境中确定部署方案，再提交对应实测材料。\n先补B盘点与模型通道缺口；对实际选定环境独立复验，不跨环境借用通过结论。\n\n## 状态修订\n以state.json和tasks.json为准；本轮CURRENT关联T15。\n\n## Git 检查\n根目录不是Git仓库；app仍为detached HEAD 96b6c9c71671。\n本轮未改app，既有11项修改、6项未跟踪保留；未建分支/worktree、未提交推送。\n",
+    "DECISIONS.md": "# 重要决策\n\n仅记录已经确认的决策。每条包含时间、背景、备选方案、选择、原因、适用范围及变更情况。\n\n## 2026-11-04：双机角色和实施验收分工\n\n背景：用户有两台长期在线、经常不在同一网络的PC，运行Codex、Claude Code及DeepSeek Harness。\n选择：用户明确本机为A、另一台为B；DSH完善并部署，Codex后续验收。本回合先拆分详细前置与交接任务，不部署。\n依据：用户明确要求“本机暂时当A，另外一台当B”“我让DSH来完善和部署，你来验收”。\n适用范围：控制与交接目录为当前项目；T1交接已授权，T2—T14是待完善的实施草案。单中心等设计建议详见任务书，不冒充全部实现细节已批准。\n变化：首次记录；未更改或批准GOAL模板，未创建Git仓库、分支或worktree。\n\n## 2026-11-04：允许Windows原生或WSL，按选定环境验收\n\n背景：已有Windows材料及两轮不通过的验收报告，用户明确表示“不一定Windows环境，可以WSL也行的”。\n选择：取消必须Windows原生的限制；可选Windows或WSL，不要求双平台同时支持，不等于已决定迁移。\n原因：用户允许采用其他运行环境；功能、模型通道和双机验收条件不降低。\n适用范围：DEPLOYMENT_PLATFORM_UPDATE.md替代原任务书的Windows专有限制，T6仍为草案并同步更新；原依赖与历史材料保留。\n执行阶段：本轮只读核对材料并保存约定，未安装迁移或重跑第三轮；B与Claude/Go缺口保留。\n核查：当前清单15项和源码基线38项只读核对通过；WSL枚举访问被拒，只标未验证。\n",
+    "LESSONS.md": "# 项目教训\n\n仅记录验证过的失败模式、根因、解决办法、适用条件、证据及局限；猜测明确标为未验证。\n",
+    "tasks.json": "{\n  \"schema\": 4,\n  \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n  \"revision\": 43,\n  \"tasks\": [\n    {\n      \"task_id\": \"T1\",\n      \"title\": \"编制双机部署任务书与验收交接\",\n      \"description\": \"用户要求本机作为A、另一台作为B，拆分部署前置及后续工作交由DSH完善部署、Codex验收。本轮仅编制详细任务、依赖、交付证据和验收方法，不创建fork、不安装、不修改业务代码、不部署。\",\n      \"milestone\": \"交接准备\",\n      \"dependencies\": [],\n      \"deliverables\": [\n        \"DSH_DEPLOYMENT_TASKBOOK.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"任务书明确A/B职责、事实与待核实项、前置检查、执行顺序、交付材料及阶段边界，任务编号与账本一致。\",\n        \"任务书包含真实双机和模型接口验收、恢复及停止条件；完成Review查Bug和第一性原理检查，未把部署或独立验收宣称完成。\"\n      ],\n      \"checks\": [\n        {\n          \"criterion\": 1,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"DSH_DEPLOYMENT_TASKBOOK.md\"\n          ]\n        },\n        {\n          \"criterion\": 2,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"DSH_DEPLOYMENT_TASKBOOK.md\"\n          ]\n        }\n      ],\n      \"blocker\": \"\",\n      \"status\": \"done\",\n      \"plan\": \"approved\",\n      \"evidence\": [\n        {\n          \"type\": \"review\",\n          \"criterion\": 1,\n          \"detail\": \"修正T4先测试未部署任务API的依赖错误，将身份实测明确移到T10/T11；A/B账本权属分开。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"16ce42b5c47246279954bf88546e1c3b\",\n          \"receipt_sha256\": \"31a54e41c94c9a6214ac9574150309101af30678c9c2f7222ccf7e192bc0abaf\",\n          \"input_hash\": \"5a4a4173732f0dd98951d423c98198fccb8a05c4a944266eea21bab00e312f4c\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"7e6fbe1b2e4284dc13e869f35f27e2307d14c90bb87d3cb46148264b490135b8\",\n          \"recorded_at\": \"2026-11-04T09:31:44.801298+00:00\",\n          \"reviewer_kind\": \"self\"\n        },\n        {\n          \"type\": \"review\",\n          \"criterion\": 2,\n          \"detail\": \"报告清楚区分DSH自测、Codex独立实测和未验证，未声称部署已完成。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"f6861c371d054e43a10572a61bb8e6da\",\n          \"receipt_sha256\": \"b6b6b3a64f3bab7e7a503f1520f96128410b30ae7ac4b0aadb13ab2f9b04970b\",\n          \"input_hash\": \"5a4a4173732f0dd98951d423c98198fccb8a05c4a944266eea21bab00e312f4c\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"5228fcc30ebe54952c890c13100372acb4b4e1ccb1a14e799b509affda3621e1\",\n          \"recorded_at\": \"2026-11-04T09:31:45.729275+00:00\",\n          \"reviewer_kind\": \"self\"\n        }\n      ],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:31:46.664636+00:00\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T1\",\n        \"version\": 1,\n        \"hash\": \"b03cd6cf1be8ea1dbed5061331dc6cbe92d8f3bfb91b91f7b9f0b9289bad4c25\",\n        \"description\": \"用户要求本机作为A、另一台作为B，拆分部署前置及后续工作交由DSH完善部署、Codex验收。本轮仅编制详细任务、依赖、交付证据和验收方法，不创建fork、不安装、不修改业务代码、不部署。\",\n        \"acceptance_criteria\": [\n          \"任务书明确A/B职责、事实与待核实项、前置检查、执行顺序、交付材料及阶段边界，任务编号与账本一致。\",\n          \"任务书包含真实双机和模型接口验收、恢复及停止条件；完成Review查Bug和第一性原理检查，未把部署或独立验收宣称完成。\"\n        ],\n        \"dependencies\": [],\n        \"approved_at\": \"2026-11-04T09:24:38.988481+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户明确要求拆分并罗列双机部署任务；仅批准本轮交接文档工作\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DSH_DEPLOYMENT_TASKBOOK.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DSH_DEPLOYMENT_TASKBOOK.md\"\n            ]\n          }\n        ],\n        \"deliverables\": [\n          \"DSH_DEPLOYMENT_TASKBOOK.md\"\n        ]\n      },\n      \"completed_at\": \"2026-11-04T09:31:46.664636+00:00\"\n    },\n    {\n      \"task_id\": \"T2\",\n      \"title\": \"A环境、通道和项目盘点\",\n      \"description\": \"A上DSH读取实际环境、后台配置来源、模型通道和候选项目；只在专用材料上小任务核实，不在盘点时改全局配置。\",\n      \"milestone\": \"部署前置\",\n      \"dependencies\": [\n        \"T1\"\n      ],\n      \"deliverables\": [\n        \"evidence/preflight/A.md\",\n        \"tools/preflight/check_a_report.py\"\n      ],\n      \"acceptance_criteria\": [\n        \"A报告区分实测、文件确认、未验证，列出版本和实际入口且不含凭据。\",\n        \"Codex与DeepSeek通道（OpenCode CLI）的基础调用及会话接续均有原始日志，缺项明确；不能用命令存在代替调用成功。\",\n        \"报告结论与原始日志一致，并由可执行脚本自动校验结构、必需小节、证据引用存在性与凭据明文。\"\n      ],\n      \"checks\": [\n        {\n          \"criterion\": 1,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"evidence/preflight/A.md\"\n          ]\n        },\n        {\n          \"criterion\": 2,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"evidence/preflight/A.md\",\n            \"evidence/raw/preflight/20261104-180700-codex166-resume2.txt\",\n            \"evidence/raw/preflight/20261104-180200-resume-probe.txt\"\n          ]\n        },\n        {\n          \"criterion\": 3,\n          \"kind\": \"command\",\n          \"inputs\": [\n            \"tools/preflight/check_a_report.py\"\n          ],\n          \"argv\": [\n            \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n            \"-B\",\n            \"tools/preflight/check_a_report.py\"\n          ],\n          \"timeout_seconds\": 120\n        }\n      ],\n      \"blocker\": \"\",\n      \"status\": \"done\",\n      \"plan\": \"approved\",\n      \"evidence\": [\n        {\n          \"type\": \"test\",\n          \"criterion\": 3,\n          \"detail\": \"A 报告结构、证据引用、脱敏与自校验脚本实跑\",\n          \"level\": \"observed\",\n          \"run_id\": \"8e64851ccbac4064b6d81e860b58b748\",\n          \"receipt_sha256\": \"49c00d27a782a9895dad1e589305c3ac6a131d2b3563837404858063f48ce77f\",\n          \"input_hash\": \"7a3843e0d7db1d70139c8451b478c8a1feef139e2327323542956c2225f6c1b2\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"63205ab13b5377c1d781c31504c25d4b1612c5a2e64aa267941355e4ea11fd4e\",\n          \"recorded_at\": \"2026-11-04T10:15:35.428703+00:00\"\n        },\n        {\n          \"type\": \"review\",\n          \"criterion\": 1,\n          \"detail\": \"报告内容与实测一致，缺口语义清晰；无凭据明文（由 check_a_report.py 断言并实跑通过）。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"f23e005d50b54d23a54848d65e1d291a\",\n          \"receipt_sha256\": \"d87e32b01c8bf30f478945e3ff9cc0c140dd7e70aa4b6e9468e2ea35a1200520\",\n          \"input_hash\": \"3e7669feaf85f272f297c0aabc6e5f006fae28bac0e75d4622fddd6107d146be\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"329e9c4dcfaecd85f9db8661a8f4a3fb4cae19b39daf11d02f56ff4eaedbc3fc\",\n          \"recorded_at\": \"2026-11-04T10:15:53.899025+00:00\",\n          \"reviewer_kind\": \"self\"\n        },\n        {\n          \"type\": \"review\",\n          \"criterion\": 2,\n          \"detail\": \"两条初始通道各自的 executable、provider/model、接续方式与原始日志齐全，缺口（claude 不可用、headless 凭据）已列入 §12 而不是隐去。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"9baf7a0e6f194abda9ae43717e6d209b\",\n          \"receipt_sha256\": \"2c095fd62add2d5b704e3499d2ac02997711a5586bb840036da703f261da4dd2\",\n          \"input_hash\": \"92d162b6eb27f519b6d8b9eaa4d80426e0439fa0a068b6ae35b104b109ff3c09\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"3400c47e7de5f64c56620a66b8cddff028b6143949bc8cb9374dd14f346529a0\",\n          \"recorded_at\": \"2026-11-04T10:15:54.158669+00:00\",\n          \"reviewer_kind\": \"self\"\n        }\n      ],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T10:16:07.149747+00:00\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T2\",\n        \"version\": 1,\n        \"hash\": \"35d5f92800a4b03f7f7c46975ce6607e31342d787eb20493b62c1c4ca1328001\",\n        \"description\": \"A上DSH读取实际环境、后台配置来源、模型通道和候选项目；只在专用材料上小任务核实，不在盘点时改全局配置。\",\n        \"acceptance_criteria\": [\n          \"A报告区分实测、文件确认、未验证，列出版本和实际入口且不含凭据。\",\n          \"Codex与DeepSeek通道（OpenCode CLI）的基础调用及会话接续均有原始日志，缺项明确；不能用命令存在代替调用成功。\",\n          \"报告结论与原始日志一致，并由可执行脚本自动校验结构、必需小节、证据引用存在性与凭据明文。\"\n        ],\n        \"dependencies\": [\n          \"T1\"\n        ],\n        \"approved_at\": \"2026-11-04T10:05:20.232211+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户本轮明确要求按任务书完善并实施；批准T2盘点范围与检查\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/A.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/A.md\",\n              \"evidence/raw/preflight/20261104-180700-codex166-resume2.txt\",\n              \"evidence/raw/preflight/20261104-180200-resume-probe.txt\"\n            ]\n          },\n          {\n            \"criterion\": 3,\n            \"kind\": \"command\",\n            \"inputs\": [\n              \"tools/preflight/check_a_report.py\"\n            ],\n            \"argv\": [\n              \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n              \"-B\",\n              \"tools/preflight/check_a_report.py\"\n            ],\n            \"timeout_seconds\": 120\n          }\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/A.md\",\n          \"tools/preflight/check_a_report.py\"\n        ]\n      },\n      \"completed_at\": \"2026-11-04T10:16:07.149747+00:00\"\n    },\n    {\n      \"task_id\": \"T3\",\n      \"title\": \"B环境、通道和项目盘点\",\n      \"description\": \"B上DSH本机盘点并向A交付原始报告；不假设B路径、版本、凭据与A一致。\",\n      \"milestone\": \"部署前置\",\n      \"dependencies\": [\n        \"T1\"\n      ],\n      \"deliverables\": [\n        \"evidence/preflight/B.md\",\n        \"evidence/preflight/B_bootstrap.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"报告来自B实机，列出目录、版本、通道、项目归属和Codex复验方式。\",\n        \"A取得带来源和采集时间的完整B报告，无凭据和未经核实的与A相同结论。\"\n      ],\n      \"checks\": [\n        {\n          \"criterion\": 1,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"evidence/preflight/B.md\",\n            \"evidence/preflight/B_bootstrap.md\"\n          ]\n        },\n        {\n          \"criterion\": 2,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"evidence/preflight/B.md\"\n          ]\n        }\n      ],\n      \"blocker\": \"B 机不可达：A 侧无 Tailscale/ZeroTier/WireGuard/OpenVPN，LAN 内无确认的 B 主机，cpolar 只有 A 侧出站配置。引导包已交付（evidence/preflight/B_bootstrap.md + B_expected.md，采集脚本 tools/b_preflight/collect_b.ps1 已在 A 自测 exit 0），等 B 落地后回传 B.md。四条回传通道：手动搬运（已验证可行）/向日葵·GameViewer（未验证）/cpolar·ngrok 隧道（未验证）/私网直连（未装）。\",\n      \"status\": \"blocked\",\n      \"plan\": \"approved\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T11:02:46.726420+00:00\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T3\",\n        \"version\": 1,\n        \"hash\": \"892d265b23ff8f6aeea2d8e15525dc805652d7df4ea5824fbfd86da11576c104\",\n        \"description\": \"B上DSH本机盘点并向A交付原始报告；不假设B路径、版本、凭据与A一致。\",\n        \"acceptance_criteria\": [\n          \"报告来自B实机，列出目录、版本、通道、项目归属和Codex复验方式。\",\n          \"A取得带来源和采集时间的完整B报告，无凭据和未经核实的与A相同结论。\"\n        ],\n        \"dependencies\": [\n          \"T1\"\n        ],\n        \"approved_at\": \"2026-11-04T10:07:44.080322+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户本轮授权按任务书实施；批准T3 B盘点范围与检查（实际执行受B不可达阻塞）\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/B.md\",\n              \"evidence/preflight/B_bootstrap.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/B.md\"\n            ]\n          }\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/B.md\",\n          \"evidence/preflight/B_bootstrap.md\"\n        ]\n      }\n    },\n    {\n      \"task_id\": \"T4\",\n      \"title\": \"跨网络连接和身份设计\",\n      \"description\": \"DSH确定并验证A/B跨网络加密私网、实际访问范围和身份设计；实际任务API身份检查留待服务部署后。\",\n      \"milestone\": \"部署前置\",\n      \"dependencies\": [\n        \"T2\",\n        \"T3\"\n      ],\n      \"deliverables\": [\n        \"evidence/network.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"A/B位于不同外部网络的基础连接有实测证据，恢复方式明确。\",\n        \"访问范围和独立身份设计明确，不把未部署任务接口的身份测试提前记为通过。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:20.948524+00:00\"\n    },\n    {\n      \"task_id\": \"T5\",\n      \"title\": \"fork源码基线与实施设计\",\n      \"description\": \"DSH按实际GitHub身份建立个人fork，在app目录保留来源、许可、基线及差异；完善后续交付物、可执行检查和部署设计，不自行建分支/worktree或提交推送。\",\n      \"milestone\": \"部署前置\",\n      \"dependencies\": [\n        \"T2\",\n        \"T3\"\n      ],\n      \"deliverables\": [\n        \"evidence/design.md\",\n        \"evidence/source-baseline.json\",\n        \"tools/checks/check_source_baseline.py\"\n      ],\n      \"acceptance_criteria\": [\n        \"fork归属、上游及实际使用版本可核对，现有治理文件和用户改动保留。\",\n        \"设计明确安装/运行/数据/配置目录、启动方式、B部署包来源及后续验收输入；修改版用内容哈希标识。\"\n      ],\n      \"checks\": [\n        {\n          \"criterion\": 1,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"evidence/design.md\",\n            \"evidence/source-baseline.json\"\n          ]\n        },\n        {\n          \"criterion\": 2,\n          \"kind\": \"command\",\n          \"inputs\": [\n            \"tools/checks/check_source_baseline.py\"\n          ],\n          \"argv\": [\n            \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n            \"-B\",\n            \"tools/checks/check_source_baseline.py\"\n          ],\n          \"timeout_seconds\": 120\n        }\n      ],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"approved\",\n      \"evidence\": [\n        {\n          \"type\": \"test\",\n          \"criterion\": 2,\n          \"detail\": \"运行基线自校验脚本，确认 source-baseline.json 与 app/ 实际状态一致且未伪造fork/提交\",\n          \"level\": \"observed\",\n          \"run_id\": \"58856b46e15f4f42bf0c4fbd237e17a6\",\n          \"receipt_sha256\": \"f97dc702334057a2dcd9e7e7ed934cd9d0346d2841d3f719d5a931a98174cb89\",\n          \"input_hash\": \"c04e7ea8c7dae8de03d53e8d8577510fb09b619bace756e5cb8742ee0b68e676\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"e560fa2b93f34c5fd7ba04f0b9c75310ff141680f33573347263c385d86c0185\",\n          \"recorded_at\": \"2026-11-04T10:07:06.356787+00:00\"\n        },\n        {\n          \"type\": \"review\",\n          \"criterion\": 1,\n          \"detail\": \"无阻塞缺陷。可复现的差异只有两条：fork 未创建（环境限制，已在证据中如实标注）、pnpm-lock.yaml 属 install 产物未跟踪（不影响基线）。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"03fb2b01af9d4811bdebb3f3ed38a794\",\n          \"receipt_sha256\": \"ab48da99062a7eb410a79ff7d9aa437ff9c45b531ce7f3869fb64f3ed2e06940\",\n          \"input_hash\": \"8f0c3dc6b7ca2b35b13913032026cc152296ed22c753b0d1005c90e1c5929625\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"759da42a520c029d8397e3e981adfb023d64ae1568e26b53a393341bc71aeac7\",\n          \"recorded_at\": \"2026-11-04T10:07:17.348414+00:00\",\n          \"reviewer_kind\": \"self\"\n        },\n        {\n          \"type\": \"test\",\n          \"criterion\": 2,\n          \"detail\": \"check_source_baseline.py 对当前工作区复核：29 项全过，含上游 blob 与本地哈希两列\",\n          \"level\": \"observed\",\n          \"run_id\": \"d147e69189f947fba6411a85c6404ec9\",\n          \"receipt_sha256\": \"0cdaed22aec11935592f164d5f5d293dfc6705ac8bb6ae6e2db1cb2ee76635b5\",\n          \"input_hash\": \"c5087f87a2ce7a2c445b70aa8491f9a88a4c22d68efc335d548492c4ff058ad9\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"e560fa2b93f34c5fd7ba04f0b9c75310ff141680f33573347263c385d86c0185\",\n          \"recorded_at\": \"2026-11-04T11:00:57.735890+00:00\"\n        },\n        {\n          \"type\": \"review\",\n          \"criterion\": 1,\n          \"detail\": \"偏差没有掩盖：fork 缺失写在两份文件的显眼位置，而不是当成通过；可核对性由 tools/checks/check_source_baseline.py 机器验证（29 项，含上游 blob 与本地哈希交叉比对、改动集合比对、治理文件哈希），2026-11-04 19:15 实测 FAIL=0 exit=0，日志 evidence/raw/app/20261104-191500-source-baseline-check.txt。fork 是否可接受留给 T13 独立验收裁定，自查不代判。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"4f12f91c7e104b1998533b7e7d59ccbc\",\n          \"receipt_sha256\": \"89e31c1bb2ffbb1fe840271468f7e00166f438fc6c8043b523c40c484547857d\",\n          \"input_hash\": \"da2a202aea2f0d53eae5491e3e97fda2fcc84e57e3427803723c21f2aa0a7b5e\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"759da42a520c029d8397e3e981adfb023d64ae1568e26b53a393341bc71aeac7\",\n          \"recorded_at\": \"2026-11-04T11:01:50.462671+00:00\",\n          \"reviewer_kind\": \"self\"\n        }\n      ],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T11:01:50.462671+00:00\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T5\",\n        \"version\": 1,\n        \"hash\": \"0ad66703ff372c833a9bb00af61a64ef7c75adc0c5c7678dcff094dc6f3324fd\",\n        \"description\": \"DSH按实际GitHub身份建立个人fork，在app目录保留来源、许可、基线及差异；完善后续交付物、可执行检查和部署设计，不自行建分支/worktree或提交推送。\",\n        \"acceptance_criteria\": [\n          \"fork归属、上游及实际使用版本可核对，现有治理文件和用户改动保留。\",\n          \"设计明确安装/运行/数据/配置目录、启动方式、B部署包来源及后续验收输入；修改版用内容哈希标识。\"\n        ],\n        \"dependencies\": [\n          \"T2\",\n          \"T3\"\n        ],\n        \"approved_at\": \"2026-11-04T10:06:59.661193+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户本轮授权按任务书实施；批准T5基线、设计与检查范围\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/design.md\",\n              \"evidence/source-baseline.json\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"command\",\n            \"inputs\": [\n              \"tools/checks/check_source_baseline.py\"\n            ],\n            \"argv\": [\n              \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n              \"-B\",\n              \"tools/checks/check_source_baseline.py\"\n            ],\n            \"timeout_seconds\": 120\n          }\n        ],\n        \"deliverables\": [\n          \"evidence/design.md\",\n          \"evidence/source-baseline.json\",\n          \"tools/checks/check_source_baseline.py\"\n        ]\n      }\n    },\n    {\n      \"task_id\": \"T6\",\n      \"title\": \"选定运行环境的执行与生命周期适配\",\n      \"description\": \"DSH在Windows原生或WSL中选择实际部署环境，核对真实CLI、路径、模型配置、后台启动、停止超时及重启恢复；按选定环境验证，不强制双平台都支持。保留现有Windows成果与历史证据；批准前补齐实际源码、测试、交付声明及检查。\",\n      \"milestone\": \"程序适配\",\n      \"dependencies\": [\n        \"T5\"\n      ],\n      \"deliverables\": [\n        \"evidence/runtime-environment.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"明确A/B各自实际执行环境；在所选Windows原生或WSL环境中实测启动、受控执行、停止、超时及后台启动，托管子进程无残留，不跨环境借用结果。\",\n        \"重启后识别原任务和结果，不重复启动；相关源码和测试有当前环境有效证据，历史Windows结果不能代替新的WSL实测。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T13:32:00.993354+00:00\"\n    },\n    {\n      \"task_id\": \"T7\",\n      \"title\": \"工具模型接口与会话接通\",\n      \"description\": \"DSH接通Codex/OpenAI及Claude Code/DeepSeek初始路径，校验DSH安装版恢复协议、模型配置和Go会话标识，专项通过后才启用DSH；源码检查须补齐。\",\n      \"milestone\": \"程序适配\",\n      \"dependencies\": [\n        \"T6\"\n      ],\n      \"deliverables\": [\n        \"evidence/adapters.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"初始两条路径实际模型、权限、检查、接续和取消均可核对，不依赖原生订阅登录结论。\",\n        \"DSH专项结果与启用状态一致，未通过不自动换会话或模型掩盖问题；不可观测用量标未知。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:23.630288+00:00\"\n    },\n    {\n      \"task_id\": \"T8\",\n      \"title\": \"Project Anchor任务与验收桥接\",\n      \"description\": \"DSH通过安装定位的治理程序接通已批准任务、依赖、当前材料证据、断点和交付验收；不直接改账本，不由中心双写B项目状态；源码检查须补齐。\",\n      \"milestone\": \"程序适配\",\n      \"dependencies\": [\n        \"T6\"\n      ],\n      \"deliverables\": [\n        \"evidence/anchor-bridge.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"草案、依赖不满足、证据失效及交付缺失的任务不能启动；有效批准任务可执行接续。\",\n        \"进程结束、等待、业务完成与独立验收状态分清；证据绑定当前材料，自查不冒充独立验收。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:24.534450+00:00\"\n    },\n    {\n      \"task_id\": \"T9\",\n      \"title\": \"路由并发额度和停止规则\",\n      \"description\": \"DSH实现项目主机与Agent模型明确路由、同项目写入互斥、跨项目并行、时限轮数限制、空闲静默和手工接管；源码及无秘密模板纳入实际检查。\",\n      \"milestone\": \"程序适配\",\n      \"dependencies\": [\n        \"T7\",\n        \"T8\"\n      ],\n      \"deliverables\": [\n        \"evidence/scheduling.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"同项目不同规则/路径别名不能同时写入；不同项目可按限额并行，手工接管生效。\",\n        \"真实时限和轮数可执行，空闲不唤醒模型，额度不足或阻塞明确停止，不隐式换模型续跑。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:25.448024+00:00\"\n    },\n    {\n      \"task_id\": \"T10\",\n      \"title\": \"A中心执行端与管理入口部署\",\n      \"description\": \"DSH在A按固定版本部署唯一中心、A执行端和实际管理入口，注册选定启动方式、验证身份与监听范围，保留可恢复旧状态。\",\n      \"milestone\": \"部署\",\n      \"dependencies\": [\n        \"T4\",\n        \"T9\"\n      ],\n      \"deliverables\": [\n        \"evidence/deployment/A.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"A真实后台启动重启后状态一致，无重复中心；实际部署包、账户和配置用途可核对。\",\n        \"实际入口支持查看回答暂停停止和证据定位；无凭据、错误凭据、错种类身份被拒绝。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:26.336243+00:00\"\n    },\n    {\n      \"task_id\": \"T11\",\n      \"title\": \"B执行端同版本部署\",\n      \"description\": \"B上DSH核对A同一部署包，按B本地配置登记执行端和项目，不另建中心或复制A登录文件；B模型路径在本机验证。\",\n      \"milestone\": \"部署\",\n      \"dependencies\": [\n        \"T10\"\n      ],\n      \"deliverables\": [\n        \"evidence/deployment/B.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"不同网络B领取并完成专用演练任务，A收到正确归属的结果及证据。\",\n        \"A/B修改版内容哈希一致，B本机通道和后台重启实测，无重复执行端和残留任务。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:27.270979+00:00\"\n    },\n    {\n      \"task_id\": \"T12\",\n      \"title\": \"双机演练回退与证据汇总\",\n      \"description\": \"DSH在专用项目运行V01至V20适用场景，保存原始日志与材料身份，实测恢复演练状态，并交付给Codex复验；不生成独立验收通过结论。\",\n      \"milestone\": \"部署自测\",\n      \"dependencies\": [\n        \"T11\"\n      ],\n      \"deliverables\": [\n        \"evidence/rehearsal.md\",\n        \"evidence/rollback.md\",\n        \"evidence/manifest.json\"\n      ],\n      \"acceptance_criteria\": [\n        \"适用场景均记录真实结果、机器、执行编号、实际模型、命令退出码及日志位置，未验证不计通过。\",\n        \"断线重启回传不重复执行业务或登记结果，回退状态实际可运行；证据清单内容哈希可核对。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:28.162096+00:00\"\n    },\n    {\n      \"task_id\": \"T13\",\n      \"title\": \"Codex独立代码审查与双机复验\",\n      \"description\": \"由Codex读取实际源码部署版本和DSH证据并独立复跑V01至V20；不能访问B实机的项目标为仅审证据，不称完整双机通过。\",\n      \"milestone\": \"独立验收\",\n      \"dependencies\": [\n        \"T12\"\n      ],\n      \"deliverables\": [\n        \"evidence/acceptance-codex.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"实际运行与审查覆盖声明范围，报告通过失败未验证数量，失败修复后复跑受影响项。\",\n        \"B实机与DSH专项状态如实记录；自查和独立复验分开，验收绑定当前版本和材料。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:29.057565+00:00\"\n    },\n    {\n      \"task_id\": \"T14\",\n      \"title\": \"两个指定真实项目小范围启用\",\n      \"description\": \"用户指定两个真实项目及任务范围后由DSH启用、Codex验收；不从历史猜项目，不自动迁移账本、改变目标或开启提交推送。\",\n      \"milestone\": \"真实试运行\",\n      \"dependencies\": [\n        \"T13\"\n      ],\n      \"deliverables\": [\n        \"evidence/pilot.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"真实项目所属机器、已批准任务、现有改动和验收条件明确且保留。\",\n        \"每项目至少一个小任务及接续流程有实际结果并由Codex复验，未验收范围明确。\"\n      ],\n      \"checks\": [],\n      \"blocker\": \"\",\n      \"status\": \"todo\",\n      \"plan\": \"draft\",\n      \"evidence\": [],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T09:30:30.023080+00:00\"\n    },\n    {\n      \"task_id\": \"T15\",\n      \"title\": \"记录Windows或WSL均可的部署与验收范围\",\n      \"description\": \"用户明确部署不必限于Windows、WSL也可。本轮读取第二轮报告及实际材料，新增平台补充约定、同步未批准的T6草案及决定断点；不迁移或安装、不修改业务源码、不改原验收结论、不启动第三轮完整验收。\",\n      \"milestone\": \"平台约定更新\",\n      \"dependencies\": [],\n      \"deliverables\": [\n        \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n      ],\n      \"acceptance_criteria\": [\n        \"补充约定准确允许Windows或WSL，按实际选定环境实测，保留原任务书及两轮冻结证据，未降低功能验收要求。\",\n        \"已核对当前清单和源码基线，记录真实阻塞、平台探测限制和后续范围；先Review查Bug再检查简化，未宣称第三轮或WSL验收通过。\"\n      ],\n      \"checks\": [\n        {\n          \"criterion\": 1,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n          ]\n        },\n        {\n          \"criterion\": 2,\n          \"kind\": \"review\",\n          \"inputs\": [\n            \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n          ]\n        }\n      ],\n      \"blocker\": \"\",\n      \"status\": \"done\",\n      \"plan\": \"approved\",\n      \"evidence\": [\n        {\n          \"type\": \"review\",\n          \"criterion\": 1,\n          \"detail\": \"通过新增明确替代平台条款的补充文件保存新决定；T6仅更新草案，不触碰批准任务及既有依赖。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"0c9f80cce86740c6bfa72b1dadd9dc15\",\n          \"receipt_sha256\": \"98c90f0d45af349307d762707e68cee7cdcd6d74e115b3313175cfe080fb7fc2\",\n          \"input_hash\": \"4ef6855ed3b3aa47fbb0f07ffd8a54a865056aa7f8eb36c339d038870d94f628\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"e20555ddddf47eb1543cdc3e8ae3a34d61715d8030e7797fa633cf61719ccc05\",\n          \"recorded_at\": \"2026-11-04T13:33:38.843897+00:00\",\n          \"reviewer_kind\": \"self\"\n        },\n        {\n          \"type\": \"review\",\n          \"criterion\": 2,\n          \"detail\": \"保留B与Claude/Go缺口及历史不通过结论；没有安装、迁移、模型调用、进程停止或第三轮完整验收。\",\n          \"level\": \"claimed\",\n          \"run_id\": \"1e7cf9d1b261465daa8c4ab084f6e307\",\n          \"receipt_sha256\": \"6173dd6e0b54c4ebe000775e58b19e48040a5f641019ca21cd4e62fdc2284ecb\",\n          \"input_hash\": \"4ef6855ed3b3aa47fbb0f07ffd8a54a865056aa7f8eb36c339d038870d94f628\",\n          \"result\": \"pass\",\n          \"scope_version\": 1,\n          \"criteria_hash\": \"4505a164890dfc79f551b70dd7a03e2419ac5404b9f50fde34effd97cb602228\",\n          \"recorded_at\": \"2026-11-04T13:33:39.983125+00:00\",\n          \"reviewer_kind\": \"self\"\n        }\n      ],\n      \"legacy_unverified\": false,\n      \"updated_at\": \"2026-11-04T13:33:41.115793+00:00\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T15\",\n        \"version\": 1,\n        \"hash\": \"ae6ae9213174174c03c6844674af17d1afadb446d8fabc104cc52e9d020ac603\",\n        \"description\": \"用户明确部署不必限于Windows、WSL也可。本轮读取第二轮报告及实际材料，新增平台补充约定、同步未批准的T6草案及决定断点；不迁移或安装、不修改业务源码、不改原验收结论、不启动第三轮完整验收。\",\n        \"acceptance_criteria\": [\n          \"补充约定准确允许Windows或WSL，按实际选定环境实测，保留原任务书及两轮冻结证据，未降低功能验收要求。\",\n          \"已核对当前清单和源码基线，记录真实阻塞、平台探测限制和后续范围；先Review查Bug再检查简化，未宣称第三轮或WSL验收通过。\"\n        ],\n        \"dependencies\": [],\n        \"approved_at\": \"2026-11-04T13:31:57.755445+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户明确不必限于Windows，WSL也可；本轮仅同步部署验收约定\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n            ]\n          }\n        ],\n        \"deliverables\": [\n          \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n        ]\n      },\n      \"completed_at\": \"2026-11-04T13:33:41.115793+00:00\"\n    }\n  ],\n  \"history\": [\n    {\n      \"revision\": 1,\n      \"timestamp\": \"2026-11-04T09:24:38.110857+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T1\",\n        \"title\": \"编制双机部署任务书与验收交接\",\n        \"description\": \"用户要求本机作为A、另一台作为B，拆分部署前置及后续工作交由DSH完善部署、Codex验收。本轮仅编制详细任务、依赖、交付证据和验收方法，不创建fork、不安装、不修改业务代码、不部署。\",\n        \"milestone\": \"交接准备\",\n        \"dependencies\": [],\n        \"deliverables\": [\n          \"DSH_DEPLOYMENT_TASKBOOK.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"任务书明确A/B职责、事实与待核实项、前置检查、执行顺序、交付材料及阶段边界，任务编号与账本一致。\",\n          \"任务书包含真实双机和模型接口验收、恢复及停止条件；完成Review查Bug和第一性原理检查，未把部署或独立验收宣称完成。\"\n        ],\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DSH_DEPLOYMENT_TASKBOOK.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DSH_DEPLOYMENT_TASKBOOK.md\"\n            ]\n          }\n        ]\n      },\n      \"reason\": \"登记用户明确要求的局部交接任务\"\n    },\n    {\n      \"revision\": 2,\n      \"timestamp\": \"2026-11-04T09:24:38.988481+00:00\",\n      \"action\": \"approve\",\n      \"payload\": {\n        \"task_id\": \"T1\"\n      },\n      \"reason\": \"用户明确要求拆分并罗列双机部署任务；仅批准本轮交接文档工作\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T1\",\n        \"version\": 1,\n        \"hash\": \"b03cd6cf1be8ea1dbed5061331dc6cbe92d8f3bfb91b91f7b9f0b9289bad4c25\",\n        \"description\": \"用户要求本机作为A、另一台作为B，拆分部署前置及后续工作交由DSH完善部署、Codex验收。本轮仅编制详细任务、依赖、交付证据和验收方法，不创建fork、不安装、不修改业务代码、不部署。\",\n        \"acceptance_criteria\": [\n          \"任务书明确A/B职责、事实与待核实项、前置检查、执行顺序、交付材料及阶段边界，任务编号与账本一致。\",\n          \"任务书包含真实双机和模型接口验收、恢复及停止条件；完成Review查Bug和第一性原理检查，未把部署或独立验收宣称完成。\"\n        ],\n        \"dependencies\": [],\n        \"approved_at\": \"2026-11-04T09:24:38.988481+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户明确要求拆分并罗列双机部署任务；仅批准本轮交接文档工作\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DSH_DEPLOYMENT_TASKBOOK.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DSH_DEPLOYMENT_TASKBOOK.md\"\n            ]\n          }\n        ],\n        \"deliverables\": [\n          \"DSH_DEPLOYMENT_TASKBOOK.md\"\n        ]\n      }\n    },\n    {\n      \"revision\": 3,\n      \"timestamp\": \"2026-11-04T09:24:40.700586+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T1\",\n        \"status\": \"doing\"\n      },\n      \"reason\": \"开始编制交接文件\"\n    },\n    {\n      \"revision\": 4,\n      \"timestamp\": \"2026-11-04T09:30:19.176878+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T2\",\n        \"title\": \"A环境、通道和项目盘点\",\n        \"description\": \"A上DSH读取实际环境、后台配置来源、模型通道和候选项目；只在专用材料上小任务核实，不在盘点时改全局配置。\",\n        \"milestone\": \"部署前置\",\n        \"dependencies\": [\n          \"T1\"\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/A.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"A报告区分实测、文件确认、未验证，列出版本和实际入口且不含凭据。\",\n          \"Codex与Claude Code/DeepSeek基础调用及接续有原始结果；缺项明确，不能用命令存在代替调用成功。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 5,\n      \"timestamp\": \"2026-11-04T09:30:20.061276+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T3\",\n        \"title\": \"B环境、通道和项目盘点\",\n        \"description\": \"B上DSH本机盘点并向A交付原始报告；不假设B路径、版本、凭据与A一致。\",\n        \"milestone\": \"部署前置\",\n        \"dependencies\": [\n          \"T1\"\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/B.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"报告来自B实机，列出目录、版本、通道、项目归属和Codex复验方式。\",\n          \"A取得带来源和采集时间的完整B报告，无凭据和未经核实的与A相同结论。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 6,\n      \"timestamp\": \"2026-11-04T09:30:20.948524+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T4\",\n        \"title\": \"跨网络连接和身份设计\",\n        \"description\": \"DSH确定并验证A/B跨网络加密私网、实际访问范围和身份设计；实际任务API身份检查留待服务部署后。\",\n        \"milestone\": \"部署前置\",\n        \"dependencies\": [\n          \"T2\",\n          \"T3\"\n        ],\n        \"deliverables\": [\n          \"evidence/network.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"A/B位于不同外部网络的基础连接有实测证据，恢复方式明确。\",\n          \"访问范围和独立身份设计明确，不把未部署任务接口的身份测试提前记为通过。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 7,\n      \"timestamp\": \"2026-11-04T09:30:21.837767+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T5\",\n        \"title\": \"fork源码基线与实施设计\",\n        \"description\": \"DSH按实际GitHub身份建立个人fork，在app目录保留来源、许可、基线及差异；完善后续交付物、可执行检查和部署设计，不自行建分支/worktree或提交推送。\",\n        \"milestone\": \"部署前置\",\n        \"dependencies\": [\n          \"T2\",\n          \"T3\"\n        ],\n        \"deliverables\": [\n          \"evidence/design.md\",\n          \"evidence/source-baseline.json\"\n        ],\n        \"acceptance_criteria\": [\n          \"fork归属、上游及实际使用版本可核对，现有治理文件和用户改动保留。\",\n          \"设计明确安装/运行/数据/配置目录、启动方式、B部署包来源及后续验收输入；修改版用内容哈希标识。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 8,\n      \"timestamp\": \"2026-11-04T09:30:22.745171+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T6\",\n        \"title\": \"Windows执行和生命周期适配\",\n        \"description\": \"DSH完善并实施Windows路径、真实CLI入口、后台启动、停止超时及重启恢复，保留上游适用行为；批准前将实际改动源码与测试纳入交付声明及检查。\",\n        \"milestone\": \"程序适配\",\n        \"dependencies\": [\n          \"T5\"\n        ],\n        \"deliverables\": [\n          \"evidence/windows-runtime.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"Windows原生启动、受控执行、停止和超时均实际验证，托管子进程无残留。\",\n          \"重启后识别原任务和结果，不重复启动；相关源码和测试有有效检查。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 9,\n      \"timestamp\": \"2026-11-04T09:30:23.630288+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T7\",\n        \"title\": \"工具模型接口与会话接通\",\n        \"description\": \"DSH接通Codex/OpenAI及Claude Code/DeepSeek初始路径，校验DSH安装版恢复协议、模型配置和Go会话标识，专项通过后才启用DSH；源码检查须补齐。\",\n        \"milestone\": \"程序适配\",\n        \"dependencies\": [\n          \"T6\"\n        ],\n        \"deliverables\": [\n          \"evidence/adapters.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"初始两条路径实际模型、权限、检查、接续和取消均可核对，不依赖原生订阅登录结论。\",\n          \"DSH专项结果与启用状态一致，未通过不自动换会话或模型掩盖问题；不可观测用量标未知。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 10,\n      \"timestamp\": \"2026-11-04T09:30:24.534450+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T8\",\n        \"title\": \"Project Anchor任务与验收桥接\",\n        \"description\": \"DSH通过安装定位的治理程序接通已批准任务、依赖、当前材料证据、断点和交付验收；不直接改账本，不由中心双写B项目状态；源码检查须补齐。\",\n        \"milestone\": \"程序适配\",\n        \"dependencies\": [\n          \"T6\"\n        ],\n        \"deliverables\": [\n          \"evidence/anchor-bridge.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"草案、依赖不满足、证据失效及交付缺失的任务不能启动；有效批准任务可执行接续。\",\n          \"进程结束、等待、业务完成与独立验收状态分清；证据绑定当前材料，自查不冒充独立验收。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 11,\n      \"timestamp\": \"2026-11-04T09:30:25.448024+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T9\",\n        \"title\": \"路由并发额度和停止规则\",\n        \"description\": \"DSH实现项目主机与Agent模型明确路由、同项目写入互斥、跨项目并行、时限轮数限制、空闲静默和手工接管；源码及无秘密模板纳入实际检查。\",\n        \"milestone\": \"程序适配\",\n        \"dependencies\": [\n          \"T7\",\n          \"T8\"\n        ],\n        \"deliverables\": [\n          \"evidence/scheduling.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"同项目不同规则/路径别名不能同时写入；不同项目可按限额并行，手工接管生效。\",\n          \"真实时限和轮数可执行，空闲不唤醒模型，额度不足或阻塞明确停止，不隐式换模型续跑。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 12,\n      \"timestamp\": \"2026-11-04T09:30:26.336243+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T10\",\n        \"title\": \"A中心执行端与管理入口部署\",\n        \"description\": \"DSH在A按固定版本部署唯一中心、A执行端和实际管理入口，注册选定启动方式、验证身份与监听范围，保留可恢复旧状态。\",\n        \"milestone\": \"部署\",\n        \"dependencies\": [\n          \"T4\",\n          \"T9\"\n        ],\n        \"deliverables\": [\n          \"evidence/deployment/A.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"A真实后台启动重启后状态一致，无重复中心；实际部署包、账户和配置用途可核对。\",\n          \"实际入口支持查看回答暂停停止和证据定位；无凭据、错误凭据、错种类身份被拒绝。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 13,\n      \"timestamp\": \"2026-11-04T09:30:27.270979+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T11\",\n        \"title\": \"B执行端同版本部署\",\n        \"description\": \"B上DSH核对A同一部署包，按B本地配置登记执行端和项目，不另建中心或复制A登录文件；B模型路径在本机验证。\",\n        \"milestone\": \"部署\",\n        \"dependencies\": [\n          \"T10\"\n        ],\n        \"deliverables\": [\n          \"evidence/deployment/B.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"不同网络B领取并完成专用演练任务，A收到正确归属的结果及证据。\",\n          \"A/B修改版内容哈希一致，B本机通道和后台重启实测，无重复执行端和残留任务。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 14,\n      \"timestamp\": \"2026-11-04T09:30:28.162096+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T12\",\n        \"title\": \"双机演练回退与证据汇总\",\n        \"description\": \"DSH在专用项目运行V01至V20适用场景，保存原始日志与材料身份，实测恢复演练状态，并交付给Codex复验；不生成独立验收通过结论。\",\n        \"milestone\": \"部署自测\",\n        \"dependencies\": [\n          \"T11\"\n        ],\n        \"deliverables\": [\n          \"evidence/rehearsal.md\",\n          \"evidence/rollback.md\",\n          \"evidence/manifest.json\"\n        ],\n        \"acceptance_criteria\": [\n          \"适用场景均记录真实结果、机器、执行编号、实际模型、命令退出码及日志位置，未验证不计通过。\",\n          \"断线重启回传不重复执行业务或登记结果，回退状态实际可运行；证据清单内容哈希可核对。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 15,\n      \"timestamp\": \"2026-11-04T09:30:29.057565+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T13\",\n        \"title\": \"Codex独立代码审查与双机复验\",\n        \"description\": \"由Codex读取实际源码部署版本和DSH证据并独立复跑V01至V20；不能访问B实机的项目标为仅审证据，不称完整双机通过。\",\n        \"milestone\": \"独立验收\",\n        \"dependencies\": [\n          \"T12\"\n        ],\n        \"deliverables\": [\n          \"evidence/acceptance-codex.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"实际运行与审查覆盖声明范围，报告通过失败未验证数量，失败修复后复跑受影响项。\",\n          \"B实机与DSH专项状态如实记录；自查和独立复验分开，验收绑定当前版本和材料。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"revision\": 16,\n      \"timestamp\": \"2026-11-04T09:30:30.023080+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T14\",\n        \"title\": \"两个指定真实项目小范围启用\",\n        \"description\": \"用户指定两个真实项目及任务范围后由DSH启用、Codex验收；不从历史猜项目，不自动迁移账本、改变目标或开启提交推送。\",\n        \"milestone\": \"真实试运行\",\n        \"dependencies\": [\n          \"T13\"\n        ],\n        \"deliverables\": [\n          \"evidence/pilot.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"真实项目所属机器、已批准任务、现有改动和验收条件明确且保留。\",\n          \"每项目至少一个小任务及接续流程有实际结果并由Codex复验，未验收范围明确。\"\n        ],\n        \"checks\": []\n      },\n      \"reason\": \"按用户要求登记给DSH完善的后续草案；不代表批准执行或独立验收\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 17,\n      \"timestamp\": \"2026-11-04T09:31:44.801298+00:00\",\n      \"run_id\": \"16ce42b5c47246279954bf88546e1c3b\",\n      \"reason\": \"交接文档完成后先Review查Bug再检查是否可简化\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 18,\n      \"timestamp\": \"2026-11-04T09:31:45.730277+00:00\",\n      \"run_id\": \"f6861c371d054e43a10572a61bb8e6da\",\n      \"reason\": \"交接文档完成后先Review查Bug再检查是否可简化\"\n    },\n    {\n      \"revision\": 19,\n      \"timestamp\": \"2026-11-04T09:31:46.664636+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T1\",\n        \"status\": \"done\"\n      },\n      \"reason\": \"交接文档两项自查通过；不代表任何部署任务完成\"\n    },\n    {\n      \"revision\": 20,\n      \"timestamp\": \"2026-11-04T10:05:11.835307+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T2\",\n        \"acceptance_criteria\": [\n          \"A报告区分实测、文件确认、未验证，列出版本和实际入口且不含凭据。\",\n          \"Codex与DeepSeek通道（OpenCode CLI）的基础调用及会话接续均有原始日志，缺项明确；不能用命令存在代替调用成功。\",\n          \"报告结论与原始日志一致，并由可执行脚本自动校验结构、必需小节、证据引用存在性与凭据明文。\"\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/A.md\",\n          \"tools/preflight/check_a_report.py\"\n        ],\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/A.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/A.md\",\n              \"evidence/raw/preflight/20261104-180700-codex166-resume2.txt\",\n              \"evidence/raw/preflight/20261104-180200-resume-probe.txt\"\n            ]\n          },\n          {\n            \"criterion\": 3,\n            \"kind\": \"command\",\n            \"inputs\": [\n              \"tools/preflight/check_a_report.py\"\n            ],\n            \"argv\": [\n              \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n              \"-B\",\n              \"tools/preflight/check_a_report.py\"\n            ],\n            \"timeout_seconds\": 120\n          }\n        ]\n      },\n      \"reason\": \"T2草案补齐交付物、验收项与可执行检查\"\n    },\n    {\n      \"revision\": 21,\n      \"timestamp\": \"2026-11-04T10:05:20.232211+00:00\",\n      \"action\": \"approve\",\n      \"payload\": {\n        \"task_id\": \"T2\"\n      },\n      \"reason\": \"用户本轮明确要求按任务书完善并实施；批准T2盘点范围与检查\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T2\",\n        \"version\": 1,\n        \"hash\": \"35d5f92800a4b03f7f7c46975ce6607e31342d787eb20493b62c1c4ca1328001\",\n        \"description\": \"A上DSH读取实际环境、后台配置来源、模型通道和候选项目；只在专用材料上小任务核实，不在盘点时改全局配置。\",\n        \"acceptance_criteria\": [\n          \"A报告区分实测、文件确认、未验证，列出版本和实际入口且不含凭据。\",\n          \"Codex与DeepSeek通道（OpenCode CLI）的基础调用及会话接续均有原始日志，缺项明确；不能用命令存在代替调用成功。\",\n          \"报告结论与原始日志一致，并由可执行脚本自动校验结构、必需小节、证据引用存在性与凭据明文。\"\n        ],\n        \"dependencies\": [\n          \"T1\"\n        ],\n        \"approved_at\": \"2026-11-04T10:05:20.232211+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户本轮明确要求按任务书完善并实施；批准T2盘点范围与检查\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/A.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/A.md\",\n              \"evidence/raw/preflight/20261104-180700-codex166-resume2.txt\",\n              \"evidence/raw/preflight/20261104-180200-resume-probe.txt\"\n            ]\n          },\n          {\n            \"criterion\": 3,\n            \"kind\": \"command\",\n            \"inputs\": [\n              \"tools/preflight/check_a_report.py\"\n            ],\n            \"argv\": [\n              \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n              \"-B\",\n              \"tools/preflight/check_a_report.py\"\n            ],\n            \"timeout_seconds\": 120\n          }\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/A.md\",\n          \"tools/preflight/check_a_report.py\"\n        ]\n      }\n    },\n    {\n      \"revision\": 22,\n      \"timestamp\": \"2026-11-04T10:06:53.291701+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T5\",\n        \"deliverables\": [\n          \"evidence/design.md\",\n          \"evidence/source-baseline.json\",\n          \"tools/checks/check_source_baseline.py\"\n        ],\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/design.md\",\n              \"evidence/source-baseline.json\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"command\",\n            \"inputs\": [\n              \"tools/checks/check_source_baseline.py\"\n            ],\n            \"argv\": [\n              \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n              \"-B\",\n              \"tools/checks/check_source_baseline.py\"\n            ],\n            \"timeout_seconds\": 120\n          }\n        ]\n      },\n      \"reason\": \"T5草案补齐交付物与基线自校验命令\"\n    },\n    {\n      \"revision\": 23,\n      \"timestamp\": \"2026-11-04T10:06:59.661193+00:00\",\n      \"action\": \"approve\",\n      \"payload\": {\n        \"task_id\": \"T5\"\n      },\n      \"reason\": \"用户本轮授权按任务书实施；批准T5基线、设计与检查范围\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T5\",\n        \"version\": 1,\n        \"hash\": \"0ad66703ff372c833a9bb00af61a64ef7c75adc0c5c7678dcff094dc6f3324fd\",\n        \"description\": \"DSH按实际GitHub身份建立个人fork，在app目录保留来源、许可、基线及差异；完善后续交付物、可执行检查和部署设计，不自行建分支/worktree或提交推送。\",\n        \"acceptance_criteria\": [\n          \"fork归属、上游及实际使用版本可核对，现有治理文件和用户改动保留。\",\n          \"设计明确安装/运行/数据/配置目录、启动方式、B部署包来源及后续验收输入；修改版用内容哈希标识。\"\n        ],\n        \"dependencies\": [\n          \"T2\",\n          \"T3\"\n        ],\n        \"approved_at\": \"2026-11-04T10:06:59.661193+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户本轮授权按任务书实施；批准T5基线、设计与检查范围\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/design.md\",\n              \"evidence/source-baseline.json\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"command\",\n            \"inputs\": [\n              \"tools/checks/check_source_baseline.py\"\n            ],\n            \"argv\": [\n              \"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Programs\\\\Python\\\\Python311\\\\python.exe\",\n              \"-B\",\n              \"tools/checks/check_source_baseline.py\"\n            ],\n            \"timeout_seconds\": 120\n          }\n        ],\n        \"deliverables\": [\n          \"evidence/design.md\",\n          \"evidence/source-baseline.json\",\n          \"tools/checks/check_source_baseline.py\"\n        ]\n      }\n    },\n    {\n      \"action\": \"verify:command\",\n      \"revision\": 24,\n      \"timestamp\": \"2026-11-04T10:07:06.356787+00:00\",\n      \"run_id\": \"58856b46e15f4f42bf0c4fbd237e17a6\",\n      \"reason\": \"运行基线自校验脚本，确认 source-baseline.json 与 app/ 实际状态一致且未伪造fork/提交\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 25,\n      \"timestamp\": \"2026-11-04T10:07:17.348414+00:00\",\n      \"run_id\": \"03fb2b01af9d4811bdebb3f3ed38a794\",\n      \"reason\": \"自查T5：基线与设计证据一致、未擅自分支或提交\"\n    },\n    {\n      \"revision\": 26,\n      \"timestamp\": \"2026-11-04T10:07:36.435448+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T3\",\n        \"deliverables\": [\n          \"evidence/preflight/B.md\",\n          \"evidence/preflight/B_bootstrap.md\"\n        ],\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/B.md\",\n              \"evidence/preflight/B_bootstrap.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/B.md\"\n            ]\n          }\n        ]\n      },\n      \"reason\": \"T3补齐交付物（B报告+B引导包）与检查（B报告自查）\"\n    },\n    {\n      \"revision\": 27,\n      \"timestamp\": \"2026-11-04T10:07:44.080322+00:00\",\n      \"action\": \"approve\",\n      \"payload\": {\n        \"task_id\": \"T3\"\n      },\n      \"reason\": \"用户本轮授权按任务书实施；批准T3 B盘点范围与检查（实际执行受B不可达阻塞）\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T3\",\n        \"version\": 1,\n        \"hash\": \"892d265b23ff8f6aeea2d8e15525dc805652d7df4ea5824fbfd86da11576c104\",\n        \"description\": \"B上DSH本机盘点并向A交付原始报告；不假设B路径、版本、凭据与A一致。\",\n        \"acceptance_criteria\": [\n          \"报告来自B实机，列出目录、版本、通道、项目归属和Codex复验方式。\",\n          \"A取得带来源和采集时间的完整B报告，无凭据和未经核实的与A相同结论。\"\n        ],\n        \"dependencies\": [\n          \"T1\"\n        ],\n        \"approved_at\": \"2026-11-04T10:07:44.080322+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户本轮授权按任务书实施；批准T3 B盘点范围与检查（实际执行受B不可达阻塞）\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/B.md\",\n              \"evidence/preflight/B_bootstrap.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"evidence/preflight/B.md\"\n            ]\n          }\n        ],\n        \"deliverables\": [\n          \"evidence/preflight/B.md\",\n          \"evidence/preflight/B_bootstrap.md\"\n        ]\n      }\n    },\n    {\n      \"revision\": 28,\n      \"timestamp\": \"2026-11-04T10:07:52.592470+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T3\",\n        \"status\": \"blocked\",\n        \"blocker\": \"B 机当前无任何可达通道：A 侧实测无 Tailscale/ZeroTier/WireGuard/OpenVPN/Syncthing，LAN 内唯一 Windows 邻居不存在（172.16.184.38 仅 80/443），cpolar 只有 A 侧出站配置，B 未安装任何被控端。需要用户在 B 上落地引导包并回传盘点输出后才能执行。\"\n      },\n      \"reason\": \"T3阻塞：B不可达，先交付引导包并记录真实阻塞原因\"\n    },\n    {\n      \"action\": \"verify:command\",\n      \"revision\": 29,\n      \"timestamp\": \"2026-11-04T10:15:35.428703+00:00\",\n      \"run_id\": \"8e64851ccbac4064b6d81e860b58b748\",\n      \"reason\": \"A 报告结构、证据引用、脱敏与自校验脚本实跑\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 30,\n      \"timestamp\": \"2026-11-04T10:15:53.899025+00:00\",\n      \"run_id\": \"f23e005d50b54d23a54848d65e1d291a\",\n      \"reason\": \"T2 AC1 自查：报告分级与证据一致性\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 31,\n      \"timestamp\": \"2026-11-04T10:15:54.158669+00:00\",\n      \"run_id\": \"9baf7a0e6f194abda9ae43717e6d209b\",\n      \"reason\": \"T2 AC2 自查：两通道原始日志与续接\"\n    },\n    {\n      \"revision\": 32,\n      \"timestamp\": \"2026-11-04T10:16:06.845378+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T2\",\n        \"status\": \"doing\"\n      },\n      \"reason\": \"T2 检查已通过，先置 doing 再置 done（状态机要求）\"\n    },\n    {\n      \"revision\": 33,\n      \"timestamp\": \"2026-11-04T10:16:07.149747+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T2\",\n        \"status\": \"done\"\n      },\n      \"reason\": \"T2 三项检查均按当前材料 pass\"\n    },\n    {\n      \"action\": \"verify:command\",\n      \"revision\": 34,\n      \"timestamp\": \"2026-11-04T11:00:57.735890+00:00\",\n      \"run_id\": \"d147e69189f947fba6411a85c6404ec9\",\n      \"reason\": \"check_source_baseline.py 对当前工作区复核：29 项全过，含上游 blob 与本地哈希两列\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 35,\n      \"timestamp\": \"2026-11-04T11:01:50.462671+00:00\",\n      \"run_id\": \"4f12f91c7e104b1998533b7e7d59ccbc\",\n      \"reason\": \"T5 AC1 自查：设计覆盖目录/启动/包来源/验收输入，基线哈希可机器复核；fork 缺失已声明\"\n    },\n    {\n      \"revision\": 36,\n      \"timestamp\": \"2026-11-04T11:02:46.726420+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T3\",\n        \"blocker\": \"B 机不可达：A 侧无 Tailscale/ZeroTier/WireGuard/OpenVPN，LAN 内无确认的 B 主机，cpolar 只有 A 侧出站配置。引导包已交付（evidence/preflight/B_bootstrap.md + B_expected.md，采集脚本 tools/b_preflight/collect_b.ps1 已在 A 自测 exit 0），等 B 落地后回传 B.md。四条回传通道：手动搬运（已验证可行）/向日葵·GameViewer（未验证）/cpolar·ngrok 隧道（未验证）/私网直连（未装）。\"\n      },\n      \"reason\": \"把 T3 阻塞原因更新为「引导包已交付、等 B 回传」并列出四条回传通道\"\n    },\n    {\n      \"revision\": 37,\n      \"timestamp\": \"2026-11-04T13:31:56.646795+00:00\",\n      \"action\": \"add\",\n      \"payload\": {\n        \"task_id\": \"T15\",\n        \"title\": \"记录Windows或WSL均可的部署与验收范围\",\n        \"description\": \"用户明确部署不必限于Windows、WSL也可。本轮读取第二轮报告及实际材料，新增平台补充约定、同步未批准的T6草案及决定断点；不迁移或安装、不修改业务源码、不改原验收结论、不启动第三轮完整验收。\",\n        \"milestone\": \"平台约定更新\",\n        \"dependencies\": [],\n        \"deliverables\": [\n          \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"补充约定准确允许Windows或WSL，按实际选定环境实测，保留原任务书及两轮冻结证据，未降低功能验收要求。\",\n          \"已核对当前清单和源码基线，记录真实阻塞、平台探测限制和后续范围；先Review查Bug再检查简化，未宣称第三轮或WSL验收通过。\"\n        ],\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n            ]\n          }\n        ]\n      },\n      \"reason\": \"登记用户明确的局部平台限制变更与交接记录\"\n    },\n    {\n      \"revision\": 38,\n      \"timestamp\": \"2026-11-04T13:31:57.755445+00:00\",\n      \"action\": \"approve\",\n      \"payload\": {\n        \"task_id\": \"T15\"\n      },\n      \"reason\": \"用户明确不必限于Windows，WSL也可；本轮仅同步部署验收约定\",\n      \"approved_scope\": {\n        \"project_id\": \"4f13f187-5f5b-4523-9d50-dab2b97defc2\",\n        \"task_id\": \"T15\",\n        \"version\": 1,\n        \"hash\": \"ae6ae9213174174c03c6844674af17d1afadb446d8fabc104cc52e9d020ac603\",\n        \"description\": \"用户明确部署不必限于Windows、WSL也可。本轮读取第二轮报告及实际材料，新增平台补充约定、同步未批准的T6草案及决定断点；不迁移或安装、不修改业务源码、不改原验收结论、不启动第三轮完整验收。\",\n        \"acceptance_criteria\": [\n          \"补充约定准确允许Windows或WSL，按实际选定环境实测，保留原任务书及两轮冻结证据，未降低功能验收要求。\",\n          \"已核对当前清单和源码基线，记录真实阻塞、平台探测限制和后续范围；先Review查Bug再检查简化，未宣称第三轮或WSL验收通过。\"\n        ],\n        \"dependencies\": [],\n        \"approved_at\": \"2026-11-04T13:31:57.755445+00:00\",\n        \"source\": \"user\",\n        \"reason\": \"用户明确不必限于Windows，WSL也可；本轮仅同步部署验收约定\",\n        \"checks\": [\n          {\n            \"criterion\": 1,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n            ]\n          },\n          {\n            \"criterion\": 2,\n            \"kind\": \"review\",\n            \"inputs\": [\n              \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n            ]\n          }\n        ],\n        \"deliverables\": [\n          \"DEPLOYMENT_PLATFORM_UPDATE.md\"\n        ]\n      }\n    },\n    {\n      \"revision\": 39,\n      \"timestamp\": \"2026-11-04T13:31:59.909676+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T15\",\n        \"status\": \"doing\"\n      },\n      \"reason\": \"开始更新平台补充约定\"\n    },\n    {\n      \"revision\": 40,\n      \"timestamp\": \"2026-11-04T13:32:00.993354+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T6\",\n        \"title\": \"选定运行环境的执行与生命周期适配\",\n        \"description\": \"DSH在Windows原生或WSL中选择实际部署环境，核对真实CLI、路径、模型配置、后台启动、停止超时及重启恢复；按选定环境验证，不强制双平台都支持。保留现有Windows成果与历史证据；批准前补齐实际源码、测试、交付声明及检查。\",\n        \"deliverables\": [\n          \"evidence/runtime-environment.md\"\n        ],\n        \"acceptance_criteria\": [\n          \"明确A/B各自实际执行环境；在所选Windows原生或WSL环境中实测启动、受控执行、停止、超时及后台启动，托管子进程无残留，不跨环境借用结果。\",\n          \"重启后识别原任务和结果，不重复启动；相关源码和测试有当前环境有效证据，历史Windows结果不能代替新的WSL实测。\"\n        ]\n      },\n      \"reason\": \"T6仍为草案，按用户明确允许WSL更新平台要求，不批准执行、不改变依赖\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 41,\n      \"timestamp\": \"2026-11-04T13:33:38.843897+00:00\",\n      \"run_id\": \"0c9f80cce86740c6bfa72b1dadd9dc15\",\n      \"reason\": \"平台补充约定完成后先Review查Bug再检查简化\"\n    },\n    {\n      \"action\": \"verify:review\",\n      \"revision\": 42,\n      \"timestamp\": \"2026-11-04T13:33:39.983125+00:00\",\n      \"run_id\": \"1e7cf9d1b261465daa8c4ab084f6e307\",\n      \"reason\": \"平台补充约定完成后先Review查Bug再检查简化\"\n    },\n    {\n      \"revision\": 43,\n      \"timestamp\": \"2026-11-04T13:33:41.115793+00:00\",\n      \"action\": \"update\",\n      \"payload\": {\n        \"task_id\": \"T15\",\n        \"status\": \"done\"\n      },\n      \"reason\": \"仅完成平台补充约定，不代表任何部署或独立验收通过\"\n    }\n  ]\n}\n"
+  },
+  "hashes": {
+    "GOAL.md": "5d0fd9b760def65c659c410ac4ec1692508c9d9772701b35d35d09fba4329f3e",
+    "CURRENT.md": "621dbe0cc5de97adcf9e81425e54ef885b9d138024b4a37083dbf160f246b3ae",
+    "DECISIONS.md": "6e099bcfed2c6a9c289615e2d37a24ab9294f90650e47d7cb99806cbdc8598e8",
+    "LESSONS.md": "26b8cf42c33cfb2fc57993b2f40b3b832ff8336a12b9c4577202cd2f171fd6ac",
+    "tasks.json": "bcbdf9ec2a997cbc65e34c3489d81d6e7ac48a18a2596afff733d46064fd11e1"
+  }
+}

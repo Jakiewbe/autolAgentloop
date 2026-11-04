@@ -1,0 +1,20 @@
+== start 2026-11-04T17:59:29+08:00 ==
+--- codex first turn
+ERROR: {"type":"error","status":400,"error":{"type":"invalid_request_error","message":"The 'gpt-6.1-sol' model is not supported when using Codex with a ChatGPT account.","code":"model_not_found"}}
+ERROR: {"type":"error","status":400,"error":{"type":"invalid_request_error","message":"The 'gpt-6.1-sol' model is not supported when using Codex with a ChatGPT account.","code":"model_not_found"}}
+³É¹¦: ÒÑÖÕÖ¹ PID 46720 (ÊôÓÚ PID 16576 ×Ó½ø³Ì)µÄ½ø³Ì¡£
+³É¹¦: ÒÑÖÕÖ¹ PID 16576 (ÊôÓÚ PID 54948 ×Ó½ø³Ì)µÄ½ø³Ì¡£
+³É¹¦: ÒÑÖÕÖ¹ PID 59816 (ÊôÓÚ PID 54948 ×Ó½ø³Ì)µÄ½ø³Ì¡£
+--- codex resume --last
+Not inside a trusted directory and --skip-git-repo-check was not specified.
+--- opencode first turn
+[0m
+> build Â· deepseek-v4.1-flash
+[0m
+PROBE-OC-R1
+--- opencode continue
+[0m
+> build Â· deepseek-v4.1-flash
+[0m
+PROBE-OC-R2
+== done 2026-11-04T18:00:05+08:00 ==

@@ -1,0 +1,45 @@
+✔ the same question isn't asked twice while it's open, and can be asked again once it's closed (39.1537ms)
+✔ an answer wakes the thread that asked, in its session, with what it left for itself; the card then shows what was done (65.499ms)
+✔ an answer while another run holds the thread joins the next run, and a merged run still carries it (41.6078ms)
+✔ a failed run that carried an answer keeps it for the retry; the card stays decided until it's carried out (62.2648ms)
+✔ an answer counts once; a choice must exist; only one of answering and resolving changes an open card (43.9159ms)
+✔ a free-text answer counts as an answer (49.6159ms)
+✔ a channel's answer must come from someone on its list, on the message it sent (37.9469ms)
+✔ a run may resolve only what it was given to check, and a bad id doesn't spoil its own result (44.5211ms)
+✔ a card made after this run was claimed isn't in its scope (59.4381ms)
+✔ each channel gets each card once, and an update when its state changes; a lost report sends no second message (52.1151ms)
+✔ a failed send is retried further and further apart, then given up within the hour; a channel that never came hasn't failed (97.8199ms)
+✔ a card solved before it was sent doesn't bother the owner; a closed one already sent is updated (51.8837ms)
+✔ a notice has one button that closes it; something only to know has none and isn't left open (57.9646ms)
+✔ what only needed saying is told once per key; given up, it can be told again (70.0522ms)
+✔ what only needed saying goes stale: a channel coming back after a day doesn't get yesterday's (19.8676ms)
+✔ a card's link answers only when its channel allows it, only that card, only within a week (34.1435ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.8335ms)
+ℹ tests 17
+ℹ suites 0
+ℹ pass 16
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1101.7246
+
+✖ failing tests:
+
+test at tests\helpers.ts:15:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.8335ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-cards-Y0e8FJ '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-cards-Y0e8FJ'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:15:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-cards-Y0e8FJ',
+    syscall: 'rm'
+  }

@@ -1,0 +1,56 @@
+✖ one machine, one command: an event, a question, an answer, the work done (319.0275ms)
+✖ the user's Agents are shown how to set it up, when this is the install in its usual place, and nothing of theirs is touched (292.5089ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 0
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 760.3441
+
+✖ failing tests:
+
+test at tests\loop.test.ts:103:1
+✖ one machine, one command: an event, a question, an answer, the work done (319.0275ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/loop.test.ts:106:10)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\loop.test.ts:209:1
+✖ the user's Agents are shown how to set it up, when this is the install in its usual place, and nothing of theirs is touched (292.5089ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/loop.test.ts:221:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,92 @@
+{
+  "project": "D:\\Vibe_coding-Project\\autoAgentloop",
+  "name": "autoAgentloop",
+  "revision": 37,
+  "goal_version": 1,
+  "goal_approved": false,
+  "current_stale": false,
+  "current_alignment": "changed",
+  "current_scope": {
+    "task_ids": [],
+    "goal_version": 1,
+    "task_revision": 33
+  },
+  "task_revision": 33,
+  "task_schema": 4,
+  "goal": "# 项目目标\n\n## 核心目标\n待用户确认：填写一句话目标。\n\n## 项目背景\n待确认。\n\n## 关键约束\n保留原始文件，不保存凭据。\n\n## 非目标\n待确认。\n\n## 验收标准\n待确认：填写可验证的交付条件。\n\n## 目标版本\n1（初始草案；正式版本以 state.json 为准）\n",
+  "current": "# 当前状态\n\n## 当前阶段\nA 侧真机部署已完成并有证据；B 侧未就位（不可达），依赖 B 的任务链停在 T3。\n\n## 当前任务\nT8 anchor 桥接 → T9 路由并发 → T12 演练/回退/manifest → T13 交 Codex 独立验收（T3 等 B 回传）。\n\n## 已完成工作\n- T1/T2 账本 done；A 盘点 `evidence/preflight/A.md`（20 项自校验 PASS）。\n- `evidence/windows-runtime.md`（240 行；§7 为真机阶段新增：init 阻断修复、测试收尾 EPERM 修复、service install 瞬时 EPERM、端到端结果）。\n- `evidence/adapters.md`（codex 0.166 可用 / 0.130 400 / opencode 可用 / claude 不可用 / DSH ACP 差异）。\n- `evidence/deployment/A.md`；部署包 `deploy/agent-autoloop-96b6c9c7-win1.tar.gz`（sha256 2ba21c42…d940）、补丁 `evidence/raw/app/windows-changes.patch`（f371da06…561d）。\n- `evidence/network.md`（首选 Tailscale，备选 cpolar/ngrok；不同网络实测未做）。\n\n## 当前阻塞\n- T3 缺 `evidence/preflight/B.md`：B 机器未确定、不可达；引导包 `evidence/preflight/B_bootstrap.md` 已交付等回传。\n- T3 blocked → `require_fresh()` 让 T4–T14 的 done 无法成立（交付文件已存在也不置 done）。\n\n## 下一步动作\n1. 写 T8 `evidence/anchor-bridge.md` 与桥接代码。\n2. 写 T9 `evidence/scheduling.md`，给具体上限值。\n3. A 侧真跑 T12 演练与回退，生成 `evidence/manifest.json`。\n4. T13 交 Codex 独立验收，不自行宣布通过。\n\n## 状态修订\n2026-11-04 18:40 · A 侧部署完成后刷新；任务状态未变（T3 blocked，其余 todo）。\n\n## Git 检查\n- `app/`：detached HEAD `96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a`，未建分支/worktree，未 commit、未 push。\n- 已改：`cli/main.ts` `host/service.ts` `protocol/rules.ts` `tests/helpers.ts` `tests/rules.test.ts` `worker/agents.ts` `worker/worker.ts`。\n- 未跟踪：`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/windows-runtime.test.ts` `worker/runner.ts`。\n- 现场残留（不进证据）：`C:\\Users\\chs\\.agent-autoloop-residue-20261104-1740`、`…-failed-init-20261104-1817`。\n",
+  "git": {
+    "root": null,
+    "branch": null,
+    "commit": null,
+    "changes": null
+  },
+  "dependency_verification": {},
+  "tasks": [
+    {
+      "task_id": "T1",
+      "title": "编制双机部署任务书与验收交接",
+      "milestone": "交接准备",
+      "plan": "approved",
+      "status": "done",
+      "dependencies": [],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "pass",
+      "deliverable_coverage": "covered",
+      "check_summary": [
+        {
+          "criterion": 1,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        },
+        {
+          "criterion": 2,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        }
+      ]
+    }
+  ],
+  "summary": {
+    "total": 1,
+    "draft": 0,
+    "approved_active": 1,
+    "approved_done": 1,
+    "legacy_unverified": 0,
+    "scope_dirty": 0,
+    "invalidated_evidence": 0,
+    "evidence_levels": {
+      "claimed": 2,
+      "observed": 0,
+      "reviewed": 0
+    },
+    "statuses": {
+      "blocked": 0,
+      "cancelled": 0,
+      "doing": 0,
+      "done": 1,
+      "todo": 0
+    },
+    "folded_final": 0
+  },
+  "external_dependencies": [],
+  "focus": {
+    "task_ids": [
+      "T1"
+    ],
+    "reason": "本轮工作为双机部署任务拆分",
+    "updated_at": "2026-11-04T09:24:39.839151+00:00"
+  },
+  "focus_missing": false,
+  "selection": {
+    "task_ids": [
+      "T1"
+    ],
+    "milestone": null,
+    "focus": true
+  }
+}

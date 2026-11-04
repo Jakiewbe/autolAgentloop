@@ -1,0 +1,15 @@
+✖ tests\simulation.test.ts (60012.1899ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 60020.4908
+
+✖ failing tests:
+
+test at tests\simulation.test.ts:1:1
+✖ tests\simulation.test.ts (60012.1899ms)
+  'test failed'

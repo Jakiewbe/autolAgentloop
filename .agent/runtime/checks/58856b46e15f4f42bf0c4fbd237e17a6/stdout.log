@@ -1,0 +1,13 @@
+PASS baseline 文件存在
+PASS 记录了上游仓库地址
+PASS 记录了基线提交  [96b6c9c71671]
+PASS fork.created 字段存在
+PASS fork 状态与实际一致（本机无 gh/凭据，未创建）  [fork.created=False]
+PASS 许可信息存在
+PASS app/ 是 git 工作副本  [96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a]
+PASS app/ HEAD 等于记录的基线提交  [96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a]
+PASS app/ 处于 detached 状态（未擅自建分支）  [branch='']
+PASS 未创建额外 worktree  [1 条]
+PASS app/ 未产生新提交  [96b6c9c fix(service): quote systemd unit values (#38)]
+----
+FAILURES=0

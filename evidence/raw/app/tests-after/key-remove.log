@@ -1,0 +1,30 @@
+✔ only the owner removes keys and pending work is refused immediately (31.6646ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6425ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 1
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 345.1676
+
+✖ failing tests:
+
+test at tests\helpers.ts:15:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6425ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-key-remove-yEYFgF '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-key-remove-yEYFgF'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:15:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-key-remove-yEYFgF',
+    syscall: 'rm'
+  }

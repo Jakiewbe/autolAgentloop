@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a1a5ec-de4c-7183-b38d-e5681371650a"}
+{"type":"turn.started"}
+{"type":"error","message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The 'gpt-5.6-sol' model requires a newer version of Codex. Please upgrade to the latest app or CLI and try again.\"}}"}
+{"type":"turn.failed","error":{"message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The 'gpt-5.6-sol' model requires a newer version of Codex. Please upgrade to the latest app or CLI and try again.\"}}"}}
+成功: 已终止 PID 36388 (属于 PID 52776 子进程)的进程。
+成功: 已终止 PID 52776 (属于 PID 54588 子进程)的进程。
+成功: 已终止 PID 59516 (属于 PID 54588 子进程)的进程。

@@ -1,0 +1,17 @@
+{"argv": ["node", "--disable-warning=ExperimentalWarning", "--test", "--test-isolation=none", "app/tests/command-adapter.test.ts"], "cwd": "D:\\Vibe_coding-Project\\autoAgentloop"}
+✔ the first turn gets the folder flag and no resume (1.4896ms)
+✔ going on in a session puts resume and the id first, and drops the flag that resume refuses (0.1594ms)
+✔ a word can still carry a placeholder, and the session can be asked for by name (0.1497ms)
+✔ the session an agent says it is in comes back from its output (0.3374ms)
+✔ a print mode that answers in JSON lines gives its message, not the wrapper (0.1959ms)
+✔ a turn that fails says why, and keeps the session it named (0.195ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 55.2972
+
+AUDIT_EXIT=0

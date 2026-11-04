@@ -1,0 +1,105 @@
+﻿--- 适配器
+if=15 alias=VMware Network Adapter VMnet1 ipv4=192.168.177.1 gw=
+if=19 alias=VMware Network Adapter VMnet8 ipv4=192.168.79.1 gw=
+if=20 alias=以太网 ipv4=172.16.184.69 gw=172.16.184.1
+if=53 alias=vEthernet (WSL) ipv4=172.30.48.1 gw=
+if=14 alias=Mihomo ipv4=198.18.0.1 gw=198.18.0.2
+if=22 alias=WLAN ipv4=169.254.43.216 gw=172.18.160.1
+if=17 alias=蓝牙网络连接 ipv4=169.254.54.94 gw=
+--- 默认路由
+gw=198.18.0.2 if=Mihomo metric=0
+gw=172.18.160.1 if=WLAN metric=0
+gw=172.16.184.1 if=以太网 metric=0
+--- DNS
+Mihomo: 198.18.0.2
+以太网: 223.5.5.5,119.29.29.29
+WLAN: 114.114.114.114,8.8.8.8
+--- 私网/VPN/隧道组件（进程）
+
+ProcessName            Id
+-----------            --
+clash-verge         56900
+clash-verge-service  6120
+cpolar               6360
+cpolar               6620
+GameViewer          15696
+GameViewerHealthd    7500
+GameViewerServer     7456
+GameViewerService    5688
+verge-mihomo        56176
+
+
+
+--- 服务
+
+Name             Status StartType
+----             ------ ---------
+cpolar          Running Automatic
+SunloginService Stopped    Manual
+
+
+
+--- 已安装远程/隧道软件
+
+DisplayName DisplayVersion
+----------- --------------
+cpolar      3.3.18        
+向日葵远程控制     16.5.0.30905  
+Ngrok       3.3.1         
+
+
+
+--- 监听端口（非 loopback）
+
+LocalAddress  LocalPort OwningProcess
+------------  --------- -------------
+::                  135          1448
+0.0.0.0             135          1448
+198.18.0.1          139             4
+192.168.177.1       139             4
+172.30.48.1         139             4
+192.168.79.1        139             4
+172.16.184.69       139             4
+::                  445             4
+0.0.0.0             902          5828
+0.0.0.0             912          5828
+0.0.0.0            1115           392
+::                 1115           392
+172.16.184.69      3597         15696
+0.0.0.0            5040         10796
+::                 5357             4
+::                 7680         20932
+::                 7897         56176
+::                 8350         32684
+198.18.0.1         8906         15696
+172.16.184.69      8910         15696
+::                 9200          6620
+172.16.184.69     10793         15696
+172.16.184.69     11006         15696
+0.0.0.0           11738         15696
+::                49217          5312
+0.0.0.0           49217          5312
+::                49664           632
+0.0.0.0           49664           632
+0.0.0.0           49665           956
+::                49665           956
+0.0.0.0           49666          1144
+::                49666          1144
+::                49667           628
+0.0.0.0           49667           628
+
+
+
+--- 出网
+egress_ip=38.125.1.59 city=New York City org=AS174 Cogent Communications, LLC
+--- 防火墙配置文件
+
+Name    Enabled DefaultInboundAction DefaultOutboundAction
+----    ------- -------------------- ---------------------
+Domain    False        NotConfigured         NotConfigured
+Private   False        NotConfigured         NotConfigured
+Public     True        NotConfigured         NotConfigured
+
+
+
+

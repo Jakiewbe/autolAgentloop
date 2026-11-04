@@ -1,0 +1,10 @@
+✔ it prints package.json's version and this checkout's commit, with nothing installed (360.4067ms)
+✔ a commit reads the same whether its ref is a file or packed away, and a deployment's word counts (709.5821ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1237.137

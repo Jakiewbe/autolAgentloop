@@ -1,0 +1,5 @@
+tag=codex166_cancel_sigterm
+started=20261104T175103+0800
+exit_code=124
+jsonl=D:/Vibe_coding-Project/autoAgentloop/evidence/raw/adapters/20261104T175103+0800_codex166_cancel_sigterm.jsonl
+stderr=D:/Vibe_coding-Project/autoAgentloop/evidence/raw/adapters/20261104T175103+0800_codex166_cancel_sigterm.stderr.txt

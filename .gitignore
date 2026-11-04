@@ -1,0 +1,11 @@
+# 依赖与构建产物
+node_modules/
+app/node_modules/
+
+# 本地临时/半成品（保留在磁盘，不随仓库分发）
+app/.git-push-holdout/
+*.pfx
+*.p12
+
+# 验收用的 app 副本（内嵌 .git，与 app/ 同源，不重复入库）
+evidence/raw/app/verify-copy/

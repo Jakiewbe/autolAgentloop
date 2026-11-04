@@ -1,0 +1,23 @@
+{"argv": ["node", "--test", "--test-isolation=none", "tools/anchor_bridge/bridge.test.mjs"], "cwd": "D:\\Vibe_coding-Project\\autoAgentloop"}
+✔ a task that is approved, unblocked and declared is claimable (0.8377ms)
+✔ a draft task is not claimable (0.2024ms)
+✔ a task whose dependency is not done waits (0.1425ms)
+✔ a task whose delivery files are not declared waits (0.1044ms)
+✔ a task whose scope changed after approval waits for a new approval (0.1204ms)
+✔ a task already being worked on is not handed out twice (0.106ms)
+✔ a non-ASCII project name still yields an address the center accepts (0.3446ms)
+✔ a blocked task says it is blocked, not that it waits on a dependency (0.1561ms)
+✔ a dependency that is done but whose verification went stale does not unlock the next task (0.1872ms)
+✔ a dependency that is done and still passes its checks unlocks the next task (0.1847ms)
+✔ a dependency the ledger does not know is not met (0.283ms)
+✔ the installed skill's runtime.json is where the governance program is found (5.2241ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 12
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 24.9193
+
+AUDIT_EXIT=0

@@ -1,0 +1,42 @@
+{
+  "sources": {
+    "local": {
+      "name": "本机"
+    }
+  },
+  "agents": {
+    "agent": {
+      "name": "Agent",
+      "worker": "desktop-lm7rki1",
+      "use": "command",
+      "command": [
+        "C:\\Users\\chs\\AppData\\Local\\OpenAI\\Codex\\bin\\22cfb1d302613eae\\codex.exe",
+        "exec",
+        "--skip-git-repo-check",
+        "-C",
+        "{cwd}",
+        "{prompt}"
+      ]
+    }
+  },
+  "channels": {
+    "desktop": {
+      "name": "桌面通知"
+    }
+  },
+  "rules": [
+    {
+      "name": "试一下",
+      "when": {
+        "source": "local",
+        "types": [
+          "try.*"
+        ]
+      },
+      "to": "agent",
+      "cwd": "C:\\Users\\chs\\.agent-autoloop\\try",
+      "prompt": "这是 agent-autoloop try 的试跑，不要改任何文件，不要做别的事。读资料文件。如果 answers 是空的，就问一个问题：title 写“试跑：选一个颜色”，text 写“这是一次试跑，选哪个都行。”，options 写 [\"蓝色\",\"绿色\"]，key 写 try-color，第一行结论写“问了一个问题”。如果 answers 不是空的，第一行结论写“你选了某某，试跑通过”，把某某换成 answers 里选的那一项，不附回执。"
+    }
+  ],
+  "elsewhere": []
+}

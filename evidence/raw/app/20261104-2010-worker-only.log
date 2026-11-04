@@ -1,0 +1,337 @@
+✖ a job runs in its rule's folder with the prompt and context file, and without the hub's secrets (526.5117ms)
+✖ a bad exit code, or no last message, is a failure saying why (833.7529ms)
+✖ a last message saying it couldn't, or that there was nothing to do, is what it says (701.0497ms)
+✔ a result waits for the hub and goes once; one it refuses is dropped, and said so (840.7535ms)
+✖ a run still going after the worker restarts stays, and its result still comes (336.92ms)
+✖ an exit file written during the process check still delivers the finished result (8.691ms)
+✔ the wrapper keeps its identity until the exit file is published (468.6802ms)
+✖ a job the worker stopped before launching is launched when it comes back (453.8176ms)
+✔ a missing folder or an agent with no adapter comes back failed without launching anything (94.0424ms)
+✖ a run told to stop stops, with its children, and only then is it reported (347.1218ms)
+✖ cancellation waits for a child ignoring SIGTERM, including after worker restart (788.8782ms)
+✔ a run over its time is stopped and comes back failed (566.1774ms)
+✖ no more than capacity at once; a claim stays until its job has arrived (629.0663ms)
+✖ a receipt that can't be read is asked for again in the same session, doing nothing again (336.128ms)
+✖ a exit receipt repair keeps the original completed business result (15030.5805ms)
+✖ a timeout receipt repair keeps the original completed business result (15025.4588ms)
+✖ a unreadable receipt repair keeps the original completed business result (15003.9045ms)
+✖ a empty receipt repair keeps the original completed business result (15009.6095ms)
+✖ a failed-message receipt repair keeps the original completed business result (15015.4652ms)
+✖ a receipt that stays unreadable is given up on: the run ends on its first line, and the owner hears (450.0686ms)
+✔ a session that can't be gone on in stops and says so, without starting a new one (828.4886ms)
+✖ the session is told to the hub while it runs, with its link (15013.7249ms)
+✖ a turn that is over but doesn't exit is ended after a while, and its answer counts (15052.9489ms)
+✖ the hub gone for ten minutes is told once, tried a few times if telling fails, and told again after it came back and went again (16.149ms)
+ℹ tests 24
+ℹ suites 0
+ℹ pass 5
+ℹ fail 19
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 113507.1545
+
+✖ failing tests:
+
+test at tests\worker.test.ts:154:1
+✖ a job runs in its rule's folder with the prompt and context file, and without the hub's secrets (526.5117ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-worker-1pEYK4\project\out.txt'
+      at readFileSync (node:fs:440:20)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:161:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-worker-1pEYK4\\project\\out.txt'
+  }
+
+test at tests\worker.test.ts:172:1
+✖ a bad exit code, or no last message, is a failure saying why (833.7529ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /退出码 3：boom/. Input:
+  
+  '退出码 127：Error: spawn /bin/sh ENOENT'
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:180:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '退出码 127：Error: spawn /bin/sh ENOENT',
+    expected: /退出码 3：boom/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:184:1
+✖ a last message saying it couldn't, or that there was nothing to do, is what it says (701.0497ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'failed',
+  +   '退出码 127：Error: spawn /bin/sh ENOENT'
+  -   '连不上数据库'
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:191:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [Array],
+    expected: [Array],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:213:1
+✖ a run still going after the worker restarts stays, and its result still comes (336.92ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - '慢慢做完了'
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:225:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '慢慢做完了',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:228:1
+✖ an exit file written during the process check still delivers the finished result (8.691ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - '在进程检查时做完了'
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:259:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '在进程检查时做完了',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:282:1
+✖ a job the worker stopped before launching is launched when it comes back (453.8176ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== '好了'
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:306:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '好了',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:318:1
+✖ a run told to stop stops, with its children, and only then is it reported (347.1218ms)
+  AssertionError [ERR_ASSERTION]: told to stop isn't stopped
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:329:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:339:1
+✖ cancellation waits for a child ignoring SIGTERM, including after worker restart (788.8782ms)
+  AssertionError [ERR_ASSERTION]: the wrapper exited, but its child has not
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:358:12)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:394:1
+✖ no more than capacity at once; a claim stays until its job has arrived (629.0663ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:408:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:426:1
+✖ a receipt that can't be read is asked for again in the same session, doing nothing again (336.128ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-worker-1pEYK4\project\work.txt'
+      at readFileSync (node:fs:440:20)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:438:16)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-worker-1pEYK4\\project\\work.txt'
+  }
+
+test at tests\worker.test.ts:446:3
+✖ a exit receipt repair keeps the original completed business result (15030.5805ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:472:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:446:3
+✖ a timeout receipt repair keeps the original completed business result (15025.4588ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:472:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:446:3
+✖ a unreadable receipt repair keeps the original completed business result (15003.9045ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:472:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:446:3
+✖ a empty receipt repair keeps the original completed business result (15009.6095ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:472:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:446:3
+✖ a failed-message receipt repair keeps the original completed business result (15015.4652ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:472:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:492:1
+✖ a receipt that stays unreadable is given up on: the run ends on its first line, and the owner hears (450.0686ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-worker-1pEYK4\project\tries.txt'
+      at readFileSync (node:fs:440:20)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:499:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-worker-1pEYK4\\project\\tries.txt'
+  }
+
+test at tests\worker.test.ts:539:1
+✖ the session is told to the hub while it runs, with its link (15013.7249ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:544:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:549:1
+✖ a turn that is over but doesn't exit is ended after a while, and its answer counts (15052.9489ms)
+  AssertionError [ERR_ASSERTION]: timed out waiting
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:131:34)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:555:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'fail',
+    diff: 'simple'
+  }
+
+test at tests\worker.test.ts:567:1
+✖ the hub gone for ten minutes is told once, tried a few times if telling fails, and told again after it came back and went again (16.149ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-worker-1pEYK4\project\told.txt'
+      at readFileSync (node:fs:440:20)
+      at lines (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:580:23)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker.test.ts:581:16)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-worker-1pEYK4\\project\\told.txt'
+  }

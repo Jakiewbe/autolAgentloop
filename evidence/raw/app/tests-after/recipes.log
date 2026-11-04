@@ -1,0 +1,50 @@
+✔ morning-brief: agent-autoloop check passes its rules (276.0273ms)
+✔ morning-brief: every Skill a rule names is here, and the README says where it goes (1.1183ms)
+✔ morning-brief: the README states the access level the rules actually give (0.4262ms)
+✔ github-issues: agent-autoloop check passes its rules (285.4735ms)
+✔ github-issues: every Skill a rule names is here, and the README says where it goes (1.041ms)
+✔ github-issues: the README states the access level the rules actually give (0.313ms)
+✔ ops-alerts: agent-autoloop check passes its rules (315.3738ms)
+✔ ops-alerts: every Skill a rule names is here, and the README says where it goes (1.0461ms)
+✔ ops-alerts: the README states the access level the rules actually give (0.3834ms)
+✔ feedback: agent-autoloop check passes its rules (325.8624ms)
+✔ feedback: every Skill a rule names is here, and the README says where it goes (1.1548ms)
+✔ feedback: the README states the access level the rules actually give (0.3037ms)
+✔ website-watch: agent-autoloop check passes its rules (332.9695ms)
+✔ website-watch: every Skill a rule names is here, and the README says where it goes (0.9167ms)
+✔ website-watch: the README states the access level the rules actually give (0.3078ms)
+✔ feishu-brief: agent-autoloop check passes its rules (314.1343ms)
+✔ feishu-brief: every Skill a rule names is here, and the README says where it goes (1.2599ms)
+✔ feishu-brief: the README states the access level the rules actually give (0.3951ms)
+✔ browser-handoff: agent-autoloop check passes its rules (319.072ms)
+✔ browser-handoff: every Skill a rule names is here, and the README says where it goes (0.994ms)
+✔ browser-handoff: the README states the access level the rules actually give (0.9445ms)
+✔ agent-autoloop check refuses a recipe that was changed for the worse (288.1799ms)
+✖ ops-alerts: the curl in the README reaches the rule, and that key can't set off the restart (864.5486ms)
+✔ github-issues: what the watcher prints goes through the worker whole, and the rules let it in (155.9087ms)
+✔ github-issues: the watcher's search is optional, and the rules use it to leave old issues alone (305.4073ms)
+ℹ tests 25
+ℹ suites 0
+ℹ pass 24
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 3988.5146
+
+✖ failing tests:
+
+test at tests\recipes.test.ts:94:1
+✖ ops-alerts: the curl in the README reaches the rule, and that key can't set off the restart (864.5486ms)
+  AssertionError [ERR_ASSERTION]: README 里要有一条 curl
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/recipes.test.ts:114:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,9 @@
+tag=codex_model_gpt-5.3-codex
+started=2026-11-04T17:40:22+0800
+exit_code=1
+elapsed_s=21
+model_arg=gpt-5.3-codex
+workdir=evidence/raw/adapters/work/codex-min
+jsonl=evidence/raw/adapters/20261104T174022+0800_codex_model_gpt-5.3-codex.jsonl
+stderr=evidence/raw/adapters/20261104T174022+0800_codex_model_gpt-5.3-codex.stderr.txt
+last_message=evidence/raw/adapters/20261104T174022+0800_codex_model_gpt-5.3-codex.last.txt

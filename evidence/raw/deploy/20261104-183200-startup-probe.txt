@@ -1,0 +1,8 @@
+startup dir: C:\Users\chs\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+exists: true
+before: desktop.ini | MDI Jade 6.lnk
+mkdir ok
+write ok: probe-a.cmd
+unlink ok: probe-a.cmd
+write ok: probe-b.txt
+unlink ok: probe-b.txt

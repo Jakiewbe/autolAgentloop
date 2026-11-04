@@ -1,0 +1,13 @@
+✔ only a subject for the configured repository chooses a PR (0.9236ms)
+✔ ask-owner becomes one bounded question and drops code blocks and local paths (0.4145ms)
+✔ polling uses the label event and head as a stable event id (0.631ms)
+✔ an owner question with no readable body still contains the issue link (0.1403ms)
+✔ attended findings stay in the receipt without creating a second notice (0.2278ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 139.7931

@@ -1,0 +1,238 @@
+
+> agent-autoloop@1.0.0 test:quick
+> node --disable-warning=ExperimentalWarning --test $(ls tests/*.test.ts | grep -v /simulation.test.ts)
+
+=== rules
+✔ the fixture loads, with defaults filled in (1.8594ms)
+✔ a mistake says which rule and what is wrong (18.2569ms)
+✔ types match exactly, by prefix or all (0.1728ms)
+✔ a null rule is a rules error and leaves the running configuration intact (1.7045ms)
+✔ the lookups the hub uses (0.8901ms)
+✔ a good file changing on disk takes effect; a bad one leaves the old rules and says why (4.8124ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 321.469
+exit=0 for rules
+=== windows-runtime
+✔ windows: a turn runs in the rule's folder and keeps its output, exit code and result (645.0464ms)
+✔ windows: stopping a turn ends the tree it started (805.9488ms)
+✔ windows: a turn over its time is stopped and the run says why (1003.8063ms)
+✔ windows: a restarted worker keeps the turn it finds, and doesn't start it again (2954.0545ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5570.8759
+exit=0 for windows-runtime
+=== contract
+✔ the prompt says what to do and how to end, but not what anyone wrote (0.984ms)
+✔ the prompt mentions what this run is carrying on, and what it may emit (0.7343ms)
+✔ a block needing the owner is handed off without restarting completed work (1.1434ms)
+✔ the first line says how it ended (0.3349ms)
+✔ the receipt is the last code block of its kind, wherever it sits (0.2169ms)
+✔ a receipt that can't be read says why, and keeps how the run ended (0.1564ms)
+✔ a result is put together and checked as the hub will check it (0.3104ms)
+✔ asking for a rewrite says not to redo anything (0.1189ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 143.4916
+exit=0 for contract
+=== conformance
+{"checks":120,"passed":true}
+✔ address-based conformance checks all protocol doors (297.8898ms)
+✔ conformance rejects an implementation that opens the wrong door (53.5606ms)
+✔ the same isolated hub can be checked twice (516.494ms)
+✔ conformance checks another actual run rather than a missing id (249.8015ms)
+✔ conformance rejects empty in the fact stream (220.9766ms)
+✔ conformance rejects keys in the fact stream (269.2492ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1955.4749
+exit=0 for conformance
+=== check
+=== install
+✖ installation keeps data private even when its root already exists with mode 0755 (2.291ms)
+✖ the command goes in ~/.local/bin when that's on PATH, even behind another place it could go (0.8248ms)
+﹣ the same goes for dash, which is what sh is on Ubuntu (0.1278ms) # SKIP
+✖ with ~/.local/bin not on PATH it goes in the first place that is, and leaves ~/.local/bin alone (0.9906ms)
+✖ someone's own agent-autoloop stays as it was, and the next step doesn't send them to it (0.9992ms)
+✖ with nowhere on PATH to put it, the next step gives the full path and no link is left anywhere (0.9152ms)
+✖ the next step is try alone when a service has been started (0.8179ms)
+✖ with Node too old it says what to run, and those lines work as written (0.8294ms)
+✖ with Node missing it says what to run, and those lines work as written (1.1369ms)
+✖ running it again updates and doesn't set anything up over what's there (1.0015ms)
+ℹ tests 10
+ℹ suites 0
+ℹ pass 0
+ℹ fail 9
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 234.2026
+
+✖ failing tests:
+
+test at tests\install.test.ts:88:1
+✖ installation keeps data private even when its root already exists with mode 0755 (2.291ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:89:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:97:1
+✖ the command goes in ~/.local/bin when that's on PATH, even behind another place it could go (0.8248ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:98:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:116:1
+✖ with ~/.local/bin not on PATH it goes in the first place that is, and leaves ~/.local/bin alone (0.9906ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:117:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:129:1
+✖ someone's own agent-autoloop stays as it was, and the next step doesn't send them to it (0.9992ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:130:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:148:1
+✖ with nowhere on PATH to put it, the next step gives the full path and no link is left anywhere (0.9152ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:152:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:162:1
+✖ the next step is try alone when a service has been started (0.8179ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:163:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:174:3
+✖ with Node too old it says what to run, and those lines work as written (0.8294ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:175:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:174:3
+✖ with Node missing it says what to run, and those lines work as written (1.1369ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:175:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+
+test at tests\install.test.ts:195:1
+✖ running it again updates and doesn't set anything up over what's there (1.0015ms)
+  TypeError [ERR_INVALID_ARG_TYPE]: The "target" argument must be of type string or an instance of Buffer or URL. Received undefined
+      at symlinkSync (node:fs:1876:12)
+      at computer (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:54:61)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/install.test.ts:196:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    code: 'ERR_INVALID_ARG_TYPE'
+  }
+exit=1 for install
+=== service
+✔ a systemd service keeps its existing structure and zero-argument use (0.8309ms)
+✔ systemd receives spaces and special path characters literally (0.1749ms)
+✔ systemd service values reject control characters (0.4142ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 146.6356
+exit=0 for service

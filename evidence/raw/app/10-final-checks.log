@@ -1,0 +1,33 @@
+== typecheck 2026-11-04T18:00:43+08:00 ==
+tsc exit=0
+== format (default endOfLine) 2026-11-04T18:00:44+08:00 ==
+prettier default exit=1 files_warned=153
+== format (crlf checkout) 2026-11-04T18:00:46+08:00 ==
+Checking formatting...
+All matched files use Prettier code style!
+prettier crlf exit=0
+== windows runtime tests 2026-11-04T18:00:48+08:00 ==
+windows-runtime exit=0 ℹ pass 4 ℹ fail 0 
+== residual processes 2026-11-04T18:00:54+08:00 ==
+node.exe lines: 0
+residual listed above (expect none)
+== startup folder 2026-11-04T18:00:56+08:00 ==
+MDI Jade 6.lnk
+desktop.ini
+== diff stat 2026-11-04T18:00:56+08:00 ==
+ cli/main.ts      | 19 +++++++++++----
+ host/service.ts  | 73 ++++++++++++++++++++++++++++++++++++++++++++++++--------
+ tests/helpers.ts |  2 ++
+ worker/agents.ts | 25 +++----------------
+ worker/worker.ts | 72 +++++++++++++------------------------------------------
+ 5 files changed, 100 insertions(+), 91 deletions(-)
+ M cli/main.ts
+ M host/service.ts
+ M tests/helpers.ts
+ M worker/agents.ts
+ M worker/worker.ts
+?? bin/agent-autoloop.cmd
+?? host/platform.ts
+?? pnpm-lock.yaml
+?? tests/windows-runtime.test.ts
+?? worker/runner.ts

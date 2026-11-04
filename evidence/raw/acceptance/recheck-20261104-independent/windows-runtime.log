@@ -1,0 +1,47 @@
+{"argv": ["node", "--disable-warning=ExperimentalWarning", "--test", "--test-isolation=none", "--test-force-exit", "app/tests/windows-runtime.test.ts"], "cwd": "D:\\Vibe_coding-Project\\autoAgentloop"}
+✔ windows: a turn runs in the rule's folder and keeps its output, exit code and result (388.8932ms)
+✖ windows: stopping a turn ends the tree it started (30358.4981ms)
+✖ windows: a turn over its time is stopped and the run says why (30337.8571ms)
+✔ windows: a restarted worker keeps the turn it finds, and doesn't start it again (2858.2371ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 2
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 64016.6874
+
+✖ failing tests:
+
+test at app\tests\windows-runtime.test.ts:130:1
+✖ windows: stopping a turn ends the tree it started (30358.4981ms)
+  AssertionError [ERR_ASSERTION]: 等了 30 秒还没好
+      at until (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:31:12)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:159:3)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at app\tests\windows-runtime.test.ts:164:1
+✖ windows: a turn over its time is stopped and the run says why (30337.8571ms)
+  AssertionError [ERR_ASSERTION]: 30 秒内没收住这一轮
+      at drive (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:40:12)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:184:5)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+AUDIT_EXIT=1

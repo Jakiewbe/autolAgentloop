@@ -1,0 +1,235 @@
+{
+  "captured_at": "2026-11-04T19:56:53.793159+08:00",
+  "files": [
+    {
+      "path": "evidence/manifest.json",
+      "bytes": 5791,
+      "sha256": "01e41a09d57569a057769ac9000f1ef6d5d99e4c3f5154ce5635f65da4eacf41",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/acceptance-codex.md",
+      "bytes": 7970,
+      "sha256": "bb90c205b8f60c1ee257ca70de17a85211b110cecfee0f366b00b27551a94e88",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/source-baseline.json",
+      "bytes": 8813,
+      "sha256": "9152ce7eaedd1b1ca166cc1fc814eec4562d3df5085bcf3e7453637d6fd4f3cc",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/scheduling.md",
+      "bytes": 7576,
+      "sha256": "b9e652714c264c194ab0a2037c390c6325da035e14b81db1c0687d9e350ea650",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/adapters.md",
+      "bytes": 25877,
+      "sha256": "bdaf50ad3afef69dcca08d8c234433cd7c416e1673829d8bc66e6620587133f5",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/rollback.md",
+      "bytes": 5183,
+      "sha256": "b51e7c8bb1b7158dcd872ded5ed3ce4ffe84e2970234470f00d74fd1b7f5073e",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/design.md",
+      "bytes": 10735,
+      "sha256": "bad860db0779c6c46ed81e3220e793272916a8ab65677fb01302722c79c2cd27",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/windows-runtime.md",
+      "bytes": 24724,
+      "sha256": "5b7993ee2fdb0d6cf8d3368999245d83050eb67b56918da5461f1ceacb3bc123",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "evidence/deployment/A.md",
+      "bytes": 8647,
+      "sha256": "b2b8612bdc62a079ed3889d7bb2594eae2a9c1f523a108aa8136b009efd3690a",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "tools/anchor_bridge/bridge.mjs",
+      "bytes": 10429,
+      "sha256": "f32bbcbbdd186a8125716f38ea99621499b1c1120bf1fb220798e4a2de77061b",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "tools/anchor_bridge/bridge.test.mjs",
+      "bytes": 3824,
+      "sha256": "3075ee1933f9bef09ca43178da0528846314207560525b43f7a1085851421af2",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "DSH_DEPLOYMENT_TASKBOOK.md",
+      "bytes": 26371,
+      "sha256": "9e0430f77f489a8924ef6a30cd3b2721e7ea7dcfd390deea1fa4bfd4c389c40f",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "app/tests/command-adapter.test.ts",
+      "bytes": 3182,
+      "sha256": "811179654a0f66767431365513e0f4258967c70eb8edb2cfee4efee553d2257b",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "app/kernel/decide.ts",
+      "bytes": 30045,
+      "sha256": "d656ee8c7f6713d53f2eb59913fdf0753b071cf09281109146bdd43932815c3b",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "app/worker/worker.ts",
+      "bytes": 17589,
+      "sha256": "d911097b297ff24dc8f16ab393cc2eb33a070af2288de6c1c1a2a45f927abe30",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "app/plugins/command/agent.ts",
+      "bytes": 3664,
+      "sha256": "36fac6b56da6a00625c996c32305f145e1b0cc053b53c6c7531a522514dc1fc2",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "app/tests/kernel.test.ts",
+      "bytes": 13658,
+      "sha256": "bb81cb715f9f7a5ef17da9d8d3d9f9f862eedb5a07b02d24bef2d131fb68dfb3",
+      "unchanged_while_copying": true
+    },
+    {
+      "path": "app/tests/worker.test.ts",
+      "bytes": 25410,
+      "sha256": "a067d7dd75a8b6703091f35fd21b32e537b3e664704fa6c8d09e4cada134c442",
+      "unchanged_while_copying": true
+    }
+  ],
+  "manifest_checks": [
+    {
+      "path": "evidence/raw/app/windows-changes.patch",
+      "expected_bytes": 67593,
+      "actual_bytes": 67593,
+      "expected_sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+      "actual_sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+      "pass": true
+    },
+    {
+      "path": "evidence/preflight/A.md",
+      "expected_bytes": 21625,
+      "actual_bytes": 21625,
+      "expected_sha256": "43e492e81dfc8441518547a3b8a6ac8ce67d6b77c119cfcc15838c07d06c8c69",
+      "actual_sha256": "43e492e81dfc8441518547a3b8a6ac8ce67d6b77c119cfcc15838c07d06c8c69",
+      "pass": true
+    },
+    {
+      "path": "evidence/preflight/B_bootstrap.md",
+      "expected_bytes": 5844,
+      "actual_bytes": 5844,
+      "expected_sha256": "4bec485e00335b2476b6532bc17aa77c177b3dc1d933a203669dfd82e5034124",
+      "actual_sha256": "4bec485e00335b2476b6532bc17aa77c177b3dc1d933a203669dfd82e5034124",
+      "pass": true
+    },
+    {
+      "path": "evidence/network.md",
+      "expected_bytes": 7854,
+      "actual_bytes": 7854,
+      "expected_sha256": "2372f69ad6d775728589c7eea0de9893176b8f7be5e326e529dcf78dcae560a6",
+      "actual_sha256": "2372f69ad6d775728589c7eea0de9893176b8f7be5e326e529dcf78dcae560a6",
+      "pass": true
+    },
+    {
+      "path": "evidence/windows-runtime.md",
+      "expected_bytes": 24548,
+      "actual_bytes": 24724,
+      "expected_sha256": "dfe68c4ce99e965e4fb37b91401796c8d0e8b5e6529cf73cda09f422e23fe66b",
+      "actual_sha256": "5b7993ee2fdb0d6cf8d3368999245d83050eb67b56918da5461f1ceacb3bc123",
+      "pass": false
+    },
+    {
+      "path": "evidence/adapters.md",
+      "expected_bytes": 25877,
+      "actual_bytes": 25877,
+      "expected_sha256": "bdaf50ad3afef69dcca08d8c234433cd7c416e1673829d8bc66e6620587133f5",
+      "actual_sha256": "bdaf50ad3afef69dcca08d8c234433cd7c416e1673829d8bc66e6620587133f5",
+      "pass": true
+    },
+    {
+      "path": "evidence/anchor-bridge.md",
+      "expected_bytes": 6144,
+      "actual_bytes": 6144,
+      "expected_sha256": "e648ad9bf30db5471a8ef4c289c3c3cb9b3665bb848a316564713cf42c51827c",
+      "actual_sha256": "e648ad9bf30db5471a8ef4c289c3c3cb9b3665bb848a316564713cf42c51827c",
+      "pass": true
+    },
+    {
+      "path": "evidence/deployment/A.md",
+      "expected_bytes": 8541,
+      "actual_bytes": 8647,
+      "expected_sha256": "731b0d5ceda1fc17547237c7b1ca3e79e7c7138a3d414657f836efaf4225b836",
+      "actual_sha256": "b2b8612bdc62a079ed3889d7bb2594eae2a9c1f523a108aa8136b009efd3690a",
+      "pass": false
+    },
+    {
+      "path": "evidence/rehearsal.md",
+      "expected_bytes": 5762,
+      "actual_bytes": 5762,
+      "expected_sha256": "b1063b2bea8843750302472f1a46d047f31fb592bf5c432ecc3dd6491febea20",
+      "actual_sha256": "b1063b2bea8843750302472f1a46d047f31fb592bf5c432ecc3dd6491febea20",
+      "pass": true
+    },
+    {
+      "path": "evidence/rollback.md",
+      "expected_bytes": 5096,
+      "actual_bytes": 5183,
+      "expected_sha256": "88d23ad3729ff24755d571ff4faaa646d177bf3774747cff8069cb2e30143b18",
+      "actual_sha256": "b51e7c8bb1b7158dcd872ded5ed3ce4ffe84e2970234470f00d74fd1b7f5073e",
+      "pass": false
+    },
+    {
+      "path": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz",
+      "expected_bytes": 321572,
+      "actual_bytes": 321572,
+      "expected_sha256": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+      "actual_sha256": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+      "pass": true
+    },
+    {
+      "path": "evidence/design.md",
+      "expected_bytes": 10709,
+      "actual_bytes": 10735,
+      "expected_sha256": "84813b2afe46affdc98e31d4540830ff39fa1265665c5a41c22ec1ba6a789daa",
+      "actual_sha256": "bad860db0779c6c46ed81e3220e793272916a8ab65677fb01302722c79c2cd27",
+      "pass": false
+    },
+    {
+      "path": "evidence/source-baseline.json",
+      "expected_bytes": 8813,
+      "actual_bytes": 8813,
+      "expected_sha256": "9152ce7eaedd1b1ca166cc1fc814eec4562d3df5085bcf3e7453637d6fd4f3cc",
+      "actual_sha256": "9152ce7eaedd1b1ca166cc1fc814eec4562d3df5085bcf3e7453637d6fd4f3cc",
+      "pass": true
+    },
+    {
+      "path": "evidence/scheduling.md",
+      "expected_bytes": 7503,
+      "actual_bytes": 7576,
+      "expected_sha256": "de077c7877152842009cda9887a158ceb01f89f0b707eb9137e51ab207441bd1",
+      "actual_sha256": "b9e652714c264c194ab0a2037c390c6325da035e14b81db1c0687d9e350ea650",
+      "pass": false
+    },
+    {
+      "path": "evidence/acceptance-codex.md",
+      "expected_bytes": 2599,
+      "actual_bytes": 7970,
+      "expected_sha256": "50cb7c4f4aad22d736b44ba47334b87208809d287391f15131987d90a08ce913",
+      "actual_sha256": "bb90c205b8f60c1ee257ca70de17a85211b110cecfee0f366b00b27551a94e88",
+      "pass": false
+    }
+  ]
+}

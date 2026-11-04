@@ -1,0 +1,31 @@
+{
+  "schema": 1,
+  "run_id": "9baf7a0e6f194abda9ae43717e6d209b",
+  "project_id": "4f13f187-5f5b-4523-9d50-dab2b97defc2",
+  "task_id": "T2",
+  "criterion": 2,
+  "kind": "review",
+  "scope_version": 1,
+  "scope_hash": "35d5f92800a4b03f7f7c46975ce6607e31342d787eb20493b62c1c4ca1328001",
+  "criteria_hash": "3400c47e7de5f64c56620a66b8cddff028b6143949bc8cb9374dd14f346529a0",
+  "expected_revision": 33,
+  "input_hash": "92d162b6eb27f519b6d8b9eaa4d80426e0439fa0a068b6ae35b104b109ff3c09",
+  "inputs": [
+    "evidence/preflight/A.md",
+    "evidence/raw/preflight/20261104-180700-codex166-resume2.txt",
+    "evidence/raw/preflight/20261104-180200-resume-probe.txt"
+  ],
+  "started_at": "2026-11-04T10:15:54.126669+00:00",
+  "reason": "T2 AC2 自查：两通道原始日志与续接",
+  "result": "pass",
+  "review": {
+    "criterion": 2,
+    "findings": "核对两条通道的原始日志：20261104-180200-resume-probe.txt 记录 resume --last 缺 --skip-git-repo-check 时 Not inside a trusted directory；20261104-180700-codex166-resume2.txt 记录 0.166.0-alpha.5.1 的 exec resume 复述上轮 PROBE-C166-R1 并输出 PROBE-C166-R2，证明是同一 thread 续接而非新建会话；OpenCode 侧 PROBE-OC-R1/R2 同理。差异归因到二进制版本，而不是账号或套餐——同一时刻同一配置下两个 exe 结果相反，这一点有 A/B 对照日志。",
+    "resolution": "两条初始通道各自的 executable、provider/model、接续方式与原始日志齐全，缺口（claude 不可用、headless 凭据）已列入 §12 而不是隐去。",
+    "simpler": "把「用哪个 exe、带哪些参数」固化进配置文件并写进部署清单，后续不再依赖 PATH 解析决定成败。",
+    "result": "pass"
+  },
+  "reviewer_kind": "self",
+  "summary": "两条初始通道各自的 executable、provider/model、接续方式与原始日志齐全，缺口（claude 不可用、headless 凭据）已列入 §12 而不是隐去。",
+  "finished_at": "2026-11-04T10:15:54.132668+00:00"
+}

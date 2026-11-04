@@ -1,0 +1,22 @@
+startup file  = D:\Vibe_coding-Project\autoAgentloop\evidence\raw\app\service-scratch\appdata\Microsoft\Windows\Start Menu\Programs\Startup\agent-autoloop-d2f4f32c.cmd
+in this user's startup folder = true
+missing before install = true | serviceRunning before = false
+created = true
+line endings CRLF = true
+sets this home  = true
+starts up      = true
+log folder ready = true
+restarts       = true
+logs           = true
+serviceRunning while no up process = false
+---- script ----
+@echo off
+rem Starts it at sign-in, and again after ten seconds if it stops. Delete this file to stop that.
+set "AGENT_AUTOLOOP_HOME=D:\Vibe_coding-Project\autoAgentloop\evidence\raw\app\service-scratch\home"
+:agent-autoloop
+"C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\Vibe_coding-Project\autoAgentloop\app\bin\agent-autoloop.ts" "up" >>"D:\Vibe_coding-Project\autoAgentloop\evidence\raw\app\service-scratch\home\logs\up.log" 2>&1
+timeout /t 10 /nobreak >nul
+goto agent-autoloop
+
+stranger kept = true
+removed after install = true

@@ -1,0 +1,30 @@
+== T5 baseline check 2026-11-04T18:06:23+08:00
+PASS baseline 文件存在
+PASS 记录了上游仓库地址
+PASS 记录了基线提交  [96b6c9c71671]
+PASS fork.created 字段存在
+PASS fork 状态与实际一致（本机无 gh/凭据，未创建）  [fork.created=False]
+PASS 许可信息存在
+PASS app/ 是 git 工作副本  [96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a]
+PASS app/ HEAD 等于记录的基线提交  [96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a]
+PASS app/ 处于 detached 状态（未擅自建分支）  [branch='']
+PASS 未创建额外 worktree  [1 条]
+PASS app/ 未产生新提交  [96b6c9c fix(service): quote systemd unit values (#38)]
+----
+FAILURES=0
+exit=0
+
+== T6 windows runtime check
+✔ windows: a turn runs in the rule's folder and keeps its output, exit code and result (732.5818ms)
+✔ windows: stopping a turn ends the tree it started (978.7543ms)
+✔ windows: a turn over its time is stopped and the run says why (1154.7776ms)
+✔ windows: a restarted worker keeps the turn it finds, and doesn't start it again (2912.8844ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5957.2629
+exit=0

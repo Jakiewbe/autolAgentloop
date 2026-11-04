@@ -1,0 +1,4 @@
+2026-11-04T10:50:36.540Z [worker] worker desktop-lm7rki1 started
+(node:54292) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+2026-11-04T10:50:36.560Z [hub] listening on 127.0.0.1:3350

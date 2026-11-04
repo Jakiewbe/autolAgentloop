@@ -1,0 +1,78 @@
+﻿which node = C:\Program Files\nodejs\node.exe
+which npm = C:\Program Files\nodejs\npm.ps1
+which pnpm = C:\Users\chs\AppData\Roaming\npm\pnpm.ps1
+which yarn = (absent)
+which git = C:\Program Files\Git\cmd\git.exe
+which python = C:\ProgramData\Miniconda3\python.exe
+which py = C:\WINDOWS\py.exe
+which pwsh = C:\Users\chs\AppData\Local\Microsoft\WindowsApps\Microsoft.PowerShell_8wekyb3d8bbwe\pwsh.exe
+which powershell = C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.exe
+which cmd = C:\WINDOWS\system32\cmd.exe
+which code = D:\Microsoft VS Code\bin\code.cmd
+which gh = (absent)
+which curl = (absent)
+which tar = C:\WINDOWS\system32\tar.exe
+which 7z = (absent)
+which rg = C:\Users\chs\bin\rg.exe
+--- versions
+node => v24.12.0
+npm => 11.12.1
+pnpm => 11.9.0
+git => git version 2.52.0.windows.1
+python => Python 3.7.1
+pwsh => pwsh.exe : ParserError: 
+At D:\Vibe_coding-Project\autoAgentloop\tools\b_preflight\collect_b.ps1:82 char:19
++       try { $v = (& $exe @($probe[1]) 2>&1 | Out-String).Trim(); $pro ...
++                   ~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (ParserError: :String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+Line |
+   1 |  System.Collections.Hashtable.PSVersion.ToString()
+     |                                                  ~
+     | “(” 后应为表达式。
+--- PATH entries
+path: C:\Users\chs\AppData\Local\Microsoft\WindowsApps\Microsoft.PowerShell_8wekyb3d8bbwe
+path: D:\vm\bin\
+path: C:\ProgramData\Miniconda3
+path: C:\ProgramData\Miniconda3\Library\mingw-w64\bin
+path: C:\ProgramData\Miniconda3\Library\usr\bin
+path: C:\ProgramData\Miniconda3\Library\bin
+path: C:\ProgramData\Miniconda3\Scripts
+path: C:\Program Files\PerkinElmerInformatics\ChemOffice2020\ChemScript\Lib
+path: C:\WINDOWS\system32
+path: C:\WINDOWS
+path: C:\WINDOWS\System32\Wbem
+path: C:\WINDOWS\System32\WindowsPowerShell\v1.0\
+path: C:\WINDOWS\System32\OpenSSH\
+path: C:\Program Files\Bandizip\
+path: C:\Program Files\dotnet\
+path: C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR
+path: C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+path: C:\Program Files\Docker\Docker\resources\bin
+path: C:\Program Files\Git\cmd
+path: C:\Program Files\nodejs\
+path: .\Plugins
+path: C:\Program Files\Gatan\Shared
+path: D:\Matlabs\runtime\win64
+path: D:\Matlabs\bin
+path: C:\Program Files\Go\bin
+path: C:\Program Files\WSL\
+path: C:\Users\chs\bin
+path: C:\Users\chs\AppData\Local\agy\bin
+path: C:\Users\chs\.cargo\bin
+path: C:\Users\chs\.local\bin
+path: C:\Users\chs\AppData\Local\Microsoft\WindowsApps
+path: C:\Users\chs\AppData\Local\Python\bin
+path: D:\Microsoft VS Code\bin
+path: C:\Users\chs\AppData\Roaming\npm
+path: D:\Antigravity\bin
+path: C:\Users\chs\AppData\Local\Microsoft\WinGet\Packages\Ngrok.Ngrok_Microsoft.Winget.Source_8wekyb3d8bbwe
+path: C:\Program Files\cpolar\
+path: C:\Users\chs\.bun\bin
+path: C:\Users\chs\go\bin
+path: C:\Users\chs\AppData\Local\Programs\cursor\resources\app\bin
+path: C:\Users\chs\AppData\Local\Microsoft\WinGet\Packages\BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe\ripgrep-15.2.0-x86_64-pc-windows-msvc
+--- PATHEXT
+.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+

@@ -1,0 +1,6 @@
+no authorization header            401 {"error":"要接单程序自己的密钥"}
+wrong bearer                       401 {"error":"要接单程序自己的密钥"}
+owner key used as worker           401 {"error":"要接单程序自己的密钥"}
+source key used as worker          401 {"error":"要接单程序自己的密钥"}
+worker's own key                   200 {"job":null,"cancel":[]}
+worker's own key, wrong worker name 200 {"job":null,"cancel":[]}

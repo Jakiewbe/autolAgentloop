@@ -1,0 +1,7 @@
+{
+  "criterion": 1,
+  "findings": "evidence/design.md 覆盖了 AC2 要求的四件事：A/B 两侧安装目录、运行时配置与数据目录（HOME 下的 config.json/rules.json/hub.db/master.key/worker/runs/logs，逐条给 app 内常量位置）、启动方式（前台 up、service install 生成的 Startup .cmd、init 首次安装）、B 部署包来源（tar.gz 318771 B sha256 2ba21c42…d940，或上游 clone 后打 windows-changes.patch）。evidence/source-baseline.json 给了上游 URL、基线提交 96b6c9c7…、MIT 许可证哈希、7 个修改文件的上游 blob 哈希与本机哈希两列、4 个新增文件哈希、补丁与包哈希。AC1 有一处真实偏差：fork 未创建（本机无 gh CLI、无可写凭据），已在 fork 段、design.md §1/§6 明写，替代方案是「上游提交 + 逐文件内容哈希 + 补丁哈希」两层归属。",
+  "resolution": "偏差没有掩盖：fork 缺失写在两份文件的显眼位置，而不是当成通过；可核对性由 tools/checks/check_source_baseline.py 机器验证（29 项，含上游 blob 与本地哈希交叉比对、改动集合比对、治理文件哈希），2026-11-04 19:15 实测 FAIL=0 exit=0，日志 evidence/raw/app/20261104-191500-source-baseline-check.txt。fork 是否可接受留给 T13 独立验收裁定，自查不代判。",
+  "simpler": "只加了一个 115 行的只读 Python 脚本和一个 JSON 基线，没有引入依赖、没有新目录约定、没有改 app/ 的协议；哈希集合直接复用 git 自身的对象内容（git show <commit>:<path>），不另建清单格式。",
+  "result": "pass"
+}

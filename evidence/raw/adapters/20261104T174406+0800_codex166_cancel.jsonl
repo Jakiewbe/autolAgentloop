@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a1a5f1-c25f-7d91-943f-20c7461517a8"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"我会原样执行命令，等它结束后报告标准输出。"}}
+{"type":"item.started","item":{"id":"item_1","type":"command_execution","command":"\"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\pwsh.exe\" -Command \"node -e \\\"setTimeout(()=>console.log('DONE'),150000)\\\"\"","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_1","type":"command_execution","command":"\"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\pwsh.exe\" -Command \"node -e \\\"setTimeout(()=>console.log('DONE'),150000)\\\"\"","aggregated_output":"","exit_code":1,"status":"failed"}}
+{"type":"item.completed","item":{"id":"item_2","type":"agent_message","text":"标准输出为空。命令已结束，退出码为 1。"}}
+{"type":"turn.completed","usage":{"input_tokens":87387,"cached_input_tokens":71424,"cache_write_input_tokens":0,"output_tokens":200,"reasoning_output_tokens":65}}

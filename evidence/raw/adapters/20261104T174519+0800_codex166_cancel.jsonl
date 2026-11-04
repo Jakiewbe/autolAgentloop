@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a1a5f2-ddb1-7bd0-b4d1-eedc3c46f6a7"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"我会执行这条命令，等它结束后报告。"}}
+{"type":"item.started","item":{"id":"item_1","type":"command_execution","command":"\"C:\\\\Users\\\\chs\\\\AppData\\\\Local\\\\Microsoft\\\\WindowsApps\\\\pwsh.exe\" -Command 'Start-Sleep -Seconds 150'","aggregated_output":"","exit_code":null,"status":"in_progress"}}
+{"type":"item.completed","item":{"id":"item_2","type":"agent_message","text":"命令仍在运行，我会继续等待。"}}

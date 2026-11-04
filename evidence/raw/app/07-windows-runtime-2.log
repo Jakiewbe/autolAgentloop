@@ -1,0 +1,80 @@
+✖ windows: a turn runs in the rule's folder and keeps its output, exit code and result (790.2365ms)
+✔ windows: stopping a turn ends the tree it started (1172.3055ms)
+✖ windows: a turn over its time is stopped and the run says why (197.4586ms)
+✖ windows: a restarted worker keeps the turn it finds, and doesn't start it again (1940.5314ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (2.669ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 1
+ℹ fail 4
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 4289.0025
+
+✖ failing tests:
+
+test at tests\windows-runtime.test.ts:77:1
+✖ windows: a turn runs in the rule's folder and keeps its output, exit code and result (790.2365ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'done' !== 'ok'
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:92:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'done',
+    expected: 'ok',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\windows-runtime.test.ts:137:1
+✖ windows: a turn over its time is stopped and the run says why (197.4586ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-windows-runtime-YgOKBS\slow-starts.log'
+      at readFileSync (node:fs:440:20)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:152:16)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-windows-runtime-YgOKBS\\slow-starts.log'
+  }
+
+test at tests\windows-runtime.test.ts:161:1
+✖ windows: a restarted worker keeps the turn it finds, and doesn't start it again (1940.5314ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  'failed' !== 'ok'
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/windows-runtime.test.ts:178:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 'failed',
+    expected: 'ok',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\helpers.ts:13:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (2.669ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-windows-runtime-YgOKBS '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-windows-runtime-YgOKBS'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:13:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-windows-runtime-YgOKBS',
+    syscall: 'rm'
+  }

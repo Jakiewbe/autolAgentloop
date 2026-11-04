@@ -1,0 +1,12 @@
+✔ today is the rules' day; each figure says how many rounds didn't report it (7.1653ms)
+✔ nothing reported is said to be nothing reported, not zero; nothing run is zero rounds (0.5489ms)
+✔ only rounds that ended count: not one still going, one waiting to try again, or one stopped before it started (0.4028ms)
+✔ status includes runs beyond the first page, including old runs that finish today (2175.6832ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2364.6513

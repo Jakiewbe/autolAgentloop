@@ -1,0 +1,11 @@
+{
+  "program": "C:\\WINDOWS\\system32\\cmd.exe",
+  "args": [
+    "/d",
+    "/s",
+    "/c",
+    "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds\\hello.cmd"
+  ],
+  "shell": false,
+  "cwd": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds"
+}

@@ -1,0 +1,347 @@
+{
+  "project": "D:\\Vibe_coding-Project\\autoAgentloop",
+  "name": "autoAgentloop",
+  "revision": 41,
+  "goal_version": 1,
+  "goal_approved": false,
+  "current_stale": true,
+  "current_alignment": "changed",
+  "current_scope": {
+    "task_ids": [],
+    "goal_version": 1,
+    "task_revision": 35
+  },
+  "task_revision": 36,
+  "task_schema": 4,
+  "goal": "# 项目目标\n\n## 核心目标\n待用户确认：填写一句话目标。\n\n## 项目背景\n待确认。\n\n## 关键约束\n保留原始文件，不保存凭据。\n\n## 非目标\n待确认。\n\n## 验收标准\n待确认：填写可验证的交付条件。\n\n## 目标版本\n1（初始草案；正式版本以 state.json 为准）\n",
+  "current": "# 当前状态\n\n## 当前阶段\nA 侧实施与证据已齐（T2/T5/T6/T7/T8/T9/T10/T12 的交付文件全在），B 侧仍未就位；依赖链按治理程序判定停在 T3，A 侧完成不了 done。\n\n## 当前任务\nT13 Codex 独立验收（材料哈希已固定，19:19 起跑）；T3 等 B 回传；T11 等 B 就位。\n\n## 已完成工作\n- T1/T2 done。A 盘点 `evidence/preflight/A.md`（20 项自校验 PASS）。\n- `evidence/design.md` + `evidence/source-baseline.json` + `tools/checks/check_source_baseline.py`：上游 blob 与本机哈希两列、7 改 4 新增、补丁与包哈希、改动集合比对；实测 29 项 FAIL=0（日志 `evidence/raw/app/20261104-191500-source-baseline-check.txt`）。\n- `evidence/windows-runtime.md`（T6）、`evidence/adapters.md`（T7）、`evidence/anchor-bridge.md`（T8）、`evidence/scheduling.md`（T9）、`evidence/deployment/A.md`（T10）、`evidence/rehearsal.md`+`evidence/rollback.md`+`evidence/manifest.json`（T12）、`evidence/network.md`（T4）。\n- 部署包 `deploy/agent-autoloop-96b6c9c7-win1.tar.gz`（sha256 2ba21c42…d940）、补丁 `evidence/raw/app/windows-changes.patch`（f371da06…561d）、哈希清单 `windows-changes.sha256`（11 行）+ `windows-bundle.sha256`（2 行），均 `sha256sum -c` 通过。\n\n## 当前阻塞\n- T3 缺 `evidence/preflight/B.md`：B 机不可达。引导包 `evidence/preflight/B_bootstrap.md` 与 `B_expected.md` 已交付，等 B 回传。\n- 影响面比预期大：T5 两条检查都已 pass（run d147e691…、review 4f12f91c…），但把 T5 从 todo 推进到 doing 也被拒：`FAIL: 任务 T3 的验收记录为 stale，需要当前材料对应的检查结果`（原文 `evidence/raw/kit/20261104-191600-t5-status-attempt.txt`）。即 T3 未过 ⇒ T4–T14 连 doing 都不成立，不只是 done。\n\n## 下一步动作\n1. 收 T13 Codex 验收输出 → 写 `evidence/acceptance-codex.md`（失败也照写，不自宣通过）。\n2. 用户给 B 的落地窗口后：按 `B_bootstrap.md` 三步采集 → 回传 `B.md` → 解除 T3 → 依赖链解锁。\n3.（可选，需用户授权）T13/T14 计划仍是 draft，若要入账需先批准范围。\n\n## 状态修订\n2026-11-04 19:16 · 补齐 T5 检查与哈希清单；记录「T3 stale 连 doing 都拦」的实际报错。\n\n## Git 检查\n- `app/`：detached HEAD `96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a`，未建分支/worktree，未 commit、未 push。\n- 已改：`cli/main.ts` `host/service.ts` `protocol/rules.ts` `tests/helpers.ts` `tests/rules.test.ts` `worker/agents.ts` `worker/worker.ts`。\n- 未跟踪：`bin/agent-autoloop.cmd` `host/platform.ts` `pnpm-lock.yaml` `tests/windows-runtime.test.ts` `worker/runner.ts`。\n- 现场残留（不进证据）：`C:\\Users\\chs\\.agent-autoloop-residue-20261104-1740`、`…-failed-init-20261104-1817`。\n",
+  "git": {
+    "root": null,
+    "branch": null,
+    "commit": null,
+    "changes": null
+  },
+  "dependency_verification": {},
+  "tasks": [
+    {
+      "task_id": "T1",
+      "title": "编制双机部署任务书与验收交接",
+      "milestone": "交接准备",
+      "plan": "approved",
+      "status": "done",
+      "dependencies": [],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "pass",
+      "deliverable_coverage": "covered",
+      "check_summary": [
+        {
+          "criterion": 1,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        },
+        {
+          "criterion": 2,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        }
+      ]
+    },
+    {
+      "task_id": "T2",
+      "title": "A环境、通道和项目盘点",
+      "milestone": "部署前置",
+      "plan": "approved",
+      "status": "done",
+      "dependencies": [
+        "T1"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "pass",
+      "deliverable_coverage": "covered",
+      "check_summary": [
+        {
+          "criterion": 1,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        },
+        {
+          "criterion": 2,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        },
+        {
+          "criterion": 3,
+          "kind": "command",
+          "level": "observed",
+          "result": "pass"
+        }
+      ]
+    },
+    {
+      "task_id": "T3",
+      "title": "B环境、通道和项目盘点",
+      "milestone": "部署前置",
+      "plan": "approved",
+      "status": "blocked",
+      "dependencies": [
+        "T1"
+      ],
+      "blocker": "B 机不可达：A 侧无 Tailscale/ZeroTier/WireGuard/OpenVPN，LAN 内无确认的 B 主机，cpolar 只有 A 侧出站配置。引导包已交付（evidence/preflight/B_bootstrap.md + B_expected.md，采集脚本 tools/b_preflight/collect_b.ps1 已在 A 自测 exit 0），等 B 落地后回传 B.md。四条回传通道：手动搬运（已验证可行）/向日葵·GameViewer（未验证）/cpolar·ngrok 隧道（未验证）/私网直连（未装）。",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "stale",
+      "deliverable_coverage": "covered",
+      "check_summary": [
+        {
+          "criterion": 1,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pending"
+        },
+        {
+          "criterion": 2,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pending"
+        }
+      ]
+    },
+    {
+      "task_id": "T4",
+      "title": "跨网络连接和身份设计",
+      "milestone": "部署前置",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T2",
+        "T3"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T5",
+      "title": "fork源码基线与实施设计",
+      "milestone": "部署前置",
+      "plan": "approved",
+      "status": "todo",
+      "dependencies": [
+        "T2",
+        "T3"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "pass",
+      "deliverable_coverage": "covered",
+      "check_summary": [
+        {
+          "criterion": 1,
+          "kind": "review",
+          "level": "claimed/self",
+          "result": "pass"
+        },
+        {
+          "criterion": 2,
+          "kind": "command",
+          "level": "observed",
+          "result": "pass"
+        }
+      ]
+    },
+    {
+      "task_id": "T6",
+      "title": "Windows执行和生命周期适配",
+      "milestone": "程序适配",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T5"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T7",
+      "title": "工具模型接口与会话接通",
+      "milestone": "程序适配",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T6"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T8",
+      "title": "Project Anchor任务与验收桥接",
+      "milestone": "程序适配",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T6"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T9",
+      "title": "路由并发额度和停止规则",
+      "milestone": "程序适配",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T7",
+        "T8"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T10",
+      "title": "A中心执行端与管理入口部署",
+      "milestone": "部署",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T4",
+        "T9"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T11",
+      "title": "B执行端同版本部署",
+      "milestone": "部署",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T10"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T12",
+      "title": "双机演练回退与证据汇总",
+      "milestone": "部署自测",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T11"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T13",
+      "title": "Codex独立代码审查与双机复验",
+      "milestone": "独立验收",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T12"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    },
+    {
+      "task_id": "T14",
+      "title": "两个指定真实项目小范围启用",
+      "milestone": "真实试运行",
+      "plan": "draft",
+      "status": "todo",
+      "dependencies": [
+        "T13"
+      ],
+      "blocker": "",
+      "scope_dirty": false,
+      "legacy_unverified": false,
+      "verification_state": "unconfigured",
+      "deliverable_coverage": "undeclared",
+      "check_summary": []
+    }
+  ],
+  "summary": {
+    "total": 14,
+    "draft": 10,
+    "approved_active": 4,
+    "approved_done": 2,
+    "legacy_unverified": 0,
+    "scope_dirty": 0,
+    "invalidated_evidence": 0,
+    "evidence_levels": {
+      "claimed": 6,
+      "observed": 3,
+      "reviewed": 0
+    },
+    "statuses": {
+      "blocked": 1,
+      "cancelled": 0,
+      "doing": 0,
+      "done": 2,
+      "todo": 11
+    },
+    "folded_final": 0
+  },
+  "external_dependencies": [],
+  "focus": {
+    "task_ids": [
+      "T1"
+    ],
+    "reason": "本轮工作为双机部署任务拆分",
+    "updated_at": "2026-11-04T09:24:39.839151+00:00"
+  },
+  "focus_missing": false,
+  "selection": {
+    "task_ids": [],
+    "milestone": null,
+    "focus": false
+  }
+}

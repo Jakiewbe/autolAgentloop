@@ -1,0 +1,21 @@
+== before ==
+  TCP    127.0.0.1:1117         127.0.0.1:3350         ESTABLISHED     30596
+  TCP    127.0.0.1:1118         127.0.0.1:3350         ESTABLISHED     30596
+  TCP    127.0.0.1:3350         0.0.0.0:0              LISTENING       30596
+  TCP    127.0.0.1:3350         127.0.0.1:1117         ESTABLISHED     30596
+  TCP    127.0.0.1:3350         127.0.0.1:1118         ESTABLISHED     30596
+pid=30596
+成功: 已终止 PID 为 30596 的进程。
+== after kill ==
+  TCP    127.0.0.1:14496        127.0.0.1:3350         TIME_WAIT       0
+  TCP    127.0.0.1:14679        127.0.0.1:3350         TIME_WAIT       0
+  TCP    127.0.0.1:14903        127.0.0.1:3350         TIME_WAIT       0
+  TCP    127.0.0.1:14904        127.0.0.1:3350         TIME_WAIT       0
+== after up ==
+  TCP    127.0.0.1:1304         127.0.0.1:3350         ESTABLISHED     55508
+  TCP    127.0.0.1:1305         127.0.0.1:3350         ESTABLISHED     55508
+  TCP    127.0.0.1:3350         0.0.0.0:0              LISTENING       55508
+  TCP    127.0.0.1:3350         127.0.0.1:1304         ESTABLISHED     55508
+  TCP    127.0.0.1:3350         127.0.0.1:1305         ESTABLISHED     55508
+2026-11-04T11:44:42.602Z [worker] worker desktop-lm7rki1 started
+2026-11-04T11:44:42.616Z [hub] listening on 127.0.0.1:3350

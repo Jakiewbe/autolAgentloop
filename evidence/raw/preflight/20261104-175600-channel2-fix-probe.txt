@@ -1,0 +1,10 @@
+== start 2026-11-04T17:52:15+08:00 ==
+== opencode models (full) ==
+101
+== A) claude -p --model deepseek-v4.1-flash ==
+== B) opencode run --model opencode/deepseek-v4.1-flash ==
+[0m
+> build · deepseek-v4.1-flash
+[0m
+PROBE-OPENCODE-4A2B
+== done 2026-11-04T17:54:25+08:00 ==

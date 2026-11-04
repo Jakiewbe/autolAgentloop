@@ -1,0 +1,6 @@
+2026-11-04T11:44:42.602Z [worker] worker desktop-lm7rki1 started
+2026-11-04T11:44:42.616Z [hub] listening on 127.0.0.1:3350
+2026-11-04T11:44:53.227Z [worker] run 6 (试一下) turn 1 started, pid 52960
+2026-11-04T11:45:23.446Z [worker] run 6: done
+2026-11-04T11:45:30.079Z [worker] run 7 (试一下) turn 1 started, pid 48000
+2026-11-04T11:45:59.552Z [worker] run 7: done

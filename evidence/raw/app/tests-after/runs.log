@@ -1,0 +1,46 @@
+✔ usage accumulates across attempts once, without inventing unreported fields (18.506ms)
+✔ work goes only to its agent's worker, once, with the rule and what to read (19.0101ms)
+✔ queued work takes the current agent and folder together; a held claim keeps its configuration (33.0598ms)
+✔ a claim whose answer was lost gets the same work back, under a token that works (30.0553ms)
+✔ events while work waits join it; while it runs they wait for the next run (43.9269ms)
+✔ a parallel rule runs each subject on its own, no more than its number at once (60.1106ms)
+✔ a subject's events join its waiting run, and wait while it runs; other subjects go on (59.7517ms)
+✔ a failed run comes back later with what came in meanwhile, in its own session, and the third failure in a row is told once (70.0516ms)
+✔ the owner is told what the rule says: needed only with a card, always every time, never only what blocks work (68.3052ms)
+✔ a run with nothing to do is told to nobody and frees its group (29.5315ms)
+✔ a result is checked strictly and nothing of a bad one takes effect (32.7333ms)
+✔ a failed run's receipt tells the owner but changes nothing else: it will run again (29.2286ms)
+✔ a run token works only for its run, and only for that attempt; a replay gets the same answer (38.5044ms)
+✔ work a worker took and stopped reporting while it keeps coming is told once as unknown; a late result still counts (47.6542ms)
+✔ a worker gone with work in hand keeps the work, is told once each time it goes away, and the card closes when it's back (71.71ms)
+✔ cancelling a waiting run ends it; cancelling a running one holds its thread until the worker says it stopped (35.8759ms)
+✔ a run's usage and session are kept (44.103ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6938ms)
+ℹ tests 18
+ℹ suites 0
+ℹ pass 17
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1036.8254
+
+✖ failing tests:
+
+test at tests\helpers.ts:15:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6938ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-runs-R2yLqQ '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-runs-R2yLqQ'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:15:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-runs-R2yLqQ',
+    syscall: 'rm'
+  }

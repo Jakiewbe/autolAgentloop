@@ -1,0 +1,16 @@
+result 101 done 这一轮干完了
+asking the hub to cancel 102, pid 28280
+asking the hub to cancel 102, pid 28280
+result 102 cancelled 已停止
+--- 101-1
+    command-1.json => { /   "program": "C:\\Program Files\\nodejs\\node.exe", /   "args": [ /     "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\demo-home\\say.mjs" /   ], /   "shell": false, /   "cwd": "D:\\Vibe_coding-
+    context.json => { /   "events": [], /   "answers": [], /   "timers": [], /   "waiting": [], /   "open": [], /   "decided": [] / }
+    exit-1 => 0
+    stderr-1.log => 
+    stdout-1.log => 这一轮干完了 / 
+--- 102-1
+    command-1.json => { /   "program": "C:\\Program Files\\nodejs\\node.exe", /   "args": [ /     "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\demo-home\\long.mjs" /   ], /   "shell": false, /   "cwd": "D:\\Vibe_coding
+    context.json => { /   "events": [], /   "answers": [], /   "timers": [], /   "waiting": [], /   "open": [], /   "decided": [] / }
+    stderr-1.log => 
+    stdout-1.log => 
+summary: [[101,"done"],[102,"cancelled"]]

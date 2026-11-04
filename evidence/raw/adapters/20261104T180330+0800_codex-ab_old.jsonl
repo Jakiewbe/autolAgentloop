@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a1a603-92fe-7e42-9881-e17ce70302a0"}
+{"type":"turn.started"}
+{"type":"error","message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The 'gpt-6.1-sol' model is not supported when using Codex with a ChatGPT account.\",\"code\":\"model_not_found\"}}"}
+{"type":"turn.failed","error":{"message":"{\"type\":\"error\",\"status\":400,\"error\":{\"type\":\"invalid_request_error\",\"message\":\"The 'gpt-6.1-sol' model is not supported when using Codex with a ChatGPT account.\",\"code\":\"model_not_found\"}}"}}
+成功: 已终止 PID 25140 (属于 PID 28288 子进程)的进程。
+成功: 已终止 PID 28288 (属于 PID 55088 子进程)的进程。
+成功: 已终止 PID 45268 (属于 PID 55088 子进程)的进程。

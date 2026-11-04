@@ -1,0 +1,1 @@
+{"task_id":"T3","blocker":"B 机不可达：A 侧无 Tailscale/ZeroTier/WireGuard/OpenVPN，LAN 内无确认的 B 主机，cpolar 只有 A 侧出站配置。引导包已交付（evidence/preflight/B_bootstrap.md + B_expected.md，采集脚本 tools/b_preflight/collect_b.ps1 已在 A 自测 exit 0），等 B 落地后回传 B.md。四条回传通道：手动搬运（已验证可行）/向日葵·GameViewer（未验证）/cpolar·ngrok 隧道（未验证）/私网直连（未装）。"}

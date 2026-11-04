@@ -1,0 +1,24 @@
+### collected_at=2026-11-04T17:36:59.7807754+08:00 machine=DESKTOP-LM7RKI1 alias=A command=candidate-projects elapsed_ms=43
+ACP | no-git | no-anchor | entries=2 | mtime=01/17/2026 15:54:14
+ACP Score | no-git | no-anchor | entries=4 | mtime=01/18/2026 15:28:32
+autoAgentloop | no-git | anchor | entries=8 | mtime=11/04/2026 17:36:50
+CFx_Li_double_sided_capacity_calculation | no-git | no-anchor | entries=1 | mtime=09/28/2026 11:23:08
+CLIproxy | no-git | no-anchor | entries=4 | mtime=04/19/2026 15:06:19
+DDdak | git | anchor | entries=21 | mtime=10/19/2026 18:14:32
+design.md | no-git | no-anchor | entries=2 | mtime=04/22/2026 21:31:21
+EISMaster | git | anchor | entries=43 | mtime=10/19/2026 18:14:27
+FigureMaster | no-git | no-anchor | entries=15 | mtime=03/20/2026 14:06:32
+FigureMasterSkills | no-git | no-anchor | entries=3 | mtime=04/06/2026 20:24:44
+GITTDCRmaster | git | anchor | entries=37 | mtime=10/19/2026 18:14:31
+Hash1 | git | no-anchor | entries=26 | mtime=05/12/2026 11:55:29
+JEV网申 | no-git | no-anchor | entries=38 | mtime=10/26/2026 17:28:25
+OPEISMaster | git | anchor | entries=26 | mtime=10/21/2026 20:32:20
+Origin Figmaster | no-git | no-anchor | entries=4 | mtime=01/23/2026 12:34:26
+Prismaxvlamster | git | no-anchor | entries=6 | mtime=07/05/2026 15:45:48
+Virtual | no-git | no-anchor | entries=6 | mtime=02/04/2026 20:21:49
+Virtuals Alpha | no-git | no-anchor | entries=13 | mtime=06/11/2026 21:38:46
+Virtuals Predict | no-git | no-anchor | entries=2 | mtime=05/11/2026 21:35:10
+Virtualsalpha | git | anchor | entries=42 | mtime=10/23/2026 13:22:11
+VirtualsDegen | no-git | no-anchor | entries=4 | mtime=05/02/2026 12:05:44
+Wechat_Robot | no-git | no-anchor | entries=6 | mtime=01/30/2026 11:58:15
+

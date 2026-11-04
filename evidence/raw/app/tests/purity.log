@@ -1,0 +1,14 @@
+✔ the kernel names no product (2.637ms)
+✔ the kernel makes no request of its own (0.4354ms)
+✔ nothing is installed to run it (0.7605ms)
+✔ there's no interface in it (0.2883ms)
+✔ time and entropy enter through the shell (0.4347ms)
+✔ only evolve writes projections and only commit appends the log (11.3635ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 6
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 215.7432

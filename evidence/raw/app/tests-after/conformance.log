@@ -1,0 +1,37 @@
+{"checks":120,"passed":true}
+✔ address-based conformance checks all protocol doors (299.9677ms)
+✔ conformance rejects an implementation that opens the wrong door (49.7735ms)
+✔ the same isolated hub can be checked twice (527.8784ms)
+✔ conformance checks another actual run rather than a missing id (252.1998ms)
+✔ conformance rejects empty in the fact stream (216.6768ms)
+✔ conformance rejects keys in the fact stream (263.7788ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6321ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1962.7629
+
+✖ failing tests:
+
+test at tests\helpers.ts:15:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6321ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-conformance-EioQrE '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-conformance-EioQrE'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:15:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-conformance-EioQrE',
+    syscall: 'rm'
+  }

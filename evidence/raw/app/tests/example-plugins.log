@@ -1,0 +1,77 @@
+✔ hello-agent: starts a session or goes on in one, and reads any output without throwing (1.5772ms)
+✔ hello-channel: writes a new card, reports it, and leaves a card it has already written alone (1.3293ms)
+✔ hello-channel: says so when it can't write (0.598ms)
+✔ hello-source: only what's signed with the secret gets through (1.2175ms)
+✖ agent-autoloop add from a git repository, then all three run through a real hub (531.5446ms)
+✖ the tutorial's first block runs all three examples as written (0.9449ms)
+✖ the tutorial's conformance block passes as written (0.3853ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 4
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 762.4244
+
+✖ failing tests:
+
+test at tests\example-plugins.test.ts:178:1
+✖ agent-autoloop add from a git repository, then all three run through a real hub (531.5446ms)
+  AssertionError [ERR_ASSERTION]: 插件仓库名要用小写字母、数字和 -
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/example-plugins.test.ts:187:12)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\example-plugins.test.ts:292:1
+✖ the tutorial's first block runs all three examples as written (0.9449ms)
+  AssertionError [ERR_ASSERTION]: docs/plugins.md 里“先跑起来”下面要有一段命令
+      at runBlock (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/example-plugins.test.ts:267:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/example-plugins.test.ts:293:31)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\example-plugins.test.ts:298:1
+✖ the tutorial's conformance block passes as written (0.3853ms)
+  AssertionError [ERR_ASSERTION]: docs/plugins.md 里“一致性测试”下面要有一段命令
+      at runBlock (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/example-plugins.test.ts:267:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/example-plugins.test.ts:299:31)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

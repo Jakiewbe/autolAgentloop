@@ -1,0 +1,16 @@
+node.exe count: 1
+agent-autoloop/runner processes: 0
+== after demo-run, before cleanup ==
+node.exe count: 1
+agent-autoloop/runner processes: 0
+== tasklist long.mjs / say.mjs (expect none) ==
+"映像名称","PID","会话名      ","会话#   ","内存使用 "
+"node.exe","45704","Console","1","301,800 K"
+
+
+ProcessId : 45704
+cmd       : "C:\Program Files\nodejs\node.exe" C:\Users\chs\.dsh\profiles\desktop\node_modules\billion-context\dist\ind
+            ex.js start --host 127.0.0.1 --port 18787
+
+
+

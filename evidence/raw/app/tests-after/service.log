@@ -1,0 +1,11 @@
+✔ a systemd service keeps its existing structure and zero-argument use (0.8554ms)
+✔ systemd receives spaces and special path characters literally (0.224ms)
+✔ systemd service values reject control characters (0.3808ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.5575

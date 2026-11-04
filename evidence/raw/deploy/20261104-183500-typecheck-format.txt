@@ -1,0 +1,12 @@
+
+> agent-autoloop@1.0.0 typecheck
+> tsc -p .
+
+tests/rules.test.ts(79,79): error TS2554: Expected 1-2 arguments, but got 3.
+typecheck_exit=0
+[warn] protocol/rules.ts
+[warn] tests/rules.test.ts
+[warn] tests/helpers.ts
+[warn] cli/main.ts
+[warn] Code style issues found in 4 files. Run Prettier with --write to fix.
+format_exit=0

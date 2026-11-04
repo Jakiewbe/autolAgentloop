@@ -1,0 +1,187 @@
+✔ it ships as a channel, and is told apart by platform (2.2062ms)
+✖ a new card notifies once with its title; an update only reports (3.4169ms)
+✖ what an Agent wrote goes in as one argument after the options, and never into the script (2.9003ms)
+﹣ the real osascript reads them as words and runs none of them (0.1183ms) # SKIP
+✔ without a graphical session it quietly skips notification and keeps consuming cards (0.6644ms)
+✖ a notifier that fails is reported as not sent (2.9246ms)
+✖ a title no program can be given is reported, and takes nothing down (2.4754ms)
+✖ a slow notifier doesn't freeze the process the hub runs in (2.8534ms)
+✖ init turns it on in both files, with a key of its own (315.9508ms)
+✔ a rules file already there stays as it was, and no channel is added beside it (467.5378ms)
+✖ doctor says what reaches you: only this computer, or nothing yet, or no word of either (133.3563ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6229ms)
+ℹ tests 12
+ℹ suites 0
+ℹ pass 3
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 1
+ℹ todo 0
+ℹ duration_ms 1101.078
+
+✖ failing tests:
+
+test at tests\desktop.test.ts:120:1
+✖ a new card notifies once with its title; an update only reports (3.4169ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 1
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:123:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 1,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\desktop.test.ts:145:1
+✖ what an Agent wrote goes in as one argument after the options, and never into the script (2.9003ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  0 !== 10
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:150:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 0,
+    expected: 10,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\desktop.test.ts:187:1
+✖ a notifier that fails is reported as not sent (2.9246ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      [
+  +     'delivered',
+  -     'failed',
+        5,
+        1,
+  +     'skipped-5'
+      ]
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:189:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ [ 'delivered', 5, 1, 'skipped-5' ] ],
+    expected: [ [ 'failed', 5, 1 ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\desktop.test.ts:192:1
+✖ a title no program can be given is reported, and takes nothing down (2.4754ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      [
+  +     'delivered',
+  -     'failed',
+        5,
+        1,
+  +     'skipped-5'
+      ],
+      [
+        'delivered',
+        6,
+        1,
+  +     'skipped-6'
+  -     'shown-6'
+      ]
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:198:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ [ 'delivered', 5, 1, 'skipped-5' ], [ 'delivered', 6, 1, 'skipped-6' ] ],
+    expected: [ [ 'failed', 5, 1 ], [ 'delivered', 6, 1, 'shown-6' ] ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\desktop.test.ts:205:1
+✖ a slow notifier doesn't freeze the process the hub runs in (2.8534ms)
+  AssertionError [ERR_ASSERTION]: only 0 ticks while it was showing
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:211:10)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\desktop.test.ts:228:1
+✖ init turns it on in both files, with a key of its own (315.9508ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:232:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\desktop.test.ts:254:1
+✖ doctor says what reaches you: only this computer, or nothing yet, or no word of either (133.3563ms)
+  Error: ENOENT: no such file or directory, stat 'D:\Vibe_coding-Project\autoAgentloop\app\tests\C:\Users\chs\AppData\Local\Temp\agent-autoloop-desktop-aMSo3T\rules.json'
+      at statSync (node:fs:1725:25)
+      at reloadRules (file:///D:/Vibe_coding-Project/autoAgentloop/app/host/runtime.ts:114:17)
+      at file:///D:/Vibe_coding-Project/autoAgentloop/app/host/runtime.ts:130:17
+      at ModuleJob.run (node:internal/modules/esm/module_job:413:25)
+      at async onImport.tracePromise.__proto__ (node:internal/modules/esm/loader:660:26)
+      at async TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/desktop.test.ts:255:21)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'stat',
+    path: 'D:\\Vibe_coding-Project\\autoAgentloop\\app\\tests\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-desktop-aMSo3T\\rules.json'
+  }
+
+test at tests\helpers.ts:15:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6229ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-desktop-J0JlbV '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-desktop-J0JlbV'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:15:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-desktop-J0JlbV',
+    syscall: 'rm'
+  }

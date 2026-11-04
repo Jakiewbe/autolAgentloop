@@ -1,0 +1,23 @@
+你是独立验收方（Codex）。仓库根：D:\Vibe_coding-Project\autoAgentloop。这是第二轮验收：第一轮你判「不通过」，列了 6 条失败、5 条未验证；之后实施方做了修复。请独立复核，不要相信本文的任何自述，只认仓库里的文件和你能跑出来的结果。
+
+硬性约束：
+1. 只读为主，禁止改仓库里任何已存在文件、禁止 git commit/push/branch/worktree。你的答复写到 -o 指定的文件里，可以往 evidence/raw/acceptance/ 写你自己的临时输出。
+2. 不跑长回合模型调用（不要执行 codex/opencode/claude 之类的真实对话），不写任何密钥。
+3. 结论要给：通过 / 不通过；通过数、失败数、未验证数；每条失败给文件:行号与可复现命令。
+
+第一轮 6 条失败，请逐条核对现在是否成立：
+A. Windows 回归用例在沙箱里只过 2/4（taskkill 拒绝访问）。本机非沙箱日志声称 4/4（evidence/raw/app/20261104-195000-worker-win-test.log、20261104-2010-worker-only.log）。你可以在你的沙箱里跑，但要如实说明沙箱限制对结果的影响，别把沙箱限制当成代码结论。
+B. 「T7 正式接入不完整」：现在 app/plugins/command/agent.ts 支持 {resumeArgs}/{cwdArgs}/{sessionArgs}/{session} 占位符、JSON 行输出取最后一条 agent_message、上报 thread_id；live rules.json 已改成 exec {resumeArgs} --skip-git-repo-check {cwdArgs} --json {prompt}；声称中台第二轮接在同一 codex thread（evidence/raw/deploy/20261104-2058-resume-verify.txt，run 8→9 无新 rollout）。核对这些文件、单测 app/tests/command-adapter.test.ts，以及证据是否真能支持「同一 thread」。
+C. 桥接放行 stale 依赖：tools/anchor_bridge/bridge.mjs 的 objection 现在要求依赖 status==="done" 且 verification_state==="pass"；findKit 增加了技能目录与 runtime.json 探测。跑 node --test tools/anchor_bridge/bridge.test.mjs，并用第一轮那条 objection 探针复现，看是否还放行。
+D. 无总重试上限 + 自动新建会话：app/kernel/decide.ts 新增 MAX_ATTEMPTS=5（到顶置 unknown 并通知），app/worker/worker.ts 不再自动新建会话。核对代码、app/tests/kernel.test.ts、app/tests/worker.test.ts，以及 evidence/scheduling.md 是否与代码一致。
+E. evidence/rollback.md 里给只读 $PID 赋值：现在应改成 $listenPid。
+F. opencode 取消证据 0 字节却写通过：evidence/adapters.md 现在应写「未验证」。
+
+另外核这些材料身份（哈希自己算，别信清单）：
+- deploy/agent-autoloop-96b6c9c7-win2.tar.gz
+- evidence/raw/app/windows-changes.patch、windows-changes.sha256、windows-bundle.sha256
+- python -B tools/checks/check_source_baseline.py（应 FAIL=0）
+- evidence/manifest.json 里的 artifacts 哈希是否与实物一致
+- evidence/acceptance-codex.md 是否如实记录第一轮「不通过」与本轮情况（不许出现实施方自宣通过）
+
+最后给出你的验收结论与理由清单。

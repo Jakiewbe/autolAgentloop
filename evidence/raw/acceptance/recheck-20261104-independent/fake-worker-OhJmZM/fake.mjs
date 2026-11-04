@@ -1,0 +1,1 @@
+import {appendFileSync} from 'node:fs'; appendFileSync(process.argv[2],JSON.stringify(process.argv.slice(3))+'\n'); console.error('old session unavailable'); process.exit(3);

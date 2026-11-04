@@ -1,0 +1,11 @@
+✔ join creates a worker configuration on a fresh machine (156.0392ms)
+✔ join refuses to overwrite an existing hub configuration (161.268ms)
+✔ join refuses to overwrite an existing worker configuration (141.2909ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 593.4477

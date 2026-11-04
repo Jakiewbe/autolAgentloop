@@ -1,0 +1,9 @@
+tag=codex_model_gpt-5.6-sol
+started=2026-11-04T17:38:42+0800
+exit_code=1
+elapsed_s=19
+model_arg=gpt-5.6-sol
+workdir=evidence/raw/adapters/work/codex-min
+jsonl=evidence/raw/adapters/20261104T173842+0800_codex_model_gpt-5.6-sol.jsonl
+stderr=evidence/raw/adapters/20261104T173842+0800_codex_model_gpt-5.6-sol.stderr.txt
+last_message=evidence/raw/adapters/20261104T173842+0800_codex_model_gpt-5.6-sol.last.txt

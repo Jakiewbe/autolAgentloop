@@ -1,0 +1,17 @@
+ M cli/main.ts
+ M host/service.ts
+ M kernel/decide.ts
+ M plugins/command/agent.ts
+ M protocol/rules.ts
+ M tests/helpers.ts
+ M tests/kernel.test.ts
+ M tests/rules.test.ts
+ M tests/worker.test.ts
+ M worker/agents.ts
+ M worker/worker.ts
+?? bin/agent-autoloop.cmd
+?? host/platform.ts
+?? pnpm-lock.yaml
+?? tests/command-adapter.test.ts
+?? tests/windows-runtime.test.ts
+?? worker/runner.ts

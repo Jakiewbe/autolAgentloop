@@ -1,0 +1,43 @@
+# 中台接续实测（2026-11-04 20:55–20:58）
+
+## 规则里的命令（live ~/.agent-autoloop/rules.json，备份 rules.before-resume.json）
+["C:\\Users\\chs\\AppData\\Local\\OpenAI\\Codex\\bin\\22cfb1d302613eae\\codex.exe","exec","{resumeArgs}","--skip-git-repo-check","{cwdArgs}","--json","{prompt}"]
+
+## 命令适配器改动：{resumeArgs}/{cwdArgs}/{sessionArgs}/{session} 占位符 + JSON 行输出取最后一条 agent_message + 会话 ID 上报
+单测：node --test tests/command-adapter.test.ts -> 6/6 pass（app/tests/command-adapter.test.ts）
+
+## 第一轮（run 8）：新建会话并提问
+2026-11-04T11:47:10.737Z [worker] run 8 (试一下) turn 1 started, pid 36264
+2026-11-04T11:47:42.128Z [worker] run 8: done
+新建 rollout: rollout-2026-11-04T19-47-11-01a1a662-6e93-7b31-bfe1-a8e9745abc43.jsonl
+
+## 第二轮（run 9）：回答之后接续（同一 thread，无新 rollout 文件）
+2026-11-04T11:47:49.195Z [worker] run 9 (试一下) turn 1 started, pid 35368
+2026-11-04T11:48:18.112Z [worker] run 9: done
+19:47:11 之后 2026/11/04 目录里最新的三个 rollout（run 9 没有新建文件）：
+rollout-2026-11-04T19-43-30-01a1a65f-1242-72c2-ba4a-50a0b94072f6.jsonl
+rollout-2026-11-04T19-44-53-01a1a660-55af-7682-bb51-3c47ba69bac3.jsonl
+rollout-2026-11-04T19-47-11-01a1a662-6e93-7b31-bfe1-a8e9745abc43.jsonl
+
+## rollout 里确实有两轮用户消息（第二轮带着颜色回答）
+UserMessage 条数: 2
+提到蓝色的行数: 14
+文件 mtime: 2026-11-04 19:48:04
+
+## 结果（status 摘录）
+在跑 0 · 排队 0 · 今天做完 7 · 等你 0
+今天 7 轮 · Token 没上报 · 费用没上报    最近 7 天 7 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 慢测（desktop-lm7rki1）
+● 桌面通知
+
+最近的卡片
+  #4 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+  #3 试跑：选一个颜色：蓝色。我会读取本轮资料，核实你选的颜色，不修改文件。
+  #2 rules.json 写错了，还在用旧规则：改好了
+  #1 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+
+最近几轮
+  #9 试一下 做完了：你选了蓝色，试跑通过
+  #8 试一下 做完了：问了一个问题

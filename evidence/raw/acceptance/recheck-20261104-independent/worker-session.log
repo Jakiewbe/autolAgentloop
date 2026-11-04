@@ -1,0 +1,12 @@
+{"argv": ["node", "--disable-warning=ExperimentalWarning", "--test", "--test-isolation=none", "--test-name-pattern=a session that", "app/tests/worker.test.ts"], "cwd": "D:\\Vibe_coding-Project\\autoAgentloop"}
+✔ a session that can't be gone on in stops and says so, without starting a new one (334.8048ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 415.3503
+
+AUDIT_EXIT=0

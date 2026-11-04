@@ -1,0 +1,10 @@
+{
+  "program": "C:\\Program Files\\nodejs\\node.exe",
+  "args": [
+    "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\acceptance\\recheck-20261104-independent\\fake-worker-OhJmZM\\fake.mjs",
+    "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\acceptance\\recheck-20261104-independent\\fake-worker-OhJmZM\\calls.jsonl",
+    "old-thread"
+  ],
+  "shell": false,
+  "cwd": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\acceptance\\recheck-20261104-independent\\fake-worker-OhJmZM\\project"
+}

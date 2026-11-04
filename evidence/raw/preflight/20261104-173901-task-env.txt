@@ -1,0 +1,8 @@
+﻿collected_at=2026-11-04T17:39:01.0417273+08:00
+session=scheduled-task user=chs
+interactive=True
+node_path=C:\Program Files\nodejs\node.exe
+node=v24.12.0
+claude_path=C:\Users\chs\AppData\Roaming\npm\claude.ps1
+claude=2.1.153 (Claude Code)
+PATH=D:\vm\bin\;C:\ProgramData\Miniconda3;C:\ProgramData\Miniconda3\Library\mingw-w64\bin;C:\ProgramData\Miniconda3\Library\usr\bin;C:\ProgramData\Miniconda3\Library\bin;C:\ProgramData\Miniconda3\Scripts;C:\Program Files\PerkinElmerInformatics\ChemOffice2020\ChemScript\Lib;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\Bandizip\;C:\Program Files\dotnet\;C:\Program Files\NVIDIA Corporation\NVIDIA app\NvDLISR;C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\Git\cmd;C:\Program Files\nodejs\;.\Plugins;C:\Program Files\Gatan\Shared;D:\Matlabs\runtime\win64;D:\Matlabs\bin;C:\Program Files\Go\bin;C:\Program Files\WSL\;C:\Users\chs\bin;C:\Users\chs\AppData\Local\agy\bin;C:\Users\chs\.cargo\bin;C:\Users\chs\.local\bin;C:\Users\chs\AppData\Local\Microsoft\WindowsApps;C:\Users\chs\AppData\Local\Python\bin;D:\Microsoft VS Code\bin;C:\Users\chs\AppData\Roaming\npm;D:\Antigravity\bin;C:\Users\chs\AppData\Local\Microsoft\WinGet\Packages\Ngrok.Ngrok_Microsoft.Winget.Source_8wekyb3d8bbwe;C:\Program Files\cpolar\;C:\Users\chs\.bun\bin;C:\Users\chs\go\bin;C:\Users\chs\AppData\Local\Programs\cursor\resources\app\bin;C:\Users\chs\AppData\Local\Microsoft\WinGet\Packages\BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe\ripgrep-15.2.0-x86_64-pc-windows-msvc

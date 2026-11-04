@@ -1,0 +1,12 @@
+### collected_at=2026-11-04T17:36:54.0749394+08:00 machine=DESKTOP-LM7RKI1 alias=A command=toolchain elapsed_ms=1319
+node:  C:\Program Files\nodejs\node.exe  v24.12.0
+npm:   C:\Program Files\nodejs\npm.ps1  11.12.1
+pnpm:  C:\Users\chs\AppData\Roaming\npm\pnpm.ps1  11.9.0
+git:   C:\Program Files\Git\cmd\git.exe  git version 2.52.0.windows.1
+python default: C:\ProgramData\Miniconda3\python.exe  Python 3.7.1
+python311: Python 3.11.5
+where.exe git:
+C:\Program Files\Git\cmd\git.exe
+where.exe node:
+C:\Program Files\nodejs\node.exe
+

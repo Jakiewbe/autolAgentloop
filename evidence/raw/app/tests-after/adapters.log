@@ -1,0 +1,15 @@
+✔ Claude Code: access, new and going on, model (0.7242ms)
+✔ Claude Code: reading its result (1.2167ms)
+✔ Codex: access, new and going on (0.1609ms)
+✔ Codex: new and resumed runs use only browser access configured for the background task (0.2955ms)
+✔ Codex: only a finished turn's last message is its answer (0.5535ms)
+✔ a plain command: placeholders filled in, stdout is its last message, a bad exit code is a failure (0.2165ms)
+✔ a program that isn't there says so (11.5ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 183.1658

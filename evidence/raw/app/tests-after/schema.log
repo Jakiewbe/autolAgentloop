@@ -1,0 +1,13 @@
+✔ wire schemas agree with event and receipt boundaries (2.3804ms)
+✔ schema checks reject inherited names and incomplete tasks or question cards (0.3424ms)
+✔ published text limits count Unicode characters, including astral code points (1.1812ms)
+✔ usage must be an object of finite nonnegative amounts (0.426ms)
+✔ timer timestamps are real calendar dates in the documented ISO format (0.5651ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 160.4

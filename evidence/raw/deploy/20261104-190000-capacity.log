@@ -1,0 +1,29 @@
+== 2026-11-04T18:47:49+08:00 单机并发写死为 1（T9 设计值），先备份再改
+capacity: "（未设置，代码默认 2）" -> 1
+其它字段是否保持：url=同 hub=同 worker.name=同 worker.key=同 source=同 owner=同 channels=同
+--- 重启中台让新配置生效
+--- 重启后状态
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 桌面通知
+
+--- worker 日志尾部
+已经在跑了（进程 53264）
+--- 上一轮没停掉：hub.pid 不存在，进程 53264 仍在（说明 pid 文件不是唯一入口，改按端口找）
+listener_pid=53264
+�ɹ�: ����ֹ PID Ϊ 53264 �Ľ��̡�
+--- 重新拉起（读新配置 capacity=1）
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+● 桌面通知
+--- 新进程
+  TCP    127.0.0.1:3350         0.0.0.0:0              LISTENING       952
+--- 日志
+2026-11-04T10:48:11.702Z [worker] worker desktop-lm7rki1 started
+(node:952) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+2026-11-04T10:48:11.726Z [hub] listening on 127.0.0.1:3350

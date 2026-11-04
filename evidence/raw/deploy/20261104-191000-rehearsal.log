@@ -1,0 +1,182 @@
+== 2026-11-04T18:48:44+08:00 演练准备：加一条只跑演练用的慢规则，并备份 rules.json
+现有规则：试一下
+agent=agent command=["C:\\Users\\chs\\AppData\\Local\\OpenAI\\Codex\\bin\\22cfb1d302613eae\\codex.exe","exec","--skip-git-repo-check","-C","{cwd}","{prompt}"]
+规则数：2
+--- 事件发出（类型 rehearsal.slow）
+记下了，没有规则接它。
+--- 8 秒后：状态（应有一条在跑）
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+● Agent（desktop-lm7rki1）
+--- 杀掉中台（pid 取自端口）
+hub_pid=952
+�ɹ�: ����ֹ PID Ϊ 952 �Ľ��̡�
+--- 杀后端口
+3350 已关闭
+--- 杀后残留 codex 进程
+4
+codex.exe                    10592 Console                    1    323,956 K
+codex-computer-use-swift.    56360 Console                    1     40,584 K
+codex.exe                    25000 Console                    1     31,332 K
+
+--- 规则热加载：up.ts 里没有 watcher（grep 只有 secrets.env 注释），改 rules.json 必须重启才生效；上一轮 emit 因此「没有规则接它」
+在跑 0 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+--- 重新发事件
+交给了：演练慢测
+--- 6 秒后状态
+在跑 1 · 排队 0 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+--- 几轮
+最近几轮
+  #3 演练慢测 在跑
+  #2 试一下 做完了：你选了蓝色，试跑通过
+  #1 试一下 做完了：问了一个问题
+
+--- 2026-11-04T18:49:32+08:00 在跑一条时强杀中台（演练「中途断电」）
+codex.exe                    10592 Console                    1    313,672 K
+codex.exe                    25000 Console                    1     30,168 K
+hub_pid=19324
+�ɹ�: ����ֹ PID Ϊ 19324 �Ľ��̡�
+--- 杀后：端口 / 残留 codex
+3350 已关闭
+codex.exe                    10592 Console                    1    313,672 K
+codex.exe                    25000 Console                    1     30,180 K
+--- 等 20 秒再重启（模拟发现故障的间隔）
+--- 重启后状态
+在跑 0 · 排队 1 · 今天做完 2 · 等你 0
+今天 2 轮 · Token 没上报 · 费用没上报    最近 7 天 2 轮 · Token 没上报 · 费用没上报
+
+最近几轮
+  #3 演练慢测 等重派：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+ERROR: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM
+  #2 试一下 做完了：你选了蓝色，试跑通过
+  #1 试一下 做完了：问了一个问题
+--- 最近的事件/为什么
+没有这个地址
+
+--- why 的用法
+  agent-autoloop why <第几轮> [--json]  查看时间线；--json 输出原始事实
+  agent-autoloop status                  现在什么情况：谁在线、等你什么、在做什么、做过什么、花了多少
+  agent-autoloop stop <第几轮>           停掉一轮
+--- run 3 的来龙去脉
+第 3 轮 · 演练慢测
+11-04 18:49:11  规则版本 #157
+11-04 18:49:19  触发事件：来源 local · 类型 rehearsal.slow · 对象 rehearsal-2
+11-04 18:49:19  desktop-lm7rki1 领取（Agent）
+11-04 18:49:32  本次未完成：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+ERROR: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM；重试时间 11-04 18:54:32
+--- worker 侧 runs 目录
+1-1
+2-1
+3-1
+[C:\Users\chs/.agent-autoloop/worker/runs/1-1]
+command-1.json
+context.json
+exit-1
+stderr-1.log
+stdout-1.log
+exit: 
+[C:\Users\chs/.agent-autoloop/worker/runs/2-1]
+command-1.json
+context.json
+exit-1
+stderr-1.log
+stdout-1.log
+exit: 
+[C:\Users\chs/.agent-autoloop/worker/runs/3-1]
+command-1.json
+context.json
+exit-1
+stderr-1.log
+stdout-1.log
+exit: 
+--- 现在还有 codex 进程吗
+codex.exe                    10592 Console                    1    313,708 K
+codex.exe                    25000 Console                    1     30,160 K
+
+--- 第二次演练：不用 codex（额度已耗尽，18:49:32 那一轮就是被额度打回的），改用本机慢命令做确定性中途断电
+agents=agent、慢测 rules=试一下、演练断电
+--- 发事件（慢命令要跑约 39 秒）
+交给了：演练慢测
+--- 8 秒：应在跑
+在跑 0 · 排队 1 · 今天做完 2 · 等你 0
+--- 2026-11-04T18:50:54+08:00 强杀 hub（pid=54292），慢命令仍在跑
+--- 杀后 12 秒：端口关闭，子进程还在？
+3350 已关闭
+0
+无 ping
+--- 重启中台（此时慢命令可能还没结束）
+在跑 0 · 排队 1 · 今天做完 2 · 等你 0
+--- 等慢命令跑完再看
+在跑 0 · 排队 1 · 今天做完 2 · 等你 0
+最近几轮
+  #3 演练慢测 等重派：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+ERROR: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM
+  #2 试一下 做完了：你选了蓝色，试跑通过
+  #1 试一下 做完了：问了一个问题
+
+--- 诊断：上一次演练事件仍被「演练慢测」接走，说明账本里的规则是**累加**的（从 rules.json 删掉不等于失效）；host/server.ts:97 有 watcher、host/runtime.ts:113 reloadRules 按 mtime 重载
+--- 改用独有的类型 rehearsal.cut，确保只落到本机慢命令规则上
+规则：试一下→try.* | 演练断电→rehearsal.cut
+--- 停掉卡住的第 3 轮（codex 额度限制，避免它每 5/10/20 分钟重试）
+通知它停了。
+--- 2026-11-04T18:52:27+08:00 发出 rehearsal.cut（慢命令约 39 秒）
+交给了：演练慢测
+在跑 1 · 排队 0 · 今天做完 2 · 等你 1
+--- 2026-11-04T18:52:35+08:00 强杀 hub pid=39404（慢命令仍在跑）
+--- 重启后立即看
+在跑 0 · 排队 1 · 今天做完 2 · 等你 1
+--- 慢命令跑完后
+在跑 0 · 排队 1 · 今天做完 2 · 等你 1
+最近几轮
+  #4 演练慢测 等重派：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+ERROR: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM
+  #3 演练慢测 停了：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+ERROR: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM
+
+--- 「演练慢测」的 when.types 是 rehearsal.*，把 rehearsal.cut 也接走了（规则按加入顺序匹配，先命中的赢）。换成完全不同的类型 cuttest.*
+规则：试一下→try.* | 演练断电→cuttest.*
+通知它停了。
+--- 2026-11-04T18:53:39+08:00 发出 cuttest.slow（本机慢命令约 39 秒，不花额度）
+记下了，没有规则接它。
+在跑 0 · 排队 0 · 今天做完 2 · 等你 1
+--- 2026-11-04T18:53:46+08:00 强杀 hub pid=56100
+杀后 ping 进程：
+--- 重启后立即看
+在跑 0 · 排队 0 · 今天做完 2 · 等你 1
+--- 慢命令跑完后
+在跑 0 · 排队 0 · 今天做完 2 · 等你 1
+最近几轮
+  #4 演练慢测 停了：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+ERROR: You’ve hit your usage limit. Upgrade to Pro (https://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM
+  #3 演练慢测 停了：退出码 1：ttps://chatgpt.com/explore/pro), visit https://chatgpt.com/settings/usage to purchase more credits or try again at 7:18 PM.
+--- 第 5 轮时间线
+没有这一轮
+
+--- 诊断到真因：我写的 agent「慢测」编号不合法（要小写字母数字和 -）且缺 worker 字段 → 整份 rules.json 被拒，中台继续用旧规则并把原因做成了卡片（这条卡片本身是「写错了不会静默生效」的真实证据）
+agents=agent,slowtest rules=试一下→agent(try.*) | 演练断电→slowtest(cuttest.*)
+规则没问题。
+(node:16948) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+--- 处理那张「规则写错了」的卡片
+这张卡片已经处理过了，这次没有改动。
+--- 2026-11-04T18:54:54+08:00 发 cuttest.slow
+交给了：演练断电
+在跑 1 · 排队 0 · 今天做完 2 · 等你 0
+--- 2026-11-04T18:55:00+08:00 强杀 hub pid=54076（慢命令还应剩 30 秒）
+杀后 ping：
+PING.EXE                     40920 Console                    1      4,328 K
+--- 重启后立即：
+在跑 1 · 排队 0 · 今天做完 2 · 等你 0
+--- 慢命令应已结束：
+在跑 0 · 排队 0 · 今天做完 3 · 等你 0
+--- 第 5 轮时间线
+第 5 轮 · 演练断电
+11-04 18:54:49  规则版本 #207
+11-04 18:54:54  触发事件：来源 local · 类型 cuttest.slow · 对象 cuttest-2
+11-04 18:54:54  desktop-lm7rki1 领取（慢测）
+11-04 18:55:34  结束：�������

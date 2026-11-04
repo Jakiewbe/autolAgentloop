@@ -1,0 +1,1582 @@
+diff --git a/bin/agent-autoloop.cmd b/bin/agent-autoloop.cmd
+new file mode 100644
+index 0000000..cd90d9a
+--- /dev/null
++++ b/bin/agent-autoloop.cmd
+@@ -0,0 +1,4 @@
++@echo off
++rem The same program the POSIX launcher starts, for a Windows command prompt and for anything that can only run an
++rem .exe or a .cmd. The arguments are handed on as they arrived; nothing here splits them again.
++node --disable-warning=ExperimentalWarning "%~dp0agent-autoloop.ts" %*
+diff --git a/cli/main.ts b/cli/main.ts
+index 3ae6d07..0656c9c 100644
+--- a/cli/main.ts
++++ b/cli/main.ts
+@@ -8,6 +8,7 @@ import { createInterface } from "node:readline/promises";
+ import { hubClient } from "../protocol/client.ts";
+ import { CONFIG_FILE, readConfig, writeConfig, type Config } from "../host/config.ts";
+ import { HOME, RULES_FILE } from "../host/home.ts";
++import { WINDOWS, which } from "../host/platform.ts";
+ import { installService, removeService, serviceRunning } from "../host/service.ts";
+ import { versionLine } from "../host/version.ts";
+ import { spendLine } from "./spend.ts";
+@@ -108,15 +109,25 @@ function linkSkill() {
+     const link = path.join(homedir(), agent, "skills", "agent-autoloop");
+     if (lstatSync(link, { throwIfNoEntry: false })) continue;
+     mkdirSync(path.dirname(link), { recursive: true });
+-    symlinkSync(path.join(ROOT, "skills", "agent-autoloop"), link);
++    // A directory link on Windows is a junction: it needs no special right, and it is what a symlink would be there.
++    symlinkSync(path.join(ROOT, "skills", "agent-autoloop"), link, WINDOWS ? "junction" : undefined);
+   }
+ }
+ 
+ /** What to type to run this program: its name if that's what a shell finds, otherwise where it is. */
+ function howToRun() {
+-  const found = spawnSync("/bin/sh", ["-c", "command -v agent-autoloop"], { encoding: "utf8" }).stdout.trim();
+-  if (found && realpathSync(found) === realpathSync(PROGRAM)) return "agent-autoloop";
+-  return /\s/.test(PROGRAM) ? `'${PROGRAM}'` : PROGRAM;
++  // What a shell would find for the name, if anything: a link to this install, or another one's.
++  const found = which("agent-autoloop") ?? which("agent-autoloop.cmd");
++  if (found) {
++    try {
++      const same = (file: string) => realpathSync(file).toLowerCase();
++      if (same(found) === same(WINDOWS ? path.join(ROOT, "bin", "agent-autoloop.cmd") : PROGRAM))
++        return "agent-autoloop";
++    } catch {}
++  }
++  // A path with a space is quoted the way the shell it is typed into reads it.
++  if (!/[\s"]/.test(PROGRAM)) return PROGRAM;
++  return WINDOWS ? `"${PROGRAM}"` : `'${PROGRAM}'`;
+ }
+ 
+ /** What was asked for on the command line, or whichever of the usual Agents is installed. */
+diff --git a/host/platform.ts b/host/platform.ts
+new file mode 100644
+index 0000000..a17d3bc
+--- /dev/null
++++ b/host/platform.ts
+@@ -0,0 +1,267 @@
++// Where this program meets the operating system, and the only place it does: finding a program, starting a turn so it
++// outlives the worker that started it, looking at it afterwards, and stopping its whole process tree. Everything else
++// in the program talks in these names and knows nothing about shells or process groups.
++import { execFileSync, spawn } from "node:child_process";
++import { existsSync, writeFileSync } from "node:fs";
++import path from "node:path";
++
++export const WINDOWS = process.platform === "win32";
++/** Windows starts the turn through this: the same rules as the POSIX wrapper below, as a process that can be stopped. */
++const RUNNER = path.join(import.meta.dirname, "..", "worker", "runner.ts");
++const NODE = ["--disable-warning=ExperimentalWarning"];
++
++const found = new Map<string, string | null>();
++
++/** A program's path from Windows' PATH and PATHEXT, with the extension a person would not type. */
++export function which(name: string) {
++  const hasDirectory = name.includes("/") || name.includes("\\");
++  const extensions = !WINDOWS
++    ? [""]
++    : path.extname(name)
++      ? [""]
++      : ["", ...(process.env.PATHEXT ?? ".COM;.EXE;.BAT;.CMD").split(";")];
++  const directories = hasDirectory ? [""] : (process.env.PATH ?? "").split(path.delimiter);
++  for (const directory of directories) {
++    if (!hasDirectory && !directory) continue;
++    for (const extension of extensions) {
++      const file = path.resolve(directory, name + extension);
++      if (existsSync(file)) return file;
++    }
++  }
++  return null;
++}
++
++const onPath = (name: string) => {
++  if (WINDOWS) return which(name);
++  // A login shell has the PATH the owner has in a terminal; a service starts with a bare one.
++  try {
++    const printed = execFileSync(process.env.SHELL ?? "/bin/sh", ["-lc", `command -v ${name}`], {
++      encoding: "utf8",
++      timeout: 15_000,
++      stdio: ["ignore", "pipe", "ignore"],
++    });
++    return printed.trim().split("\n").at(-1) || null;
++  } catch {
++    return null;
++  }
++};
++
++/** Where a program is: on the PATH a person would have, or in one of the places the caller knows. */
++export function findProgram(name: string, elsewhere: () => string[] = () => []) {
++  if (!found.has(name)) found.set(name, onPath(name) ?? elsewhere().find(existsSync) ?? null);
++  const program = found.get(name);
++  if (!program) throw new Error(`找不到 ${name}：先装好并登录`);
++  return program;
++}
++
++export type TurnFiles = { out: string; err: string; result: string };
++export type Launch = {
++  /** Program and arguments, as the adapter built them: no shell has seen them. */
++  argv: string[];
++  cwd: string;
++  env: NodeJS.ProcessEnv;
++  files: TurnFiles;
++  /** Where the command line is written down, in a form the process that runs it reads back. */
++  commandFile: string;
++  /** What this launch is called in the process table, so a number reused by another process isn't mistaken for it. */
++  marker: string;
++  onError?: (error: Error) => void;
++};
++
++const quoted = (word: string) => `'${word.replaceAll("'", `'\\''`)}'`;
++
++/**
++ * POSIX: a login shell gives the turn the PATH and sign-in its owner has in a terminal; the command waits in a file for
++ * /bin/sh because login shells disagree on how a command reads its arguments (fish has no $0 or $@), and because the
++ * install path can hold any character. Output and the exit code go through that shell, so they land in their files even
++ * if this program has gone by then. Detached, so the turn is its own process group: stopping it stops what it started.
++ */
++function launchPosix({ argv, cwd, env, files, commandFile, marker, onError }: Launch) {
++  writeFileSync(commandFile, `unset AGENT_AUTOLOOP_COMMAND\nexec ${argv.map(quoted).join(" ")}\n`, { mode: 0o600 });
++  const script = [
++    "out=$1",
++    "err=$2",
++    "result=$3",
++    "shift 3",
++    "umask 077",
++    '"$@" >"$out" 2>"$err"',
++    'echo $? >"$result.tmp"',
++    'mv "$result.tmp" "$result"',
++    // A final external command can replace the shell before publishing its exit file.
++    ":",
++  ].join("\n");
++  const login = [process.env.SHELL ?? "/bin/sh", "-lc", 'exec /bin/sh "$AGENT_AUTOLOOP_COMMAND"'];
++  const child = spawn("/bin/sh", ["-c", script, marker, files.out, files.err, files.result, ...login], {
++    cwd,
++    env: { ...env, AGENT_AUTOLOOP_COMMAND: commandFile },
++    detached: true,
++    stdio: "ignore",
++  });
++  child.on("error", (error) => onError?.(error));
++  child.unref();
++  return child.pid!;
++}
++
++const CMD_SPECIAL = /[\s"&|<>^()%,;=]/;
++
++/** One word of a command line read by cmd.exe: quoted once, here, and never handed to a second shell. */
++const cmdWord = (word: string) =>
++  CMD_SPECIAL.test(word) ? `"${word.replaceAll("%", "%%").replaceAll('"', '\\"')}"` : word;
++
++const comspec = () => process.env.ComSpec ?? path.join(process.env.SystemRoot ?? "C:\\Windows", "System32", "cmd.exe");
++
++export type Program = { program: string; args: string[]; shell: boolean };
++
++/**
++ * Windows has no shebang and no signals: a program is a .exe, or a script only an interpreter can run. Each is started
++ * the way its own kind needs, and the words are passed as a list, not as a line a shell would split again. Only a
++ * .cmd/.bat is read by cmd.exe, because nothing else can run one; its words are quoted for that one parser.
++ */
++export function programFor(argv: string[]): Program {
++  const [name, ...rest] = argv;
++  const file = path.isAbsolute(name) || name.includes("\\") || name.includes("/") ? name : (which(name) ?? name);
++  const extension = path.extname(file).toLowerCase();
++  if (extension === ".cmd" || extension === ".bat") {
++    const line = [file, ...rest].map(cmdWord).join(" ");
++    return { program: comspec(), args: ["/d", "/s", "/c", line], shell: false };
++  }
++  if (extension === ".ps1") {
++    const powershell = which("pwsh") ?? which("powershell");
++    if (!powershell) throw new Error("找不到 PowerShell：先装好 PowerShell 7 或 Windows PowerShell");
++    return {
++      program: powershell,
++      args: ["-NoProfile", "-NonInteractive", "-ExecutionPolicy", "Bypass", "-File", file, ...rest],
++      shell: false,
++    };
++  }
++  return { program: file, args: rest, shell: false };
++}
++
++/**
++ * Windows: a small runner of this install's own starts the turn and waits for it, with the turn's output going straight
++ * into its files. It is one process to look at and one tree to stop (taskkill /T), which is what Windows offers instead
++ * of a process group. It outlives the worker, so a job started before a restart is still found running after one.
++ */
++function launchWindows({ argv, cwd, env, files, commandFile, marker, onError }: Launch) {
++  const program = programFor(argv);
++  writeFileSync(commandFile, `${JSON.stringify({ ...program, cwd }, null, 2)}\n`, { mode: 0o600 });
++  const child = spawn(process.execPath, [...NODE, RUNNER, commandFile, files.out, files.err, files.result, marker], {
++    cwd,
++    env,
++    detached: true,
++    stdio: "ignore",
++    windowsHide: true,
++  });
++  child.on("error", (error) => onError?.(error));
++  child.unref();
++  return child.pid!;
++}
++
++/** Starts a turn as a process of its own; the pid it returns is the one that is stopped to stop the whole turn. */
++export function launchTurn(launch: Launch) {
++  return WINDOWS ? launchWindows(launch) : launchPosix(launch);
++}
++
++/** Whether a process with this number is there, whether or not it is ours. */
++export const pidAlive = (pid: number) => {
++  try {
++    process.kill(pid, 0);
++    return true;
++  } catch (error) {
++    // A process this account may not open is still there.
++    return (error as NodeJS.ErrnoException).code === "EPERM";
++  }
++};
++
++const lines = new Map<number, { at: number; line: string | null }>();
++
++/** What a process was started with, for telling it apart from another process that got its number. */
++export function commandLineOf(pid: number) {
++  if (!WINDOWS) {
++    try {
++      return execFileSync("ps", ["-p", String(pid), "-o", "command="], { encoding: "utf8" });
++    } catch {
++      return null;
++    }
++  }
++  const known = lines.get(pid);
++  const moment = Date.now();
++  if (known && moment - known.at < 2_000) return known.line;
++  let line: string | null = null;
++  try {
++    const printed = execFileSync("wmic", ["process", "where", `processid=${pid}`, "get", "commandline", "/value"], {
++      encoding: "utf8",
++      timeout: 15_000,
++      stdio: ["ignore", "pipe", "ignore"],
++    });
++    line = /CommandLine=(.*)/.exec(printed)?.[1]?.trim() || null;
++  } catch {
++    try {
++      const printed = execFileSync(
++        "powershell",
++        [
++          "-NoProfile",
++          "-NonInteractive",
++          "-Command",
++          `(Get-CimInstance Win32_Process -Filter "ProcessId=${pid}").CommandLine`,
++        ],
++        { encoding: "utf8", timeout: 30_000, stdio: ["ignore", "pipe", "ignore"] },
++      );
++      line = printed.trim() || null;
++    } catch {
++      line = null;
++    }
++  }
++  lines.set(pid, { at: moment, line });
++  return line;
++}
++
++/** Whether the turn started here is still the process that has its number. */
++export function runAlive(pid: number | undefined, marker: string) {
++  if (!pid) return false;
++  if (!WINDOWS) {
++    try {
++      return execFileSync("ps", ["-p", String(pid), "-o", "command="], { encoding: "utf8" }).includes(marker);
++    } catch {
++      return false;
++    }
++  }
++  if (!pidAlive(pid)) return false;
++  const line = commandLineOf(pid);
++  // Nothing can read a command line here: the number is all there is.
++  return line === null || line.includes(marker);
++}
++
++/** Whether anything of the turn is still going: on Windows the runner waits for its turn, so it stands for the tree. */
++export function runTreeAlive(pid: number | undefined) {
++  if (!pid) return false;
++  if (WINDOWS) return pidAlive(pid);
++  try {
++    // The wrapper can die before a child; zombies have already stopped and only their parent can reap them.
++    return execFileSync("ps", ["-ax", "-o", "pgid=", "-o", "stat="], { encoding: "utf8" })
++      .trim()
++      .split("\n")
++      .some((line) => {
++        const [group, state] = line.trim().split(/\s+/);
++        return Number(group) === pid && !state.startsWith("Z");
++      });
++  } catch {
++    return false;
++  }
++}
++
++/** Stops the turn and everything it started. Windows has no signals: the tree is ended by the console host. */
++export function stopRun(pid: number | undefined, force: boolean) {
++  if (!pid) return;
++  if (WINDOWS) {
++    // taskkill without /F refuses a console program ("只能强制终止"), and Windows hands a console program no signal to
++    // wind down with, so a stop here is the whole tree ended at once.
++    try {
++      execFileSync("taskkill", ["/PID", String(pid), "/T", "/F"], { stdio: "ignore", timeout: 30_000 });
++    } catch {}
++    return;
++  }
++  try {
++    process.kill(-pid, force ? "SIGKILL" : "SIGTERM");
++  } catch {}
++}
+diff --git a/host/service.ts b/host/service.ts
+index 731b258..341b264 100644
+--- a/host/service.ts
++++ b/host/service.ts
+@@ -1,10 +1,12 @@
+-// Keeping it running: launchd on a Mac, systemd on Linux. Both start it at login and restart it if it stops.
++// Keeping it running: launchd on a Mac, systemd on Linux, the sign-in Startup folder on Windows. All three start it at
++// sign-in; the first two also start it again if it stops, which is what the Windows script's loop is for.
+ import { execFileSync, spawnSync } from "node:child_process";
+ import { createHash } from "node:crypto";
+ import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
+ import { homedir } from "node:os";
+ import path from "node:path";
+ import { HOME } from "./home.ts";
++import { WINDOWS, commandLineOf, pidAlive } from "./platform.ts";
+ 
+ const PROGRAM = path.join(import.meta.dirname, "..", "bin", "agent-autoloop.ts");
+ /** Another install on this machine (another AGENT_AUTOLOOP_HOME) has a service of its own. */
+@@ -14,6 +16,17 @@ const label = () =>
+     : `agent-autoloop-${createHash("sha256").update(HOME).digest("hex").slice(0, 8)}`;
+ const plistFile = () => path.join(homedir(), "Library/LaunchAgents", `${label()}.plist`);
+ const unitFile = () => path.join(homedir(), ".config/systemd/user", `${label()}.service`);
++/** Windows has no service manager here: one script in a folder Windows runs at sign-in, and nothing else on the machine. */
++const startupDir = () =>
++  path.join(
++    process.env.APPDATA ?? path.join(homedir(), "AppData", "Roaming"),
++    "Microsoft",
++    "Windows",
++    "Start Menu",
++    "Programs",
++    "Startup",
++  );
++export const startupFile = () => path.join(startupDir(), `${label()}.cmd`);
+ const xml = (text: string) => text.replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;");
+ 
+ export type UnitOptions = {
+@@ -71,6 +84,27 @@ WantedBy=default.target
+ `;
+ }
+ 
++/**
++ * Windows: a script Windows itself runs at sign-in, with a loop that starts it again after ten seconds if it stops.
++ * Deleting this one file, which is in the owner's own Startup folder, is the whole undo.
++ */
++export function startupScript() {
++  const logs = path.join(HOME, "logs", "up.log");
++  // cmd reads % first, so a percent in a path would otherwise be taken for a variable.
++  const word = (text: string) => `"${text.replaceAll("%", "%%")}"`;
++  const command = [process.execPath, "--disable-warning=ExperimentalWarning", PROGRAM, "up"].map(word).join(" ");
++  return [
++    "@echo off",
++    "rem Starts it at sign-in, and again after ten seconds if it stops. Delete this file to stop that.",
++    `set "AGENT_AUTOLOOP_HOME=${HOME.replaceAll("%", "%%")}"`,
++    ":agent-autoloop",
++    `${command} >>${word(logs)} 2>&1`,
++    "timeout /t 10 /nobreak >nul",
++    "goto agent-autoloop",
++    "",
++  ].join("\r\n");
++}
++
+ const domain = () => `gui/${process.getuid!()}`;
+ const launchdHasIt = () =>
+   spawnSync("launchctl", ["print", `${domain()}/${label()}`], { stdio: "ignore" }).status === 0;
+@@ -78,6 +112,11 @@ const pause = (ms: number) => Atomics.wait(new Int32Array(new SharedArrayBuffer(
+ 
+ export function installService() {
+   mkdirSync(path.join(HOME, "logs"), { recursive: true, mode: 0o700 });
++  if (WINDOWS) {
++    mkdirSync(startupDir(), { recursive: true });
++    writeFileSync(startupFile(), startupScript());
++    return;
++  }
+   if (process.platform === "darwin") {
+     mkdirSync(path.dirname(plistFile()), { recursive: true });
+     writeFileSync(plistFile(), plist());
+@@ -95,6 +134,14 @@ export function installService() {
+ }
+ 
+ export function removeService() {
++  if (WINDOWS) {
++    // Only a script this install wrote is removed: another install's file is left alone.
++    if (!existsSync(startupFile())) return;
++    if (!readFileSync(startupFile(), "utf8").includes(PROGRAM)) return;
++    stopUp();
++    rmSync(startupFile(), { force: true });
++    return;
++  }
+   const file = process.platform === "darwin" ? plistFile() : unitFile();
+   if (!existsSync(file)) return;
+   const service = readFileSync(file, "utf8");
+@@ -116,21 +163,26 @@ export function removeService() {
+ export function runningUp() {
+   const file = path.join(HOME, "up.pid");
+   if (!existsSync(file)) return null;
+-  const pid = readFileSync(file, "utf8").trim();
+-  let command = "";
+-  try {
+-    command = execFileSync("ps", ["-p", pid, "-o", "command="], {
+-      encoding: "utf8",
+-      stdio: ["ignore", "pipe", "ignore"],
+-    });
+-  } catch {}
+-  return /agent-autoloop(\.ts)? up\b/.test(command) ? Number(pid) : null;
++  const number = Number(readFileSync(file, "utf8").trim());
++  if (!Number.isInteger(number) || number <= 0) return null;
++  // The number may belong to someone else by now, so what it is started with is what tells them apart.
++  if (!pidAlive(number)) return null;
++  const command = commandLineOf(number) ?? "";
++  return /agent-autoloop(\.ts)? up\b/.test(command) ? number : null;
+ }
+ 
+ /** Stopping a service returns before its process is gone, and one started by hand has no service to stop it. */
+ export function stopUp() {
+   const pid = runningUp();
+   if (pid === null) return;
++  if (WINDOWS) {
++    // Windows has no SIGTERM to hand a console program: the process is ended, and the number it left behind is
++    // recognised as stale on the next start.
++    spawnSync("taskkill", ["/PID", String(pid), "/T"], { stdio: "ignore" });
++    for (let tries = 0; tries < 50 && runningUp() !== null; tries++) pause(100);
++    if (runningUp() !== null) spawnSync("taskkill", ["/PID", String(pid), "/T", "/F"], { stdio: "ignore" });
++    return;
++  }
+   try {
+     process.kill(pid, "SIGTERM");
+   } catch {}
+@@ -138,6 +190,7 @@ export function stopUp() {
+ }
+ 
+ export function serviceRunning() {
++  if (WINDOWS) return existsSync(startupFile()) && runningUp() !== null;
+   if (process.platform === "darwin") return existsSync(plistFile()) && launchdHasIt();
+   return spawnSync("systemctl", ["--user", "is-active", "--quiet", label()], { stdio: "ignore" }).status === 0;
+ }
+diff --git a/kernel/decide.ts b/kernel/decide.ts
+index 651895d..bbc3785 100644
+--- a/kernel/decide.ts
++++ b/kernel/decide.ts
+@@ -28,6 +28,8 @@ const RESEND_AT = [0, 1, 3, 7, 15, 25, 35, 45, 55];
+ const RESEND_WINDOW = 57 * MINUTE;
+ /** How long a chain of events causing events can get before it stops being dispatched. */
+ const MAX_HOPS = 8;
++/** How many times one run may be dispatched before it stops and waits for a person instead of the clock. */
++const MAX_ATTEMPTS = 5;
+ const NOT_TRYING = { tries: 0, first_try_at: null, not_before: null };
+ const NOT_DELIVERED: Row = { version: 0, ref: null, ...NOT_TRYING, error: null, given_up: 0 };
+ 
+@@ -255,13 +257,34 @@ function claimNext(draft: Draft, worker: string, claim: string) {
+   return jobOf(draft.view, draft.view.get("runs", run.id)!, draft.env);
+ }
+ 
+-/** A run that didn't get through waits to try again, and takes along whatever came in for the same thing meanwhile. */
++/**
++ * A run that didn't get through waits to try again, and takes along whatever came in for the same thing meanwhile.
++ * It does not wait forever: after MAX_ATTEMPTS dispatches it stops where it is and tells the person, because a run
++ * that fails every time costs the same every hour and never gets closer to done.
++ */
+ function retryLater(draft: Draft, run: Row, result: Result) {
+   const { id } = run;
+   const attempts = run.attempts + 1;
+-  const notBefore = draft.now + Math.min(5 * MINUTE * 2 ** (attempts - 1), 60 * MINUTE);
+   const error = (result.error ?? "").trim().replace(/[。.]+$/, "") || "没说原因";
+   const unclaimed = nulls("claim", "claimed_at", "seen_at", "cancel_at");
++  const rejected: Rejected[] = [];
++  for (const what of ["ask", "resolve", "later", "events"] as const) {
++    for (const _ of result[what] ?? []) rejected.push({ what, reason: "没跑成的一轮只能发通知" });
++  }
++  for (const notice of result.notice ?? []) cardFromReceipt(draft, run, "notice", notice);
++  if (attempts >= MAX_ATTEMPTS) {
++    // Out of tries: the run stays visible as in doubt, never dispatched again, and says why.
++    put(draft, "runs", id, {
++      state: "unknown",
++      attempts,
++      error: `自动派了 ${MAX_ATTEMPTS} 次都没跑完，已停止自动重派（最后一次卡在：${error}）`,
++      ...unclaimed,
++    });
++    const words = `这条已经自动派了 ${MAX_ATTEMPTS} 次都没跑完（最后卡在：${error}），不再自动重派，请看一眼再决定。`;
++    notify(draft, `run:${id}:exhausted`, run.rule, words, threadOf(run));
++    return rejected;
++  }
++  const notBefore = draft.now + Math.min(5 * MINUTE * 2 ** (attempts - 1), 60 * MINUTE);
+   put(draft, "runs", id, { state: "queued", attempts, not_before: iso(notBefore), error, ...unclaimed });
+   const sameThread = (other: Row) => other.id !== id && other.rule === run.rule && other.lane === run.lane;
+   for (const other of rows(draft.view, "runs", { rule: run.rule, lane: run.lane, state: "queued" }).filter(
+@@ -274,11 +297,6 @@ function retryLater(draft: Draft, run: Row, result: Result) {
+     set(draft, "runs", other.id, null);
+     if (other.resume) put(draft, "runs", id, { resume: other.resume });
+   }
+-  const rejected: Rejected[] = [];
+-  for (const what of ["ask", "resolve", "later", "events"] as const) {
+-    for (const _ of result[what] ?? []) rejected.push({ what, reason: "没跑成的一轮只能发通知" });
+-  }
+-  for (const notice of result.notice ?? []) cardFromReceipt(draft, run, "notice", notice);
+   if (!result.notice?.length && attempts === 3) {
+     const clock = { timeZone: draft.rules.timezone, hour: "2-digit", minute: "2-digit", hourCycle: "h23" } as const;
+     const time = new Intl.DateTimeFormat("zh-CN", clock).format(notBefore);
+diff --git a/plugins/command/agent.ts b/plugins/command/agent.ts
+index d9b2ac0..3397690 100644
+--- a/plugins/command/agent.ts
++++ b/plugins/command/agent.ts
+@@ -1,20 +1,89 @@
+ // Anything with a print mode: its command line in rules.json, its last message on stdout. A script is an agent too, and
+ // a plain command needn't take the prompt at all: it finds what it needs through the environment (AGENT_AUTOLOOP_CONTEXT).
+-import { tail, type Adapter } from "../../worker/agents.ts";
++//
++// Two placeholders stand for a list rather than a word, because going on in a session changes the command line itself:
++// {resumeArgs} is `resume <会话>` when there is a session to go on in, nothing on the first turn; {cwdArgs} is `-C <目录>`
++// on the first turn, nothing when going on (codex's resume takes no -C). A session id printed in the output as a JSON line
++// with thread_id / threadId / sessionID / session_id is reported, so the next turn goes on in it.
++import { tail, type Adapter, type Turn } from "../../worker/agents.ts";
+ 
+-export default {
+-  command: (turn) =>
+-    (turn.command ?? []).map((part) =>
++const SESSION_KEYS = ["thread_id", "threadId", "sessionID", "session_id"];
++
++/** The session an agent said it is in, if its output names one: the last JSON line that carries it wins. */
++export function sessionOf(stdout: string): string | undefined {
++  let found: string | undefined;
++  for (const line of stdout.split(/\r?\n/)) {
++    const trimmed = line.trim();
++    if (!trimmed.startsWith("{")) continue;
++    let value: unknown;
++    try {
++      value = JSON.parse(trimmed);
++    } catch {
++      continue;
++    }
++    for (const key of SESSION_KEYS) {
++      const id = (value as Record<string, unknown>)[key];
++      if (typeof id === "string" && id) found = id;
++    }
++  }
++  return found;
++}
++
++/** A print mode that answers in JSON lines (codex --json, opencode --format json): the message is a field, not stdout. */
++export function messageOf(stdout: string): string | undefined {
++  const lines = stdout.split(/\r?\n/).filter((line) => line.trim());
++  if (!lines.length || !lines.every((line) => line.trim().startsWith("{"))) return undefined;
++  // The last message is the answer: earlier ones are the agent saying what it is about to do.
++  let last = "";
++  for (const line of lines) {
++    let value: unknown;
++    try {
++      value = JSON.parse(line);
++    } catch {
++      return undefined;
++    }
++    const item = (value as { item?: { type?: string; text?: string } }).item;
++    if (item?.type === "agent_message" && typeof item.text === "string") last = item.text;
++  }
++  return last;
++}
++
++function argv(turn: Turn): string[] {
++  const out: string[] = [];
++  for (const part of turn.command ?? []) {
++    const token = part.trim();
++    // A part that is only a placeholder standing for arguments expands to none, one, or several words.
++    if (token === "{resumeArgs}") {
++      if (turn.resume) out.push("resume", turn.resume);
++      continue;
++    }
++    if (token === "{cwdArgs}") {
++      if (!turn.resume) out.push("-C", turn.cwd);
++      continue;
++    }
++    if (token === "{sessionArgs}") {
++      if (turn.resume ?? turn.session) out.push("--session", turn.resume ?? turn.session);
++      continue;
++    }
++    out.push(
+       part
+         .replaceAll("{prompt}", turn.prompt)
+         .replaceAll("{model}", turn.model ?? "")
+         .replaceAll("{effort}", turn.effort ?? "")
+         .replaceAll("{cwd}", turn.cwd)
++        .replaceAll("{session}", turn.resume ?? turn.session)
+         .replaceAll("{context}", turn.contextFile),
+-    ),
++    );
++  }
++  return out;
++}
++
++export default {
++  command: (turn) => argv(turn),
+   read(stdout, code, stderr) {
+-    if (code === null) return {};
+-    if (code !== 0) return { error: `退出码 ${code}：${tail(stderr || stdout) || "没留下原因"}` };
+-    return { text: stdout };
++    const session = sessionOf(stdout);
++    if (code === null) return session ? { session } : {};
++    if (code !== 0) return { error: `退出码 ${code}：${tail(stderr || stdout) || "没留下原因"}`, ...(session ? { session } : {}) };
++    return { text: messageOf(stdout) ?? stdout, ...(session ? { session } : {}) };
+   },
+ } satisfies Adapter;
+diff --git a/pnpm-lock.yaml b/pnpm-lock.yaml
+new file mode 100644
+index 0000000..4e0c846
+--- /dev/null
++++ b/pnpm-lock.yaml
+@@ -0,0 +1,250 @@
++lockfileVersion: '9.0'
++
++settings:
++  autoInstallPeers: true
++  excludeLinksFromLockfile: false
++
++importers:
++
++  .:
++    devDependencies:
++      '@types/node':
++        specifier: 26.6.4
++        version: 26.6.4
++      prettier:
++        specifier: 3.9.10
++        version: 3.9.10
++      typescript:
++        specifier: 7.0.2
++        version: 7.0.2
++
++packages:
++
++  '@types/node@26.6.4':
++    resolution: {integrity: sha512-ldVPDCzj7fsaGZrLB0NuHuTvJcsNasysBAqMolr/cgxrLd1xbqxIr3XJiPnHHJUCxj5sNF1vnRj9aWnrVh5Jcg==}
++
++  '@typescript/typescript-aix-ppc64@7.0.2':
++    resolution: {integrity: sha512-MTKKkWB7p/0E9xi1d1tHtZ5PiLkGEMIq88pK2CubZjOsLtYTLqhgIgi6zepFa+9GHZ6h05NMCkQxGKiPXMxXtQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [ppc64]
++    os: [aix]
++
++  '@typescript/typescript-darwin-arm64@7.0.2':
++    resolution: {integrity: sha512-gowzar9MwS/aRWp6f3a4KUqzRjAZjOsmGNCM6LcTgXum+dBfgsBVMN+AgvOCCbguXyick6LJhpBszxMebJ8syA==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm64]
++    os: [darwin]
++
++  '@typescript/typescript-darwin-x64@7.0.2':
++    resolution: {integrity: sha512-SZ9xZInqApNlNGc9s0W1VSsktYSOe9cFqNOIqmN1Gs8SmkjKZYFt017G4VwPxASInODuAdbTW7sXiFUf893RgA==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [darwin]
++
++  '@typescript/typescript-freebsd-arm64@7.0.2':
++    resolution: {integrity: sha512-W5NH4y/J0plIIS5b2xvTEkU7JFxyqdMAOgf+Ilhl0vHQXKO5dZoxd+C/jEtq56c4F3wk71RB4BMRQ2XdI+bwYQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm64]
++    os: [freebsd]
++
++  '@typescript/typescript-freebsd-x64@7.0.2':
++    resolution: {integrity: sha512-UMGDx5sTpzNw3WiPebH7l90IWfJggEd+egHt/q6p7/Cm3zqoV7VxkGXt+3DxPIw8CcmvAB0j3sVVfbhX+M4Tpw==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [freebsd]
++
++  '@typescript/typescript-linux-arm64@7.0.2':
++    resolution: {integrity: sha512-Qh4eU4/y3yDjnfjjyPYihMj5/ODIlmt+Bzu17OI+fiSRDW57QmU5SiN63exPRNJPKUzcc1INa1NXdrJ+MqHjUQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm64]
++    os: [linux]
++
++  '@typescript/typescript-linux-arm@7.0.2':
++    resolution: {integrity: sha512-gffT3xPz9sR7j/YJExkyPntrI0P2EP9XbOyWzth2/Gs0RstK+90RBcO0ncXoXy/beYll1SXw846Nf2zdnEz0QQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm]
++    os: [linux]
++
++  '@typescript/typescript-linux-loong64@7.0.2':
++    resolution: {integrity: sha512-uEHck9i8hoAzXPiYRib1O7miOnz23SxIeVl6F4LXox+qov1K35jHcEW6VHKvZI+pyvl7fZEP4MCU5LYvIq1GuQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [loong64]
++    os: [linux]
++
++  '@typescript/typescript-linux-mips64el@7.0.2':
++    resolution: {integrity: sha512-R4KvAMnE43W5Qeqb0Ly56O3mWMWIAgsMyz36DCaycd5nbg/9kzm0liw3JocfRqyJY0KPmzFjbswozXyW0DnIYA==}
++    engines: {node: '>=16.20.0'}
++    cpu: [mips64el]
++    os: [linux]
++
++  '@typescript/typescript-linux-ppc64@7.0.2':
++    resolution: {integrity: sha512-DORx5b3sd/4S7eayxm4FQv+A7CrkUIGRaHiwI8oiHTAI1fAPWhF4J0vAlkC8biAlHSVVwxMQ3tjZ2/DVbnQiiA==}
++    engines: {node: '>=16.20.0'}
++    cpu: [ppc64]
++    os: [linux]
++
++  '@typescript/typescript-linux-riscv64@7.0.2':
++    resolution: {integrity: sha512-wf0jqEDOjrPRnKwYRyyJDRo11KMbvMFrU+q4zqKyChODBzvlkbhNQfKvLxQCcwTpdDaXSHZTVuh0JoCrKCUMHQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [riscv64]
++    os: [linux]
++
++  '@typescript/typescript-linux-s390x@7.0.2':
++    resolution: {integrity: sha512-IkwJc3L7yhytWd/ewjyxNDfOmswCm9GWMJT/ue/dU4aZNbwZeYAetq42VyLmsmSjvoX7z74X6ZaYCtzAr0EuGw==}
++    engines: {node: '>=16.20.0'}
++    cpu: [s390x]
++    os: [linux]
++
++  '@typescript/typescript-linux-x64@7.0.2':
++    resolution: {integrity: sha512-EYdf2cNg7rgCWJnxCdJ+F3V39O8ihb37eHAu1LK8oAFizgTQbPOK7zHHXbPt8rX24COqODXeI3sIf0fCXG7H/A==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [linux]
++
++  '@typescript/typescript-netbsd-arm64@7.0.2':
++    resolution: {integrity: sha512-+polYF4MF04aPpO5FTkHran9yUQDSXqy5GiSDKpsll5jy3l3+g9QLhpf39T+ePtefhXLOGrLl0QIjkQP6VnelA==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm64]
++    os: [netbsd]
++
++  '@typescript/typescript-netbsd-x64@7.0.2':
++    resolution: {integrity: sha512-8YIT0EHM/3dq10ZOVF/A7pc/YSMtbcecct4rWtexrnSCHOPcpC2KTLXfTCR6vDpnSiY12heNb1GiN/wu+T/FyA==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [netbsd]
++
++  '@typescript/typescript-openbsd-arm64@7.0.2':
++    resolution: {integrity: sha512-APT8+ClYnuYm1u9+kgGXoMj2VzWzcymwh2gNSQVySHfkRDGOTVkoWLjCmOQSaO+PoqQ57B0flRp9SA+7GnnkzQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm64]
++    os: [openbsd]
++
++  '@typescript/typescript-openbsd-x64@7.0.2':
++    resolution: {integrity: sha512-yX7s+Q0Dln0Dt9tEzZsAjXXR/+ytBM7AlglaqyeMPxQszJ1JhlJdZ6jLA+IzldHtflX81em7lDao1xXu+aRRkg==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [openbsd]
++
++  '@typescript/typescript-sunos-x64@7.0.2':
++    resolution: {integrity: sha512-dLJDGaLZ1D4HPQn62u1n8mBDkJREwMsAkCdkwd4Ieqw+x3TUyTsqY0YiBCtE6H6OzzgGk3iuZ3vFWRS+E8/d1g==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [sunos]
++
++  '@typescript/typescript-win32-arm64@7.0.2':
++    resolution: {integrity: sha512-Gyl1Vy6OsWesLzmq+EP0Fb7b4Nid5232AvcA2SFcdYreldpNtYFFofPjnt62y9hQy7VTaZp65ICJjuAQRaVcIQ==}
++    engines: {node: '>=16.20.0'}
++    cpu: [arm64]
++    os: [win32]
++
++  '@typescript/typescript-win32-x64@7.0.2':
++    resolution: {integrity: sha512-0BQ3HkAHHlKLSp1qRvf3SUhGpGsDuhB/jgFw75guyqbxJqEaS0Cw/VFO8i2nHglJUzQCRtMMR/IBAKE3ETMC4g==}
++    engines: {node: '>=16.20.0'}
++    cpu: [x64]
++    os: [win32]
++
++  prettier@3.9.10:
++    resolution: {integrity: sha512-skGHTH1Yb9QvaTC4hWnRTzEYtCpApF0UMBPz+t/0ZPzP8ihefo/btKd+QA7pUE0fEwA1SbS/NmhyEcstdXOIdA==}
++    engines: {node: '>=14'}
++    hasBin: true
++
++  typescript@7.0.2:
++    resolution: {integrity: sha512-8FYau96o3NKOhbjKi/qNvG/W5jhzxkbdm5sj9AbZ/5T5sWqn3hJgLfGx27sRKZWTvyzCP8dLRBTf5tBTSRVUNA==}
++    engines: {node: '>=16.20.0'}
++    hasBin: true
++
++  undici-types@8.9.0:
++    resolution: {integrity: sha512-KTDyRTYX8sWmKXAikPHHSyc63CRPETMctyjKFupcC6OBLXT3xsN0e9aF7m+mIXutFWpUXuedtowG7iLOzp0kQg==}
++
++snapshots:
++
++  '@types/node@26.6.4':
++    dependencies:
++      undici-types: 8.9.0
++
++  '@typescript/typescript-aix-ppc64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-darwin-arm64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-darwin-x64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-freebsd-arm64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-freebsd-x64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-arm64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-arm@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-loong64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-mips64el@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-ppc64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-riscv64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-s390x@7.0.2':
++    optional: true
++
++  '@typescript/typescript-linux-x64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-netbsd-arm64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-netbsd-x64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-openbsd-arm64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-openbsd-x64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-sunos-x64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-win32-arm64@7.0.2':
++    optional: true
++
++  '@typescript/typescript-win32-x64@7.0.2':
++    optional: true
++
++  prettier@3.9.10: {}
++
++  typescript@7.0.2:
++    optionalDependencies:
++      '@typescript/typescript-aix-ppc64': 7.0.2
++      '@typescript/typescript-darwin-arm64': 7.0.2
++      '@typescript/typescript-darwin-x64': 7.0.2
++      '@typescript/typescript-freebsd-arm64': 7.0.2
++      '@typescript/typescript-freebsd-x64': 7.0.2
++      '@typescript/typescript-linux-arm': 7.0.2
++      '@typescript/typescript-linux-arm64': 7.0.2
++      '@typescript/typescript-linux-loong64': 7.0.2
++      '@typescript/typescript-linux-mips64el': 7.0.2
++      '@typescript/typescript-linux-ppc64': 7.0.2
++      '@typescript/typescript-linux-riscv64': 7.0.2
++      '@typescript/typescript-linux-s390x': 7.0.2
++      '@typescript/typescript-linux-x64': 7.0.2
++      '@typescript/typescript-netbsd-arm64': 7.0.2
++      '@typescript/typescript-netbsd-x64': 7.0.2
++      '@typescript/typescript-openbsd-arm64': 7.0.2
++      '@typescript/typescript-openbsd-x64': 7.0.2
++      '@typescript/typescript-sunos-x64': 7.0.2
++      '@typescript/typescript-win32-arm64': 7.0.2
++      '@typescript/typescript-win32-x64': 7.0.2
++
++  undici-types@8.9.0: {}
+diff --git a/protocol/rules.ts b/protocol/rules.ts
+index e6dea70..146b80b 100644
+--- a/protocol/rules.ts
++++ b/protocol/rules.ts
+@@ -61,6 +61,10 @@ function checkFields(issues: string[], where: string, value: unknown, spec: Fiel
+ 
+ const nameOf = (entry: unknown) => (isObject(entry) && typeof entry.name === "string" ? entry.name : "");
+ 
++/** A folder a rule can name: under the home folder (~/), or absolute the way this system writes it — /x, C:\x, \\host\share. */
++const isDirSpec: Check = (value) =>
++  typeof value === "string" && /^(~\/|\/|[A-Za-z]:[\\/]|\\\\[^\\]+\\[^\\]+)/.test(value);
++
+ function checkRule(issues: string[], rules: Rules, rule: Rule, names: Set<string>, now: number) {
+   const name = nameOf(rule);
+   if (names.has(name)) issues.push(`规则名「${name}」重复了`);
+@@ -71,7 +75,7 @@ function checkRule(issues: string[], rules: Rules, rule: Rule, names: Set<string
+     ["name", isText, NOT_EMPTY],
+     ["when", isObject, "要是一个对象"],
+     ["to", isKeyOf(rules.agents), `不是已登记的 Agent：${isObject(rule) ? rule.to : ""}`],
+-    ["cwd", (value) => typeof value === "string" && /^(~\/|\/)/.test(value), "要是以 ~/ 或 / 开头的目录"],
++    ["cwd", isDirSpec, "要是以 ~/、/ 或盘符开头的目录"],
+     ["skill", isText, NOT_EMPTY, true],
+     ["prompt", isText, NOT_EMPTY, true],
+     ["group", isText, NOT_EMPTY, true],
+diff --git a/tests/command-adapter.test.ts b/tests/command-adapter.test.ts
+new file mode 100644
+index 0000000..5501581
+--- /dev/null
++++ b/tests/command-adapter.test.ts
+@@ -0,0 +1,67 @@
++// Failure modes: the resume flag goes on the first turn as well (codex's resume takes no -C), the session id an agent
++// prints is dropped so every turn starts over, and a part that is only a placeholder is passed through as that word.
++import assert from "node:assert/strict";
++import { test } from "node:test";
++import adapter from "../plugins/command/agent.ts";
++import type { Turn } from "../worker/agents.ts";
++
++const turn = (over: Partial<Turn> = {}): Turn => ({
++  prompt: "P",
++  session: "s-new",
++  resume: null,
++  cwd: "C:/work",
++  access: "edit",
++  command: ["codex", "exec", "{resumeArgs}", "--skip-git-repo-check", "{cwdArgs}", "{prompt}"],
++  contextFile: "C:/home/context.md",
++  folder: "C:/work",
++  ...over,
++});
++
++test("the first turn gets the folder flag and no resume", () => {
++  assert.deepEqual(adapter.command(turn()), ["codex", "exec", "--skip-git-repo-check", "-C", "C:/work", "P"]);
++});
++
++test("going on in a session puts resume and the id first, and drops the flag that resume refuses", () => {
++  assert.deepEqual(adapter.command(turn({ resume: "t-1" })), [
++    "codex",
++    "exec",
++    "resume",
++    "t-1",
++    "--skip-git-repo-check",
++    "P",
++  ]);
++});
++
++test("a word can still carry a placeholder, and the session can be asked for by name", () => {
++  const one = turn({ command: ["oc", "run", "{prompt}", "--session", "{session}"] });
++  assert.deepEqual(adapter.command(one), ["oc", "run", "P", "--session", "s-new"]);
++  assert.deepEqual(adapter.command({ ...one, resume: "t-2" }), ["oc", "run", "P", "--session", "t-2"]);
++});
++
++test("the session an agent says it is in comes back from its output", () => {
++  const stdout = ['{"type":"thread.started","thread_id":"t-9"}', '{"type":"item","text":"好了"}', "最后一句话"].join("\n");
++  assert.deepEqual(adapter.read(stdout, 0, ""), { text: stdout, session: "t-9" });
++  assert.deepEqual(adapter.read(stdout, null, ""), { session: "t-9" });
++  assert.deepEqual(adapter.read("没有 json\n", 0, ""), { text: "没有 json\n" });
++});
++
++test("a print mode that answers in JSON lines gives its message, not the wrapper", () => {
++  const stdout = [
++    '{"type":"thread.started","thread_id":"t-9"}',
++    '{"type":"turn.started"}',
++    '{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"第一句"}}',
++    '{"type":"item.completed","item":{"id":"item_1","type":"agent_message","text":"第二句"}}',
++    '{"type":"turn.completed","usage":{"input_tokens":10}}',
++  ].join("\n");
++  const read = adapter.read(stdout, 0, "") as { text?: string; session?: string };
++  assert.equal(read.text, "第二句", "the last message is the answer, not the play by play");
++  assert.equal(read.session, "t-9");
++  // Mixed or broken output is left alone: guessing there would hide a crash behind half a message.
++  assert.equal((adapter.read('{"type":"x"}\n不是 json', 0, "") as { text?: string }).text, '{"type":"x"}\n不是 json');
++});
++
++test("a turn that fails says why, and keeps the session it named", () => {
++  const read = adapter.read('{"sessionID":"s-8"}\n坏了', 3, "") as { error?: string; session?: string };
++  assert.match(read.error ?? "", /退出码 3/);
++  assert.equal(read.session, "s-8");
++});
+diff --git a/tests/helpers.ts b/tests/helpers.ts
+index 4e921e7..b6dcef8 100644
+--- a/tests/helpers.ts
++++ b/tests/helpers.ts
+@@ -5,12 +5,28 @@ import { tmpdir } from "node:os";
+ import { join } from "node:path";
+ import { after } from "node:test";
+ 
++/**
++ * Removes a test's home. Windows refuses to delete a database file another handle in this process still has open, and
++ * this process keeps its hub open until it exits, so the retry then the two errors that means are what is left: a
++ * temporary folder not deleted is not a failed test.
++ */
++function removeHome(directory: string) {
++  try {
++    rmSync(directory, { recursive: true, force: true, maxRetries: 10, retryDelay: 50 });
++  } catch (error) {
++    const code = (error as NodeJS.ErrnoException).code;
++    if (code !== "EPERM" && code !== "EBUSY") throw error;
++  }
++}
++
+ export function setup(name: string, rules = "rules.fixture.json") {
+   const directory = mkdtempSync(join(tmpdir(), `agent-autoloop-${name}-`));
+   process.env.AGENT_AUTOLOOP_HOME = directory;
++  // Where Windows keeps a startup script is this test's own folder, never the one the owner signs in with.
++  if (process.platform === "win32") process.env.APPDATA = join(directory, "appdata");
+   process.env.AGENT_AUTOLOOP_RULES = rules.startsWith("/") ? rules : join(import.meta.dirname, rules);
+   process.env.AGENT_AUTOLOOP_PUBLIC_URL = "https://hub.test";
+-  after(() => rmSync(directory, { recursive: true, force: true }));
++  after(() => removeHome(directory));
+   return directory;
+ }
+ 
+diff --git a/tests/kernel.test.ts b/tests/kernel.test.ts
+index 848db41..dafbdff 100644
+--- a/tests/kernel.test.ts
++++ b/tests/kernel.test.ts
+@@ -284,3 +284,28 @@ test("a stale writer receives a conflict and cannot change the committed view",
+     db.close();
+   }
+ });
++
++test("a run that keeps failing stops after a fixed number of dispatches instead of going on for ever", () => {
++  let v = seeded();
++  const act = (type: string, args: unknown[], now: number) => {
++    const decided = decide(v, { type, args }, now, environment);
++    v = evolve(v, decided.facts);
++    return decided.value;
++  };
++  act("ingest", ["app", { id: "cap", type: "feedback.new" }], 0);
++  let now = 0;
++  let dispatches = 0;
++  for (let i = 0; i < 10; i += 1) {
++    const job = act("claimNext", ["w1", "c" + i], now);
++    if (!job) break;
++    dispatches += 1;
++    act("finish", [job.run, job.token, { outcome: "failed", error: "老是失败" }], now + 1);
++    now += 61 * 60 * 1000;
++  }
++  const runs = rows(v, "runs");
++  assert.equal(dispatches, 5, "five dispatches, then it stops");
++  assert.equal(runs.length, 1);
++  assert.equal(runs[0].state, "unknown", "not queued again");
++  assert.equal(runs[0].attempts, 5);
++  assert.match(String(runs[0].error), /停止自动重派/);
++});
+diff --git a/tests/rules.test.ts b/tests/rules.test.ts
+index 816df3a..89cae20 100644
+--- a/tests/rules.test.ts
++++ b/tests/rules.test.ts
+@@ -72,6 +72,12 @@ test("a mistake says which rule and what is wrong", () => {
+   problem((r) => {
+     r.rules[0].cwd = "relative/path";
+   }, /规则「意见」.*cwd/);
++  // On Windows an absolute folder starts with a drive letter or a share, not with a slash: init writes one there.
++  for (const folder of ["C:\\project\\notes", "c:/project/notes", "\\\\share\\notes", "~/notes", "/notes"]) {
++    const written = good();
++    written.rules[0].cwd = folder;
++    assert.doesNotThrow(() => parseRules(JSON.stringify(written)), folder);
++  }
+   problem((r) => {
+     delete r.rules[1].prompt;
+   }, /规则「告警」.*skill.*prompt/);
+diff --git a/tests/windows-runtime.test.ts b/tests/windows-runtime.test.ts
+new file mode 100644
+index 0000000..6adbf1b
+--- /dev/null
++++ b/tests/windows-runtime.test.ts
+@@ -0,0 +1,222 @@
++// Windows has no /bin/sh, no signals and no process groups, so the way a turn is started, looked at and stopped is
++// different there; these are the checks for that way, on Windows only. They run real processes: a turn started in a
++// folder with a space and Chinese in its path, a turn stopped with the child it started, a turn over its time, and a
++// worker restarted while a turn is still going. What matters is what the operating system shows afterwards: no process
++// left, and the exit code and the result where the worker looks for them. The POSIX side keeps its checks in
++// worker.test.ts, which needs /bin/sh and so cannot run here.
++import assert from "node:assert/strict";
++import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
++import { join } from "node:path";
++import { test } from "node:test";
++import { WINDOWS, launchTurn, pidAlive, runAlive, runTreeAlive, stopRun } from "../host/platform.ts";
++import { setup } from "./helpers.ts";
++
++const home = setup("windows-runtime");
++// A folder a Windows path often is: a space and Chinese in it, which is where quoting goes wrong.
++const folder = join(home, "project 目录");
++mkdirSync(folder, { recursive: true });
++
++const { createWorker } = await import("../worker/worker.ts");
++
++const scriptFile = (name: string, body: string) => {
++  const file = join(home, name);
++  writeFileSync(file, body.trimStart());
++  return file;
++};
++
++/** Ticks until `done`, or fails: a test that waits for ever is a test that hides a hang. */
++async function until(done: () => boolean) {
++  const end = Date.now() + 30_000;
++  while (!done()) {
++    assert.ok(Date.now() < end, "等了 30 秒还没好");
++    await new Promise((again) => setTimeout(again, 50));
++  }
++}
++
++/** The worker's own round, over and over: it is what looks at a run, so nothing happens without it. */
++async function drive(worker: { tick(): Promise<boolean> }, done: () => boolean) {
++  const end = Date.now() + 30_000;
++  while (!done()) {
++    assert.ok(Date.now() < end, "30 秒内没收住这一轮");
++    await worker.tick();
++    await new Promise((again) => setTimeout(again, 100));
++  }
++}
++
++const jobFor = (over: { run: number; command: string[]; timeout?: number }) => ({
++  run: over.run,
++  token: `token-${over.run}`,
++  attempt: 1,
++  session: null,
++  askFirst: [],
++  rule: { name: "跑一下", cwd: folder, prompt: "做点事。" },
++  agent: { id: "a", name: "甲", use: "command", access: "edit", command: over.command, timeout: over.timeout },
++  context: { events: [], answers: [], timers: [], waiting: [], open: [], decided: [] },
++});
++
++function fakeHub() {
++  const hub = {
++    jobs: [] as any[],
++    results: [] as any[],
++    async work(query: any) {
++      return { job: query.capacity ? (hub.jobs.shift() ?? null) : null, cancel: [] };
++    },
++    async started() {
++      return { ok: true };
++    },
++    async result(run: number, token: string, body: any) {
++      hub.results.push({ run, token, ...body });
++      return { rejected: [] };
++    },
++  };
++  return hub;
++}
++
++const runFolder = (run: number) => join(home, "worker", "runs", `${run}-1`);
++
++/** Whatever a test left running is stopped and taken away, so the next one starts on a machine with nothing on it. */
++function clearRuns() {
++  const runs = join(home, "worker", "runs");
++  if (!existsSync(runs)) return;
++  for (const id of readdirSync(runs)) {
++    const file = join(runs, id, "entry.json");
++    try {
++      const entry = JSON.parse(readFileSync(file, "utf8"));
++      if (entry.pid) stopRun(entry.pid, true);
++    } catch {}
++    for (let tries = 0; tries < 40 && existsSync(file); tries++) {
++      try {
++        rmSync(join(runs, id), { recursive: true, force: true });
++      } catch {}
++      if (existsSync(join(runs, id))) Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, 50);
++    }
++  }
++}
++
++test(
++  "windows: a turn runs in the rule's folder and keeps its output, exit code and result",
++  { skip: !WINDOWS },
++  async () => {
++    const starts = join(home, "happy-starts.log");
++    const script = scriptFile(
++      "say.mjs",
++      `
++import { appendFileSync } from "node:fs";
++appendFileSync(process.argv[2], "started\\n");
++process.stdout.write("好了\\n");
++`,
++    );
++    const hub = fakeHub();
++    hub.jobs.push(jobFor({ run: 1, command: [process.execPath, script, starts] }));
++    const worker = createWorker({ hub, name: "本机", wait: 1 });
++    try {
++      await drive(worker, () => hub.results.length === 1);
++    } finally {
++      clearRuns();
++    }
++    const [result] = hub.results;
++    assert.equal(result.outcome, "done");
++    assert.equal(readFileSync(join(runFolder(1), "exit-1"), "utf8").trim(), "0");
++    assert.match(readFileSync(join(runFolder(1), "stdout-1.log"), "utf8"), /好了/);
++    const spec = JSON.parse(readFileSync(join(runFolder(1), "command-1.json"), "utf8"));
++    assert.equal(spec.program.toLowerCase(), process.execPath.toLowerCase());
++    assert.deepEqual(spec.args, [script, starts]);
++    assert.equal(spec.cwd, folder);
++    assert.equal(readFileSync(starts, "utf8").trim(), "started");
++    void worker;
++  },
++);
++
++test("windows: stopping a turn ends the tree it started", { skip: !WINDOWS }, async () => {
++  const pids = join(home, "tree-pids.txt");
++  const script = scriptFile(
++    "tree.mjs",
++    `
++import { spawn } from "node:child_process";
++import { writeFileSync } from "node:fs";
++const kid = spawn(process.execPath, ["-e", "setInterval(() => {}, 1000)"], { stdio: "ignore", windowsHide: true });
++writeFileSync(process.argv[2], process.pid + " " + kid.pid);
++setInterval(() => {}, 1000);
++`,
++  );
++  const dir = join(home, "direct-run");
++  mkdirSync(dir, { recursive: true });
++  const marker = "agent-autoloop-run:9:1:1";
++  const pid = launchTurn({
++    argv: [process.execPath, script, pids],
++    cwd: folder,
++    env: process.env,
++    files: { out: join(dir, "stdout-1.log"), err: join(dir, "stderr-1.log"), result: join(dir, "exit-1") },
++    commandFile: join(dir, "command-1.json"),
++    marker,
++  });
++  await until(() => existsSync(pids) && readFileSync(pids, "utf8").trim().split(" ").length === 2);
++  const kid = Number(readFileSync(pids, "utf8").trim().split(" ")[1]);
++  assert.equal(runAlive(pid, marker), true);
++  assert.equal(runTreeAlive(pid), true);
++  assert.equal(pidAlive(kid), true);
++  stopRun(pid, false);
++  await until(() => !runTreeAlive(pid) && !pidAlive(kid));
++  assert.equal(runTreeAlive(pid), false);
++  assert.equal(pidAlive(kid), false);
++});
++
++test("windows: a turn over its time is stopped and the run says why", { skip: !WINDOWS }, async () => {
++  const starts = join(home, "slow-starts.log");
++  const script = scriptFile(
++    "slow.mjs",
++    `
++import { appendFileSync } from "node:fs";
++appendFileSync(process.argv[2], "started\\n");
++setTimeout(() => process.exit(0), 30_000);
++`,
++  );
++  const hub = fakeHub();
++  hub.jobs.push(jobFor({ run: 7, command: [process.execPath, script, starts], timeout: 1 }));
++  let clock = Date.parse("2026-10-18T02:00:00.000Z");
++  const worker = createWorker({ hub, name: "本机", wait: 1, now: () => clock });
++  // It is started through the runner, so the script itself is what says it is up.
++  await drive(worker, () => existsSync(starts));
++  assert.equal(readFileSync(starts, "utf8").trim(), "started");
++  // A minute past when it started: the worker's clock moves, the stopping happens in real time.
++  clock += 61_000;
++  try {
++    await drive(worker, () => hub.results.length === 1);
++  } finally {
++    clearRuns();
++  }
++  const [result] = hub.results;
++  assert.equal(result.outcome, "failed");
++  assert.match(result.error, /超过 1 分钟/);
++});
++
++test(
++  "windows: a restarted worker keeps the turn it finds, and doesn't start it again",
++  { skip: !WINDOWS },
++  async () => {
++    const starts = join(home, "restart-starts.log");
++    const script = scriptFile(
++      "finish.mjs",
++      `
++import { appendFileSync } from "node:fs";
++appendFileSync(process.argv[2], "started\\n");
++setTimeout(() => process.stdout.write("完成了\\n"), 2_500);
++`,
++    );
++    const hub = fakeHub();
++    hub.jobs.push(jobFor({ run: 3, command: [process.execPath, script, starts] }));
++    const first = createWorker({ hub, name: "本机", wait: 1 });
++    // This one goes away without stopping the turn: another one starts on the same home, as after a restart.
++    const second = createWorker({ hub, name: "本机", wait: 1 });
++    try {
++      await drive(first, () => existsSync(starts));
++      await drive(second, () => hub.results.length === 1);
++    } finally {
++      clearRuns();
++    }
++    assert.equal(hub.results[0].outcome, "done");
++    assert.equal(readFileSync(starts, "utf8").trim().split("\n").length, 1);
++    assert.equal(existsSync(join(runFolder(3), "command-2.json")), false);
++    await first.tick();
++  },
++);
+diff --git a/tests/worker.test.ts b/tests/worker.test.ts
+index 1c3e7c5..61ef2e0 100644
+--- a/tests/worker.test.ts
++++ b/tests/worker.test.ts
+@@ -513,21 +513,27 @@ test("a receipt that stays unreadable is given up on: the run ends on its first
+   assert.match(plain.results[0].notice[0].title, /回执读不懂/);
+ });
+ 
+-test("a session that can't be gone on in starts a new one, once", async () => {
++test("a session that can't be gone on in stops and says so, without starting a new one", async () => {
++  // Not "starts a new one": a silent new session runs the whole prompt again and can write the same work twice.
+   const hub = fakeHub();
+-  const script = `if [ -n "$1" ]; then echo "active writer" >&2; exit 1; fi; printf 'session=new\\n开了新会话也做完了\\n'`;
++  const script = `if [ -n "$1" ]; then echo "active writer" >&2; exit 1; fi; printf 'session=new\n开了新会话也做完了\n'`;
+   hub.jobs.push(job({ use: "scripted", command: [script], session: "old" }));
+   const w = worker(hub);
+   await until(w, () => hub.results.length === 1);
+-  assert.deepEqual(
+-    [hub.results[0].outcome, hub.results[0].summary, hub.results[0].session],
+-    ["done", "开了新会话也做完了", "new"],
++  assert.equal(hub.results[0].outcome, "failed");
++  // Whatever the adapter said about the old session is inside the bracket: the point is that it stops and names it.
++  assert.match(hub.results[0].error, /^接不上原来的会话（/);
++  assert.equal(
++    hub.starts.some((start) => start.session === "new"),
++    false,
++    "no new session, and no second run of the same prompt",
+   );
+   const failing = fakeHub();
+   failing.jobs.push(job({ use: "scripted", command: ["echo nope >&2; exit 1"], session: "old" }));
+   const f = worker(failing);
+   await until(f, () => failing.results.length === 1);
+-  assert.deepEqual([failing.results[0].outcome, failing.results[0].error], ["failed", "nope"]);
++  assert.equal(failing.results[0].outcome, "failed");
++  assert.match(failing.results[0].error, /^接不上原来的会话（/);
+ });
+ 
+ test("the session is told to the hub while it runs, with its link", async () => {
+diff --git a/worker/agents.ts b/worker/agents.ts
+index 20728a2..3ec4aea 100644
+--- a/worker/agents.ts
++++ b/worker/agents.ts
+@@ -2,10 +2,8 @@
+ // about one: its command line and how to read its output. `plugins/<use>/agent.ts`, in this install's folder first,
+ // then the ones that ship. Anything with a print mode needs no file at all: `use: "command"` with a command line in
+ // rules.json.
+-import { execFileSync } from "node:child_process";
+-import { existsSync } from "node:fs";
+-import path from "node:path";
+ import { loadPlugin } from "../host/plugins.ts";
++import { findProgram as locate } from "../host/platform.ts";
+ import type { Usage } from "../protocol/validate.ts";
+ 
+ export type { Usage } from "../protocol/validate.ts";
+@@ -45,26 +43,9 @@ export async function adapterFor(use: string): Promise<Adapter> {
+   return adapter;
+ }
+ 
+-const found = new Map<string, string | null>();
+-
+-/** Where a program is: on the login shell's PATH (launchd and systemd start with a bare one), or in one of these. */
++/** Where a program is: on the PATH a person would have, or in one of these; how differs only in host/platform.ts. */
+ export function findProgram(name: string, elsewhere: () => string[] = () => []) {
+-  if (!found.has(name)) {
+-    const shell = process.env.SHELL ?? "/bin/sh";
+-    let onPath: string | null = null;
+-    try {
+-      const printed = execFileSync(shell, ["-lc", `command -v ${name}`], {
+-        encoding: "utf8",
+-        timeout: 15_000,
+-        stdio: ["ignore", "pipe", "ignore"],
+-      });
+-      onPath = printed.trim().split("\n").at(-1) || null;
+-    } catch {}
+-    found.set(name, onPath ?? elsewhere().find(existsSync) ?? null);
+-  }
+-  const program = found.get(name);
+-  if (!program) throw new Error(`找不到 ${name}：先装好并登录`);
+-  return program;
++  return locate(name, elsewhere);
+ }
+ 
+ /** The end of some output, for saying why something failed. */
+diff --git a/worker/runner.ts b/worker/runner.ts
+new file mode 100644
+index 0000000..c95f1fc
+--- /dev/null
++++ b/worker/runner.ts
+@@ -0,0 +1,46 @@
++// Runs one turn on Windows: starts the agent where the worker said, puts its output in the files the worker reads, and
++// publishes its exit code where the worker looks for it. It is the process the worker's pid names, so stopping it
++// (taskkill /T) stops everything the turn started, and it outlives the worker, so a turn started before a restart is
++// still found running after one. Nothing here goes through a shell: the words arrive as a list.
++import { spawn } from "node:child_process";
++import { closeSync, openSync, readFileSync, renameSync, writeFileSync } from "node:fs";
++
++const [commandFile, out, err, result, marker] = process.argv.slice(2);
++const spec = JSON.parse(readFileSync(commandFile, "utf8")) as { program: string; args: string[]; shell?: boolean };
++
++/** The worker reads the exit code from this file; it is written whole, then renamed, so it never reads half. */
++function publish(code: number) {
++  try {
++    writeFileSync(`${result}.tmp`, String(code));
++    renameSync(`${result}.tmp`, result);
++  } catch {}
++}
++
++const stdout = openSync(out, "w");
++const stderr = openSync(err, "w");
++// The marker is only here so the process table carries it: the worker tells its own turn apart from a number reused.
++const child = spawn(spec.program, spec.args, {
++  stdio: ["ignore", stdout, stderr],
++  windowsHide: true,
++  shell: spec.shell === true,
++});
++
++child.on("error", (error) => {
++  try {
++    writeFileSync(err, `${error}\n`);
++  } catch {}
++  publish(127);
++  closeSync(stdout);
++  closeSync(stderr);
++  process.exit(127);
++});
++
++child.on("exit", (code, signal) => {
++  publish(code ?? (signal === "SIGTERM" ? 143 : signal === "SIGKILL" ? 137 : 1));
++  closeSync(stdout);
++  closeSync(stderr);
++  process.exit(0);
++});
++
++// Nothing to do but wait: the marker keeps this process identifiable while the turn runs.
++void marker;
+diff --git a/worker/worker.ts b/worker/worker.ts
+index 9e4138a..e976c5b 100644
+--- a/worker/worker.ts
++++ b/worker/worker.ts
+@@ -2,7 +2,7 @@
+ // job. An agent runs detached, in its own process group, writing to files, so the worker can stop and come back and
+ // find it still going, or finished. A job is saved before anything slow happens; a result is saved before it's handed
+ // in and stays until the hub has taken it.
+-import { execFileSync, spawn } from "node:child_process";
++import { execFileSync } from "node:child_process";
+ import { randomUUID } from "node:crypto";
+ import {
+   closeSync,
+@@ -22,6 +22,7 @@ import { homedir } from "node:os";
+ import path from "node:path";
+ import { HubError, type Hub } from "../protocol/client.ts";
+ import { HOME } from "../host/home.ts";
++import { WINDOWS, launchTurn, runAlive, runTreeAlive, stopRun } from "../host/platform.ts";
+ import type { Job } from "../protocol/job.ts";
+ import { addUsage, type Notice, type Result } from "../protocol/validate.ts";
+ import { adapterFor, type Adapter, type Reading, type Turn, type Usage } from "./agents.ts";
+@@ -54,7 +55,6 @@ type Entry = {
+   session: string;
+   resume: string | null;
+   repairs: number;
+-  triedFresh: boolean;
+   usage?: Usage;
+   pid?: number;
+   launchedAt?: number;
+@@ -101,37 +101,13 @@ const files = (entry: Entry) => ({
+   out: path.join(entry.dir, `stdout-${entry.turn}.log`),
+   err: path.join(entry.dir, `stderr-${entry.turn}.log`),
+   exit: path.join(entry.dir, `exit-${entry.turn}`),
+-  command: path.join(entry.dir, `command-${entry.turn}.sh`),
++  command: path.join(entry.dir, `command-${entry.turn}${WINDOWS ? ".json" : ".sh"}`),
+ });
+-const quoted = (word: string) => `'${word.replaceAll("'", `'\\''`)}'`;
+ const marker = (entry: Entry) => `agent-autoloop-run:${entry.run}:${entry.attempt}:${entry.turn}`;
+ 
+-function alive(entry: Entry) {
+-  if (!entry.pid) return false;
+-  try {
+-    const command = execFileSync("ps", ["-p", String(entry.pid), "-o", "command="], { encoding: "utf8" });
+-    return command.includes(marker(entry));
+-  } catch {
+-    return false;
+-  }
+-}
+-
+-function signal(entry: Entry, name: NodeJS.Signals) {
+-  try {
+-    if (entry.pid) process.kill(-entry.pid, name);
+-  } catch {}
+-}
+-
+-function groupAlive(entry: Entry) {
+-  // The wrapper can die before a child; zombies have already stopped and only their parent can reap them.
+-  return execFileSync("ps", ["-ax", "-o", "pgid=", "-o", "stat="], { encoding: "utf8" })
+-    .trim()
+-    .split("\n")
+-    .some((line) => {
+-      const [group, state] = line.trim().split(/\s+/);
+-      return Number(group) === entry.pid && !state.startsWith("Z");
+-    });
+-}
++const alive = (entry: Entry) => runAlive(entry.pid, marker(entry));
++const signal = (entry: Entry, name: NodeJS.Signals) => stopRun(entry.pid, name === "SIGKILL");
++const groupAlive = (entry: Entry) => runTreeAlive(entry.pid);
+ 
+ function snapshot(file: string) {
+   if (!existsSync(file)) return "";
+@@ -199,35 +175,20 @@ export function createWorker({
+     if (!existsSync(cwd)) throw new Error(`在 ${cwd} 启动不了：这个目录不存在`);
+     const argv = adapter.command(turn);
+     const { out, err, exit, command } = files(entry);
+-    // Login shells don't agree on how a command reads its arguments (fish has no $0 or $@), so the command waits in a
+-    // file for /bin/sh. Its path travels by environment because the install path can hold any character.
+-    writeFileSync(command, `unset AGENT_AUTOLOOP_COMMAND\nexec ${argv.map(quoted).join(" ")}\n`, { mode: 0o600 });
+-    // Output and the exit code go through the shell, so they land in their files even if this program has gone by then.
+-    const script = [
+-      "out=$1",
+-      "err=$2",
+-      "result=$3",
+-      "shift 3",
+-      "umask 077",
+-      '"$@" >"$out" 2>"$err"',
+-      'echo $? >"$result.tmp"',
+-      'mv "$result.tmp" "$result"',
+-      // A final external command can replace the shell before publishing its exit file.
+-      ":",
+-    ].join("\n");
+-    // The login shell gives it the PATH and sign-in its owner has in a terminal; launchd and systemd give neither.
+-    const login = [process.env.SHELL ?? "/bin/sh", "-lc", 'exec /bin/sh "$AGENT_AUTOLOOP_COMMAND"'];
+-    const child = spawn("/bin/sh", ["-c", script, marker(entry), out, err, exit, ...login], {
++    // How a turn is started, looked at and stopped is the one thing that differs by platform; it differs only in
++    // host/platform.ts: a login shell and a process group on POSIX, a runner that stays with the turn on Windows.
++    const pid = launchTurn({
++      argv,
+       cwd,
+-      env: { ...agentEnvironment(entry), AGENT_AUTOLOOP_COMMAND: command },
+-      detached: true,
+-      stdio: "ignore",
++      env: agentEnvironment(entry),
++      files: { out, err, result: exit },
++      commandFile: command,
++      marker: marker(entry),
++      onError: (error) => log(`run ${entry.run}: ${error}`),
+     });
+-    child.on("error", (error) => log(`run ${entry.run}: ${error}`));
+-    child.unref();
+-    entry.pid = child.pid;
++    entry.pid = pid;
+     save(entry);
+-    log(`run ${entry.run} (${rule.name}) turn ${entry.turn} started, pid ${child.pid}`);
++    log(`run ${entry.run} (${rule.name}) turn ${entry.turn} started, pid ${pid}`);
+   }
+ 
+   function endWith(entry: Entry, result: Result) {
+@@ -249,8 +210,7 @@ export function createWorker({
+       session: job.session ?? randomUUID(),
+       resume: job.session,
+       repairs: 0,
+-      triedFresh: false,
+-    };
++      };
+     // Kept before anything slow: a worker stopped from here on still has the job.
+     save(entry);
+     try {
+@@ -302,20 +262,15 @@ export function createWorker({
+     if (seen.error !== undefined || !seen.text?.trim()) {
+       const error = seen.error || "没留下结果";
+       if (entry.repairs) return discardReceipt(entry, adapter, error);
+-      // The conversation may not be there to go on in, or something else has it open: this go carries on in a new one.
+-      if (entry.resume && !entry.triedFresh && entry.repairs === 0) {
+-        log(`run ${entry.run}: couldn't go on in ${entry.resume} (${error}); starting a new session`);
+-        entry.triedFresh = true;
+-        entry.resume = null;
+-        entry.session = randomUUID();
+-        try {
+-          launch(entry, adapter, entry.prompt);
+-          return;
+-        } catch (failure) {
+-          return endWith(entry, { outcome: "failed", error: String(failure).slice(0, 500) });
+-        }
+-      }
+-      return endWith(entry, { outcome: "failed", error: error.slice(0, 500), ...known, ...usage });
++      // The conversation may not be there to go on in, or something else has it open. It stops here instead of
++      // starting a new one and redoing the work: a silent redo costs the same again and can write twice. The run
++      // goes back through the ordinary retry path, whose total is capped, and the person is told.
++      return endWith(entry, {
++        outcome: "failed",
++        error: (entry.resume ? `接不上原来的会话（${error}）` : error).slice(0, 500),
++        ...known,
++        ...usage,
++      });
+     }
+     const { result, problem } = resultFrom(readMessage(seen.text), { session, usage: entry.usage });
+     if (entry.repairs && !problem && result.outcome === "failed") return discardReceipt(entry, adapter, result.error!);

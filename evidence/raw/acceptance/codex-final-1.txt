@@ -1,0 +1,71 @@
+按下表 **22 项**统计：**通过 11 项、失败 6 项、未验证 5 项**。固定材料身份一致，但桥接准入、重试限制和回退命令存在明确问题，**本次部署验收不通过**；Windows 停止功能还受到当前权限限制，不能确认可用。未修改仓库文件，未向中台发送事件。
+
+逐项结果如下，文件路径相对仓库根，冒号后为行号。
+
+| 项目 | 结论 | 依据的命令或文件:行 |
+|---|---|---|
+| 固定包、补丁及源码身份 | pass | 两个 SHA256 均与指定值一致；逐文件 11 项一致；包内对应 11 个文件也一致。`sha256sum` 启动受限，使用 `Get-FileHash` 和 Python 独立核对 |
+| A：Git 状态与工作树 | pass | 指定四条 Git 命令：HEAD 正确、分支名为空、仅一个工作树；改动集合与基线一致 |
+| A：全部治理文件是否保持原样 | unverified | `source-baseline.json:160`：任务书、GOAL 哈希一致；CURRENT 已变化且被标为易变；其余 `.agent/` 文件没有历史哈希 |
+| B：源码基线检查 | pass | 指定 Python 命令：29 通过、0 失败；`check_source_baseline.py:69` 确实通过 `git show` 获取上游 blob |
+| C：Windows 运行测试复跑 | fail | 本次 2 通过、2 失败；停止、超时失败。`windows-runtime.test.ts:159、184` |
+| C：removeHome 吞错范围 | pass | `app/tests/helpers.ts:13`：仅吞 EPERM、EBUSY，其他错误重新抛出 |
+| D：外部工具版本及部分历史结论 | pass | 实跑确认 Codex 两版为 0.130、0.166，OpenCode 为 1.14.29；原始日志支持 Codex 新旧差异、接续及 Claude 401 |
+| D：T7 要求的正式部署接入 | fail | 当前规则仅配置一次性 Codex exec 和慢命令；`app/plugins/command/agent.ts:5` 无会话接续；Claude 路径未接通 |
+| E：桥接现有单测、幂等和字符约束 | pass | 同进程方式复跑：8 通过、0 失败；`bridge.mjs:103、154` 与 `validate.ts:73`、`decide.ts:170` 一致；未发送事件 |
+| E：失效证据准入及治理程序定位 | fail | 失效依赖探针返回 `null`，表示放行；默认 `findKit()` 也返回 `null`。`bridge.mjs:26、88` |
+| F：常量及当前并发配置 | pass | timeout=180 分钟、REPAIRS=2、退避5～60分钟、租约5分钟、心跳2分钟、离线10分钟均一致；当前配置 capacity=1 |
+| F：有限重试及禁止自动重开会话 | fail | 内存探针连续失败10次仍为 queued；`decide.ts:259` 无总次数上限；`worker.ts:268` 会自动新建会话 |
+| G：Startup 与当前监听 | pass | Startup 脚本存在，429字节；`netstat` 确认 PID 30596 监听 `127.0.0.1:3350` |
+| G：重复启动拒绝及登录自启 | unverified | 历史日志有拒绝记录；本次进程查询受限，`runningUp()` 返回 null，未冒险运行可能改写 PID 文件的 `up`；未注销登录 |
+| G：管理入口的未测标注 | pass | `deployment/A.md:61、63、95` 明确标注暂停/停止未实测、远程入口未接、登录启动未验证 |
+| H：中断演练日志对应关系 | pass | 原始日志有三次所述中断；其中仅第5轮证明运行中慢命令跨中台重启恢复，前两轮为额度失败，报告已区分 |
+| H：manifest 实物哈希 | pass | `manifest.json:28` 的11个 artifacts，逐个核对一致；结束前再次核对仍一致 |
+| H：回退手册命令可执行性 | fail | `rollback.md:25` 给 PowerShell 只读变量 `$PID` 赋值，本次复现报错 |
+| H：数据库及完整演练状态恢复 | unverified | 回退日志只展示换配置、重启和状态摘要，没有数据库备份恢复验证 |
+| I：证据表述是否充分 | fail | 未发现自宣“独立验收通过”；但 OpenCode 取消被写为通过，所引取消日志为0字节，证据不足 |
+| B机完整验收 | unverified | `preflight/B.md`、`deployment/B.md` 均不存在；材料明确说明尚未完成 |
+| DSH ACP 活体兼容性 | unverified | 源码支持 resume/set_config_option 等结论，但未实跑；`adapters.md:205` 已标明源码核查 |
+
+失败清单：
+
+1. **Windows 测试未复现4项通过。**  
+   复现：`node --disable-warning=ExperimentalWarning --test --test-isolation=none --test-force-exit app/tests/windows-runtime.test.ts`  
+   期望：4通过、0失败；实际：2通过、2失败。直接调用 `taskkill` 返回“拒绝访问”。历史日志确有4通过，但不能代替本次复验；当前失败不能直接归因于普通账户下的程序行为。
+
+2. **T7 正式接入不完整。**  
+   复现：读取 `%USERPROFILE%\.agent-autoloop\rules.json` 和 `app/plugins/command/agent.ts`。  
+   期望：Codex 会话接续及 Claude/Go 初始路径接通；实际：部署规则每轮重新执行 Codex，未保存模型侧会话接续，Claude 原始日志为鉴权失败。外部 CLI 探针成功不等于中台已接通。
+
+3. **桥接放行过期证据，默认定位失败。**  
+   复现：
+   ```powershell
+   node --input-type=module -e 'import {objection,findKit} from "./tools/anchor_bridge/bridge.mjs"; console.log(objection({plan:"approved",status:"todo",dependencies:["D"],deliverable_coverage:"covered"},new Map([["D",{status:"done",verification_state:"stale"}]]))); console.log(findKit(process.cwd()));'
+   ```
+   期望：拒绝失效依赖，并通过已安装技能 runtime 定位程序；实际：输出两个 `null`。前者表示准入放行，后者表示找不到程序。
+
+4. **没有总重试上限，且会自动新建会话。**  
+   复现：`rg -n 'attempts|notBefore|triedFresh' app/kernel/decide.ts app/worker/worker.ts`  
+   期望：达到明确总量上限后停止，会话损坏明确停下；实际：退避仅限制间隔，连续10次失败仍排队，之后仍按60分钟重试；会话失败可自动新建。`scheduling.md:43`“没有无限重试路径”与代码不符。
+
+5. **回退命令使用只读变量。**  
+   安全复现：`& { $pid=1 }`。  
+   期望：保存待停止进程的编号；实际：报“无法覆盖变量 PID”。若继续执行手册下一行，`$PID` 仍是当前 PowerShell 自身编号，存在结束操作终端的风险。
+
+6. **OpenCode 取消通过缺少足够证据。**  
+   复现：`Get-Item evidence/raw/adapters/20261104T180650+0800_oc_cancel.json | Select-Object Length`。  
+   期望：有任务已开始、取消及进程结束的可核对记录；实际：长度为0，stderr 同样为空。仅凭没有完成事件，不能证明运行中的任务被正确取消。
+
+未验证清单与原因：
+
+- **治理保留范围**：CURRENT 哈希由 `de946cd2…1204c` 变为 `ba2950bd…3fcd7`，基线明确允许其变化；没有其他治理文件的历史基线，不能确认全部未被改写。
+- **重复启动、登录自启**：当前 CIM/进程查询受限；已有监听时 `runningUp()` 仍返回 null，因此未运行可能写状态的重复 `up`。未做注销登录。
+- **完整数据恢复**：现有日志只支持配置回退及状态摘要，不能证明数据库备份可恢复。
+- **B机**：没有实机访问和正式报告，跨网络、双机并行、B重启恢复均未验证。
+- **DSH及模型边界**：ACP 未活体调用；OpenCode 实际模型仍不可从事件确认；套餐剩余额度和实际额外扣费均未知。
+
+最严重的3个风险：
+
+1. **失效证据任务仍可能被桥接放行**，破坏批准范围和验收材料的约束。
+2. **失败可持续重派并自动新建会话**，可能反复消耗额度、重复执行写入。
+3. **权限受限时停止失败被吞掉，运行身份又无法确认**，当前不能保证任务能可靠停止或重复启动一定被拒绝。

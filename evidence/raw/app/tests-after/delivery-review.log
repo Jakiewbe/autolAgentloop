@@ -1,0 +1,11 @@
+✔ a review must explicitly report a valid findings list (1.2209ms)
+✔ Codex ignores developer configuration and only reads the review snapshot (0.4829ms)
+✔ review uses main's points and a text-only snapshot; ordinary internal docs skip the reviewer (1942.0415ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2090.9326

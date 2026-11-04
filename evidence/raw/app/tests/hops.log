@@ -1,0 +1,12 @@
+✔ published event schema accepts the same depth as the runtime (1.3155ms)
+✔ receipt events cannot forge hops; over eight is recorded without dispatch (12.2996ms)
+✔ answers and timers inherit the original chain depth (6.6478ms)
+✔ depth defaults to zero and rejects negative, fractional or unbounded numbers (0.3266ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 202.7188

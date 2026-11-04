@@ -1,0 +1,3 @@
+exe | exit=0 | out="exe 入口 ok" | shell=false | program=C:\Program Files\nodejs\node.exe | args=["D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds\\hello.mjs"] | tree gone=true
+cmd | exit=0 | out="cmd 入口 ok" | shell=false | program=C:\WINDOWS\system32\cmd.exe | args=["/d","/s","/c","D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds\\hello.cmd"] | tree gone=true
+ps1 | exit=0 | out="powershell 入口 ok" | shell=false | program=C:\WINDOWS\System32\WindowsPowerShell\v1.0\powershell.EXE | args=["-NoProfile","-NonInteractive","-ExecutionPolicy","Bypass","-File","D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds\\hello.ps1"] | tree gone=true

@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "run_id": "58856b46e15f4f42bf0c4fbd237e17a6",
+  "project_id": "4f13f187-5f5b-4523-9d50-dab2b97defc2",
+  "task_id": "T5",
+  "criterion": 2,
+  "kind": "command",
+  "scope_version": 1,
+  "scope_hash": "0ad66703ff372c833a9bb00af61a64ef7c75adc0c5c7678dcff094dc6f3324fd",
+  "criteria_hash": "e560fa2b93f34c5fd7ba04f0b9c75310ff141680f33573347263c385d86c0185",
+  "expected_revision": 26,
+  "input_hash": "c04e7ea8c7dae8de03d53e8d8577510fb09b619bace756e5cb8742ee0b68e676",
+  "inputs": [
+    "tools/checks/check_source_baseline.py"
+  ],
+  "started_at": "2026-11-04T10:07:05.923280+00:00",
+  "reason": "运行基线自校验脚本，确认 source-baseline.json 与 app/ 实际状态一致且未伪造fork/提交",
+  "result": "pass",
+  "argv": [
+    "C:\\Users\\chs\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "-B",
+    "tools/checks/check_source_baseline.py"
+  ],
+  "exit_code": 0,
+  "logs": {
+    "stdout.log": {
+      "path": ".agent/runtime/checks/58856b46e15f4f42bf0c4fbd237e17a6/stdout.log",
+      "sha256": "4d6c610e6d8937f839c78915b9670e188452030aae685949498a361f552539d9",
+      "bytes": 635
+    },
+    "stderr.log": {
+      "path": ".agent/runtime/checks/58856b46e15f4f42bf0c4fbd237e17a6/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "finished_at": "2026-11-04T10:07:06.334786+00:00"
+}

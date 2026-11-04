@@ -1,0 +1,13 @@
+✔ a thousand completed requests cannot stand in for a thousand waiting ones (1.5628ms)
+✔ an early request rejection stays observable until the batch is consumed (3.4407ms)
+✔ budget checks fail on startup, idle memory, durable throughput, latency regressions; simulation speed is observational (0.409ms)
+✔ dispatch latency includes waking an already waiting worker (67.5605ms)
+✔ the benchmark server has no scheduled work competing with measured events (327.1387ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 530.9229

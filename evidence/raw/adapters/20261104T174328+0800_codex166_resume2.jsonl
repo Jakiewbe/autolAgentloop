@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1a5ef-c1a4-7393-b144-7699b73a6197"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"`edit.txt` 的内容是 `EDIT-OK-42`，无换行。失败的 node 命令退出码是 `3`。"}}
+{"type":"turn.completed","usage":{"input_tokens":220510,"cached_input_tokens":200832,"cache_write_input_tokens":0,"output_tokens":742,"reasoning_output_tokens":96}}

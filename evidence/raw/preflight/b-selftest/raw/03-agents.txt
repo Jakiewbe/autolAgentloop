@@ -1,0 +1,103 @@
+﻿agent codex: on_path=(absent)
+  found: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex.exe size=245812016 mtime=05/11/2026 10:55:01
+  sibling: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex-command-runner.exe mtime=05/09/2026 03:47:16
+  sibling: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex-windows-sandbox-setup.exe mtime=05/11/2026 10:54:58
+  sibling: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex.exe mtime=05/11/2026 10:55:01
+  sibling: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\node.exe mtime=04/19/2026 12:40:07
+  sibling: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\node_repl.exe mtime=05/09/2026 03:47:42
+  sibling: C:\Users\chs\AppData\Local\OpenAI\Codex\bin\rg.exe mtime=03/05/2026 10:31:58
+agent opencode: on_path=C:\Users\chs\AppData\Roaming\npm\opencode.ps1
+agent claude: on_path=C:\Users\chs\AppData\Roaming\npm\claude.ps1
+  found: C:\Users\chs\AppData\Roaming\npm\claude.cmd size=160 mtime=05/29/2026 16:41:39
+  sibling: C:\Users\chs\.local\bin\uv.exe mtime=04/09/2026 11:50:48
+  sibling: C:\Users\chs\.local\bin\uvw.exe mtime=04/09/2026 11:50:54
+  sibling: C:\Users\chs\.local\bin\uvx.exe mtime=04/09/2026 11:50:58
+agent dsh: on_path=(absent)
+--- 用户级 Agent 配置目录（仅名字与大小，不读内容）
+dir C:\Users\chs\.codex :
+  .chatgpt-projects <dir>
+  .sandbox <dir>
+  .sandbox-bin <dir>
+  .sandbox-secrets <dir>
+  .tmp <dir>
+  ambient-suggestions <dir>
+  app-server-daemon <dir>
+  archived_sessions <dir>
+  attachments <dir>
+  automations <dir>
+  bin <dir>
+  browser <dir>
+  cache <dir>
+  code-review-plugin <dir>
+  codex-remote-attachments <dir>
+  codex-rules <dir>
+  computer-use <dir>
+  computer-use-turn-ended <dir>
+  dictation-history <dir>
+  generated_images <dir>
+  memories <dir>
+  memories_v2 <dir>
+  node_repl <dir>
+  origin-mcp <dir>
+  packages <dir>
+dir C:\Users\chs\.claude :
+  backups <dir>
+  cache <dir>
+  commands <dir>
+  debug <dir>
+  ide <dir>
+  paste-cache <dir>
+  plugins <dir>
+  projects <dir>
+  session-env <dir>
+  sessions <dir>
+  skills <dir>
+  .credentials.json 421
+  .last-cleanup 24
+  .last-update-result.json 165
+  CLAUDE.md 2356
+  config.json 29
+  history.jsonl 48056
+  settings.json 1067
+  settings.json.bak-20260529164212 940
+  settings.json.bak-20260608-133133 980
+  settings.json.bak-20260608-133226 1072
+  settings.json.before-auto-experimental-20260526184529 943
+  settings.json.before-final-default-20260527123426 915
+  settings.json.before-kiro-shim-20260527120338 918
+  settings.json.before-permission-default-20260527115242 915
+dir C:\Users\chs\.opencode : (absent)
+dir C:\Users\chs\.dsh :
+  .agent-presets <dir>
+  attachments <dir>
+  dsh-purge <dir>
+  dsh-runtimes <dir>
+  profiles <dir>
+  redteam <dir>
+  sessions <dir>
+  storages <dir>
+  .anonymous-user-id 37
+  .credentials.yaml 559
+  prompt-inject.md 25127
+  t55_agg.py 1507
+  t55_before.py 787
+  t55_bi.py 1612
+  t55_bi2.py 886
+  t55_bi3.py 950
+  t55_bi4.py 438
+  t55_bi5.py 1028
+  t55_cs.py 1102
+  t55_cs2.py 809
+  t55_csv.py 719
+  t55_diff.py 956
+  t55_f2.py 213
+  t55_fb.py 970
+  t55_files.py 487
+dir C:\Users\chs\.agent-autoloop :
+  try <dir>
+  hub.db 4096
+  hub.db-shm 32768
+  hub.db-wal 997072
+  master.key 43
+  rules.json 1069
+

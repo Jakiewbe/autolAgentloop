@@ -1,0 +1,32 @@
+✔ ACP speaks v1, resumes across processes, discards history and returns only the final answer (591.1835ms)
+✖ ACP chooses only a one-time permission and respects structured kinds and resolved paths (2.0675ms)
+✔ ACP refuses incompatible versions and premature process exit (382.9167ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 2
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1122.1044
+
+✖ failing tests:
+
+test at tests\acp.test.ts:60:1
+✖ ACP chooses only a one-time permission and respects structured kinds and resolved paths (2.0675ms)
+  Error: EPERM: operation not permitted, symlink 'C:\Users\chs\AppData\Local\Temp' -> 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-acp-PjszF8\work\escape'
+      at symlinkSync (node:fs:1879:11)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/acp.test.ts:71:3)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at process.processTicksAndRejections (node:internal/process/task_queues:103:5)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    errno: -4048,
+    code: 'EPERM',
+    syscall: 'symlink',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp',
+    dest: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-acp-PjszF8\\work\\escape'
+  }

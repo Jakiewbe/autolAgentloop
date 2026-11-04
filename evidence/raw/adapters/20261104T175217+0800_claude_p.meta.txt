@@ -1,0 +1,7 @@
+tag=claude_p
+started=20261104T175217+0800
+claude_version=2.1.153 (Claude Code)
+exit_code=1
+elapsed_s=8
+out=D:/Vibe_coding-Project/autoAgentloop/evidence/raw/adapters/20261104T175217+0800_claude_p.json
+stderr=D:/Vibe_coding-Project/autoAgentloop/evidence/raw/adapters/20261104T175217+0800_claude_p.stderr.txt

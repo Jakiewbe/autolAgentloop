@@ -1,0 +1,145 @@
+{
+  "generated_at": "2026-11-04T19:51:07+08:00",
+  "generated_by": "Lead（A 机，DESKTOP-LM7RKI1）",
+  "scope": "A 机单机部署（唯一中台 + A 执行端）；B 机未接入，见 evidence/preflight/B_bootstrap.md",
+  "host": {
+    "alias": "A",
+    "hostname": "DESKTOP-LM7RKI1",
+    "os": "Windows",
+    "home": "%USERPROFILE%\\.agent-autoloop",
+    "lan": "172.16.184.69/21",
+    "default_route_note": "Mihomo TUN 198.18.0.1 的 metric 0 优于物理网卡，跨网访问需先加直连路由"
+  },
+  "center": {
+    "listen": "127.0.0.1:3350",
+    "public_url": "http://127.0.0.1:3350",
+    "exposure": "仅回环；未绑 0.0.0.0；未接隧道"
+  },
+  "versions": {
+    "node": "v24.12.0",
+    "pnpm": "11.9.0",
+    "app": "1.0.0",
+    "app_commit": "96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a",
+    "codex_used": "codex-cli 0.166.0-alpha.5.1",
+    "codex_broken": "bin\\codex.exe 0.130.0-alpha.5（400 model_not_found）",
+    "opencode": "1.14.29",
+    "claude_code": "2.1.153（上游鉴权失败，不可用）"
+  },
+  "artifacts": [
+    {
+      "path": "evidence/raw/app/windows-changes.patch",
+      "bytes": 67593,
+      "sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+      "what": "Windows 适配改动（--binary，1226 行）"
+    },
+    {
+      "path": "evidence/preflight/A.md",
+      "bytes": 21625,
+      "sha256": "43e492e81dfc8441518547a3b8a6ac8ce67d6b77c119cfcc15838c07d06c8c69",
+      "what": "T2 A 机盘点"
+    },
+    {
+      "path": "evidence/preflight/B_bootstrap.md",
+      "bytes": 5844,
+      "sha256": "4bec485e00335b2476b6532bc17aa77c177b3dc1d933a203669dfd82e5034124",
+      "what": "T3 B 引导包（B.md 待 B 回传）"
+    },
+    {
+      "path": "evidence/network.md",
+      "bytes": 7854,
+      "sha256": "2372f69ad6d775728589c7eea0de9893176b8f7be5e326e529dcf78dcae560a6",
+      "what": "T4 跨网络方案（首选 Tailscale，未装未测）"
+    },
+    {
+      "path": "evidence/windows-runtime.md",
+      "bytes": 24548,
+      "sha256": "dfe68c4ce99e965e4fb37b91401796c8d0e8b5e6529cf73cda09f422e23fe66b",
+      "what": "T6 Windows 适配实现与测试"
+    },
+    {
+      "path": "evidence/adapters.md",
+      "bytes": 25877,
+      "sha256": "bdaf50ad3afef69dcca08d8c234433cd7c416e1673829d8bc66e6620587133f5",
+      "what": "T7 模型与工具接口实测"
+    },
+    {
+      "path": "evidence/anchor-bridge.md",
+      "bytes": 6144,
+      "sha256": "e648ad9bf30db5471a8ef4c289c3c3cb9b3665bb848a316564713cf42c51827c",
+      "what": "T8 Anchor 桥接"
+    },
+    {
+      "path": "evidence/deployment/A.md",
+      "bytes": 8541,
+      "sha256": "731b0d5ceda1fc17547237c7b1ca3e79e7c7138a3d414657f836efaf4225b836",
+      "what": "T10 A 侧部署"
+    },
+    {
+      "path": "evidence/rehearsal.md",
+      "bytes": 5762,
+      "sha256": "b1063b2bea8843750302472f1a46d047f31fb592bf5c432ecc3dd6491febea20",
+      "what": "T12 演练记录"
+    },
+    {
+      "path": "evidence/rollback.md",
+      "bytes": 5096,
+      "sha256": "88d23ad3729ff24755d571ff4faaa646d177bf3774747cff8069cb2e30143b18",
+      "what": "T12 回退手册"
+    },
+    {
+      "path": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz",
+      "bytes": 321572,
+      "sha256": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+      "what": "部署包（20:05 重打包：含 kernel/decide、worker、command 适配器本轮修复）"
+    },
+    {
+      "path": "evidence/design.md",
+      "bytes": 10709,
+      "sha256": "84813b2afe46affdc98e31d4540830ff39fa1265665c5a41c22ec1ba6a789daa",
+      "what": "T5 设计（目录/启动/包来源/验收输入）"
+    },
+    {
+      "path": "evidence/source-baseline.json",
+      "bytes": 8813,
+      "sha256": "9152ce7eaedd1b1ca166cc1fc814eec4562d3df5085bcf3e7453637d6fd4f3cc",
+      "what": "T5 源码基线（11 改 + 5 增 + pnpm-lock，含双哈希）"
+    },
+    {
+      "path": "evidence/scheduling.md",
+      "bytes": 7503,
+      "sha256": "de077c7877152842009cda9887a158ceb01f89f0b707eb9137e51ab207441bd1",
+      "what": "T9 路由与并发（capacity=1、MAX_ATTEMPTS=5）"
+    },
+    {
+      "path": "evidence/acceptance-codex.md",
+      "bytes": 2599,
+      "sha256": "50cb7c4f4aad22d736b44ba47334b87208809d287391f15131987d90a08ce913",
+      "what": "T13 独立验收记录（第一轮不通过 + 本轮材料）"
+    }
+  ],
+  "runtime_state": {
+    "worker": "desktop-lm7rki1",
+    "worker_capacity_config": 1,
+    "center_state": "%USERPROFILE%\\.agent-autoloop\\hub.db",
+    "rules": [
+      "试一下 (try.* → agent/codex)",
+      "演练断电 (cuttest.* → slowtest/本机慢命令)",
+      "演练慢测 (rehearsal.* → agent/codex，已从文件删除但账本仍在)"
+    ],
+    "rounds": {
+      "total": 5,
+      "done": 3,
+      "stopped": 2,
+      "note": "#3/#4 因 codex 额度耗尽失败并停止；#5 断电演练完成"
+    },
+    "autostart": "%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd（service install 生成，429 B）"
+  },
+  "limits": [
+    "B 机未接入：T3/T11 依赖真实 B 盘点报告，未做跨网络实测，不声称通过",
+    "费用未知：中台显示「Token 没上报 · 费用没上报」，只以轮数/时限为硬限",
+    "规则在账本中累加：从 rules.json 删除不会失效",
+    "command 适配器读取 cmd 子进程输出按 UTF-8，中文输出（GBK）会乱码",
+    "没有远程管理入口：管理动作只能在 A 本机命令行做",
+    "codex 套餐额度没有接口：18:49 撞到过一次用量上限（报错给恢复时间 19:18），19:19 之后恢复；费用始终未知，按轮数/时限做硬限"
+  ]
+}

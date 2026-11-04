@@ -1,0 +1,393 @@
+[
+  {
+    "list": "windows-changes.sha256",
+    "path": "bin/agent-autoloop.cmd",
+    "expected": "4a3cb430145b3a59a65f647f86763f523bd24dfee4e14e87da0d203c1cdb178a",
+    "actual": "4a3cb430145b3a59a65f647f86763f523bd24dfee4e14e87da0d203c1cdb178a",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "cli/main.ts",
+    "expected": "e06e0bfb0ad6a6e4f66f0ee5a33db0d51271d08f0934a0b0a2c20b5994b6775b",
+    "actual": "e06e0bfb0ad6a6e4f66f0ee5a33db0d51271d08f0934a0b0a2c20b5994b6775b",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "host/platform.ts",
+    "expected": "6b0492d006337e3927435a0f8c42e78dc4f5ae5b73e41bfec83c584c00f1c848",
+    "actual": "6b0492d006337e3927435a0f8c42e78dc4f5ae5b73e41bfec83c584c00f1c848",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "host/service.ts",
+    "expected": "3c89f87c5320b9b34156eec80f6dbaa293dbb00673f5dd319e4657421cd69ca6",
+    "actual": "3c89f87c5320b9b34156eec80f6dbaa293dbb00673f5dd319e4657421cd69ca6",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "kernel/decide.ts",
+    "expected": "d656ee8c7f6713d53f2eb59913fdf0753b071cf09281109146bdd43932815c3b",
+    "actual": "d656ee8c7f6713d53f2eb59913fdf0753b071cf09281109146bdd43932815c3b",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "plugins/command/agent.ts",
+    "expected": "36fac6b56da6a00625c996c32305f145e1b0cc053b53c6c7531a522514dc1fc2",
+    "actual": "36fac6b56da6a00625c996c32305f145e1b0cc053b53c6c7531a522514dc1fc2",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "pnpm-lock.yaml",
+    "expected": "538f113a322dc3dc0de485f6aaeee4d4e35d00d3db7cb831088728893c97209b",
+    "actual": "538f113a322dc3dc0de485f6aaeee4d4e35d00d3db7cb831088728893c97209b",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "protocol/rules.ts",
+    "expected": "d09bdff3d556d279621792fe927e89a3df5fb839537caed2637adf114a6b1cc2",
+    "actual": "d09bdff3d556d279621792fe927e89a3df5fb839537caed2637adf114a6b1cc2",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "tests/command-adapter.test.ts",
+    "expected": "811179654a0f66767431365513e0f4258967c70eb8edb2cfee4efee553d2257b",
+    "actual": "811179654a0f66767431365513e0f4258967c70eb8edb2cfee4efee553d2257b",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "tests/helpers.ts",
+    "expected": "26174a2abc8051c0a99ab6864d256b1c86471675dede3be3342312eb7cee258f",
+    "actual": "26174a2abc8051c0a99ab6864d256b1c86471675dede3be3342312eb7cee258f",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "tests/kernel.test.ts",
+    "expected": "bb81cb715f9f7a5ef17da9d8d3d9f9f862eedb5a07b02d24bef2d131fb68dfb3",
+    "actual": "bb81cb715f9f7a5ef17da9d8d3d9f9f862eedb5a07b02d24bef2d131fb68dfb3",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "tests/rules.test.ts",
+    "expected": "e4dee032b015206cd6bad201079ef44e6a9c372325a61bba6dc9f591ffd5b247",
+    "actual": "e4dee032b015206cd6bad201079ef44e6a9c372325a61bba6dc9f591ffd5b247",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "tests/windows-runtime.test.ts",
+    "expected": "d3bbb378283c8dc8e3808785d4b0263eaefe443fdc65d2049eec19f6e7f5893b",
+    "actual": "d3bbb378283c8dc8e3808785d4b0263eaefe443fdc65d2049eec19f6e7f5893b",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "tests/worker.test.ts",
+    "expected": "a067d7dd75a8b6703091f35fd21b32e537b3e664704fa6c8d09e4cada134c442",
+    "actual": "a067d7dd75a8b6703091f35fd21b32e537b3e664704fa6c8d09e4cada134c442",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "worker/agents.ts",
+    "expected": "fae427d49aa8e1142ec4d0505957e34db8656a6b3751fe56fd165106a4b07c8f",
+    "actual": "fae427d49aa8e1142ec4d0505957e34db8656a6b3751fe56fd165106a4b07c8f",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "worker/runner.ts",
+    "expected": "99c5ea184839fd4c8db9952314d4daf6aa7fad8250b5aa15d35936c6b0c662ec",
+    "actual": "99c5ea184839fd4c8db9952314d4daf6aa7fad8250b5aa15d35936c6b0c662ec",
+    "pass": true
+  },
+  {
+    "list": "windows-changes.sha256",
+    "path": "worker/worker.ts",
+    "expected": "d911097b297ff24dc8f16ab393cc2eb33a070af2288de6c1c1a2a45f927abe30",
+    "actual": "d911097b297ff24dc8f16ab393cc2eb33a070af2288de6c1c1a2a45f927abe30",
+    "pass": true
+  },
+  {
+    "list": "windows-bundle.sha256",
+    "path": "evidence/raw/app/windows-changes.patch",
+    "expected": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+    "actual": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+    "pass": true
+  },
+  {
+    "list": "windows-bundle.sha256",
+    "path": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz",
+    "expected": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+    "actual": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+    "pass": true
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/raw/app/windows-changes.patch",
+    "pass": true,
+    "actual": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+    "actual_bytes": 67593
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/preflight/A.md",
+    "pass": true,
+    "actual": "43e492e81dfc8441518547a3b8a6ac8ce67d6b77c119cfcc15838c07d06c8c69",
+    "actual_bytes": 21625
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/preflight/B_bootstrap.md",
+    "pass": true,
+    "actual": "4bec485e00335b2476b6532bc17aa77c177b3dc1d933a203669dfd82e5034124",
+    "actual_bytes": 5844
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/network.md",
+    "pass": true,
+    "actual": "2372f69ad6d775728589c7eea0de9893176b8f7be5e326e529dcf78dcae560a6",
+    "actual_bytes": 7854
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/windows-runtime.md",
+    "pass": true,
+    "actual": "dfe68c4ce99e965e4fb37b91401796c8d0e8b5e6529cf73cda09f422e23fe66b",
+    "actual_bytes": 24548
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/adapters.md",
+    "pass": true,
+    "actual": "bdaf50ad3afef69dcca08d8c234433cd7c416e1673829d8bc66e6620587133f5",
+    "actual_bytes": 25877
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/anchor-bridge.md",
+    "pass": true,
+    "actual": "e648ad9bf30db5471a8ef4c289c3c3cb9b3665bb848a316564713cf42c51827c",
+    "actual_bytes": 6144
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/deployment/A.md",
+    "pass": true,
+    "actual": "731b0d5ceda1fc17547237c7b1ca3e79e7c7138a3d414657f836efaf4225b836",
+    "actual_bytes": 8541
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/rehearsal.md",
+    "pass": true,
+    "actual": "b1063b2bea8843750302472f1a46d047f31fb592bf5c432ecc3dd6491febea20",
+    "actual_bytes": 5762
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/rollback.md",
+    "pass": true,
+    "actual": "88d23ad3729ff24755d571ff4faaa646d177bf3774747cff8069cb2e30143b18",
+    "actual_bytes": 5096
+  },
+  {
+    "list": "manifest",
+    "path": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz",
+    "pass": true,
+    "actual": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+    "actual_bytes": 321572
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/design.md",
+    "pass": true,
+    "actual": "84813b2afe46affdc98e31d4540830ff39fa1265665c5a41c22ec1ba6a789daa",
+    "actual_bytes": 10709
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/source-baseline.json",
+    "pass": true,
+    "actual": "9152ce7eaedd1b1ca166cc1fc814eec4562d3df5085bcf3e7453637d6fd4f3cc",
+    "actual_bytes": 8813
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/scheduling.md",
+    "pass": true,
+    "actual": "de077c7877152842009cda9887a158ceb01f89f0b707eb9137e51ab207441bd1",
+    "actual_bytes": 7503
+  },
+  {
+    "list": "manifest",
+    "path": "evidence/acceptance-codex.md",
+    "pass": false,
+    "actual": "bb90c205b8f60c1ee257ca70de17a85211b110cecfee0f366b00b27551a94e88",
+    "actual_bytes": 7970
+  },
+  {
+    "list": "tar-members",
+    "path": "bin/agent-autoloop.cmd",
+    "matches": [
+      "bin/agent-autoloop.cmd"
+    ],
+    "pass": true,
+    "actual": "4a3cb430145b3a59a65f647f86763f523bd24dfee4e14e87da0d203c1cdb178a"
+  },
+  {
+    "list": "tar-members",
+    "path": "cli/main.ts",
+    "matches": [
+      "cli/main.ts"
+    ],
+    "pass": true,
+    "actual": "e06e0bfb0ad6a6e4f66f0ee5a33db0d51271d08f0934a0b0a2c20b5994b6775b"
+  },
+  {
+    "list": "tar-members",
+    "path": "host/platform.ts",
+    "matches": [
+      "host/platform.ts"
+    ],
+    "pass": true,
+    "actual": "6b0492d006337e3927435a0f8c42e78dc4f5ae5b73e41bfec83c584c00f1c848"
+  },
+  {
+    "list": "tar-members",
+    "path": "host/service.ts",
+    "matches": [
+      "host/service.ts"
+    ],
+    "pass": true,
+    "actual": "3c89f87c5320b9b34156eec80f6dbaa293dbb00673f5dd319e4657421cd69ca6"
+  },
+  {
+    "list": "tar-members",
+    "path": "kernel/decide.ts",
+    "matches": [
+      "kernel/decide.ts"
+    ],
+    "pass": true,
+    "actual": "d656ee8c7f6713d53f2eb59913fdf0753b071cf09281109146bdd43932815c3b"
+  },
+  {
+    "list": "tar-members",
+    "path": "plugins/command/agent.ts",
+    "matches": [
+      "plugins/command/agent.ts"
+    ],
+    "pass": true,
+    "actual": "36fac6b56da6a00625c996c32305f145e1b0cc053b53c6c7531a522514dc1fc2"
+  },
+  {
+    "list": "tar-members",
+    "path": "pnpm-lock.yaml",
+    "matches": [
+      "pnpm-lock.yaml"
+    ],
+    "pass": true,
+    "actual": "538f113a322dc3dc0de485f6aaeee4d4e35d00d3db7cb831088728893c97209b"
+  },
+  {
+    "list": "tar-members",
+    "path": "protocol/rules.ts",
+    "matches": [
+      "protocol/rules.ts"
+    ],
+    "pass": true,
+    "actual": "d09bdff3d556d279621792fe927e89a3df5fb839537caed2637adf114a6b1cc2"
+  },
+  {
+    "list": "tar-members",
+    "path": "tests/command-adapter.test.ts",
+    "matches": [
+      "tests/command-adapter.test.ts"
+    ],
+    "pass": true,
+    "actual": "811179654a0f66767431365513e0f4258967c70eb8edb2cfee4efee553d2257b"
+  },
+  {
+    "list": "tar-members",
+    "path": "tests/helpers.ts",
+    "matches": [
+      "tests/helpers.ts"
+    ],
+    "pass": true,
+    "actual": "26174a2abc8051c0a99ab6864d256b1c86471675dede3be3342312eb7cee258f"
+  },
+  {
+    "list": "tar-members",
+    "path": "tests/kernel.test.ts",
+    "matches": [
+      "tests/kernel.test.ts"
+    ],
+    "pass": true,
+    "actual": "bb81cb715f9f7a5ef17da9d8d3d9f9f862eedb5a07b02d24bef2d131fb68dfb3"
+  },
+  {
+    "list": "tar-members",
+    "path": "tests/rules.test.ts",
+    "matches": [
+      "tests/rules.test.ts"
+    ],
+    "pass": true,
+    "actual": "e4dee032b015206cd6bad201079ef44e6a9c372325a61bba6dc9f591ffd5b247"
+  },
+  {
+    "list": "tar-members",
+    "path": "tests/windows-runtime.test.ts",
+    "matches": [
+      "tests/windows-runtime.test.ts"
+    ],
+    "pass": true,
+    "actual": "d3bbb378283c8dc8e3808785d4b0263eaefe443fdc65d2049eec19f6e7f5893b"
+  },
+  {
+    "list": "tar-members",
+    "path": "tests/worker.test.ts",
+    "matches": [
+      "tests/worker.test.ts"
+    ],
+    "pass": true,
+    "actual": "a067d7dd75a8b6703091f35fd21b32e537b3e664704fa6c8d09e4cada134c442"
+  },
+  {
+    "list": "tar-members",
+    "path": "worker/agents.ts",
+    "matches": [
+      "worker/agents.ts"
+    ],
+    "pass": true,
+    "actual": "fae427d49aa8e1142ec4d0505957e34db8656a6b3751fe56fd165106a4b07c8f"
+  },
+  {
+    "list": "tar-members",
+    "path": "worker/runner.ts",
+    "matches": [
+      "worker/runner.ts"
+    ],
+    "pass": true,
+    "actual": "99c5ea184839fd4c8db9952314d4daf6aa7fad8250b5aa15d35936c6b0c662ec"
+  },
+  {
+    "list": "tar-members",
+    "path": "worker/worker.ts",
+    "matches": [
+      "worker/worker.ts"
+    ],
+    "pass": true,
+    "actual": "d911097b297ff24dc8f16ab393cc2eb33a070af2288de6c1c1a2a45f927abe30"
+  }
+]

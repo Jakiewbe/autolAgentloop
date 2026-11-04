@@ -1,0 +1,12 @@
+✔ windows: a turn runs in the rule's folder and keeps its output, exit code and result (881.0717ms)
+✔ windows: stopping a turn ends the tree it started (1453.1472ms)
+✔ windows: a turn over its time is stopped and the run says why (1482.6453ms)
+✔ windows: a restarted worker keeps the turn it finds, and doesn't start it again (3138.2355ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 7234.5635

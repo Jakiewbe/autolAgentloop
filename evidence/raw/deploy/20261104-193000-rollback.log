@@ -1,0 +1,25 @@
+== 2026-11-04T18:56:07+08:00 回退演练：把 config.json 恢复到改 capacity 之前，验证能起来，再改回 capacity=1
+现在 capacity=1 备份里 capacity=（无）
+--- 恢复旧配置后能起来吗
+在跑 0 · 排队 0 · 今天做完 3 · 等你 0
+今天 3 轮 · Token 没上报 · 费用没上报    最近 7 天 3 轮 · Token 没上报 · 费用没上报
+--- 历史还在吗
+今天 3 轮 · Token 没上报 · 费用没上报    最近 7 天 3 轮 · Token 没上报 · 费用没上报
+  #1 试跑：选一个颜色：蓝色。你选了蓝色，试跑通过
+--- 再把 capacity=1 写回（演练不留半截状态）
+在跑 0 · 排队 0 · 今天做完 3 · 等你 0
+今天 3 轮 · Token 没上报 · 费用没上报    最近 7 天 3 轮 · Token 没上报 · 费用没上报
+capacity=1
+--- 残留文件
+bridge
+config.json
+config.json.bak-20261104-190000
+config.json.pre-rollback
+hub.db
+hub.db-shm
+hub.db-wal
+logs
+master.key
+rules.json
+try
+up.pid

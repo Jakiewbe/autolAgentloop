@@ -1,0 +1,88 @@
+### collected_at=2026-11-04T17:36:59.7350638+08:00 machine=DESKTOP-LM7RKI1 alias=A command=background-and-power elapsed_ms=1958
+startup folder entries:
+
+Name
+----
+MDI Jade 6.lnk
+
+
+scheduled tasks outside Microsoft:
+
+TaskName                                                                State
+--------                                                                -----
+Adobe Acrobat Update Task                                               Ready
+AMDRyzenMasterSDKTask                                                   Ready
+CodexDailyBackup                                                        Ready
+DDdak-Monitor                                                         Running
+DDdak-Monitor-Watchdog                                                  Ready
+DDdak-ReverseTether                                                   Running
+DDdak-VisibleProjection-51088a2460344cbdbcfc48aa55bbab30                Ready
+EquiumMinerStart3AM                                                     Ready
+NVIDIA App SelfUpdate_{B2FE1952-0186-46C3-BAEC-A80AA35AC5B8}            Ready
+OneDrive Per-Machine Standalone Update Task                             Ready
+OneDrive Reporting Task-S-1-5-21-640227242-3435949649-3876461080-1001   Ready
+OneDrive Startup Task-S-1-5-21-640227242-3435949649-3876461080-1001     Ready
+ScienceResearchDailyAcquisition                                         Ready
+WpsUpdateLogonTask_chs                                                  Ready
+WpsUpdateTask_chs                                                       Ready
+WpsWakeWnsLogonTask                                                     Ready
+RunPlatformExperienceHelper_Daily                                       Ready
+RunPlatformExperienceHelper_Metrics                                     Ready
+
+
+services of interest:
+
+Name                   Status StartType
+----                   ------ ---------
+com.docker.service    Stopped    Manual
+LxssManager           Stopped    Manual
+LxssManagerUser_bbf23 Stopped    Manual
+ssh-agent             Stopped  Disabled
+vmcompute             Running    Manual
+WSLService            Running Automatic
+
+
+powercfg /a:
+此系统上没有以下睡眠状态:
+    待机 (S1)
+	系统固件不支持此待机状态。
+
+    待机 (S2)
+	系统固件不支持此待机状态。
+
+    待机 (S3)
+	系统固件不支持此待机状态。
+
+    休眠
+	尚未启用休眠。
+
+    待机(S0 低电量待机)
+	系统固件不支持此待机状态。
+
+    混合睡眠
+	待机(S3)不可用。
+	休眠不可用。
+	虚拟机监控程序不支持此待机状态。
+
+    快速启动
+	休眠不可用。
+
+sleep timeout (AC) :
+
+>       GUID 别名: STANDBYIDLE
+        最小可能的设置: 0x00000000
+        最大可能的设置: 0xffffffff
+        可能的设置增量: 0x00000001
+        可能的设置单位: 秒
+
+
+hibernate enabled:
+      最大可能的设置: 0xffffffff
+      可能的设置增量: 0x00000001
+      可能的设置单位: 秒
+    当前交流电源设置索引: 0x00000000
+    当前直流电源设置索引: 0x00000000
+
+
+last boot: 11/01/2026 19:00:06
+

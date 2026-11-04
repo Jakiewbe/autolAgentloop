@@ -1,0 +1,12 @@
+2026-11-04T10:21:21.607Z [worker] worker desktop-lm7rki1 started
+(node:56328) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+2026-11-04T10:21:21.619Z [hub] listening on 127.0.0.1:3350
+2026-11-04T10:21:41.937Z [worker] run 1 (试一下) turn 1 started, pid 3392
+2026-11-04T10:22:13.951Z [worker] run 1: done
+2026-11-04T10:22:21.646Z [worker] run 2 (试一下) turn 1 started, pid 49564
+2026-11-04T10:22:56.609Z [worker] run 2: done
+2026-11-04T10:25:13.104Z [worker] worker desktop-lm7rki1 started
+(node:53264) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+2026-11-04T10:25:13.119Z [hub] listening on 127.0.0.1:3350

@@ -1,0 +1,16 @@
+✔ the prompt says what to do and how to end, but not what anyone wrote (1.2895ms)
+✔ the prompt mentions what this run is carrying on, and what it may emit (0.7064ms)
+✔ a block needing the owner is handed off without restarting completed work (1.1056ms)
+✔ the first line says how it ended (0.5453ms)
+✔ the receipt is the last code block of its kind, wherever it sits (0.3496ms)
+✔ a receipt that can't be read says why, and keeps how the run ended (0.2015ms)
+✔ a result is put together and checked as the hub will check it (0.413ms)
+✔ asking for a rewrite says not to redo anything (0.146ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 144.989

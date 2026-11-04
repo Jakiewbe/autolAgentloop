@@ -1,0 +1,11 @@
+tag=codex166_gpt-6.1-sol
+codex_bin=C:/Users/chs/AppData/Local/OpenAI/Codex/bin/22cfb1d302613eae/codex.exe
+codex_version=codex-cli 0.166.0-alpha.5.1
+started=2026-11-04T17:41:04+0800
+exit_code=0
+elapsed_s=28
+model_arg=gpt-6.1-sol
+workdir=evidence/raw/adapters/work/codex-min
+jsonl=evidence/raw/adapters/20261104T174104+0800_codex166_gpt-6.1-sol.jsonl
+stderr=evidence/raw/adapters/20261104T174104+0800_codex166_gpt-6.1-sol.stderr.txt
+last_message=evidence/raw/adapters/20261104T174104+0800_codex166_gpt-6.1-sol.last.txt

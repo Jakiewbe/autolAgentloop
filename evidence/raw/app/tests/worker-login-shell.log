@@ -1,0 +1,23 @@
+node:internal/test_runner/harness:121
+      throw err;
+      ^
+
+TypeError: Cannot read properties of undefined (reading 'trim')
+    at file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/worker-login-shell.test.ts:33:90
+
+Node.js v24.12.0
+✖ tests\worker-login-shell.test.ts (158.5199ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 166.8221
+
+✖ failing tests:
+
+test at tests\worker-login-shell.test.ts:1:1
+✖ tests\worker-login-shell.test.ts (158.5199ms)
+  'test failed'

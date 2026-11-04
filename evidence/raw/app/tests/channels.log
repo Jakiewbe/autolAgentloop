@@ -1,0 +1,43 @@
+✔ a card shows its options while it's open, and what became of it after (1.4752ms)
+✖ feishu CLI calls leave the HTTP loop available (24.5627ms)
+✔ feishu: a lark-cli that can't be started is said, not left to take the hub down (4.9645ms)
+✖ feishu: sends once per card, updates in place, reports failure, and only real clicks count (10013.3263ms)
+✔ a webhook channel posts words and the link once, and has nothing to do for an update (22.516ms)
+✔ GitHub: signed or not taken, and what it says becomes a plain event (1.0702ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 4
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10222.9395
+
+✖ failing tests:
+
+test at tests\channels.test.ts:55:1
+✖ feishu CLI calls leave the HTTP loop available (24.5627ms)
+  Error: spawn C:\Users\chs\AppData\Local\Temp\agent-autoloop-channels-Tc2yi1\async-lark ENOENT
+      at ChildProcess._handle.onexit (node:internal/child_process:286:19)
+      at onErrorNT (node:internal/child_process:484:16)
+      at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'spawn C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-channels-Tc2yi1\\async-lark',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-channels-Tc2yi1\\async-lark',
+    spawnargs: [ 'auth', 'status' ],
+    cmd: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-channels-Tc2yi1\\async-lark auth status'
+  }
+
+test at tests\channels.test.ts:122:1
+✖ feishu: sends once per card, updates in place, reports failure, and only real clicks count (10013.3263ms)
+  Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-channels-Tc2yi1\lark.log'
+      at readFileSync (node:fs:440:20)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/channels.test.ts:177:17)
+      at async Test.run (node:internal/test_runner/test:1113:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    errno: -4058,
+    code: 'ENOENT',
+    syscall: 'open',
+    path: 'C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-channels-Tc2yi1\\lark.log'
+  }

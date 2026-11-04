@@ -1,0 +1,35 @@
+✔ a schedule fires once when it's due, as an event of its own rule (17.8491ms)
+✔ a hub asleep through several owes only the latest (22.8767ms)
+✔ a schedule that changes starts counting from the change (35.7861ms)
+✔ a run's look-again fires once at its time, on its thread, in its session, with what it left (50.0585ms)
+✔ the same key moves a timer; another thread has its own; a run sees what's waiting and can cancel it (64.1073ms)
+✔ a bad rules file keeps the hub going, says so once, and the card closes when it's fixed (46.1512ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6485ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 517.3648
+
+✖ failing tests:
+
+test at tests\helpers.ts:15:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6485ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-schedule-li1zCI '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-schedule-li1zCI'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:15:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-schedule-li1zCI',
+    syscall: 'rm'
+  }

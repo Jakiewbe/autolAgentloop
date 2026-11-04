@@ -1,0 +1,14 @@
+{
+  "changed_or_deleted": [
+    ".agent/CURRENT.md",
+    ".agent/CURRENT.new.md",
+    ".agent/state.json",
+    "evidence/design.md",
+    "evidence/rollback.md",
+    "evidence/scheduling.md",
+    "evidence/windows-runtime.md",
+    "evidence/deployment/A.md",
+    "evidence/raw/acceptance/20261104-codex-acceptance2.log"
+  ],
+  "added": []
+}

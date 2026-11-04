@@ -1,0 +1,10 @@
+== start 2026-11-04T17:50:20+08:00 ==
+== A) claude -p --output-format json --model deepseek-v4-pro ==
+
+== B) opencode run --model opencode/deepseek-v4-flash ==
+[0m
+> build · deepseek-v4-flash
+[0m
+[91m[1mError: [0mUpstream request failed: Model is unavailable.
+
+== done 2026-11-04T17:51:54+08:00 ==

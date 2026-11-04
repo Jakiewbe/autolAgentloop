@@ -1,0 +1,24 @@
+node:internal/test_runner/harness:121
+      throw err;
+      ^
+
+Error: 找不到 codex：先装好并登录
+    at findProgram (file:///D:/Vibe_coding-Project/autoAgentloop/app/worker/agents.ts:66:23)
+    at file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/adapters.test.ts:19:1
+
+Node.js v24.12.0
+✖ tests\adapters.test.ts (129.2043ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 136.6311
+
+✖ failing tests:
+
+test at tests\adapters.test.ts:1:1
+✖ tests\adapters.test.ts (129.2043ms)
+  'test failed'

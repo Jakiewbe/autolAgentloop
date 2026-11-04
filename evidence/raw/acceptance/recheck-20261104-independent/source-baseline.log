@@ -1,0 +1,43 @@
+{"argv": ["C:\\Users\\chs\\AppData\\Local\\Programs\\Python\\Python311\\python.exe", "-B", "tools/checks/check_source_baseline.py"], "cwd": "D:\\Vibe_coding-Project\\autoAgentloop"}
+PASS  origin 是记录的上游                     https://github.com/KKKKhazix/agent-autoloop.git
+PASS  HEAD 等于基线提交                       96b6c9c71671
+PASS  仍在 detached HEAD（没建分支）            HEAD
+PASS  许可证文件哈希                           
+PASS  本地 cli/main.ts                    e06e0bfb0ad6
+PASS  上游 cli/main.ts                    e7441e9fd4f2
+PASS  本地 host/service.ts                3c89f87c5320
+PASS  上游 host/service.ts                68ad5ca63966
+PASS  本地 kernel/decide.ts               d656ee8c7f67
+PASS  上游 kernel/decide.ts               47b3bf89d6b5
+PASS  本地 plugins/command/agent.ts       36fac6b56da6
+PASS  上游 plugins/command/agent.ts       8289c98045d2
+PASS  本地 protocol/rules.ts              d09bdff3d556
+PASS  上游 protocol/rules.ts              e86d4b888264
+PASS  本地 tests/helpers.ts               26174a2abc80
+PASS  上游 tests/helpers.ts               1a8ca0908e95
+PASS  本地 tests/kernel.test.ts           bb81cb715f9f
+PASS  上游 tests/kernel.test.ts           4733f36d9560
+PASS  本地 tests/rules.test.ts            e4dee032b015
+PASS  上游 tests/rules.test.ts            4fb87f637d41
+PASS  本地 tests/worker.test.ts           a067d7dd75a8
+PASS  上游 tests/worker.test.ts           c0f1d769fccc
+PASS  本地 worker/agents.ts               fae427d49aa8
+PASS  上游 worker/agents.ts               49efebb60a4e
+PASS  本地 worker/worker.ts               d911097b297f
+PASS  上游 worker/worker.ts               e3604ff6c257
+PASS  新增 bin/agent-autoloop.cmd         4a3cb430145b
+PASS  新增 host/platform.ts               6b0492d00633
+PASS  新增 tests/command-adapter.test.ts  811179654a0f
+PASS  新增 tests/windows-runtime.test.ts  d3bbb378283c
+PASS  新增 worker/runner.ts               99c5ea184839
+PASS  补丁哈希                              
+PASS  部署包哈希                             
+PASS  已改文件集合一致                          cli/main.ts,host/service.ts,kernel/decide.ts,plugins/command/agent.ts,protocol/rules.ts,tests/helpers.ts,tests/kernel.test.ts,tests/rules.test.ts,tests/worker.test.ts,worker/agents.ts,worker/worker.ts
+PASS  未跟踪文件集合一致                         bin/agent-autoloop.cmd,host/platform.ts,pnpm-lock.yaml,tests/command-adapter.test.ts,tests/windows-runtime.test.ts,worker/runner.ts
+PASS  治理 DSH_DEPLOYMENT_TASKBOOK.md     
+PASS  治理 .agent/GOAL.md                 
+PASS  治理 .agent/CURRENT.md（易变，仅报告）      已变化，按约定不算失败
+
+共 38 项，FAIL=0
+
+AUDIT_EXIT=0

@@ -1,0 +1,8 @@
+{
+  "why": "依赖的验收记录不是当前材料对应的结果：D（stale）",
+  "found": {
+    "program": "C:\\Users\\chs\\Desktop\\codex-plus\\kit.py",
+    "python": "C:\\Users\\chs\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "via": "C:\\Users\\chs\\.agents\\skills\\project-anchor\\runtime.json"
+  }
+}

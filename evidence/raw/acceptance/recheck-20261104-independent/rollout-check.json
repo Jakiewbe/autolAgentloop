@@ -1,0 +1,30 @@
+{
+  "path": "C:\\Users\\chs\\.codex\\sessions\\2026\\11\\04\\rollout-2026-11-04T19-47-11-01a1a662-6e93-7b31-bfe1-a8e9745abc43.jsonl",
+  "sha256": "ad68b57166ce461d876e32c5ee493efb498d48b5aab9cba0b0107a4bc2294f67",
+  "session_id": "01a1a662-6e93-7b31-bfe1-a8e9745abc43",
+  "turn_context_count": 2,
+  "task_complete_count": 2,
+  "user_message_records": [
+    {
+      "line": 8,
+      "timestamp": "2026-11-04T11:47:17.140Z",
+      "characters": 3410,
+      "mentions_blue": false,
+      "sha256": "253ea61b750c3640d7137230d74feebed6ca00f96028d8a5b5ff6ad88059d76e"
+    },
+    {
+      "line": 12,
+      "timestamp": "2026-11-04T11:47:18.689Z",
+      "characters": 1629,
+      "mentions_blue": true,
+      "sha256": "65175d240afc7605bbd51c375c5703a744a996d244139f2c2510a76f676bb0e8"
+    },
+    {
+      "line": 30,
+      "timestamp": "2026-11-04T11:47:57.445Z",
+      "characters": 1666,
+      "mentions_blue": true,
+      "sha256": "01d6d870ec7266ae0257dd9cfbd1168a9b6c22d68f4f883dc3af8de14742b129"
+    }
+  ]
+}

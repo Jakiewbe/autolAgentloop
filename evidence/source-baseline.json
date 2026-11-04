@@ -1,0 +1,215 @@
+{
+  "upstream": "https://github.com/KKKKhazix/agent-autoloop.git",
+  "baselineCommit": "96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a",
+  "baselineSubject": "fix(service): quote systemd unit values (#38)",
+  "upstreamMainHeadAtHandover": "4567e5166f5f39e792ec738e72a06f64126ae6e2",
+  "fork": {
+    "created": false,
+    "reason": "本机没有 gh CLI，也没有可用凭据（不写密钥），无法创建 GitHub 个人 fork；改为直接克隆上游并固定在基线提交",
+    "evidence": "evidence/raw/app/00-preflight.log"
+  },
+  "clone": {
+    "path": "D:\\Vibe_coding-Project\\autoAgentloop\\app",
+    "command": "git clone https://github.com/KKKKhazix/agent-autoloop.git app && git -C app checkout 96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a",
+    "clonedAt": "2026-11-04T17:36:46+08:00",
+    "checkedOutAt": "2026-11-04T17:36:54+08:00",
+    "head": "96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a",
+    "detached": true,
+    "branch": "HEAD (detached, 未新建分支、未建 worktree、未 commit、未 push)",
+    "log": "evidence/raw/app/01-clone.log",
+    "checkoutLog": "evidence/raw/app/02-checkout.log"
+  },
+  "license": {
+    "name": "MIT",
+    "file": "app/LICENSE",
+    "copyright": "Copyright (c) 2026 数字生命卡兹克",
+    "packageJsonLicense": "MIT"
+  },
+  "fileCount": 187,
+  "toolchain": {
+    "node": "v24.12.0",
+    "pnpm": "11.9.0",
+    "npm": "11.12.1",
+    "git": "2.56.0.windows.2",
+    "os": "Windows 10 19045"
+  },
+  "install": {
+    "command": "pnpm install（在 app/ 内执行，未安装任何全局包）",
+    "result": "成功，4.1s，devDependencies: typescript 7.0.2 / prettier 3.9.10 / @types/node 26.6.4；上游无运行时 dependencies",
+    "log": "evidence/raw/app/03-pnpm-install.log",
+    "sideEffect": "生成未跟踪文件 app/pnpm-lock.yaml（上游仓库不含 lockfile）"
+  },
+  "gitStatus": {
+    "afterCheckout": "工作区干净",
+    "afterInstall": [
+      "?? pnpm-lock.yaml"
+    ],
+    "afterWindowsChanges": [
+      " M cli/main.ts",
+      " M host/service.ts",
+      " M kernel/decide.ts",
+      " M plugins/command/agent.ts",
+      " M protocol/rules.ts",
+      " M tests/helpers.ts",
+      " M tests/kernel.test.ts",
+      " M tests/rules.test.ts",
+      " M tests/worker.test.ts",
+      " M worker/agents.ts",
+      " M worker/worker.ts",
+      "?? bin/agent-autoloop.cmd",
+      "?? host/platform.ts",
+      "?? pnpm-lock.yaml",
+      "?? tests/command-adapter.test.ts",
+      "?? tests/windows-runtime.test.ts",
+      "?? worker/runner.ts"
+    ]
+  },
+  "changedFiles": {
+    "modified": [
+      "cli/main.ts",
+      "host/service.ts",
+      "kernel/decide.ts",
+      "plugins/command/agent.ts",
+      "protocol/rules.ts",
+      "tests/helpers.ts",
+      "tests/kernel.test.ts",
+      "tests/rules.test.ts",
+      "tests/worker.test.ts",
+      "worker/agents.ts",
+      "worker/worker.ts"
+    ],
+    "added": [
+      "bin/agent-autoloop.cmd",
+      "host/platform.ts",
+      "tests/command-adapter.test.ts",
+      "tests/windows-runtime.test.ts",
+      "worker/runner.ts"
+    ],
+    "generated": [
+      "pnpm-lock.yaml"
+    ]
+  },
+  "windowsChangeBundle": {
+    "patch": "evidence/raw/app/windows-changes.patch",
+    "manifest": "evidence/raw/app/windows-changes.sha256",
+    "base": "96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a",
+    "tar": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz"
+  },
+  "verifiedAt": "2026-11-04T19:49:39+08:00",
+  "upstreamMainHeadAtHandover_note": "克隆时记录的上游 main 头，来源 evidence/raw/app/01-clone.log；本机固定在更早的 96b6c9c，未跟随 main 前进",
+  "contentHashes": {
+    "why": "改动的身份靠内容哈希：没有 commit（未提交），所以每个改动文件同时记上游 blob 哈希与本机哈希，补丁也记哈希。",
+    "modified": [
+      {
+        "path": "cli/main.ts",
+        "upstream": "e7441e9fd4f233f66796e7036aa8deded50b4b90f1e4c5e131341469c7aa47b6",
+        "local": "e06e0bfb0ad6a6e4f66f0ee5a33db0d51271d08f0934a0b0a2c20b5994b6775b"
+      },
+      {
+        "path": "host/service.ts",
+        "upstream": "68ad5ca6396694bb798ec17a6379dd02e03051a10567b00e1997b648b2153020",
+        "local": "3c89f87c5320b9b34156eec80f6dbaa293dbb00673f5dd319e4657421cd69ca6"
+      },
+      {
+        "path": "kernel/decide.ts",
+        "upstream": "47b3bf89d6b5c95a9fa0667928b464f4522050eca7e6b6fc107e6391a53e7b70",
+        "local": "d656ee8c7f6713d53f2eb59913fdf0753b071cf09281109146bdd43932815c3b"
+      },
+      {
+        "path": "plugins/command/agent.ts",
+        "upstream": "8289c98045d20b256c30250e691e3c59c523be58e0a4332978b8b3d0853ab89a",
+        "local": "36fac6b56da6a00625c996c32305f145e1b0cc053b53c6c7531a522514dc1fc2"
+      },
+      {
+        "path": "protocol/rules.ts",
+        "upstream": "e86d4b888264240e00d16a840878136bee04ee86a68b35e04335ce70ea54fc26",
+        "local": "d09bdff3d556d279621792fe927e89a3df5fb839537caed2637adf114a6b1cc2"
+      },
+      {
+        "path": "tests/helpers.ts",
+        "upstream": "1a8ca0908e958ebed8459a2ba4ab9f72cdd4ef98a429c05e417b6dc83374cb02",
+        "local": "26174a2abc8051c0a99ab6864d256b1c86471675dede3be3342312eb7cee258f"
+      },
+      {
+        "path": "tests/kernel.test.ts",
+        "upstream": "4733f36d956097000940c751523178dbaf10028a51e00ed7565f709a7be6c549",
+        "local": "bb81cb715f9f7a5ef17da9d8d3d9f9f862eedb5a07b02d24bef2d131fb68dfb3"
+      },
+      {
+        "path": "tests/rules.test.ts",
+        "upstream": "4fb87f637d41aa5e6c090734f49d6bb461ba908985207ad29276b7444e234f7b",
+        "local": "e4dee032b015206cd6bad201079ef44e6a9c372325a61bba6dc9f591ffd5b247"
+      },
+      {
+        "path": "tests/worker.test.ts",
+        "upstream": "c0f1d769fccca33e38a1960a42cfa5a861fc317e6ba965b0e3caf9d2611227ed",
+        "local": "a067d7dd75a8b6703091f35fd21b32e537b3e664704fa6c8d09e4cada134c442"
+      },
+      {
+        "path": "worker/agents.ts",
+        "upstream": "49efebb60a4e16fbfeb777ef5a8bf94df8ec8c199669ed07c1f75f1e22e082c7",
+        "local": "fae427d49aa8e1142ec4d0505957e34db8656a6b3751fe56fd165106a4b07c8f"
+      },
+      {
+        "path": "worker/worker.ts",
+        "upstream": "e3604ff6c2576889c5d63bcae9e0f6c3217c568c42e74a871a75a7a2bf3f2bc2",
+        "local": "d911097b297ff24dc8f16ab393cc2eb33a070af2288de6c1c1a2a45f927abe30"
+      }
+    ],
+    "added": [
+      {
+        "path": "bin/agent-autoloop.cmd",
+        "sha256": "4a3cb430145b3a59a65f647f86763f523bd24dfee4e14e87da0d203c1cdb178a"
+      },
+      {
+        "path": "host/platform.ts",
+        "sha256": "6b0492d006337e3927435a0f8c42e78dc4f5ae5b73e41bfec83c584c00f1c848"
+      },
+      {
+        "path": "tests/command-adapter.test.ts",
+        "sha256": "811179654a0f66767431365513e0f4258967c70eb8edb2cfee4efee553d2257b"
+      },
+      {
+        "path": "tests/windows-runtime.test.ts",
+        "sha256": "d3bbb378283c8dc8e3808785d4b0263eaefe443fdc65d2049eec19f6e7f5893b"
+      },
+      {
+        "path": "worker/runner.ts",
+        "sha256": "99c5ea184839fd4c8db9952314d4daf6aa7fad8250b5aa15d35936c6b0c662ec"
+      }
+    ],
+    "bundle": {
+      "patch_sha256": "0faca142e8ff3a0fdb2a6aab685696218ea3ec4cf8b0814d83e8e922533804ed",
+      "patch_bytes": 50527,
+      "patch_lines": 1226,
+      "deploy_tarball": "deploy/agent-autoloop-96b6c9c7-win2.tar.gz",
+      "deploy_sha256": "caf7048f4b6a5463e28ee6dca156b978f9c31173d17f31d96107f8ef980072a3",
+      "deploy_bytes": 318771
+    },
+    "license_sha256": "0e170b2be5e73adb4892de4b511ba1e3b76a0adbc11957e96ef8b3ad581a059f"
+  },
+  "governanceHashes": [
+    {
+      "path": "DSH_DEPLOYMENT_TASKBOOK.md",
+      "sha256": "9e0430f77f489a8924ef6a30cd3b2721e7ea7dcfd390deea1fa4bfd4c389c40f",
+      "volatile": false
+    },
+    {
+      "path": ".agent/GOAL.md",
+      "sha256": "5d0fd9b760def65c659c410ac4ec1692508c9d9772701b35d35d09fba4329f3e",
+      "volatile": false
+    },
+    {
+      "path": ".agent/CURRENT.md",
+      "sha256": "de946cd26ce5dae98a84e561c89c6e80bb20500149c3765bbf58dc355591204c",
+      "volatile": true
+    }
+  ],
+  "limits": [
+    "fork 未创建：本机无 gh CLI、无可用 GitHub 凭据；归属只有 upstream commit + 本机补丁两层",
+    "改动未提交未推送，没有 commit 哈希；改动身份 = 逐文件 sha256 + 补丁 sha256",
+    "protocol/rules.ts 与 tests/rules.test.ts 是 18:1x 修 init 阻断时新增进改动集的，最初打包时只有 5 个 M",
+    "工作区会随后续实现变化；哈希对应 2026-11-04 19:15 这一刻，变化后须重生成"
+  ],
+  "lastRefreshNote": "20:05 重算：补上 decide/worker/adapter 三个修改与 tests/command-adapter.test.ts 新增，部署包换成 win2"
+}

@@ -1,0 +1,208 @@
+✖ the install it makes is what it takes away: service stopped, links gone, all data always kept (300.3925ms)
+✖ --yes skips confirmation and preserves all data (309.1521ms)
+✖ at a terminal only confirming removes the program, and every answer preserves data (293.7442ms)
+✖ a hub started by hand is stopped too; a process that only has the old number isn't (292.956ms)
+✖ AGENT_AUTOLOOP_HOME can name anything: a folder this program didn't make, or the user's home, isn't deleted (296.3738ms)
+✖ with nothing installed it still finishes, and says so plainly (301.1521ms)
+✖ without a terminal uninstall asks for --yes before removing anything (289.4553ms)
+✖ an unrelated service file with the same name is left running and untouched (345.2986ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 0
+ℹ fail 8
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2763.9921
+
+✖ failing tests:
+
+test at tests\uninstall.test.ts:107:1
+✖ the install it makes is what it takes away: service stopped, links gone, all data always kept (300.3925ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:108:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:131:1
+✖ --yes skips confirmation and preserves all data (309.1521ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:132:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:142:1
+✖ at a terminal only confirming removes the program, and every answer preserves data (293.7442ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:162:16)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:171:1
+✖ a hub started by hand is stopped too; a process that only has the old number isn't (292.956ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:172:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:191:1
+✖ AGENT_AUTOLOOP_HOME can name anything: a folder this program didn't make, or the user's home, isn't deleted (296.3738ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:192:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:207:1
+✖ with nothing installed it still finishes, and says so plainly (301.1521ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:208:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:214:1
+✖ without a terminal uninstall asks for --yes before removing anything (289.4553ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:215:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\uninstall.test.ts:223:1
+✖ an unrelated service file with the same name is left running and untouched (345.2986ms)
+  AssertionError [ERR_ASSERTION]: rules.json 有问题：
+  规则「试一下」的 cwd 要是以 ~/ 或 / 开头的目录
+  
+  
+  1 !== 0
+  
+      at install (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:82:10)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/uninstall.test.ts:224:14)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 1,
+    expected: 0,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

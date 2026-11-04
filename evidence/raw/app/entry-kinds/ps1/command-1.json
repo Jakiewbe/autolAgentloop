@@ -1,0 +1,13 @@
+{
+  "program": "C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.EXE",
+  "args": [
+    "-NoProfile",
+    "-NonInteractive",
+    "-ExecutionPolicy",
+    "Bypass",
+    "-File",
+    "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds\\hello.ps1"
+  ],
+  "shell": false,
+  "cwd": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\app\\entry-kinds"
+}

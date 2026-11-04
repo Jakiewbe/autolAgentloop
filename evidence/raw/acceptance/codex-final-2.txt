@@ -1,0 +1,27 @@
+**不通过：23 项中，通过 14、失败 3、未验证 6。**
+
+完整逐项结果、实际哈希和原始输出已保存到[第二轮验收报告](D:/Vibe_coding-Project/autoAgentloop/evidence/raw/acceptance/recheck-20261104-independent/report.md)。
+
+失败项：
+
+1. **T7 仍不完整。** Codex 同一 thread 接续已证实，但任务书要求的 Claude Code/Go 路径尚未接通。依据：`DSH_DEPLOYMENT_TASKBOOK.md:146`、`evidence/adapters.md:102、232`。只读复现：
+   ```powershell
+   (Get-Content "$env:USERPROFILE/.agent-autoloop/rules.json" -Raw | ConvertFrom-Json).agents | ConvertTo-Json -Depth 6
+   ```
+   当前只有 Codex 和慢测；原始 Claude 日志仍是 400/401。
+
+2. **文档仍有矛盾。** `evidence/scheduling.md:44` 多写了不会发生的 60 分钟退避；实际第 5 次失败立即停止。`evidence/adapters.md:116` 仍写“全部通过”，与取消行“未验证”矛盾。复现：
+   ```powershell
+   node --disable-warning=ExperimentalWarning evidence/raw/acceptance/recheck-20261104-independent/retry-probe.mjs
+   rg -n '60 分钟|全部通过|取消.*未验证' evidence/scheduling.md evidence/adapters.md
+   ```
+
+3. **manifest 与实物不符。** 19:56:53 验收快照中，15 项只有 9 项匹配、6 项不匹配。依据：`evidence/manifest.json:54、72、84、96、108、114`。复现冻结版本：
+   ```powershell
+   & 'C:\Users\chs\AppData\Local\Programs\Python\Python311\python.exe' -B evidence/raw/acceptance/recheck-20261104-independent/check-frozen-manifest.py
+   ```
+   输出 6 条失败，退出码 1。
+
+已确认：stale 依赖拦截、治理程序定位、5 次派发上限、禁止自动新建会话、`$listenPid` 修正和取消行标注均已修复；包、补丁、两份校验清单及源码基线检查通过。
+
+Windows 本轮仍为 **2 通过、2 失败**，独立探针确认 `taskkill` 被沙箱拒绝，因此停止和超时功能记为**未验证，不判代码失败**。验收期间检测到原有材料发生外部变化，报告已保存对应快照；本轮工具未修改已有仓库文件。

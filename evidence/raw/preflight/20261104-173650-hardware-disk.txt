@@ -1,0 +1,16 @@
+### collected_at=2026-11-04T17:36:52.7535060+08:00 machine=DESKTOP-LM7RKI1 alias=A command=hardware-disk elapsed_ms=199
+
+Manufacturer        : JGINYUE
+Model               : B550M GAMING ARGB
+TotalPhysicalMemory : 17121669120
+
+
+
+Name FreeGB UsedGB
+---- ------ ------
+C     25.50 223.90
+D    763.80 893.60
+Temp  25.50 223.90
+
+
+

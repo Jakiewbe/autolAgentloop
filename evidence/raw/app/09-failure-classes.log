@@ -1,0 +1,27 @@
+acp                      Error: EPERM: operation not permitted, symlink 'C:\Users\chs\AppData\Local\Temp' -> 'C:\Users\chs\AppData\Lo
+browser-handoff          AssertionError [ERR_ASSERTION]: node:internal/child_process:1120
+business-recipes         AssertionError [ERR_ASSERTION]: node:internal/child_process:1120
+cards                    Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-cards-Y0e8FJ '\\?\C:\Use
+channels                 Error: spawn C:\Users\chs\AppData\Local\Temp\agent-autoloop-channels-V1Qnfr\async-lark ENOENT
+conformance              Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-conformance-EioQrE '\\?\
+delivery-scope           Error: Command failed: git -c user.name=test -c user.email=test@example.invalid commit -qm test
+desktop                  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+events                   Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-events-c6ErZN '\\?\C:\Us
+example-plugins          AssertionError [ERR_ASSERTION]: 插件仓库名要用小写字母、数字和 -
+examples                 AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+http                     Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-http-8gkTeZ '\\?\C:\User
+install                
+key-remove               Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-key-remove-yEYFgF '\\?\C
+loop                     AssertionError [ERR_ASSERTION]: rules.json 有问题：
+recipes                  AssertionError [ERR_ASSERTION]: README 里要有一条 curl
+rules                    Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-rules-mokzYJ '\\?\C:\Use
+runs                     Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-runs-R2yLqQ '\\?\C:\User
+schedule                 Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-schedule-li1zCI '\\?\C:\
+simulation             
+stream                   Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-stream-9OGKuQ '\\?\C:\Us
+try                      AssertionError [ERR_ASSERTION]: rules.json 有问题：
+uninstall                AssertionError [ERR_ASSERTION]: rules.json 有问题：
+webhook-templates      
+why                      Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-why-yIRuvW '\\?\C:\Users
+worker-login-shell     TypeError: Cannot read properties of undefined (reading 'trim')
+worker                   Error: ENOENT: no such file or directory, open 'C:\Users\chs\AppData\Local\Temp\agent-autoloop-worker-sNGzGe

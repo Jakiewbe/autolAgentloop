@@ -1,0 +1,38 @@
+{
+  "schema": 1,
+  "run_id": "8e64851ccbac4064b6d81e860b58b748",
+  "project_id": "4f13f187-5f5b-4523-9d50-dab2b97defc2",
+  "task_id": "T2",
+  "criterion": 3,
+  "kind": "command",
+  "scope_version": 1,
+  "scope_hash": "35d5f92800a4b03f7f7c46975ce6607e31342d787eb20493b62c1c4ca1328001",
+  "criteria_hash": "63205ab13b5377c1d781c31504c25d4b1612c5a2e64aa267941355e4ea11fd4e",
+  "expected_revision": 31,
+  "input_hash": "7a3843e0d7db1d70139c8451b478c8a1feef139e2327323542956c2225f6c1b2",
+  "inputs": [
+    "tools/preflight/check_a_report.py"
+  ],
+  "started_at": "2026-11-04T10:15:35.206839+00:00",
+  "reason": "A 报告结构、证据引用、脱敏与自校验脚本实跑",
+  "result": "pass",
+  "argv": [
+    "C:\\Users\\chs\\AppData\\Local\\Programs\\Python\\Python311\\python.exe",
+    "-B",
+    "tools/preflight/check_a_report.py"
+  ],
+  "exit_code": 0,
+  "logs": {
+    "stdout.log": {
+      "path": ".agent/runtime/checks/8e64851ccbac4064b6d81e860b58b748/stdout.log",
+      "sha256": "24b07297c95b9bda3a90932a5470d62e5daa832f9987a6013abe8dcffb093715",
+      "bytes": 754
+    },
+    "stderr.log": {
+      "path": ".agent/runtime/checks/8e64851ccbac4064b6d81e860b58b748/stderr.log",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    }
+  },
+  "finished_at": "2026-11-04T10:15:35.407691+00:00"
+}

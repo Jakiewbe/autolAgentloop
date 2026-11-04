@@ -1,0 +1,27 @@
+### collected_at=2026-11-04T17:36:57.7392492+08:00 machine=DESKTOP-LM7RKI1 alias=A command=agents elapsed_ms=3661
+where codex:
+INFO: Could not find files for the given pattern(s).
+
+FullName                                                                       Length LastWriteTime
+--------                                                                       ------ -------------
+C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex-command-runner.exe           810288 2026/5/9 3:47:16
+C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex-windows-sandbox-setup.exe   8102704 2026/5/11 10:54:58
+C:\Users\chs\AppData\Local\OpenAI\Codex\bin\codex.exe                       245812016 2026/5/11 10:55:01
+C:\Users\chs\AppData\Local\OpenAI\Codex\bin\node_repl.exe                    13489664 2026/5/9 3:47:42
+C:\Users\chs\AppData\Local\OpenAI\Codex\bin\node.exe                         91380224 2026/4/19 12:40:07
+C:\Users\chs\AppData\Local\OpenAI\Codex\bin\rg.exe                            4266496 2026/3/5 10:31:58
+
+
+codex --version: codex-cli 0.130.0-alpha.5
+claude: C:\Users\chs\AppData\Roaming\npm\claude.ps1  2.1.153 (Claude Code)
+opencode: C:\Users\chs\AppData\Roaming\npm\opencode.ps1  1.14.29
+dsh on PATH: 
+
+FullName      : D:\DSH\DeepSeek Harness.exe
+Length        : 246343144
+LastWriteTime : 2026/10/29 22:02:52
+
+
+DSH version file: 44.7.0
+DSH checkout package version: 
+

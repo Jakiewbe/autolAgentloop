@@ -1,0 +1,64 @@
+== start 2026-11-04T18:05:49+08:00
+--- git head
+96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a
+ M cli/main.ts
+ M host/service.ts
+ M tests/helpers.ts
+ M worker/agents.ts
+ M worker/worker.ts
+?? bin/agent-autoloop.cmd
+?? host/platform.ts
+?? pnpm-lock.yaml
+?? tests/windows-runtime.test.ts
+?? worker/runner.ts
+--- branch
+D:/Vibe_coding-Project/autoAgentloop/app 96b6c9c (detached HEAD)
+--- files
+AGENTS.md
+CONTRIBUTING.md
+INSTALL.md
+LICENSE
+README.en.md
+README.md
+SECURITY.md
+bin
+cli
+docs
+examples
+host
+install.sh
+kernel
+node_modules
+package-lock.json
+package.json
+plugins
+pnpm-lock.yaml
+protocol
+--- tsc
+/usr/bin/bash: line 7: ../node_modules/.bin/tsc: No such file or directory
+tsc_exit=0
+--- windows tests
+✔ windows: a turn runs in the rule's folder and keeps its output, exit code and result (696.0008ms)
+✔ windows: stopping a turn ends the tree it started (963.1162ms)
+✔ windows: a turn over its time is stopped and the run says why (998.3784ms)
+✔ windows: a restarted worker keeps the turn it finds, and doesn't start it again (2872ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 5712.3722
+--- patch sha
+cli/main.ts: OK
+host/service.ts: OK
+host/platform.ts: OK
+worker/agents.ts: OK
+worker/worker.ts: OK
+worker/runner.ts: OK
+bin/agent-autoloop.cmd: OK
+tests/windows-runtime.test.ts: OK
+tests/helpers.ts: OK
+pnpm-lock.yaml: OK
+== done 2026-11-04T18:05:56+08:00

@@ -1,0 +1,32 @@
+你是独立验收方（Codex），不是实施方。仓库根：D:\Vibe_coding-Project\autoAgentloop。
+本机是 A（Windows, DESKTOP-LM7RKI1）。任务书：DSH_DEPLOYMENT_TASKBOOK.md（先读它，重点 T2/T5/T6/T7/T8/T9/T10/T12/T13）。
+
+【硬规则】
+1. 只读核对 + 允许运行只读校验命令。不要 git commit / git push / 建分支 / 建 worktree / 改 .agent/ 与 app/ 源文件 / 改任何 evidence 文档。不要写密钥。
+2. 文档里的说法不算证据，必须自己跑命令或读文件核实。核实不到就写「未验证」，不要替它圆。
+3. 最终只输出一份结论，不要修改仓库文件。
+
+【固定材料（先核对哈希，再评内容）】
+- deploy/agent-autoloop-96b6c9c7-win1.tar.gz 期望 sha256 2ba21c422dbcf84c40e03d10bebee2c97693a3d4cfdfcd3e2adaaabf55fdd940
+- evidence/raw/app/windows-changes.patch 期望 sha256 f371da066b49cc4d46c7932b0759d16c6bc372fcedd0f73700409211d0e5561d
+- 逐文件哈希清单 evidence/raw/app/windows-changes.sha256（在 app/ 内 sha256sum -c 校验）
+- 若哈希不符，直接判该项失败并停下说明差异。
+
+【要核实的点】
+A. 治理与保留：git -C app status --porcelain、git -C app rev-parse HEAD（应仍是 96b6c9c71671c8096f2da1c7a6ffbd19a1a6866a）、git -C app branch --show-current（空=detached）、git -C app worktree list（应只有一个工作树）。app/ 之外的任务书与 .agent/ 是否被实施方改写（对照 evidence/source-baseline.json 的 governanceHashes）。
+B. T5 基线：读 evidence/source-baseline.json 与 evidence/design.md，然后运行 C:\Users\chs\AppData\Local\Programs\Python\Python311\python.exe -B tools/checks/check_source_baseline.py，看是否 29 项全过。特别检查它是否真的比对了上游 blob（git show <commit>:<path>），而不是自己跟自己比。
+C. T6 Windows 适配：读 evidence/windows-runtime.md 与 app/host/platform.ts、app/worker/runner.ts、app/tests/windows-runtime.test.ts，运行 node --test（或与文档一致的方式）跑 windows-runtime 测试；核对文档里 4/4 通过是否属实。检查 tests/helpers.ts 的 removeHome 是否只吞 EPERM/EBUSY。
+D. T7 接口结论：读 evidence/adapters.md，抽查它引用的 app 内不存在、而是外部工具（codex/opencode/claude/dsh）的结论，能否由 evidence/raw/adapters/ 里的原始日志支撑；哪些只是源码核查而非实测，是否写清。可自跑 codex --version、opencode --version 验证版本号。不要跑真实长回合（额度有限）。
+E. T8 桥接：读 tools/anchor_bridge/bridge.mjs 与 bridge.test.mjs，运行 node --test tools/anchor_bridge/bridge.test.mjs，检查 objection 判定顺序、事件 id 幂等、subject 字符集替换是否与中台约束一致；不要给中台发事件。
+F. T9 调度：读 evidence/scheduling.md，对照 app/worker/worker.ts、app/kernel/decide.ts、app/kernel/due.ts 里的常量（TIMEOUT_MINUTES、REPAIRS、退避、RUN_LEASE 等）是否与文档数字一致；确认 config.json 的 worker.capacity=1 已生效（读 %USERPROFILE%\.agent-autoloop\config.json）。
+G. T10 A 侧部署：读 evidence/deployment/A.md，核对它声称的 Startup 脚本存在（%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\agent-autoloop.cmd）、hub 在 127.0.0.1:3350 监听、重复启动被拒（可以再跑一次 up 看是否被拒），管理入口清单里标「未实测」的是否确实标了。
+H. T12 演练：读 evidence/rehearsal.md、evidence/rollback.md、evidence/manifest.json，核对日志证据 evidence/raw/deploy/20261104-191000-rehearsal.log 与 20261104-193000-rollback.log 里是否有它声称的三次中断与回退记录；manifest.json 里的 11 个 artifacts 哈希是否与实物一致（逐个 sha256sum 比对）。
+I. 诚实性：文档里有没有「独立验收通过」之类的自宣；有没有把未测的写成已测；B 机相关的结论是否明确标为未完成。
+
+【输出格式（中文）】
+第 1 段：结论摘要——通过 / 失败 / 未验证 各多少项，一句话总评。
+第 2 段：逐项表格（项目 | 结论 pass/fail/unverified | 依据的命令或文件:行）。
+第 3 段：失败清单（每条给复现命令、期望 vs 实际）。
+第 4 段：未验证清单与原因。
+第 5 段：你认为最严重的 3 个风险。
+不要输出客套话。

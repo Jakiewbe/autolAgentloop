@@ -1,0 +1,10 @@
+﻿caption=Microsoft Windows 10 家庭版 version=10.0.19045 build=19045 arch=64 位
+lastboot=11/01/2026 19:00:06 uptime_hours=71.2
+ram_total_gb=15.9 ram_free_gb=2.7
+cpu=AMD Ryzen 5 5600 6-Core Processor cores=6 logical=12
+disk=C: size_gb=249.4 free_gb=25
+disk=D: size_gb=1657.4 free_gb=763.8
+timezone=China Standard Time offset=08:00:00
+culture=zh-CN ui=en-US codepage=936
+long_paths_enabled=1
+

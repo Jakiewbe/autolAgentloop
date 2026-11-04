@@ -1,0 +1,21 @@
+✔ templates reject text beyond vendor limits instead of losing the answer link (0.8618ms)
+✔ dingtalk: official payload and API failure on a local receiver (53.6772ms)
+✔ wecom: official payload and API failure on a local receiver (11.898ms)
+✔ slack: official payload and API failure on a local receiver (9.4175ms)
+✔ discord: official payload and API failure on a local receiver (8.6122ms)
+Assertion failed: !(handle->flags & UV_HANDLE_CLOSING), file src\win\async.c, line 76
+✖ tests\webhook-templates.test.ts (457.0652ms)
+ℹ tests 6
+ℹ suites 0
+ℹ pass 5
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 465.2499
+
+✖ failing tests:
+
+test at tests\webhook-templates.test.ts:1:1
+✖ tests\webhook-templates.test.ts (457.0652ms)
+  'test failed'

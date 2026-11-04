@@ -1,0 +1,4 @@
+{"type":"thread.started","thread_id":"01a1a602-29c1-7c92-bde9-8b60819c674b"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"PROBE-C166-R2\nPROBE-C166-R1"}}
+{"type":"turn.completed","usage":{"input_tokens":60612,"cached_input_tokens":26880,"cache_write_input_tokens":0,"output_tokens":93,"reasoning_output_tokens":64}}

@@ -1,0 +1,5 @@
+== start 2026-11-04T18:00:56+08:00 ==
+
+dsh: MISSING_CREDENTIAL: llm-deepseek: no API key for provider route "deepseek-official"; store DEEPSEEK_API_KEY through the credentials service (the web Models page writes it), or export DEEPSEEK_API_KEY in the launching environment
+exit=0
+== done 2026-11-04T18:00:58+08:00 ==

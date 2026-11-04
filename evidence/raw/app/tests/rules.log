@@ -1,0 +1,35 @@
+✔ the fixture loads, with defaults filled in (1.8531ms)
+✔ a mistake says which rule and what is wrong (18.564ms)
+✔ types match exactly, by prefix or all (0.2618ms)
+✔ a null rule is a rules error and leaves the running configuration intact (1.8671ms)
+✔ the lookups the hub uses (1.278ms)
+✔ a good file changing on disk takes effect; a bad one leaves the old rules and says why (5.8302ms)
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6074ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 6
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 317.494
+
+✖ failing tests:
+
+test at tests\helpers.ts:13:3
+✖ D:\Vibe_coding-Project\autoAgentloop\app\tests\helpers.ts (0.6074ms)
+  Error: EPERM, Permission denied: \\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-rules-m6czZX '\\?\C:\Users\chs\AppData\Local\Temp\agent-autoloop-rules-m6czZX'
+      at rmSync (node:fs:1236:18)
+      at TestContext.<anonymous> (file:///D:/Vibe_coding-Project/autoAgentloop/app/tests/helpers.ts:13:15)
+      at TestHook.runInAsyncScope (node:async_hooks:214:14)
+      at TestHook.run (node:internal/test_runner/test:1106:25)
+      at TestHook.run (node:internal/test_runner/test:1427:18)
+      at TestHook.run (node:internal/util:585:20)
+      at Test.runHook (node:internal/test_runner/test:1024:20)
+      at after (node:internal/test_runner/test:1064:20)
+      at Test.run (node:internal/test_runner/test:1132:13) {
+    errno: 1,
+    code: 'EPERM',
+    path: '\\\\?\\C:\\Users\\chs\\AppData\\Local\\Temp\\agent-autoloop-rules-m6czZX',
+    syscall: 'rm'
+  }

@@ -1,0 +1,58 @@
+{
+  "results": [
+    {
+      "claim": 1,
+      "attempts": 1,
+      "state": "queued",
+      "delay_minutes": 5
+    },
+    {
+      "claim": 2,
+      "attempts": 2,
+      "state": "queued",
+      "delay_minutes": 10
+    },
+    {
+      "claim": 3,
+      "attempts": 3,
+      "state": "queued",
+      "delay_minutes": 20
+    },
+    {
+      "claim": 4,
+      "attempts": 4,
+      "state": "queued",
+      "delay_minutes": 40
+    },
+    {
+      "claim": 5,
+      "attempts": 5,
+      "state": "unknown",
+      "delay_minutes": null
+    },
+    {
+      "claim": 6,
+      "job": null
+    },
+    {
+      "claim": 7,
+      "job": null
+    },
+    {
+      "claim": 8,
+      "job": null
+    },
+    {
+      "claim": 9,
+      "job": null
+    },
+    {
+      "claim": 10,
+      "job": null
+    }
+  ],
+  "exhausted_notice": {
+    "key": "run:1:exhausted",
+    "text": "这条已经自动派了 5 次都没跑完（最后卡在：local fake failure），不再自动重派，请看一眼再决定。"
+  }
+}
