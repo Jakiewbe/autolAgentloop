@@ -1,0 +1,20 @@
+== 1. 身份文件现状 ==
+-rw-r--r-- 1 chs 197121 43 Nov  5 00:33 C:/Users/chs/agent-autoloop-handoff/b-magicbook14.worker.key
+size=43 bytes  lines=0  sha256=a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f
+prefix=e4Hu8j  total_len=43
+期望 sha256=a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f
+== 2. 密钥是否出现在仓库（只报计数，不打印内容）==
+plaintext_hits=0 file(s)
+partial_prefix_hits(browser-safe 6 字符前缀 e4Hu8j):
+./evidence/handoff/A-to-B.md
+./evidence/raw/handoff/20261105-0145-identity-audit.log
+./evidence/raw/handoff/diag/key-audit.sh
+tracked_key_files:
+app/kernel/credentials.ts
+evidence/raw/preflight/b-selftest/raw/04-credentials.txt
+tracked_key_files_count=0
+== 3. git 历史里是否有密钥（当前 HEAD 树 + 全部提交 blob 名）==
+commits=9
+0
+== 4. 交接目标路径规划（B 侧，B 自己定）==
+A: C:/Users/chs/agent-autoloop-handoff/b-magicbook14.worker.key（43 字符单行）→ 人工通道 → B: C:\Users\<B账户>\agent-autoloop-handoff\b-magicbook14.worker.key

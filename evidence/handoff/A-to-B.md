@@ -1,6 +1,6 @@
 # A → B 交接单（回应独立审核对 A 的四项补充要求）
 
-生成时间：2026-11-05 00:50 +08:00
+生成时间：2026-11-05 00:50 +08:00（01:45 修正：安装器参数名、回执路径、验证脚本参数与已知缺陷、身份交接清单）
 生成机器：A / DESKTOP-LM7RKI1
 对应审核：d834119a800a1b326da00965d5cd30076e57723a（2 PASS / 2 FAIL / 3 证据不足）
 本单只回答**对 A 的补充要求**四项；B 侧现场结论仍以 B 自己的材料为准，本单不替 B 声明任何通过。
@@ -66,15 +66,71 @@ Expand-Archive "$env:USERPROFILE\Downloads\B-reviewed-delivery.zip" -Destination
 
 **为什么不进仓库**：`Jakiewbe/autolAgentloop` 匿名可访问（HTTP 200），把 worker 密钥提交上去等于公开签发凭据。所以密钥只在 A 本机文件里，请用你选的人工通道（U 盘、面对面、你自己的私聊）传给 B，不要走公开链接。
 
+**人工交接清单（A 侧已就绪，等 B 确认；文件没进仓库、没进聊天）**：
+
+| 步骤 | 谁做 | 动作 | 完成的判据 |
+| --- | --- | --- | --- |
+| 1 | A | 把 `b-magicbook14.worker.key`（43 字节单行）拷到**你选的人工通道**（U 盘 / 面对面 / 你自己的私聊或网盘私有目录） | 通道里有一份 43 字节文件 |
+| 2 | B | 收到后落到自己的私有目录，例如 `C:\Users\<B账户>\agent-autoloop-handoff\b-magicbook14.worker.key` | 文件存在 |
+| 3 | B | 算哈希并核对 | `(Get-FileHash -Algorithm SHA256 <文件>).Hash` 小写等于 `a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f`，且 `(Get-Item <文件>).Length` = 43 |
+| 4 | B | 回三条给 A：收到的文件哈希、所在路径、是否 43 字节 | A 侧三条与本节表格逐字一致 |
+| 5 | B | 安装成功后删掉通道里的中间副本，别留在聊天记录或公共网盘 | 通道里不再有副本 |
+
+核对哈希比核对密钥内容更安全：哈希相同就说明传输没坏，而且把哈希贴出来也不泄露密钥。
+
+**A 侧现状（2026-11-05T01:45 复核）**：文件仍在 `C:\Users\chs\agent-autoloop-handoff\b-magicbook14.worker.key`，43 字节、无换行、sha256 与本节一致；全仓库明文检索该密钥 0 命中，`git ls-files` 里 `.key` 文件 0 个。也就是说，到这一刻它**还没到 B**——第 3 项和第 4 项要等你走完人工通道。
+
 **B 侧落地（B 自己的 HOME，路径按 B 实际账户换，别抄 A 的）**：
 
 ```powershell
-# 1) 把密钥写进 B 的 join 参数（<KEY> 是从身份文件里读到的 43 字符）
-# 2) 用审核包里的安装器接线，中心地址用 §2 的 URL
+# 0) 审核包解压到 D:\AutoAgentloop\_reviewed（7 个成员平铺，install-b.mjs 就在这一层）
+# 1) 身份文件先落到 B 自己的私有目录，不要让密钥出现在命令行历史或聊天里
+#    例：C:\Users\<B账户>\agent-autoloop-handoff\b-magicbook14.worker.key
+# 2) 安装（参数名是 --center-url / --worker-name / --worker-key-file）
 node D:\AutoAgentloop\_reviewed\install-b.mjs `
-  --url "https://obconic-subtetanic-tamika.ngrok-free.dev" `
-  --worker b-magicbook14 --key "<KEY>"
+  --center-url "https://obconic-subtetanic-tamika.ngrok-free.dev" `
+  --worker-key-file "C:\Users\<B账户>\agent-autoloop-handoff\b-magicbook14.worker.key" `
+  --worker-name b-magicbook14
 ```
+
+**参数对照（本节 2026-11-05T01:40 修正：旧版写作 `--url / --worker / --key`，安装器不认）**：
+
+| 用途 | 正确参数 | 旧版误写 | 说明 |
+| --- | --- | --- | --- |
+| 中心地址 | `--center-url` | ~~`--url`~~ | 必填；必须是无内嵌凭据的 http(s) 地址 |
+| 身份文件路径 | `--worker-key-file` | ~~`--key`~~ | 必填；指向**文件**而不是把 43 字符贴在命令行 |
+| worker 名字 | `--worker-name` | ~~`--worker`~~ | 可选，默认 `b-magicbook14` |
+| 安装根目录 | `--root` | — | 可选，默认 `D:/AutoAgentloop`；运行时解到 `<root>\runtime\<包哈希前12位>` |
+
+安装器自带三道检查，任一不过就退出、不写任何东西：中心 `/healthz` 必须 2xx；身份必须能被 `/v1/work` 接受；`agent-autoloop-reviewed.zip` 与 `manifest.json` 里每个文件的哈希必须逐一相符。若 `~/.agent-autoloop/config.json` 或目标版本目录已存在，它直接报错停手（保留现场），不会覆盖。
+
+**回执**：安装成功后写 `D:\AutoAgentloop\B-install-receipt.json`（= `--root` + `B-install-receipt.json`），字段 `machine/worker/package_sha256/pid/app/status/model_verified/cross_network_task_verified`。其中 `status` 固定为 `worker-started-only`，后两项固定 `false` —— 安装器只证明「进程起来了」，模型和跨机任务要另外实测。
+
+**模型实测（`verify-b.ps1` 的必填参数）**：
+
+```powershell
+powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\verify-b.ps1 `
+  -Agent codex `
+  -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<hash目录>\codex.exe" `
+  -Model deepseek-v4.1-flash-1017
+```
+
+| 参数 | 必填 | 取值 |
+| --- | --- | --- |
+| `-Agent` | 是 | 只能是 `codex` 或 `claude`（其他值在参数校验阶段就被拒） |
+| `-Executable` | 是 | 必须是**存在的文件**路径；不存在的路径直接 throw |
+| `-Model` | 是 | B 本机实测可用的模型 ID |
+| `-SettingsFile` | `-Agent claude` 时必填 | claude 的私有配置；文件不存在直接 throw |
+| `-OutputDirectory` | 否 | 默认脚本同目录下 `verification-output\`，写 `model.stdout.jsonl` 与 `model.stderr.log` |
+
+**已知缺陷与修正版（2026-11-05T01:40 实测）**：原 `verify-b.ps1` 把 `-OutputDirectory` 的默认值写成 `(Join-Path $PSScriptRoot 'verification-output')`，在本机 PowerShell 5.1 下 `$PSScriptRoot` 求值为空，**不显式传 `-OutputDirectory` 就在参数绑定阶段报错**（`Join-Path : 无法将参数绑定到参数"Path"，因为该参数为空字符串`，`verify-b.ps1:6`），此时还没跑到任何模型调用。两种解法：
+
+1. 调用时显式带上 `-OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"`——已实测可以正常往下跑并写出 `model.stdout.jsonl`/`model.stderr.log`；
+2. 用同目录的 **`verify-b-fixed.ps1`**（sha256 `36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31`）：把默认值移进脚本体，不传 `-OutputDirectory` 也能跑，其余参数与校验逻辑不变。原包里那份不动，审核包哈希 `e0b4fb5b…9853` 因此仍然成立。
+
+它给模型一个本次随机生成的 `AGENT_VERIFY_<guid>` 令牌，要求模型只回这个令牌，再用 `agent_result.mjs` 校验 stdout、退出码和令牌是否一致；不通过就 throw。**它只证明模型真能回话，不证明编辑、命令执行或双机部署**。
+
+**A 侧尚未核对的、必须由 B 补齐的三项**：B 上 codex 的绝对路径（A 不猜）、B 的 codex 版本（0.130 在 A 侧必 400，0.166 才通）、`deepseek-v4.1-flash-1017` 在 B 上的真实返回。
 
 **撤销**：`node app/bin/agent-autoloop.ts key remove worker b-magicbook14`（A 侧执行即失效；已实测同一命令对旧密钥返回「密钥已失效」）。
 
