@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-05T00:35:35+08:00",
+  "generated_at": "2026-11-05T00:37:37+08:00",
   "generated_by": "Lead（A 机，DESKTOP-LM7RKI1）",
   "scope": "A 机单机部署（唯一中台 + A 执行端）；B 机未接入，见 evidence/preflight/B_bootstrap.md",
   "host": {
@@ -100,8 +100,8 @@
     },
     {
       "path": "evidence/source-baseline.json",
-      "bytes": 8813,
-      "sha256": "9152ce7eaedd1b1ca166cc1fc814eec4562d3df5085bcf3e7453637d6fd4f3cc",
+      "bytes": 9563,
+      "sha256": "47d0e4a0505151f0238c0c3aed2018ef2c220b31c2468fd9f6e0652bf57ff48f",
       "what": "T5 源码基线（11 改 + 5 增 + pnpm-lock，含双哈希）"
     },
     {
@@ -130,8 +130,8 @@
     {
       "path": "evidence/handoff/A-to-B.md",
       "note": "回应审核四项补充要求的 A→B 交接单",
-      "bytes": 9341,
-      "sha256": "64db3d63078a82ef697e6572b89ca6cdc0b934265a444ba4ba950642ea5d9d42"
+      "bytes": 10087,
+      "sha256": "0c018a454aeea9e767bd2171ccdda493be6090ab76f9e40f4bf9d4500442a58f"
     },
     {
       "path": "evidence/raw/handoff/tunnel-info.json",
