@@ -1,3 +1,8 @@
 
 # codex-rules: preserve state bytes across computers
 .agent/** -text
+
+# 部署脚本按字节保存：PowerShell/cmd 对 CRLF/BOM 敏感，交接单公布的是文件字节哈希
+*.ps1 -text
+*.cmd -text
+*.bat -text
