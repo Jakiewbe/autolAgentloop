@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-11-04T20:05:09+08:00",
+  "generated_at": "2026-11-04T23:24:02+08:00",
   "generated_by": "Lead（A 机，DESKTOP-LM7RKI1）",
   "scope": "A 机单机部署（唯一中台 + A 执行端）；B 机未接入，见 evidence/preflight/B_bootstrap.md",
   "host": {
@@ -115,6 +115,11 @@
       "bytes": 11034,
       "sha256": "af22d865b04032343f6596da7c07f463b238a86d45b9eb455a5bdf200067efd8",
       "what": "T13 独立验收记录（第一轮不通过 + 本轮材料）"
+    },
+    {
+      "path": "evidence/recovery.md",
+      "bytes": 3464,
+      "sha256": "f68f2bf4a6b73af429232a3dea4dd1a3a21e416e9edd878d2cf8fdcd40663eaa"
     }
   ],
   "runtime_state": {

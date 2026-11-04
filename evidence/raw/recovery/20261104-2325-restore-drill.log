@@ -1,0 +1,42 @@
+== drill start 20261104-232327 ==
+source_backup=/c/Users/chs/.agent-autoloop/backups/codex-review-20261104-222813
+copied
+total 614
+-rw-r--r-- 1 chs 197121    510 Nov  4 23:23 config.json
+-rw-r--r-- 1 chs 197121 622592 Nov  4 23:23 hub.db
+-rw-r--r-- 1 chs 197121     43 Nov  4 23:23 master.key
+-rw-r--r-- 1 chs 197121   1752 Nov  4 23:23 rules.json
+== hashes ==
+97816fa6acb955dc5574f500eba8587f77f341e2f9a5f66ec6085d78cac08127 *config.json
+3fd020192ceab6ca65849f38f051e5e99b3bb3ab37ebf1da277e69b8c7a1c9b2 *hub.db
+50e8437234684b4b69024063df409b6436debd4a136df1ecccbf2afd4931677f *master.key
+7027c69ec24cf0d55de9f5ca8dc6a4c8a1780e8f6fc421ff9711d34738b67efe *rules.json
+97816fa6acb955dc5574f500eba8587f77f341e2f9a5f66ec6085d78cac08127 *config.json
+3fd020192ceab6ca65849f38f051e5e99b3bb3ab37ebf1da277e69b8c7a1c9b2 *hub.db
+50e8437234684b4b69024063df409b6436debd4a136df1ecccbf2afd4931677f *master.key
+7027c69ec24cf0d55de9f5ca8dc6a4c8a1780e8f6fc421ff9711d34738b67efe *rules.json
+== patch listen 3350 -> 3399 ==
+listen 127.0.0.1:3399
+== start hub-only ==
+drill_pid=6483
+healthz=200
+(node:46880) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+listening on 127.0.0.1:3399 home=C:\Users\chs\AppData\Local\Temp\aa-restore-20261104-232327
+== restored state (owner key 来自恢复出来的 config) ==
+state_status 200
+runs 9 totals {"running":0,"queued":0,"retrying":0,"unknown":0,"done":7,"doneToday":7,"nothing":0,"usage":{"input":0,"output":0,"cost":0},"attention":0}
+agents Agent:offline,慢测:offline
+channels 桌面通知
+recentCards 4 spendingToday {"rounds":7,"tokens":0,"cost":0,"missingTokens":7,"missingCost":7}
+wrong_key_status 401
+== facts count ==
+restored facts 890 projections 52
+live facts 1081 projections 75
+(node:25720) ExperimentalWarning: SQLite is an experimental feature and might change at any time
+(Use `node --trace-warnings ...` to show where the warning was created)
+== stop drill ==
+  TCP    127.0.0.1:14762        127.0.0.1:3399         TIME_WAIT       0
+  TCP    127.0.0.1:14764        127.0.0.1:3399         TIME_WAIT       0
+  TCP    127.0.0.1:14765        127.0.0.1:3399         TIME_WAIT       0
+== drill end ==
