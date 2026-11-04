@@ -134,6 +134,18 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\v
 
 它给模型一个本次随机生成的 `AGENT_VERIFY_<guid>` 令牌，要求模型只回这个令牌，再用 `agent_result.mjs` 校验 stdout、退出码和令牌是否一致；不通过就 throw。**它只证明模型真能回话，不证明编辑、命令执行或双机部署**。
 
+**联调窗口（A 侧从现在起保持在线）**：中心 `127.0.0.1:3350` 与隧道入口都在跑，保活记录每 60 秒一条写进 `evidence/raw/handoff/tunnel-uptime.log`（字段：时间、本机 `/healthz` 码、隧道 `/healthz` 码、ngrok 进程数）。脚本 `tools/checks/tunnel-uptime.sh`。**地址只在这个进程活着时有效**：ngrok 进程重启会换随机域名，届时 A 会重新发布并在本单追加一行；B 若 `/healthz` 连续失败，先找 A 要新地址，不要改参数硬试。
+
+**回传给 A 的三组值（B 填，A 据此调路由；缺任何一组 A 都不改规则）**：
+
+```text
+1) codex 绝对路径 : <B 上 which/where.exe 出来的完整路径>
+2) codex 版本     : <codex --version 原始输出>
+3) 模型实测结果    : <verify-b.ps1 或原生命令的退出码 + 是否回出 AGENT_VERIFY_ 令牌 + 日志路径>
+```
+
+为什么要这三组：A 侧规则里 `b-magicbook14` 的 `command` 现在写的是裸 `codex`，A 不知道 B 的 PATH 里有没有它；而 A 本机实测 `0.130.0-alpha.5` 必撞 `400 model_not_found`、`0.166.0-alpha.5.1` 才通——版本不同结论就不同。**A 不会用「A 本机成功」替代 B 的成功**。
+
 **A 侧尚未核对的、必须由 B 补齐的三项**：B 上 codex 的绝对路径（A 不猜）、B 的 codex 版本（0.130 在 A 侧必 400，0.166 才通）、`deepseek-v4.1-flash-1017` 在 B 上的真实返回。
 
 **撤销**：`node app/bin/agent-autoloop.ts key remove worker b-magicbook14`（A 侧执行即失效；已实测同一命令对旧密钥返回「密钥已失效」）。
@@ -180,6 +192,21 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\v
 2. B 的 codex 是 0.130.0-alpha.5（B 报告 M2）。A 侧同一通道在 0.130 上会撞 `400 model_not_found`，0.166 才通过（`evidence/adapters.md`）。所以 B 若沿用 0.130，本轮要先在自己机器上核对 `-m deepseek-v4.1-flash-1017` 是否稳定；不稳就换二进制或在 B 侧改用 claude 适配器。
 
 **顺带修掉一个真 bug（否则上面登记不会生效）**：`app/host/server.ts:97-101` 原来用 `RULES_FILE.split("/").at(-1)` 取文件名，Windows 路径只有反斜杠，切出来还是整条路径，于是 `rules.json` 的任何改动都被 watcher 忽略——改规则必须重启中台才生效。已改为 `basename(RULES_FILE)`，并实测：改 `b-magicbook14` 的 `name` → 3 秒内状态页变；改回来 → 3 秒内变回；全过程 pid 62124 未变（`evidence/raw/handoff/20261105-0045-center-restart.log`）。
+
+## 4.5 六项跨机联调怎么对账（B 修好、接上之后逐项做）
+
+B 报告 §7 列的六项，A 侧的准备与判据如下。**每一项都要「A 的中心回执 + B 的进程/日志」两侧同时成立才算过**，只有一侧成立记未验证。
+
+| # | 项 | A 侧做什么 | A 侧留什么证据 | B 侧要回什么 |
+| --- | --- | --- | --- | --- |
+| 1 | A 派发 → B 执行 → 回传 | 命中 `B-接线验证` 规则（`b.ping.*`），用 `node bin/agent-autoloop.ts event ...` 投事件 | `/v1/state` 里的 run 记录 + `why` 时间线 | 进程退出码、`worker/runs/*/exit-N`、改动文件内容 |
+| 2 | 临时目录改文件 + 检查 + 回传 | 规则 `cwd` 限 `D:\AutoAgentloop\try` 一类临时目录，不碰业务目录 | run 的 deliverable 摘要 + 卡片文本 | 文件哈希、目录列表 |
+| 3 | 同会话第二轮核对会话号 | 用 `answer` 回第 1 轮的卡片，触发第 2 轮 | 两轮 `session` 字段是否相同 | B 侧 rollout/thread id |
+| 4 | 取消任务后进程退出 | `node bin/agent-autoloop.ts stop <run>` | cancel 记录 + 中心状态 | `taskkill` 前后进程列表、残留数 |
+| 5 | 断线重连 / 执行端重启 | 保持中心不动，B 重启执行端后看是否续领、是否重复执行 | run 不重复、`lease` 变化 | 重启前后 pid、重连日志 |
+| 6 | 登录启动入口 | A 侧只核对配置存在（不动 B 的注销） | `rules.json`/`config.json` 快照 | `HKCU\...\Run` 与 Startup 项的实际存在性与内容 |
+
+注意顺序：1 → 2 → 3 是链式的（第 3 项要第 1 项先成），4 与 5 可并行，6 独立且涉及 B 的登录状态，**要 B 自己决定什么时候做**，A 不替 B 动注册表。
 
 ## 5. 实测记录（本节所有数字都来自下面这些日志）
 
