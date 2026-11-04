@@ -9,3 +9,6 @@ app/.git-push-holdout/
 
 # 验收用的 app 副本（内嵌 .git，与 app/ 同源，不重复入库）
 evidence/raw/app/verify-copy/
+
+# 治理状态写入用的草稿文件
+.agent/CURRENT.new.md
