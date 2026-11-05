@@ -1,244 +1,89 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "seq": 4,
-  "phase": "supplement_applied_worker_restarted",
-  "request_id": "B-LOCAL-20261106-004",
+  "seq": 5,
+  "phase": "item1_done_item2_running",
+  "request_id": "B-LOCAL-20261106-005",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
-  "reply_to": "A-N2-20261106-002",
-  "published_at": "2026-11-06T02:01:00+08:00",
-  "package_verification": {
-    "path": "deploy/coordination/night-20261106/night-parse-terminal-boundary-v1.zip",
-    "bytes": 13090,
-    "sha256_actual": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27",
-    "sha256_expected": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27",
-    "whole_match": true,
-    "members_verified": [
-      {
-        "path": "plugins/command/agent.ts",
-        "bytes": 6268,
-        "sha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1",
-        "match": true
-      },
-      {
-        "path": "worker/agents.ts",
-        "bytes": 2328,
-        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
-        "match": true
-      },
-      {
-        "path": "worker/worker.ts",
-        "bytes": 17335,
-        "sha256": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb",
-        "match": true
-      },
-      {
-        "path": "PATCH.json",
-        "bytes": 2495,
-        "sha256": "f1454e2ef25867c707cf005a0233f8511c8729b85c3e61c5c52e457d35a5c49f",
-        "match": true
-      },
-      {
-        "path": "README.md",
-        "bytes": 3559,
-        "sha256": "893a495287826d7d854e040d667cc97edf86eb4770350c488b6b2dca315f1106",
-        "match": true
-      }
-    ],
-    "member_count": 5
+  "reply_to": "A-N4-20261106-004",
+  "published_at": "2026-11-06T02:09:00+08:00",
+  "ack": {
+    "budget_ruling_accepted": true,
+    "note": "接受 A 的口径：J1..J6 走正式 0.130 通道计入 A 中心 run；B 的候选 0.166 exec 余量 2 次仅留 FIX-B 验证，未得指令不动用",
+    "candidate_exec_used": 4,
+    "candidate_exec_remaining": 2
   },
-  "apply": {
-    "runtime_root": "D:\\AutoAgentloop\\runtime\\d504e4876d07",
-    "backup_relative_path": "evidence/deploy-b/night-20261106/apply-v1-20261106T0157/backup",
-    "before_alternatives_check": [
+  "item1": {
+    "test_id": "A-J1-20261106-001",
+    "dispatches_seen": [
       {
-        "path": "plugins/command/agent.ts",
-        "bytes_before": 5691,
-        "sha256_before": "ac23aa9b634065786a25e9b53f2301d618d68227f8c460f56a4b3bcabd4e894b",
-        "matched_alternative": "patch-command-result-fix-applied",
-        "action": "overwritten"
-      },
-      {
-        "path": "worker/agents.ts",
-        "bytes_before": 2328,
-        "sha256_before": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
-        "matched_alternative": "patch-command-result-fix-applied",
-        "action": "skipped_already_after"
-      },
-      {
-        "path": "worker/worker.ts",
-        "bytes_before": 17335,
-        "sha256_before": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb",
-        "matched_alternative": "patch-command-result-fix-applied",
-        "action": "skipped_already_after"
+        "run": 19,
+        "rule": "B-接线验证",
+        "received_at": "2026-11-05T18:04:33Z",
+        "started_at": "2026-11-05T18:04:32Z",
+        "done_at": "2026-11-05T18:06:08Z"
       }
     ],
-    "after_sha256": [
-      {
-        "path": "plugins/command/agent.ts",
-        "bytes": 6268,
-        "sha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1",
-        "equals_patch_after": true
-      },
-      {
-        "path": "worker/agents.ts",
-        "bytes": 2328,
-        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
-        "equals_patch_after": true
-      },
-      {
-        "path": "worker/worker.ts",
-        "bytes": 17335,
-        "sha256": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb",
-        "equals_patch_after": true
-      }
-    ],
-    "rollback_ready": true,
-    "rollback_note": "备份三文件原哈希记录在 apply-v1-20261106T0157/backup-hashes.txt；回退=停该 worker→用备份覆盖→复核 ac23aa9b/6c150fc0/9899c232→再启动"
-  },
-  "offline_verification_by_B": {
-    "harness": {
-      "path": "evidence/deploy-b/night-20261106/protocol-test-v2-20261106T0210/result.txt",
-      "sha256": "77905ddc8f212f0d1f3845cc42c0df4cd30f06dd03d897c1da5f8ac1c200d810",
-      "cases": 14,
-      "pass": 14,
-      "fail": 0,
-      "covers": [
-        "终态后非 JSON 行容忍（新语义）",
-        "终态前非 JSON 行仍失败（第 N 行不是 JSON 对象）",
-        "终态后 JSON 数组行容忍 / 终态前数组行失败",
-        "缺 turn.completed、缺 thread.started、turn.failed、usage 类型、缺最终 agent_message、空回复、非零退出码、非 codex 命令回退文本"
-      ]
+    "channel": "formal-0.130 (C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe)",
+    "model": "deepseek-v4.1-flash-1017",
+    "cwd": "D:\\AutoAgentloop",
+    "native_exit_code": 0,
+    "protocol": {
+      "stdout_bytes": 18156,
+      "stdout_lines": 25,
+      "terminal_event_line": 21,
+      "terminal_event": "turn.completed",
+      "strict_protocol_pass": true,
+      "non_json_lines_total": 3,
+      "non_json_lines_after_terminal": 3,
+      "non_json_lines_before_terminal": 0,
+      "after_terminal_samples": [
+        "SUCCESS: The process with PID 11480 (child process of PID 2060) has been terminated.",
+        "SUCCESS: The process with PID 14260 (child process of PID 25876) has been terminated.",
+        "SUCCESS: The process with PID 25876 (child process of PID 2060) has been terminated."
+      ],
+      "note": "这正是补丁的终态边界场景：终态之后 3 行非 JSON 不再判失败；应用前的适配器会在此处误判为协议污染"
     },
-    "run18_real_bytes_replay": {
-      "input": "evidence/deploy-b/run18-forensics-20261105T1815/raw/stdout-1.log",
-      "bytes": 25424,
-      "sha256": "96921199b7c23c02c883e32faed1104beff80455f9308854783e24137d15fce0",
-      "old_adapter": {
-        "sha256": "ac23aa9b634065786a25e9b53f2301d618d68227f8c460f56a4b3bcabd4e894b",
-        "result": "error: Codex stdout 第 36 行不是 JSON 对象，原始输出保留在日志中"
-      },
-      "new_adapter": {
-        "sha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1",
-        "session": "01a1ab19-c2f1-7681-aa54-8c3971d344d6",
-        "usage": {
-          "input": 942037,
-          "output": 3246,
-          "cached": 933632
-        },
-        "text_two_lines": true
-      },
-      "agreement_with_A": "session 与 usage 三项与 A 声明完全一致；A 只引用了回复首行，实际字节的最终 agent_message 含两行（首行「B 接线验证文件已按规则完成并核验通过。」），非语义差异",
-      "model_calls": 0
+    "session": "01a1ace2-4837-7952-b034-af2a049766b0",
+    "usage_from_turn_completed": {
+      "input": 673864,
+      "cached": 665600,
+      "output": 1819,
+      "reasoning_output": 531
+    },
+    "usage_checks": {
+      "input_positive": true,
+      "from_turn_completed": true
+    },
+    "final_reply_first_line_exact": "B 接线通过：b-magicbook14",
+    "final_reply_matches_expected": true,
+    "final_reply_extra_lines": 0,
+    "artifact": {
+      "path": "D:\\AutoAgentloop\\b-ping.txt",
+      "bytes": 21,
+      "sha256": "fcd7cde285272fb42b222c931ed3d45ed7d18ad057a58a496f7e8dc413d46658",
+      "content_single_line": "B-PONG b-magicbook14",
+      "trailing_newline": true
     }
   },
-  "worker_restart": {
-    "scope": "仅维护重启 b-magicbook14 该 worker 进程；未动其他进程",
-    "pid_before": 11968,
-    "pid_before_started_at": "2026-11-05T22:30:13+08:00",
-    "stop_method": "taskkill /PID 11968 /F，确认进程消失",
-    "pid_after": 33160,
-    "pid_after_created_at": "2026-11-06T01:57:45+08:00",
-    "start_command": "node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
-    "cwd": "D:\\AutoAgentloop",
-    "up_pid_file": "33160",
-    "startup_log_line": "2026-11-05T17:57:45.501Z [worker] worker b-magicbook14 started",
-    "heartbeat": {
-      "state": "process_alive_and_polling",
-      "cadence_observed_seconds": 31,
-      "last_observed_lines": [
-        "2026-11-05T17:59:19.097Z [worker] couldn't reach the hub: Error: 中台返回 502",
-        "2026-11-05T17:59:50.081Z [worker] couldn't reach the hub: Error: 中台返回 502"
-      ],
-      "note": "hub 端返回 502，属中心侧可达性；B 侧 worker 已上线并按约 30 秒轮询，未做任何绕过"
-    },
-    "runtime_root_after_restart": "D:\\AutoAgentloop\\runtime\\d504e4876d07",
-    "hashes_after_restart": [
-      {
-        "path": "plugins/command/agent.ts",
-        "sha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1"
-      },
-      {
-        "path": "worker/agents.ts",
-        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471"
-      },
-      {
-        "path": "worker/worker.ts",
-        "sha256": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb"
-      }
-    ]
+  "item2": {
+    "test_id": "A-J2-20261106-002",
+    "state": "running",
+    "run": 20,
+    "rule": "B-临时目录",
+    "started_at": "2026-11-05T18:06:32Z",
+    "note": "同一 worker 顺序接单；完成后单独回执"
   },
+  "observations": [
+    "run 19 全程 <2 分钟，中心派发→worker 取单→正式 0.130 模型→回传闭环打通",
+    "hub 502 窗口已结束，之后长时间轮询无错误行"
+  ],
   "declarations": {
     "mcp_config_unchanged": true,
-    "mcp_config_sha256": "4b76035688a5edf7a1aa9ccf757de2096f2a14c133ac8167edfbeafbe9762393",
-    "mcp_servers_state": "codex_app disabled / cua_repl enabled / node_repl enabled（未改）",
-    "acl_or_integrity_or_sacl_changed": false,
-    "reinstall_or_identity_change": false,
+    "acl_or_integrity_changed": false,
     "login_item_changed": false,
     "command0_changed": false,
-    "formal_route": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe（0.130，未切）",
     "other_processes_touched": false,
-    "raw_stdout_stderr_config_identity_uploaded": false
-  },
-  "exec_accounting_b_side": {
-    "used_total_exec_invocations": 4,
-    "cap": 6,
-    "remaining_by_b_counting": 2,
-    "itemized": [
-      {
-        "id": "run-01",
-        "exit": 11,
-        "model_turn_started": false,
-        "outcome": "os error 5 in-process app-server init"
-      },
-      {
-        "id": "diag-02",
-        "exit": 1,
-        "model_turn_started": false,
-        "outcome": "same os error 5, RUST_LOG debug"
-      },
-      {
-        "id": "run-02",
-        "exit": 0,
-        "model_turn_started": true,
-        "outcome": "pass: explicit model, real node_repl MCP, usage, session 01a1acc9-bde3-7910-bba0-68b3fdfb4656"
-      },
-      {
-        "id": "run-03-pinned",
-        "exit": 11,
-        "model_turn_started": false,
-        "outcome": "pinned-path reproduction of run-01"
-      }
-    ],
-    "model_turns_actually_consumed": 1,
-    "discrepancy_note": "A-status seq2 记 used=3；若把 run-03（seq2 发布后的复现）计入则为 4。请 A 以本条为口径。"
-  },
-  "conflict_flagged": {
-    "issue": "reserve_plan 需要 J1+J2+J3 三次真实运行，但余量按 B 记账只剩 2 次",
-    "options_for_A": [
-      "A1：把 B 的真实 exec 上限由 6 调到 7（追加 1 次，仅用于第 4 项取消取证）",
-      "A2：第 4 项用 J2 之后同一执行端的排队/中断取证替代真实取消，并在 6 项表里标注「未做真实取消」",
-      "A3：第 4 项本夜不做，summary 记 5/6 并写明原因"
-    ],
-    "b_recommendation": "A1；若 A 不追加，则按 A2 执行并在证据里如实标注"
-  },
-  "blockers": [
-    {
-      "id": "BLK-HUB-502",
-      "state": "open",
-      "detail": "worker 心跳到中台持续 502（中心侧），六项联调派发需 A 侧 hub 可用；B 侧已就绪等待 test_id",
-      "action_by": "A"
-    },
-    {
-      "id": "BLK-BUDGET",
-      "state": "open",
-      "detail": "exec 余量 2 对 J1+J2+J3=3，需 A 决定",
-      "action_by": "A"
-    }
-  ],
-  "next_by_B": [
-    "等待 A 派发唯一 test_id（第 1、2 项 J1）",
-    "收到 test_id 后按 600s 上限执行并回执严格协议/session/实际 usage",
-    "07:50 前停止新增真实运行，08:00 前封存 summary.md 与清单"
-  ]
+    "raw_stdout_uploaded": false
+  }
 }
