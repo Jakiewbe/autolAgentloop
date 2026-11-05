@@ -106,33 +106,46 @@ node D:\AutoAgentloop\_reviewed\install-b.mjs `
 
 **回执**：安装成功后写 `D:\AutoAgentloop\B-install-receipt.json`（= `--root` + `B-install-receipt.json`），字段 `machine/worker/package_sha256/pid/app/status/model_verified/cross_network_task_verified`。其中 `status` 固定为 `worker-started-only`，后两项固定 `false` —— 安装器只证明「进程起来了」，模型和跨机任务要另外实测。
 
-**模型实测（`verify-b.ps1` 的必填参数）**：
+**验证入口（固定交付；原 `verify-b.ps1` 一个字节都没动）**
+
+原包里那份 `verify-b.ps1` 在真实 codex 上**跑不通**，不是文档推测：实测报 `codex.exe : Reading additional input from stdin...` → `NativeCommandError`（`verify-b.ps1:24`），`model.stderr.log` 0 字节、`model.stdout.jsonl` 根本没生成，外层还显示 `exit=0`。根因三条：stdin 没关（codex 等输入）、原生 stderr 在 `$ErrorActionPreference='Stop'` 下被当成终止性错误、`-OutputDirectory` 默认值在 param 绑定阶段用 `$PSScriptRoot`（PS 5.1 下为空，不传该参数直接 `Join-Path : 无法将参数绑定到参数"Path"`，`verify-b.ps1:6`）。
+
+所以**改用同参数名的固定入口**，包本身和它的哈希都不受影响：
+
+| 文件 | 字节 | SHA256 |
+| --- | --- | --- |
+| `deploy/verify-entry/verify-entry.ps1` | 1754 | `a95d0a7d2d338b129fb59e06eedb5c7ae657f375fd7e569723e8167fba572092` |
+| `deploy/verify-entry/verify-model.mjs` | 9185 | `c313bbaa2fb79348f773050a7c62e84cf3613671046f3a80bd56a74c2dfcd9de` |
+
+唯一有效版本是**远端提交里的这两个文件**（`.gitattributes` 已对 `*.ps1` 设 `-text`，仓库里就是 LF、1754 字节）；下载后先 `sha256` 对上再跑，不要自己改换行。判分器仍用 B 自己解压出来的原包 `agent_result.mjs`（2441 B / `0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f`），入口每次运行前会校验它，哈希不符直接退出 2，不会用改过的判分器放行。
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\verify-b.ps1 `
-  -Agent codex `
-  -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<hash目录>\codex.exe" `
-  -Model deepseek-v4.1-flash-1017
+powershell -NoProfile -ExecutionPolicy Bypass -File <下载目录>\verify-entry.ps1 ^
+  -Agent codex ^
+  -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<目录>\codex.exe" ^
+  -Model deepseek-v4.1-flash-1017 ^
+  -Validator "D:\AutoAgentloop\_reviewed\agent_result.mjs" ^
+  -OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"
 ```
 
-| 参数 | 必填 | 取值 |
+| 参数 | 必填 | 说明 |
 | --- | --- | --- |
-| `-Agent` | 是 | 只能是 `codex` 或 `claude`（其他值在参数校验阶段就被拒） |
-| `-Executable` | 是 | 必须是**存在的文件**路径；不存在的路径直接 throw |
-| `-Model` | 是 | B 本机实测可用的模型 ID |
-| `-SettingsFile` | `-Agent claude` 时必填 | claude 的私有配置；文件不存在直接 throw |
-| `-OutputDirectory` | 否 | 默认脚本同目录下 `verification-output\`，写 `model.stdout.jsonl` 与 `model.stderr.log` |
+| `-Agent` | 是 | `codex` 或 `claude` |
+| `-Executable` | 是 | 已存在的文件；`.exe` 直调，`.cmd`/`.bat` 经 `cmd /d /s /c`（路径含空格已实测可用） |
+| `-Model` | 是 | B 本机实测可用的模型 ID；**`auto` 只对 codex 有效**，含义是「不传 `-m`，用 CLI 默认模型」 |
+| `-SettingsFile` | claude 必填 | 已存在的 claude 配置 json |
+| `-OutputDirectory` | 否 | 默认脚本同目录 `verification-output\` |
+| `-Validator` | 否 | 默认脚本同目录的 `agent_result.mjs` |
 
-**已知缺陷与修正版（2026-11-05T01:40 实测）**：原 `verify-b.ps1` 把 `-OutputDirectory` 的默认值写成 `(Join-Path $PSScriptRoot 'verification-output')`，在本机 PowerShell 5.1 下 `$PSScriptRoot` 求值为空，**不显式传 `-OutputDirectory` 就在参数绑定阶段报错**（`Join-Path : 无法将参数绑定到参数"Path"，因为该参数为空字符串`，`verify-b.ps1:6`），此时还没跑到任何模型调用。两种解法：
+**退出码**：`0` 判分通过；`1` 真实跑完但判分不通过（非零退出、非 JSON 行、无 `turn.completed`、出现 `turn.failed`/`error`、回答不是令牌、无会话编号）；`2` 输入或依赖问题（此时**没有**发起模型调用）；`3` 程序起不来。
 
-1. 调用时显式带上 `-OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"`——已实测可以正常往下跑并写出 `model.stdout.jsonl`/`model.stderr.log`；
-2. 用同目录的 **`verify-b-fixed.ps1`**：把默认值移进脚本体，不传 `-OutputDirectory` 也能跑，其余参数与校验逻辑不变。
+**产物**（全部落在 `-OutputDirectory`）：`model.stdout.jsonl`（stdout 原始字节，不转码不裁剪）、`model.stderr.log`、`verify-result.json`（`passed`、`nativeExitCode`、`signal`、`agentArgs`、两个输出的 `bytes`/`sha256`、`judge{path,sha256,passed,session,error}`）。判分口径与原包一致：**usage 不参与判定**。
 
-**这个修正版的字节哈希以远端为准**：GitHub 上 `main` 的 `deploy/B-reviewed/verify-b-fixed.ps1` 是 2527 字节、sha256 `23458837f2782638dc6599d4d8582ddbf14afe1360f738fcd82daf69856beab9`（LF 换行，已实测在 PowerShell 5.1 下能正常执行）；A 工作副本是 2563 字节 CRLF 版本、sha256 `36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31`，两者内容等价。请按你实际拿到的**那一份**算哈希，不要按段落里另一个数去对。
+**A 本机已验证**（Windows PowerShell 5.1，证据 `evidence/verify-entry.md` §3）：参数正确进入真实调用并**通过**（codex 0.166.0-alpha.5.1、`-Model auto`、22 s、`thread_id` 非空、最终文本逐字等于随机令牌）；缺参退出 1、路径不存在退出 2；退出码 3、非 JSON 行、无 `turn.completed`、令牌不符四种都返回失败；stdin 不等待（`pause` 桩 1 s）；CRLF + 中文输出落盘字节与桩输出 sha256 完全相同；含空格路径的 8 个 argv 全部还原。claude 分支走到真实 CLI 后如实失败（199 s、exit 1、`401 Upstream request failed: Go requires a credential`）。
 
-原包里那份 `verify-b.ps1` 不动，审核包哈希 `e0b4fb5b…9853` 因此仍然成立。
+**仍需 B 实机验证**：B 的 codex/claude 真实模型能否通过（A 的账号只接受默认模型，**不能用 A 的成功替代 B**）、B 的包装器接入后整链、B 本机 `agent_result.mjs` 哈希是否等于原版、B 的 PowerShell 执行策略。
 
-它给模型一个本次随机生成的 `AGENT_VERIFY_<guid>` 令牌，要求模型只回这个令牌，再用 `agent_result.mjs` 校验 stdout、退出码和令牌是否一致；不通过就 throw。**它只证明模型真能回话，不证明编辑、命令执行或双机部署**。
+**二进制的归属**：A 侧换二进制/升版本只影响 A 自己的通道，**解决不了 B 的路径或版本问题**。A 路由里 `b-magicbook14` 的 `command[0]` 最终要填 B 实测出来的程序绝对路径，模型名与版本也以 B 的真实结果为准；B 没回的这段时间 A 不改路由、不开联调。
 
 **联调窗口（A 侧从现在起保持在线）**：中心 `127.0.0.1:3350` 与隧道入口都在跑，保活记录每 60 秒一条写进 `evidence/raw/handoff/tunnel-uptime.log`（字段：时间、本机 `/healthz` 码、隧道 `/healthz` 码、ngrok 进程数）。脚本 `tools/checks/tunnel-uptime.sh`。**地址只在这个进程活着时有效**：ngrok 进程重启会换随机域名，届时 A 会重新发布并在本单追加一行；B 若 `/healthz` 连续失败，先找 A 要新地址，不要改参数硬试。
 

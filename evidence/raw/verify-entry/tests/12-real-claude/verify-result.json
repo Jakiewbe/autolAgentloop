@@ -1,0 +1,30 @@
+{
+  "passed": false,
+  "agent": "claude",
+  "model": "deepseek-v4.1-flash",
+  "executable": "C:\\Users\\chs\\AppData\\Roaming\\npm\\claude.cmd",
+  "executableSize": 160,
+  "settingsFile": "C:\\Users\\chs\\.claude\\settings.json",
+  "expectedToken": "AGENT_VERIFY_0e81d9fc4f0edf94ad3381b8929b5c44",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:12:11.882Z",
+  "finishedAt": "2026-11-05T04:15:29.233Z",
+  "nativeExitCode": 1,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "evidence\\raw\\verify-entry\\tests\\12-real-claude\\model.stdout.jsonl",
+  "stdoutBytes": 804,
+  "stdoutSha256": "a298f4cb92d2dff22a9d333f075240ba15eaee5783ac4cbd18a6741b42e92534",
+  "stderrFile": "evidence\\raw\\verify-entry\\tests\\12-real-claude\\model.stderr.log",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "judge": {
+    "path": "deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": false,
+    "session": null,
+    "error": "进程退出码为 1"
+  },
+  "stage": "graded",
+  "error": "进程退出码为 1"
+}

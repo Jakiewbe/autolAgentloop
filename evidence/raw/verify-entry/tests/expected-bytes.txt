@@ -1,0 +1,2 @@
+{"type":"thread.started","thread_id":"b1"}
+{"type":"item.completed","item":{"type":"agent_message","text":"中文行"}}

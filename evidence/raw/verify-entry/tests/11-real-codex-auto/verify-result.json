@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "agent": "codex",
+  "model": "auto",
+  "executable": "C:\\Users\\chs\\AppData\\Local\\OpenAI\\Codex\\bin\\22cfb1d302613eae\\codex.exe",
+  "executableSize": 368970544,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_9ca11e242ef14b8c9e5ed7bfe91bc09a",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:11:28.846Z",
+  "finishedAt": "2026-11-05T04:11:49.856Z",
+  "nativeExitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "evidence\\raw\\verify-entry\\tests\\11-real-codex-auto\\model.stdout.jsonl",
+  "stdoutBytes": 390,
+  "stdoutSha256": "dbb9ea69974f86536764146ed7d87b84b4cc47b755bf65e8ec7eaf6469657fda",
+  "stderrFile": "evidence\\raw\\verify-entry\\tests\\11-real-codex-auto\\model.stderr.log",
+  "stderrBytes": 414,
+  "stderrSha256": "cdef01cfdedb1ffc0334691d7d8e21f42bc117c3b58f05af347f8e05e0e22f11",
+  "judge": {
+    "path": "deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": true,
+    "session": "01a1a9e7-964b-7202-bc71-74344e5618c1",
+    "error": null
+  },
+  "stage": "graded"
+}

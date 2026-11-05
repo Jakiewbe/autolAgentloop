@@ -1,0 +1,29 @@
+{
+  "passed": true,
+  "agent": "codex",
+  "model": "m",
+  "executable": "D:/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/with space/stub-args.cmd",
+  "executableSize": 40,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_1407543e728dbe82d4bd49cd53b6cc2e",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:09:56.989Z",
+  "finishedAt": "2026-11-05T04:09:57.128Z",
+  "nativeExitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "evidence\\raw\\verify-entry\\tests\\09\\model.stdout.jsonl",
+  "stdoutBytes": 535,
+  "stdoutSha256": "34862d9d8b2bcaa3603cbaacd9bac8de2aac1becfbec8bbd76b91d3c1e25057c",
+  "stderrFile": "evidence\\raw\\verify-entry\\tests\\09\\model.stderr.log",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "judge": {
+    "path": "deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": true,
+    "session": "stub-args-thread",
+    "error": null
+  },
+  "stage": "graded"
+}

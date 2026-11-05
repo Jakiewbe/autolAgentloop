@@ -1,0 +1,30 @@
+{
+  "passed": false,
+  "agent": "codex",
+  "model": "m",
+  "executable": "D:/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/stub-garbage.cmd",
+  "executableSize": 45,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_7f466ef1b66f07f0a73b49a05ed44c8c",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:09:11.106Z",
+  "finishedAt": "2026-11-05T04:09:11.156Z",
+  "nativeExitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "evidence\\raw\\verify-entry\\tests\\04\\model.stdout.jsonl",
+  "stdoutBytes": 18,
+  "stdoutSha256": "0cb4dcac563bb39bb58d421d1cb9f33cd52bb4af001ff3f6f435d40674212c12",
+  "stderrFile": "evidence\\raw\\verify-entry\\tests\\04\\model.stderr.log",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "judge": {
+    "path": "deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": false,
+    "session": null,
+    "error": "Unexpected token 'h', \"this is not json\" is not valid JSON"
+  },
+  "stage": "graded",
+  "error": "Unexpected token 'h', \"this is not json\" is not valid JSON"
+}

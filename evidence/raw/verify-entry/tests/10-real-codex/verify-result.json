@@ -1,0 +1,30 @@
+{
+  "passed": false,
+  "agent": "codex",
+  "model": "deepseek-v4.1-flash-1017",
+  "executable": "C:\\Users\\chs\\AppData\\Local\\OpenAI\\Codex\\bin\\22cfb1d302613eae\\codex.exe",
+  "executableSize": 368970544,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_4f3205d965b21722142ac8dc76d492a3",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:10:09.423Z",
+  "finishedAt": "2026-11-05T04:10:26.604Z",
+  "nativeExitCode": 1,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "evidence\\raw\\verify-entry\\tests\\10-real-codex\\model.stdout.jsonl",
+  "stdoutBytes": 578,
+  "stdoutSha256": "b67ca87c684186ac2d409c08a9571bbb8b3d448840d3528eeb72baeddf10707e",
+  "stderrFile": "evidence\\raw\\verify-entry\\tests\\10-real-codex\\model.stderr.log",
+  "stderrBytes": 414,
+  "stderrSha256": "1af4f3d7f028ade9dc68243f499755fe3beb1e7004bd87524de799307191f932",
+  "judge": {
+    "path": "deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": false,
+    "session": null,
+    "error": "进程退出码为 1"
+  },
+  "stage": "graded",
+  "error": "进程退出码为 1"
+}
