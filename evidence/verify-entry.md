@@ -9,7 +9,7 @@
 | --- | --- | --- |
 | `deploy/verify-entry/verify-entry.ps1` | 1754 | `a95d0a7d2d338b129fb59e06eedb5c7ae657f375fd7e569723e8167fba572092` |
 | `deploy/verify-entry/verify-model.mjs` | 9185 | `c313bbaa2fb79348f773050a7c62e84cf3613671046f3a80bd56a74c2dfcd9de` |
-| `deploy/verify-entry/README.md` | 10110 | 契约文件，不作为被校验对象 |
+| `deploy/verify-entry/README.md` | — | 契约文件，不参与字节校验（会随说明更新） |
 
 判分器依赖 `deploy/B-reviewed/agent_result.mjs`：2441 B / `0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f`（原包文件，未改）。审核包 `deploy/B-reviewed-delivery.zip` 未改，sha256 仍 `e0b4fb5b…9853`。
 
@@ -51,6 +51,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File deploy/B-reviewed/verify-b.p
 | 11 | 真实 codex + `-Model auto`（不传 `-m`） | 默认模型 | 通过 | 0 | 22 s；4 行 JSONL；`thread_id 01a1a9e7-964b-7202-bc71-74344e5618c1`；最终文本 = 随机令牌 |
 | 12 | 真实 claude | `claude.cmd` + `-SettingsFile` | 如实失败 | 1 | 199 s；`{"type":"result","subtype":"success","is_error":true,"api_error_status":401,"result":"Failed to authenticate. API Error: 401 Upstream request failed: Go requires a credential"}` |
 | 13 | LF 版脚本可执行 | 桩，`-Model m` | 通过 | 0 | 证明仓库里的 LF 字节在本机 PS 5.1 可直接跑 |
+| 14 | 默认输出目录 + 全路径含空格 | 脚本/可执行/判分器都放在 `%TEMP%\ve-default 2026\with space\`，不传 `-OutputDirectory` | 通过 | 0 | 产物落在 `with space\verification-output\`；`verify-result.json` 1421 B；判分器是原版副本，哈希校验通过 |
 
 **结论口径**：01/02 证明「输入不合法就不发起调用」；03/04/07 证明「跑完了但结果不合格，绝不返回成功」；11 证明「真实成功时保存原生退出码、完整输出、判分结果」；05/06/09 证明 stdin、参数、空格路径三项工程细节；10/12 证明失败被原样报出，没有被入口吞掉。
 

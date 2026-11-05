@@ -34,6 +34,8 @@
 
 **usage 的处理**：原判分器**不校验** `usage` 字段（`agent_result.mjs` 只看出局码、事件类型、最终文本、`thread_id`）。本交付按原样保留这一口径，既不额外要求 usage 非零，也不把 usage 清零当成失败；usage 的原始数值照样完整留在 `model.stdout.jsonl` 里。
 
+**为什么不是一个纯 PowerShell 脚本**：PS 5.1 的原生命令调用只能把参数数组拼成一条命令行（`Start-Process -ArgumentList` 也是同样拼法），含空格或引号的提示词/路径会被拆开或转义错；`Start-Process` 又不保证拿到原生退出码与完整字节流。Node 的 `spawn(文件, 参数数组)` 是逐参数传递，stdin/stdout/stderr 三条流可控，所以执行器放 Node，PowerShell 只做参数校验与转发。已实测：含空格目录下的脚本、可执行、判分器三条路径同时可用，提示词整条到达子进程。
+
 ## 3. 调用契约
 
 ```text
