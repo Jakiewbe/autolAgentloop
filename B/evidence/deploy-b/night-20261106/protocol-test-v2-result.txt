@@ -1,0 +1,18 @@
+PASS A1 happy path untouched
+PASS A2 non-JSON AFTER turn.completed tolerated (new)
+PASS A3 non-JSON BEFORE turn.completed still fatal
+PASS A4 array line after terminal tolerated
+PASS A5 array line before terminal fatal
+PASS C no turn.completed
+PASS D no thread.started
+PASS E turn.failed
+PASS E2 turn.failed then junk tolerated
+PASS F usage wrong type
+PASS G plain command falls back to text
+PASS H non-zero exit
+PASS I empty agent text
+PASS K missing agent_message
+HARNESS pass=14/14
+REPLAY bytes=25424 sha256=96921199b7c23c02c883e32faed1104beff80455f9308854783e24137d15fce0
+OLD-> {"error":"Codex stdout 第 36 行不是 JSON 对象，原始输出保留在日志中","session":"01a1ab19-c2f1-7681-aa54-8c3971d344d6"}
+NEW-> {"text":"B 接线验证文件已按规则完成并核验通过。\n已仅更新指定文件，两行内容均逐字匹配；未改动其他业务或治理文件。","session":"01a1ab19-c2f1-7681-aa54-8c3971d344d6","usage":{"input":942037,"output":3246,"cached":933632}}
