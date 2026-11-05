@@ -59,6 +59,7 @@
 8f740308e50fc262ddfdb78549797d2a75ad023b0a287234b81445101fb4eb23  B/evidence/deploy-b/verify-b-pkg/filtered-codex-20261105T100326.log
 913b7b7275aaec7964a5e12f967387fd31cd26878aa3f3d89429eef09dfa3c94  B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095717.log
 9273d2be6357fa556af42b059bdeb039822aa52371ac53e0ce746ef79439480d  B/evidence/deploy-b/selftest-logs/case-hub-present.log
+969752457168ef9b737b95eb6794cc6e379e6601435dbc2d36b48c1c719499d0  B/reviews/2026-11-05-t11-round3.md
 976f1a3f4baabbbbcf32ff11a12303ecc084a4ff7fbbc3369f8b0bcf4a0df73a  B/evidence/preflight/raw/claude-edit-20261104T174220.log
 98d055cf3d880d1559df29e9582fdadf50e6b975981ec61e3a9f374eae229d24  B/evidence/preflight/raw/codex-edit-20261104T174054.log
 991e778a38a4d68832c20b6db028089e7f9c1b93fc1e8133ea8ffdd1e3e3df76  B/reviews/2026-11-04-t11-round1.md
