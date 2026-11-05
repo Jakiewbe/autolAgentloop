@@ -1,83 +1,69 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "seq": 5,
-  "phase": "item1_done_item2_running",
-  "request_id": "B-LOCAL-20261106-005",
+  "seq": 6,
+  "phase": "item2_done_item3_running",
+  "request_id": "B-LOCAL-20261106-006",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "A-N4-20261106-004",
-  "published_at": "2026-11-06T02:09:00+08:00",
-  "ack": {
-    "budget_ruling_accepted": true,
-    "note": "接受 A 的口径：J1..J6 走正式 0.130 通道计入 A 中心 run；B 的候选 0.166 exec 余量 2 次仅留 FIX-B 验证，未得指令不动用",
-    "candidate_exec_used": 4,
-    "candidate_exec_remaining": 2
-  },
-  "item1": {
-    "test_id": "A-J1-20261106-001",
-    "dispatches_seen": [
-      {
-        "run": 19,
-        "rule": "B-接线验证",
-        "received_at": "2026-11-05T18:04:33Z",
-        "started_at": "2026-11-05T18:04:32Z",
-        "done_at": "2026-11-05T18:06:08Z"
-      }
-    ],
-    "channel": "formal-0.130 (C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe)",
+  "published_at": "2026-11-06T02:10:30+08:00",
+  "item2": {
+    "test_id": "A-J2-20261106-002",
+    "run": 20,
+    "rule": "B-临时目录",
+    "channel": "formal-0.130",
     "model": "deepseek-v4.1-flash-1017",
     "cwd": "D:\\AutoAgentloop",
     "native_exit_code": 0,
-    "protocol": {
-      "stdout_bytes": 18156,
-      "stdout_lines": 25,
-      "terminal_event_line": 21,
-      "terminal_event": "turn.completed",
-      "strict_protocol_pass": true,
-      "non_json_lines_total": 3,
-      "non_json_lines_after_terminal": 3,
-      "non_json_lines_before_terminal": 0,
-      "after_terminal_samples": [
-        "SUCCESS: The process with PID 11480 (child process of PID 2060) has been terminated.",
-        "SUCCESS: The process with PID 14260 (child process of PID 25876) has been terminated.",
-        "SUCCESS: The process with PID 25876 (child process of PID 2060) has been terminated."
-      ],
-      "note": "这正是补丁的终态边界场景：终态之后 3 行非 JSON 不再判失败；应用前的适配器会在此处误判为协议污染"
-    },
-    "session": "01a1ace2-4837-7952-b034-af2a049766b0",
-    "usage_from_turn_completed": {
-      "input": 673864,
-      "cached": 665600,
-      "output": 1819,
-      "reasoning_output": 531
-    },
-    "usage_checks": {
-      "input_positive": true,
-      "from_turn_completed": true
-    },
-    "final_reply_first_line_exact": "B 接线通过：b-magicbook14",
-    "final_reply_matches_expected": true,
-    "final_reply_extra_lines": 0,
-    "artifact": {
-      "path": "D:\\AutoAgentloop\\b-ping.txt",
-      "bytes": 21,
-      "sha256": "fcd7cde285272fb42b222c931ed3d45ed7d18ad057a58a496f7e8dc413d46658",
-      "content_single_line": "B-PONG b-magicbook14",
-      "trailing_newline": true
-    }
-  },
-  "item2": {
-    "test_id": "A-J2-20261106-002",
-    "state": "running",
-    "run": 20,
-    "rule": "B-临时目录",
     "started_at": "2026-11-05T18:06:32Z",
-    "note": "同一 worker 顺序接单；完成后单独回执"
+    "done_at": "2026-11-05T18:08:23Z",
+    "protocol": {
+      "stdout_bytes": 38995,
+      "stdout_lines": 33,
+      "terminal_event_line": 29,
+      "strict_protocol_pass": true,
+      "non_json_lines_after_terminal": 3,
+      "non_json_lines_before_terminal": 0
+    },
+    "session": "01a1ace4-1ad2-7892-a020-2a0767121271",
+    "usage_from_turn_completed": {
+      "input": 1098259,
+      "cached": 1085440,
+      "output": 3893,
+      "reasoning_output": 1411
+    },
+    "final_reply": {
+      "first_line": "第2项临时目录完成：D:\\AutoAgentloop\\aa-tmp-item2-20261106020807",
+      "lines": 5,
+      "matches_instruction": true
+    },
+    "temp_dir_evidence": {
+      "created_path": "D:\\AutoAgentloop\\aa-tmp-item2-20261106020807",
+      "files_written": [
+        "a.txt (ITEM2-A)",
+        "b.txt (ITEM2-B)"
+      ],
+      "listing_reported": "a.txt、b.txt",
+      "deleted": true,
+      "exists_after_delete": false,
+      "independent_check_after_run": "B 侧 ls 该前缀目录：none_remaining（无残留）"
+    },
+    "policy_observations": [
+      "模型首次尝试用多行 PowerShell 单脚本完成建/写/列/删，被 worker 的审批策略 declined（exit_code -1, status declined），未触发 ask 升级",
+      "随后改用单行脚本路径完成同一操作，最终 exit 0；策略拒绝未导致本项失败",
+      "说明：B 侧未改 askFirst 名单或任何策略配置"
+    ]
   },
-  "observations": [
-    "run 19 全程 <2 分钟，中心派发→worker 取单→正式 0.130 模型→回传闭环打通",
-    "hub 502 窗口已结束，之后长时间轮询无错误行"
-  ],
+  "item3": {
+    "test_id": "A-J3-20261106-003",
+    "state": "running",
+    "run": 21,
+    "rule": "B-接续验证",
+    "round": 1,
+    "session_field_in_dispatch": null,
+    "started_at": "2026-11-05T18:08:52Z",
+    "note": "第 1 轮为无会话首轮，预期模型发一个问题卡片；第 2 轮应由 A 带 session/answers 派发以验证 resume"
+  },
   "declarations": {
     "mcp_config_unchanged": true,
     "acl_or_integrity_changed": false,
