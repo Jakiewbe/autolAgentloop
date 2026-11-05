@@ -18,6 +18,7 @@
 248cc8b6dafa2102a61b1d8c2ea559e8279d21fc3dd6b60ce558dc93411d6f22  B/evidence/deploy-b/env-20261104T232131.log
 283933a0ce42c6b775f3c5aae830360e9b4512d382e996c8918bdf258aba6b17  B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stdout.jsonl
 290b556eea74f7161274a29ff84ec7694bc872cd34f71ca9c48cf8ebf6c751b9  B/.gitattributes
+29f902d1aeaff9841a15a31219d75ea78dda64916a9565dd75b3b2bb035c4a79  B/evidence/deploy-b/MATERIALS.sha256
 2b67e86ab53c8e5a76efd81a87a6ceaa03a910bbf9996cbe4391dba70159a694  B/evidence/preflight/a-kit/run/raw/04-credentials.txt
 2b67e86ab53c8e5a76efd81a87a6ceaa03a910bbf9996cbe4391dba70159a694  B/evidence/preflight/a-kit/run2/raw/04-credentials.txt
 2da57d21ea89732856018066cee464cd11e8317ac1309a7b9f22ab51457362fc  B/evidence/deploy-b/verify-b-pkg/verify-node-codex-20261105T100102.log
@@ -104,7 +105,6 @@ e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/dep
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/run-20261105T095623/model.stderr.log
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/run-20261105T095635/model.stderr.log
 e445b396c8152777b60f4cc7c2f59580433becfdd18a83f2d89e796e5016c442  B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip.sha256
-e61d8e3525571cacb6492eb1540eea69762a28aa6515f2d88d38eb7ae471941b  B/evidence/deploy-b/MATERIALS.sha256
 e73f964c1b4929d2951800f170fcc2ba9aab4c6bc3a66a4d07240c46e3c38346  B/evidence/preflight/raw/claude-continue-20261104T174304.log
 ebd878fcbacde246532a4d3815e1ec836c8b6d9e601b0faf557c05c1275abf4e  B/evidence/preflight/a-kit/run2/raw/07-projects.txt
 eef455afbfc5d9cc407f295c2e7332f2f59c6106752dc192ad231187a58e9b20  B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip.sha256
