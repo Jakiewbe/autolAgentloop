@@ -136,12 +136,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\v
 
 **联调窗口（A 侧从现在起保持在线）**：中心 `127.0.0.1:3350` 与隧道入口都在跑，保活记录每 60 秒一条写进 `evidence/raw/handoff/tunnel-uptime.log`（字段：时间、本机 `/healthz` 码、隧道 `/healthz` 码、ngrok 进程数）。脚本 `tools/checks/tunnel-uptime.sh`。**地址只在这个进程活着时有效**：ngrok 进程重启会换随机域名，届时 A 会重新发布并在本单追加一行；B 若 `/healthz` 连续失败，先找 A 要新地址，不要改参数硬试。
 
-**回传给 A 的三组值（B 填，A 据此调路由；缺任何一组 A 都不改规则）**：
+**回传给 A 的信息（B 填；缺任何一组 A 都不改规则、不开联调）**：
 
 ```text
 1) codex 绝对路径 : <B 上 which/where.exe 出来的完整路径>
 2) codex 版本     : <codex --version 原始输出>
 3) 模型实测结果    : <verify-b.ps1 或原生命令的退出码 + 是否回出 AGENT_VERIFY_ 令牌 + 日志路径>
+4) 修复版提交号    : <B 自己仓库的 commit，附独立复核结论所在文件>
+5) 安装状态       : <是否已获准安装、B-install-receipt.json 的 package_sha256 与 pid、installation-*.log 路径>
+6) 身份文件回执    : <路径 + 完整 sha256 + 字节数，不回密钥内容>
 ```
 
 为什么要这三组：A 侧规则里 `b-magicbook14` 的 `command` 现在写的是裸 `codex`，A 不知道 B 的 PATH 里有没有它；而 A 本机实测 `0.130.0-alpha.5` 必撞 `400 model_not_found`、`0.166.0-alpha.5.1` 才通——版本不同结论就不同。**A 不会用「A 本机成功」替代 B 的成功**。
@@ -194,6 +197,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\_reviewed\v
 **顺带修掉一个真 bug（否则上面登记不会生效）**：`app/host/server.ts:97-101` 原来用 `RULES_FILE.split("/").at(-1)` 取文件名，Windows 路径只有反斜杠，切出来还是整条路径，于是 `rules.json` 的任何改动都被 watcher 忽略——改规则必须重启中台才生效。已改为 `basename(RULES_FILE)`，并实测：改 `b-magicbook14` 的 `name` → 3 秒内状态页变；改回来 → 3 秒内变回；全过程 pid 62124 未变（`evidence/raw/handoff/20261105-0045-center-restart.log`）。
 
 ## 4.5 六项跨机联调怎么对账（B 修好、接上之后逐项做）
+
+**开跑前置条件（缺一不开跑）**：
+
+1. B 修复版的新提交号已给出，并完成独立复核（复核结论附在 B 自己的材料里）；
+2. B 回传 codex 绝对路径、版本、模型实测结果三组值；
+3. 复核通过且获准安装，B 侧**真实安装完成**（有 `B-install-receipt.json` 与 `installation-*.log`）；
+4. A 按上面三组值核对并调整 `b-magicbook14` 的 `command`/`model`，不沿用 A 本机结论。
+
+**执行顺序约束**：取消测试（第 4 项）与断线重启测试（第 5 项）**必须在同一个 B 执行端上依次进行**——先取消、确认进程退出与残留为 0，再做断线重启；不要并发，否则「谁来接这轮活」分不清，两侧日志也无法对应。
 
 B 报告 §7 列的六项，A 侧的准备与判据如下。**每一项都要「A 的中心回执 + B 的进程/日志」两侧同时成立才算过**，只有一侧成立记未验证。
 
@@ -256,3 +268,18 @@ e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853 *deploy/B-revie
 | 日志 | `evidence/raw/handoff/20261105-0055-remote-package-check.log` |
 
 这把「A 手上有包」升级成「B 能从公开地址按哈希取到同一个包」。仍不等于 B 已收到——B 侧的下载、校验、解压、安装要由 B 自己留证。
+
+## 8. 2026-11-05T10:05 状态快照（交接就绪，等 B）
+
+| 项 | 状态 | 依据 |
+| --- | --- | --- |
+| 身份文件 | 已备好，**尚未到 B** | `C:\Users\chs\agent-autoloop-handoff\b-magicbook14.worker.key`，43 字节，sha256 `a221bdfd…695f` |
+| 交接卡（不含密钥） | 已生成 | `C:\Users\chs\agent-autoloop-handoff\TRANSFER-CARD.txt`，sha256 `c617aab1c8be88610def3831a24b88e92d619d640ba193ebc3b09d423b98db63` |
+| 交接状态机 | `awaiting_b_confirmation` | `evidence/raw/handoff/identity-handoff-state.json` |
+| 中心 | 在线 | `127.0.0.1:3350` LISTENING（pid 62124），`/healthz` 200 |
+| 隧道 | 在线 | `https://obconic-subtetanic-tamika.ngrok-free.dev`，`/healthz` 200，ngrok pid 50924 |
+| 保活记录 | 持续写入 | `evidence/raw/handoff/tunnel-uptime.log`，10:01–10:04 连续 `local=200 tunnel=200` |
+| 六项联调 | 0/6，**未开跑** | 缺 B 的提交号、复核结论、三组实测值、真实安装回执 |
+| 代码改动 | 暂停 | 本轮只改文档与证据，不动 `app/` |
+
+**下一步不在 A**：等 B ① 收下身份文件并回传路径/哈希/字节数；② 给出修复版提交号并完成独立复核；③ 回传 codex 路径、版本、模型实测结果。三项齐了且 B 真实安装完成、获准联调，A 才调路由并开跑六项（取消与断线重启在同一执行端依次做）。

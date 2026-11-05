@@ -1,0 +1,32 @@
+{
+  "generated_at": "2026-11-05T02:05:32.036Z",
+  "phase": "awaiting_b_confirmation",
+  "identity": {
+    "file": "C:/Users/chs/agent-autoloop-handoff/b-magicbook14.worker.key",
+    "kind": "worker",
+    "name": "b-magicbook14",
+    "bytes": 43,
+    "sha256": "a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f",
+    "prefix": "e4Hu8j",
+    "in_repo": false,
+    "in_git_history": false
+  },
+  "transfer_card": "C:/Users/chs/agent-autoloop-handoff/TRANSFER-CARD.txt",
+  "b_must_return": [
+    "文件路径",
+    "完整 sha256",
+    "字节数"
+  ],
+  "gates_before_joint_test": [
+    "B 修复版提交号已给并完成独立复核",
+    "B 回传 codex 路径/版本/模型实测结果",
+    "复核通过且获准安装，B 侧真实安装完成",
+    "A 按 B 实测结果核对路由"
+  ],
+  "sequencing": "取消测试与断线重启测试在同一 B 执行端上依次进行，不并发",
+  "a_side_status": {
+    "center": "127.0.0.1:3350 LISTENING (pid 62124)",
+    "tunnel": "https://obconic-subtetanic-tamika.ngrok-free.dev healthz 200",
+    "uptime_log": "evidence/raw/handoff/tunnel-uptime.log"
+  }
+}

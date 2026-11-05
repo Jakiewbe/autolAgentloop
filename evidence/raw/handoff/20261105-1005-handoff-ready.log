@@ -1,0 +1,9 @@
+# A 侧交接就绪快照 2026-11-05T10:05+08:00
+identity_file=C:/Users/chs/agent-autoloop-handoff/b-magicbook14.worker.key
+identity_bytes=43 identity_sha256=a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f
+transfer_card=C:/Users/chs/agent-autoloop-handoff/TRANSFER-CARD.txt card_sha256=c617aab1c8be88610def3831a24b88e92d619d640ba193ebc3b09d423b98db63
+state_phase=awaiting_b_confirmation
+center=127.0.0.1:3350 pid=62124 healthz=200
+tunnel=https://obconic-subtetanic-tamika.ngrok-free.dev healthz=200 ngrok_pid=50924
+uptime_log_lines=504 last=2026-11-05T10:04:32 local=200 tunnel=200
+joint_tests=0/6 (blocked: B commit + independent review + 3 values + real install + approval)
