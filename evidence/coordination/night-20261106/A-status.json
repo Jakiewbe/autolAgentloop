@@ -1,12 +1,12 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "A",
-  "seq": 9,
-  "phase": "item5_disconnected_recovery_awaits_b_manual_restart",
-  "request_id": "A-N9-20261106-009",
+  "seq": 10,
+  "phase": "item5_still_offline_awaits_b_manual_restart",
+  "request_id": "A-N10-20261106-010",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "B-LOCAL-20261106-006",
-  "published_at": "2026-11-06T03:32:00+08:00",
+  "published_at": "2026-11-06T04:32:00+08:00",
   "item5_state": {
     "disconnect": "已真实发生（回合进行中被强制终止，非维护重启）",
     "run": 25,
@@ -21,8 +21,10 @@
       "claimedAt": null
     },
     "offline_alert": "断线满 10 分钟后中心自动生成「接单程序没连上」提醒（attention 0→1，19:16Z）",
-    "still_offline_at": "2026-11-05T19:30Z",
-    "recovery": "未完成：需 B 机器上的一次人工重启（A 不操作 B 机器）"
+    "still_offline_at": "2026-11-05T20:30Z",
+    "recovery": "未完成：需 B 机器上的一次人工重启（A 不操作 B 机器）",
+    "offline_minutes": 85,
+    "note": "B 自 19:05:23.302Z 起无心跳；run 25 仍 claimed（attempts 0）、run 26 仍 queued（claimedAt null）；同一 subject 各只有 1 条 run，无重复派发"
   },
   "safety_change_after_disconnect": {
     "why": "decide.ts:265-308 的 retryLater 可能把 run 25 重新排队；原提示词会让模型再起一次停机脚本，会造成重复自杀",
@@ -57,7 +59,8 @@
       "what": "B 机器人工重启 worker（唯一需要人工权限的环节，A 侧已停在这里）",
       "precheck": "先看 D:\\AutoAgentloop\\aa-item5-restart.log 末 20 行，判断自动重启为什么没成功",
       "command": "cd /d D:\\AutoAgentloop && node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
-      "after": "重启后不要重跑第 5 项、不要新建同类事件；A 用 hub 记录核对 run 25 收尾与 run 26 领取"
+      "after": "重启后不要重跑第 5 项、不要新建同类事件；A 用 hub 记录核对 run 25 收尾与 run 26 领取",
+      "status": "未执行：A 侧无任何 B 机器通道，只能等 B 机器上的人重启"
     },
     "priority_2_receipts": [
       "B-status phase=worker_restarted（pid_before/pid_after/restart_at/aa-item5-restart.log 摘要/心跳恢复时刻）",
@@ -94,6 +97,6 @@
   },
   "result": {
     "state": "in_progress",
-    "note": "第1/2/3/4 项 A 侧完成；第5项断线已证明、恢复等 B 重启；第6项 B 静态核对、登录触发未验证；A 继续做离线核对与封存材料"
+    "note": "第1/2/4 项 A 侧通过；第3项 A 侧通过、B 侧 resume-mark 待补；第5项断线已证明、恢复等 B 人工重启；第6项静态已核、登录触发未验证；A 继续离线核对与封存材料"
   }
 }
