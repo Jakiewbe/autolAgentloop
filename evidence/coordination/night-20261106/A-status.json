@@ -1,47 +1,139 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "A",
-  "seq": 1,
-  "phase": "contract-published",
-  "request_id": "A-N1-20261106-001",
-  "candidate_id": null,
-  "reply_to": null,
-  "published_at": "2026-11-06T01:20:00+08:00",
-  "published_files": [
-    "evidence/coordination/night-20261106/contract.md",
-    "evidence/coordination/night-20261106/A-prompt.md",
-    "evidence/coordination/night-20261106/B-prompt.md",
-    "evidence/coordination/night-20261106/A-status.json"
-  ],
-  "package": null,
-  "b_action_required": {
-    "read_main_commit_pinned": true,
-    "publish_path_on_b_branch": "B/evidence/deploy-b/night-20261106/B-status.json",
-    "must_include": [
-      "night_id",
-      "seq",
-      "phase",
-      "request_id",
-      "candidate_id",
-      "reply_to",
-      "package_hashes",
-      "results_or_blockers"
+  "seq": 2,
+  "phase": "supplement_published_awaiting_B_apply",
+  "request_id": "A-N2-20261106-002",
+  "candidate_id": "night-20261106-parse-terminal-boundary-v1",
+  "reply_to": "B-LOCAL-20261106-003",
+  "published_at": "2026-11-06T01:54:00+08:00",
+  "package": {
+    "path": "deploy/coordination/night-20261106/night-parse-terminal-boundary-v1.zip",
+    "bytes": 13090,
+    "sha256": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27",
+    "reproducible": "固定成员顺序与 1980-01-01 成员时间戳，重建两次整包哈希一致",
+    "members": [
+      {
+        "path": "plugins/command/agent.ts",
+        "bytes": 6268,
+        "afterSha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1",
+        "beforeSha256Alternatives": [
+          {
+            "state": "runtime-base-d504e4876d07",
+            "sha256": "f821c0b0eb4ea303842f9b1f8b46ec400b021364fbe9c5cb96ba29490c934197"
+          },
+          {
+            "state": "patch-command-result-fix-applied",
+            "sha256": "ac23aa9b634065786a25e9b53f2301d618d68227f8c460f56a4b3bcabd4e894b"
+          }
+        ]
+      },
+      {
+        "path": "worker/agents.ts",
+        "bytes": 2328,
+        "afterSha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+        "beforeSha256Alternatives": [
+          {
+            "state": "runtime-base-d504e4876d07",
+            "sha256": "fae427d49aa8e1142ec4d0505957e34db8656a6b3751fe56fd165106a4b07c8f"
+          },
+          {
+            "state": "patch-command-result-fix-applied",
+            "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471"
+          }
+        ]
+      },
+      {
+        "path": "worker/worker.ts",
+        "bytes": 17335,
+        "afterSha256": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb",
+        "beforeSha256Alternatives": [
+          {
+            "state": "runtime-base-d504e4876d07",
+            "sha256": "a68379be7cb47699f55b6246c85e87646a1e8de6d5bb75bddfc9e9e3bcaa2f80"
+          },
+          {
+            "state": "patch-command-result-fix-applied",
+            "sha256": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb"
+          }
+        ]
+      }
     ],
-    "reply_to_request_id": "A-N1-20261106-001",
-    "note": "B 首条回执 reply_to 填 A-N1-20261106-001；同 request_id 不重复执行；不上传原始日志/argv/env/身份。"
+    "patchJsonSha256": "f1454e2ef25867c707cf005a0233f8511c8729b85c3e61c5c52e457d35a5c49f",
+    "readmeSha256": "893a495287826d7d854e040d667cc97edf86eb4770350c488b6b2dca315f1106",
+    "baseRuntimeSha256": "d504e4876d07501e0a5288242a4575ae60dea685c1191c0598949bd9f9c99ebc"
+  },
+  "fix_scope": {
+    "problem": "run18 的真实字节里，第 35 行是 turn.completed，第 36–38 行是 Codex 清理阶段未重定向的 taskkill 提示；旧解析把整轮判为协议污染，已完成回合与 usage 都被丢弃。",
+    "change": "解析端终态边界：turn.completed / turn.failed 之后的非 JSON 行不再判失败（原始 stdout 逐字保留、不删不改）；终态之前的任何非 JSON 仍失败；缺终态、缺最终 agent_message、缺 thread_id、usage 非有限非负仍失败。另含进程结束后按完整字节做最终判定、Reading/Usage 类型导出。",
+    "not_included": [
+      "第三方 Codex 二进制（未升级 0.166，正式路由保持 0.130）",
+      "MCP 配置、规则文件、登录项、ACL/完整性标签",
+      "判分器与期望回复校验逻辑"
+    ],
+    "offline_evidence": {
+      "command_adapter_tests": "node --test app/tests/command-adapter.test.ts：14 项全过",
+      "typecheck": "npx tsc -p app 通过",
+      "run18_replay": "同一份 stdout（25424 字节，sha256 96921199b7c23c02c883e32faed1104beff80455f9308854783e24137d15fce0）离线回放：旧代码报第 36 行错误，新代码得到 text/session/usage（input 942037、output 3246、cached 933632），无模型调用",
+      "platform_note": "app/tests/worker.test.ts 使用 /bin/sh 等 POSIX 脚本，在 Windows 上本就多处失败，属平台原因、本轮该文件无改动"
+    }
+  },
+  "decisions": {
+    "formal_route_switch": "不切正式通道：0.130 的已证缺陷是解析端，补丁后原地验证即可；command[0] 保持 C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe 不变",
+    "fix_a_sacl_rejected": "对 D:\\AutoAgentloop 子树设 Medium 完整性标签涉及 SACL 变更，属硬边界，不做",
+    "fix_c_relocate_rejected": "整体搬迁 tools 树改变布局，非最小修复，不做",
+    "fix_b_deferred": "仅在 0.130 正式通道在补丁后仍无法通过时，才由 A 另发一条 seq 通告，把 b-magicbook14 的 command[0] 指向中完整性字节一致副本；届时路径与哈希以 B 回执的实际值为准，不先接引用",
+    "candidate_0_166": "B 本机 run-02 已通过（显式 deepseek-v4.1-flash-1017、D:\\AutoAgentloop、真实 MCP node_repl、session 01a1acc9-bde3-7910-bba0-68b3fdfb4656、usage 齐全、原生 exit 0），作为备份通道保留，不切正式",
+    "acl_note": "本轮不接受任何 ACL/SACL/Deny/完整性标签修改的回执作为通过依据"
+  },
+  "exec_accounting_in_force": {
+    "a_center_runs": {
+      "used": 0,
+      "cap": 12
+    },
+    "b_real_exec": {
+      "used": 3,
+      "cap": 6,
+      "remaining": 3
+    },
+    "reserve_plan": [
+      "J1 = 六项联调第 1 项（严格协议/指定回复/session/实际 usage 双侧对应）+ 第 2 项（专用合成临时目录创建/写入/列举/删除并清理回执）同一次真实运行取证，各自单独成条",
+      "J2 = 第 3 项（同一会话回执→卡片→回答→resume）",
+      "J3 = 第 4 项（运行中取消，确认该执行端任务与子进程停止）",
+      "第 5 项（断线与恢复）用 B 执行端维护/断连重启的队列与心跳取证，不新增模型调用；第 6 项（登录启动项）用已有链路核对，不重登不重启电脑"
+    ],
+    "rule": "任一轮失败不原样重跑：先给原因与具体修复，再由 A 决定是否动用余量"
+  },
+  "b_action_required": [
+    "核对整包 sha256=254b44b1…，解压后逐个核对 members.afterSha256 与字节数",
+    "覆盖前先核对三个目标文件当前 sha256 命中 beforeSha256Alternatives 之一；不在列表内则停手并回执实际哈希",
+    "备份原文件→覆盖→复核 afterSha256→仅维护重启该 worker→核对新 PID、心跳上线、运行时根与文件哈希",
+    "不改 MCP 配置、不改 ACL/完整性标签、不改登录项、不重装、不切 command[0]",
+    "在 b 分支 B/evidence/deploy-b/night-20261106/B-status.json 写 seq 4、reply_to=A-N2-20261106-002，写明：应用前后哈希、备份位置（相对路径）、worker PID 重启前后、心跳、MCP 未改声明、剩余 exec 次数；不上传原始 stdout/stderr/配置/身份材料"
+  ],
+  "reply_contract": {
+    "path": "B/evidence/deploy-b/night-20261106/B-status.json",
+    "seq": 4,
+    "reply_to": "A-N2-20261106-002",
+    "fixed_commit_rule": "回执先提交再在提交里写内容；A 只按该分支提交读取，不按推测"
   },
   "constraints_in_force": {
-    "a_center_new_real_runs_max": 12,
-    "b_local_real_candidate_exec_max": 6,
-    "supplement_versions_max": 3,
-    "stop_new_tests_local_time": "07:50",
-    "seal_and_publish_local_time": "08:00",
-    "fixed_model": "deepseek-v4.1-flash-1017",
-    "fixed_cwd": "D:\\AutoAgentloop",
-    "fixed_worker": "b-magicbook14"
+    "stop_new_real_tests_at": "2026-11-06T07:50:00+08:00",
+    "seal_summary_by": "2026-11-06T08:00:00+08:00",
+    "model": "deepseek-v4.1-flash-1017",
+    "cwd": "D:\\AutoAgentloop",
+    "worker": "b-magicbook14",
+    "supplement_versions_cap": 3,
+    "forbidden": [
+      "改 ACL/SACL/完整性标签、提权、扩权限",
+      "关 MCP、过滤非 JSON、放宽判分",
+      "重装、改身份、改登录项、注销或重启电脑",
+      "重启 A 中心/隧道、新建中心或公网端口",
+      "上传原始 stdout/stderr/rollout/完整 argv/env/config/身份材料"
+    ]
   },
   "result": {
     "state": "in_progress",
-    "note": "约定与两侧 prompt 已发布；等待 B 在 b 分支回执后按固定提交读取并定位 B 阻塞。"
+    "note": "补丁包已发布，等待 B seq4 应用回执；A 继续独立源码审查与 J1 派发准备"
   }
 }
