@@ -1,0 +1,104 @@
+{
+  "at": "2026-11-05T18:07:40.264897+08:00",
+  "run": 18,
+  "thread_id": "01a1ab19-c2f1-7681-aa54-8c3971d344d6",
+  "actual_command_executable": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+  "actual_command_json": true,
+  "run18_rollout_cli_version": "0.130.0-alpha.5",
+  "current_cli_version": "codex-cli 0.130.0-alpha.5",
+  "version_command_native_exit": 0,
+  "current_binary_bytes": 245812016,
+  "current_binary_sha256": "dd4adf302b112fdc30fce509a5e261a0a6f1118dc58ac2da636eb84e0a6b3e3e",
+  "current_binary_mtime_utc": "2026-05-09T17:18:41.684194+00:00",
+  "historical_binary_hash_at_launch_available": false,
+  "upstream_source_user_provided": "https://github.com/openai/codex/blob/rust-v0.130.0/codex-rs/rmcp-client/src/stdio_server_launcher.rs#L338",
+  "source_version_limit": "installed CLI is alpha.5, not evidence that release tag rust-v0.130.0 exactly built this binary",
+  "reported_pid_edges": [
+    {
+      "child": 16344,
+      "parent": 25320
+    },
+    {
+      "child": 25320,
+      "parent": 31980
+    },
+    {
+      "child": 32216,
+      "parent": 31980
+    }
+  ],
+  "worker_launch_wrapper_pid": 30144,
+  "independent_pid_to_process_mapping_found": false,
+  "mapping_basis": "edges only in terminal SUCCESS messages; no independent process name/command or capture-time PID tree found in searched logs",
+  "search_scope": [
+    {
+      "path": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\18-1\\stdout-1.log",
+      "searched": true,
+      "pid_match_lines": [
+        {
+          "line": 36,
+          "pids": [
+            "16344",
+            "25320"
+          ]
+        },
+        {
+          "line": 37,
+          "pids": [
+            "25320",
+            "31980"
+          ]
+        },
+        {
+          "line": 38,
+          "pids": [
+            "31980",
+            "32216"
+          ]
+        }
+      ]
+    },
+    {
+      "path": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\18-1\\stderr-1.log",
+      "searched": true,
+      "pid_match_lines": []
+    },
+    {
+      "path": "C:\\Users\\19082\\.codex\\sessions\\2026\\11\\05\\rollout-2026-11-05T17-45-54-01a1ab19-c2f1-7681-aa54-8c3971d344d6.jsonl",
+      "searched": true,
+      "pid_match_lines": []
+    },
+    {
+      "path": "C:\\Users\\19082\\.codex\\process_manager\\chat_processes.json",
+      "searched": true,
+      "pid_match_lines": []
+    },
+    {
+      "path": "C:\\Users\\19082\\.codex\\.sandbox\\sandbox.log",
+      "searched": true,
+      "pid_match_lines": []
+    },
+    {
+      "path": "D:\\AutoAgentloop\\evidence\\deploy-b\\integration-2-run-20261105T1635\\timeline.ndjson",
+      "searched": true,
+      "pid_match_lines": []
+    }
+  ],
+  "sqlite_readonly": {
+    "path": "C:\\Users\\19082\\.codex\\logs_2.sqlite",
+    "thread_rows": 0,
+    "run_window_start": "2026-11-05T09:45:50Z",
+    "run_window_end": "2026-11-05T09:47:30Z",
+    "window_rows": 0,
+    "limitation": "zero rows means this logging store does not corroborate the run; not proof no process existed"
+  },
+  "configured_log_dir": null,
+  "unsearched_scopes": [
+    "Windows historical process creation audit or external ETW trace (none collected here)",
+    "other unrelated chats/auth or credential stores"
+  ],
+  "no_task_rerun": true,
+  "no_configuration_change": true,
+  "mcp_capabilities_preserved": true,
+  "strict_parser_preserved": true
+}
