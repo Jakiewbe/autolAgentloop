@@ -121,6 +121,7 @@ da706fb375baf240e0e6b6f77d35d0275eb3fc5e6da802fcf86ae924a15d7c29  B/evidence/dep
 daaf2712b29e7f9e6482ba918dab8620ee8dbf4c11b0de3552d08180e9453b47  B/README.md
 dd9e156a132976bfcd121dd94a9823230f8699ae6cd47d1cd80fda7740599ff2  B/evidence/preflight/a-kit/run/raw/06-autostart.txt
 dd9e156a132976bfcd121dd94a9823230f8699ae6cd47d1cd80fda7740599ff2  B/evidence/preflight/a-kit/run2/raw/06-autostart.txt
+dde9b09cf93016e0674715021ebf8f7a9273777dda9f6e43324ba72d76c22419  B/reviews/2026-11-05-t11-round5.md
 e13116c887cb0f52881543157f68f5d3918f29e4c3f9742e4788134796e501f9  B/evidence/preflight/a-kit/run/raw/07-projects.txt
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/stdin-empty.txt
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.filtered.jsonl
