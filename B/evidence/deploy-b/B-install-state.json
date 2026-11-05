@@ -1,7 +1,7 @@
 {
-  "schema": "dsh-b-install-state/3",
+  "schema": "dsh-b-install-state/4",
   "document_kind": "B 端部署执行状态（脱敏，不含任何密钥或密钥哈希之外的凭据材料）",
-  "generated_at": "2026-11-05T02:08:07.458Z",
+  "generated_at": "2026-11-05T10:30:00+08:00",
   "host": {
     "hostname": "MAGICBOOK14-ZZ",
     "user": "chs",
@@ -467,38 +467,52 @@
     {
       "id": "T1",
       "name": "派发→执行→回传",
-      "verified": false
+      "verified": false,
+      "order": 1,
+      "note": ""
     },
     {
       "id": "T2",
       "name": "临时目录改文件 + 检查 + 回传",
-      "verified": false
+      "verified": false,
+      "order": 2,
+      "note": ""
     },
     {
       "id": "T3",
       "name": "同会话第二轮（核对会话号）",
-      "verified": false
+      "verified": false,
+      "order": 3,
+      "note": ""
     },
     {
       "id": "T4",
       "name": "取消任务后进程退出",
-      "verified": false
+      "verified": false,
+      "order": 4,
+      "note": "runs after T3, before T5"
     },
     {
       "id": "T5",
       "name": "短暂断线重连 + 执行端重启后的状态与不重复执行",
-      "verified": false
+      "verified": false,
+      "order": 5,
+      "note": "runs after T4, sequential with it"
     },
     {
       "id": "T6",
       "name": "登录启动入口（注销前需用户确认）",
-      "verified": false
+      "verified": false,
+      "order": 6,
+      "note": ""
     }
   ],
   "counts": {
     "unverified_inputs": 3,
     "unverified_cross_machine": 6,
-    "unverified_total": 9
+    "unverified_total": 9,
+    "recheck_checks": 10,
+    "recheck_passed": 10
   },
   "review_response": [
     {
@@ -557,6 +571,108 @@
   "caveats": [
     "本状态文件不含自身 sha256（自哈希会自指失效）；其哈希记录在 evidence/deploy-b/MATERIALS.sha256 与 evidence/deployment/B.md §11。",
     "未执行的 6 项联调与 3 项输入都标为未验证，不按通过计。",
-    "包自带的 verify-b.ps1 在 Windows 上不可直接通过，B 用等价 Node 实现（同一 agent_result.mjs 判分）证明模型通道可用，差异与根因写在 evidence/deployment/B.md §6。"
-  ]
+    "包自带的 verify-b.ps1 在 Windows 上不可直接通过，B 用等价 Node 实现（同一 agent_result.mjs 判分）证明模型通道可用，差异与根因写在 evidence/deployment/B.md §6。",
+    "this file still contains no self hash; its own sha256 appears only in evidence/deploy-b/MATERIALS.sha256"
+  ],
+  "recheck": {
+    "method": "fresh clone from GitHub (not local worktree), git checkout -B recheck origin/b, then verify by the artifacts own claims",
+    "script": "_probe/recheck-b.sh",
+    "log": "evidence/deploy-b/recheck-20261105T102109.log",
+    "clone_dir": "D:/AutoAgentloop/_verify/clone-20261105T102109",
+    "results": {
+      "clone_head": "d536485cabd1945485409bc6cb549139e3488ec1",
+      "clone_head_minus2": "d71f32eb5d4f79685f827af97519062dd46fff86",
+      "main_head": "d07b41267632e446d2f082f08ddc79b89b363e2a",
+      "diff_files": 118,
+      "diff_outside_B": 0,
+      "diff_types": [
+        "A"
+      ],
+      "main_has_b_commits": 0,
+      "repo_manifest_ok": 117,
+      "repo_manifest_total": 117,
+      "b_md_sha256": "af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e",
+      "self_reference_hits": 0,
+      "secret_scan_hits": 0,
+      "keylike_files_in_repo": 0
+    },
+    "verdict": "passed",
+    "note": "B.md 的 sha256 在复核后再编辑（追加 §18），因此本字段记录的是复核之后的最终值；复核当时的值是 be59d284…，两次差异只来自 §18 追加。"
+  },
+  "agent_paths_and_versions": {
+    "codex_primary": {
+      "path": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+      "version": "codex-cli 0.130.0-alpha.5"
+    },
+    "codex_secondary": {
+      "path": "C:\\Users\\19082\\.codex\\.sandbox-bin\\codex.exe",
+      "version": "codex-cli 0.164.0-alpha.11.1",
+      "note": "not on PATH, not the default entry"
+    },
+    "claude": {
+      "path": "C:\\Users\\19082\\.local\\bin\\claude.exe",
+      "version": "2.1.310 (Claude Code)"
+    }
+  },
+  "model_recheck_20261105T1022": [
+    {
+      "agent": "codex",
+      "native_exit": 0,
+      "dropped_lines": 3,
+      "passed": true,
+      "session": "01a1a983-a9a1-7d63-9565-48202882db70",
+      "log": "evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219.log"
+    },
+    {
+      "agent": "claude",
+      "attempt": 1,
+      "native_exit": 1,
+      "passed": false,
+      "cause": "my wrapper omitted --settings; stderr: Settings file not found: ...\\undefined",
+      "log": "evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219.log"
+    },
+    {
+      "agent": "claude",
+      "attempt": 2,
+      "native_exit": 0,
+      "dropped_lines": 0,
+      "passed": true,
+      "session": "e1bd4c0c-d25b-4d0e-abeb-9e2f9dadb5eb",
+      "log": "evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444.log",
+      "note": "rerun with --settings ./recheck-settings.json"
+    }
+  ],
+  "key_receipt": {
+    "drop_path": "D:\\AutoAgentloop\\_incoming\\secrets\\b-magicbook14.worker.key",
+    "protocol_doc": "_incoming/secrets/README.md",
+    "reporter_script": "evidence/deploy-b/report-key-file.ps1",
+    "reporter_fields": [
+      "KEY_FILE",
+      "KEY_PATH",
+      "KEY_BYTES",
+      "KEY_SHA256",
+      "KEY_MTIME_UTC",
+      "KEY_ACL_OWNER",
+      "KEY_JSON_LIKE",
+      "KEY_LINE_COUNT",
+      "KEY_CONTENT_PRINTED=no"
+    ],
+    "reporter_selftest": {
+      "dummy_bytes": 50,
+      "dummy_sha256": "5278822221b1c706db7ce9f1699e030dad59694f15dcd3d86387352961fa5731",
+      "exit_present": 0,
+      "exit_missing": 2
+    },
+    "expected_sha256_from_a": "a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f",
+    "current": "missing (rechecked 2026-11-05T10:21+08:00 across _incoming, Downloads, Desktop, Documents, D:\\AutoAgentloop)"
+  },
+  "gate_sequence": [
+    "1 key file present and sha256 matches A record",
+    "2 B fixed revision passes independent recheck (local recheck + Codex conclusion)",
+    "3 real install executed with contract-compliant receipt",
+    "4 A grants go-ahead for joint tests",
+    "5 six joint tests in this order on the SAME executor: dispatch→execute→report; temp-dir edit+check+report; second round in same session (compare session id); cancel → process exit; short disconnect + executor restart (state and no duplicate execution); login-start entry (needs user confirmation)",
+    "5a cancel test and disconnect/restart test run sequentially, never in parallel"
+  ],
+  "gate_reason_sequential": "cancel verifies termination semantics; disconnect/restart verifies recovery and idempotence; running both at once makes the failure cause indistinguishable"
 }

@@ -1,0 +1,3 @@
+{"agent":"claude","native_exit":0,"stdout_file":"recheck-claude-20261105T102444\\model.stdout.jsonl","stdout_bytes":1649,"stderr_bytes":91}
+{"agent":"claude","dropped_lines":0,"dropped_samples":[]}
+{"agent":"claude","expected":"AGENT_VERIFY_330720bf3d5e4396abfd3ae7ab3b48ec","passed":true,"session":"e1bd4c0c-d25b-4d0e-abeb-9e2f9dadb5eb"}

@@ -257,3 +257,53 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\evidence\de
 ```
 
 复验限制（须写进 A 的结论，不要当成通过）：B 侧不存在 key 文件时第 5 步必然 exit 2；ngrok 地址会漂移，第 4 步失败先看 A 是否换了隧道；第 2、3 步只验证守卫与模型通道，不代表双机联调。
+
+## 18. 独立复核与联调门禁序列（2026-11-05T10:21+08:00 起）
+
+### 18.1 复核方式
+
+不复用本地工作副本自证：从 GitHub 重新克隆到 `D:\AutoAgentloop\_verify\clone-<stamp>`，`git checkout -B recheck origin/b` 后按证据自身声明逐项核对。脚本 `_probe/recheck-b.sh`，原始输出 `evidence/deploy-b/recheck-<stamp>.log`。
+
+| 核对项 | 结果 |
+| --- | --- |
+| CLONE_HEAD | d536485cabd1945485409bc6cb549139e3488ec1 |
+| CLONE_HEAD~2 | d71f32eb5d4f79685f827af97519062dd46fff86（父 = A 的 main d07b41267632e446d2f082f08ddc79b89b363e2a） |
+| 差异文件数 / 落在 B/ 之外 | 118 / 0 |
+| 差异类型集合 | 仅 A（没有 M/D/R） |
+| main 历史里的 B 提交数 | 0 |
+| 仓库子集清单 | 117 / 117 OK（行数即项数，`sha256sum -c` 全通过） |
+| B.md 复算哈希 | be59d284935357c0f733322d8303188a4707920598266a8441abdfcc2ee419ee（与本机一致） |
+| 清单自指 | 0（两份清单都不含自身，状态 JSON 无 self_sha256 字段） |
+| 密钥扫描命中 | 0（`oc_s`/`sk-`/Bearer 模式均无命中） |
+| key/config 类文件入库数 | 0 |
+
+### 18.2 Codex 与模型实测（同一时间窗复测）
+
+| 项 | 值 |
+| --- | --- |
+| Codex 主用路径 | C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe |
+| Codex 版本（主用） | codex-cli 0.130.0-alpha.5 |
+| Codex 第二处 | C:\Users\19082\.codex\.sandbox-bin\codex.exe = codex-cli 0.164.0-alpha.11.1（非 PATH，非默认入口） |
+| Claude Code | C:\Users\19082\.local\bin\claude.exe = 2.1.310 |
+| codex 复测 | 原生退出码 0，剔除 3 行 taskkill 噪声后包内判分 passed，session 01a1a983-a9a1-7d63-9565-48202882db70 |
+| claude 复测（第 1 次） | 原生退出码 1，原因是我方等价脚本没传 `--settings`，stderr 原文 Settings file not found: …\undefined；属 B 侧脚本缺陷，与模型无关 |
+| claude 复测（第 2 次，补 `--settings`） | 原生退出码 0，判分 passed，dropped_lines=0，session e1bd4c0c-d25b-4d0e-abeb-9e2f9dadb5eb |
+
+两次 claude 都记在案：第一次失败不是抹掉，而是作为「等价实现仍需传参」的证据保留。
+
+### 18.3 身份文件接收协议与当前状态
+
+- 落点固定：`D:\AutoAgentloop\_incoming\secrets\b-magicbook14.worker.key`；该目录与协议说明 `_incoming/secrets/README.md` 已就位。
+- 回传只给元数据：`evidence/deploy-b/report-key-file.ps1` 输出 `KEY_PATH` / `KEY_BYTES` / `KEY_SHA256` / `KEY_MTIME_UTC` / `KEY_ACL_OWNER` / `KEY_JSON_LIKE` / `KEY_LINE_COUNT`，末行固定 `KEY_CONTENT_PRINTED=no`；文件缺失时 `KEY_FILE=missing` 且 exit 2。
+- 自测：对临时假文件（50 字节、内容 DUMMY-NOT-REAL）输出 PASS；对目标路径当前返回 `KEY_FILE=missing` + exit 2。
+- 当前状态：**文件仍未到达**（2026-11-05T10:21 复查 `_incoming`、Downloads、Desktop、Documents、`D:\AutoAgentloop` 均无 `*magicbook*` 或 `*.worker.key`）。核对口径是 B 回传的 `KEY_SHA256` 等于 A 记录的 a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f。
+
+### 18.4 门禁序列（顺序不可颠倒）
+
+1. 身份文件到达且 SHA256 与 A 记录一致；
+2. B 修复版通过独立复核（本报告 §18.1 的复核输出 + Codex 独立结论）；
+3. 真实安装执行完成并留下合规回执（`B-install-receipt.json` 8 字段契约）；
+4. 取得 A 的联调许可；
+5. 六项联调按此顺序在同一执行端上依次进行：派发→执行→回传 → 临时目录改文件 + 检查 + 回传 → 同会话第二轮（核对会话号） → **取消任务后进程退出** → **断线重连 + 执行端重启后的状态与不重复执行** → 登录启动入口（需用户确认）。
+
+第 5 步里「取消」与「断线重启」两项不并行：取消验证的是任务终止语义，断线重启验证的是状态恢复与幂等，两项同时做就分不清原因是终止逻辑还是恢复逻辑。

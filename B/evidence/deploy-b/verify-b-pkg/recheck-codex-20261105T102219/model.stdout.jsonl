@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a1a983-a9a1-7d63-9565-48202882db70"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"AGENT_VERIFY_5c2cca84f72143d4b9b2cbc8029dd15e"}}
+{"type":"turn.completed","usage":{"input_tokens":128281,"cached_input_tokens":126976,"output_tokens":28,"reasoning_output_tokens":0}}
+�ɹ�: ����ֹ PID 29188 (���� PID 15368 �ӽ���)�Ľ��̡�
+�ɹ�: ����ֹ PID 29172 (���� PID 19880 �ӽ���)�Ľ��̡�
+�ɹ�: ����ֹ PID 19880 (���� PID 15368 �ӽ���)�Ľ��̡�

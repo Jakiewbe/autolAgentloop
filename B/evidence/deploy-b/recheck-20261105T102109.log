@@ -1,0 +1,27 @@
+RECHECK_START=20261105T102109
+HOST=Magicbook14-zz USER=chs
+== 1. 重新克隆（不复用本地工作副本）==
+CLONE_HEAD=d536485cabd1945485409bc6cb549139e3488ec1
+CLONE_PARENT=d71f32eb5d4f79685f827af97519062dd46fff86
+MAIN_HEAD=d07b41267632e446d2f082f08ddc79b89b363e2a
+AUTHOR=B Magicbook14-zz <b@magicbook14-zz.local>
+== 2. 分支形态 ==
+DIFF_NAMES=118 NON_B=0
+DIFF_TYPES=A 
+MAIN_HAS_B_COMMITS=0
+== 3. 仓库子集哈希 ==
+REPO_MANIFEST_OK=117 / 117
+B_MD_SHA=be59d284935357c0f733322d8303188a4707920598266a8441abdfcc2ee419ee
+B_MD_CLAIM=
+== 4. 自指检查 ==
+0
+0
+== 5. 密钥扫描 ==
+SECRET_HITS=0
+KEYLIKE_FILES=0
+== 6. 审核包哈希在报告里的记录 ==
+e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853
+== 7. 守卫与模型脚本存在性 ==
+18761 B/evidence/deploy-b/install-b-when-ready.ps1
+3350 B/evidence/deploy-b/verify-b-pkg/verify-b-node-filtered.mjs
+RECHECK_END=20261105T102109

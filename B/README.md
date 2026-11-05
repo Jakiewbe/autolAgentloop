@@ -95,3 +95,18 @@ B 未创建调度中心、未启动第二个 DSH 服务端、未接管 A 的数�
 | `B/reviews/2026-11-05-t11-round3.md` | 第三轮 Codex 审核 prompt（固定提交、证据位置、判定标准） |
 
 复验命令见 `B/evidence/deployment/B.md` §17；不可当作通过的事项（缺 key、隧道漂移、只验守卫与模型）在 §17 末段单独列出。
+
+## 第四轮（2026-11-05T10:30+08:00）：独立复核通过、门禁序列固定、等 key
+
+这一轮不做功能改动，只做三件事：用**重新克隆**的方式自证（不复用本地工作副本）、把 Codex/模型实测结果回传、把安装与联调的先后门禁写死。
+
+| 事项 | 结果 |
+| --- | --- |
+| 独立复核 | `_probe/recheck-b.sh` 从 GitHub 重克隆 → HEAD `d536485`、父 `d71f32e`、main `d07b412`；差异 118 个且全为 `A`、`B/` 之外 0 个；main 无 B 的提交；仓库清单 117/117 OK；密钥扫描 0 命中；key/config 类文件 0 个 |
+| Codex 路径与版本 | `C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe` = codex-cli 0.130.0-alpha.5（主用）；`C:\Users\19082\.codex\.sandbox-bin\codex.exe` = 0.164.0-alpha.11.1（非 PATH） |
+| claude | `C:\Users\19082\.local\bin\claude.exe` = 2.1.310 |
+| 模型复测 | codex 原生 0 / passed / session `01a1a983…db70`；claude 第 1 次原生 1（我方脚本漏 `--settings`，原文留档），补参后原生 0 / passed / session `e1bd4c0c…b5eb` |
+| 身份文件 | 仍未到达；落点与回传协议已就位（只回传路径/字节/哈希，不回传内容） |
+| 门禁 | key 到位 → 独立复核通过 → 真实安装 + 合规回执 → A 给联调许可 → 六项联调；取消测试与断线重启测试在同一执行端**依次**进行，不并行 |
+
+新增文件：`evidence/deploy-b/report-key-file.ps1`（只输出元数据，文件缺失 exit 2）、`evidence/deploy-b/key-receipt-protocol.md`、`evidence/deploy-b/recheck-20261105T102109.log`、`evidence/deploy-b/verify-b-pkg/recheck-*`、报告 §18。
