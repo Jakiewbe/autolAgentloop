@@ -1,0 +1,47 @@
+{
+  "night_id": "NIGHT-20261106",
+  "role": "A",
+  "seq": 1,
+  "phase": "contract-published",
+  "request_id": "A-N1-20261106-001",
+  "candidate_id": null,
+  "reply_to": null,
+  "published_at": "2026-11-06T01:20:00+08:00",
+  "published_files": [
+    "evidence/coordination/night-20261106/contract.md",
+    "evidence/coordination/night-20261106/A-prompt.md",
+    "evidence/coordination/night-20261106/B-prompt.md",
+    "evidence/coordination/night-20261106/A-status.json"
+  ],
+  "package": null,
+  "b_action_required": {
+    "read_main_commit_pinned": true,
+    "publish_path_on_b_branch": "B/evidence/deploy-b/night-20261106/B-status.json",
+    "must_include": [
+      "night_id",
+      "seq",
+      "phase",
+      "request_id",
+      "candidate_id",
+      "reply_to",
+      "package_hashes",
+      "results_or_blockers"
+    ],
+    "reply_to_request_id": "A-N1-20261106-001",
+    "note": "B 首条回执 reply_to 填 A-N1-20261106-001；同 request_id 不重复执行；不上传原始日志/argv/env/身份。"
+  },
+  "constraints_in_force": {
+    "a_center_new_real_runs_max": 12,
+    "b_local_real_candidate_exec_max": 6,
+    "supplement_versions_max": 3,
+    "stop_new_tests_local_time": "07:50",
+    "seal_and_publish_local_time": "08:00",
+    "fixed_model": "deepseek-v4.1-flash-1017",
+    "fixed_cwd": "D:\\AutoAgentloop",
+    "fixed_worker": "b-magicbook14"
+  },
+  "result": {
+    "state": "in_progress",
+    "note": "约定与两侧 prompt 已发布；等待 B 在 b 分支回执后按固定提交读取并定位 B 阻塞。"
+  }
+}
