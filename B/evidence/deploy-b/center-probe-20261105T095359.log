@@ -1,0 +1,8 @@
+# center probe 2026-11-05T09:53:59+08:00
+URL=https://obconic-subtetanic-tamika.ngrok-free.dev
+--- /healthz
+http=200 time=1.756398s
+--- /healthz verify
+http=200 time=1.372529s
+--- /v1/work no-key
+http=401 time=1.627693s

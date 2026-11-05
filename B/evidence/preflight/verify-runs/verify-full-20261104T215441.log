@@ -1,0 +1,23 @@
+== 0. 机器身份 ==
+host=Magicbook14-zz user=chs date=2026-11-04T21:54:41+08:00
+== 1. 软件入口与版本 ==
+OK   node v24.12.0
+OK   git git version 2.56.0.windows.2
+OK   ExecutionPolicy RemoteSigned
+OK   pwsh 不存在（与报告一致）
+OK   codex 存在: codex-cli 0.130.0-alpha.5
+OK   dsh.cmd 存在: 0.2.1-rc.3
+OK   claude 存在: 2.1.310 (Claude Code)
+== 2. 模型上游 8317 ==
+OK   8317 有响应 (http=401)
+== 3. 证据文件哈希 ==
+OK   B.md 11045cb9979a2848
+OK   manifest.json 9f4705d80a55ac1b
+OK   b-preflight.json b6221f6bf76afb1e
+== 4. 模型实测（Codex 备用模型；默认模型应 429，属已知冷却） ==
+OK   codex -m deepseek-v4.1-flash-1017 可用
+== 5. 模型实测（Claude Code） ==
+OK   claude 可用
+== 6. DSH headless（需要 OPENCODE_GO_API_KEY 注入，见 raw/run-dsh-headless2.sh） ==
+NOTE OPENCODE_GO_API_KEY 未注入，跳过 dsh headless（预期失败 MISSING_CREDENTIAL）
+== 结果: PASS ==

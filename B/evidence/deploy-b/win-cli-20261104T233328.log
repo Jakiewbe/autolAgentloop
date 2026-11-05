@@ -1,0 +1,21 @@
+== cli_version ==
+agent-autoloop 1.0.0（提交 dev）
+PIPE_EXIT=0
+== doctor (empty temp home) ==
+● Node 24.12.0
+○ 还没装好：运行 agent-autoloop init
+PIPE_EXIT=0
+== join dry-run (isolated home, --no-service, placeholder key) ==
+这台电脑以 b-magicbook14 的身份接活了。
+PIPE_EXIT=0
+== written config (key redacted) ==
+{
+  "url": "http://CENTER_URL_PLACEHOLDER:3350",
+  "worker": {
+    "name": "b-magicbook14",
+    "key":"<REDACTED>"
+  }
+}
+== join twice (must refuse, no overwrite) ==
+已经配置过了：D:\AutoAgentloop\_probe\aa-join\config.json。为防止覆盖现有设置，请先备份并手动修改配置。
+PIPE_EXIT=0

@@ -1,0 +1,25 @@
+Reading additional input from stdin...
+OpenAI Codex v0.130.0-alpha.5
+--------
+workdir: D:\AutoAgentloop\_probe\t3-models
+model: deepseek-v4.1-flash-1017
+provider: cliproxyapi
+approval: never
+sandbox: workspace-write [workdir, /tmp, C:\Users\19082\.codex\memories]
+reasoning effort: high
+reasoning summaries: none
+session id: 01a1a5ee-8867-70f3-b840-01a23fadc84b
+--------
+user
+Reply with exactly: CODEX_ALT_OK
+hook: SessionStart
+hook: SessionStart Completed
+We need need answer exactly.
+codex
+CODEX_ALT_OK
+成功: 已终止 PID 24812 (属于 PID 1792 子进程)的进程。
+成功: 已终止 PID 19720 (属于 PID 17976 子进程)的进程。
+成功: 已终止 PID 17976 (属于 PID 1792 子进程)的进程。
+tokens used
+128,200
+CODEX_ALT_OK

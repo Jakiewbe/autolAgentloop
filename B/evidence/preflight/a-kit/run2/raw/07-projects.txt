@@ -1,0 +1,63 @@
+﻿=== root D:\Hactk
+  dir=.claude git=False agent_ledger=False files=1 size_mb=0 mtime=10/27/2026 16:11:51
+  dir=.cursor git=False agent_ledger=False files=1 size_mb=0 mtime=10/13/2026 00:17:06
+  dir=.tmp-g2 git=False agent_ledger=False files=5209 size_mb=209.6 mtime=11/03/2026 22:39:16
+  dir=c-clean git=False agent_ledger=False files=4 size_mb=0 mtime=10/23/2026 14:13:59
+  dir=DHactkgpu-r5-20261017 git=False agent_ledger=False files=2 size_mb=0 mtime=10/18/2026 08:49:57
+  dir=efi-candidates git=False agent_ledger=False files=1139 size_mb=297.6 mtime=10/13/2026 02:09:17
+  dir=g1-audit-fix-20261018 git=False agent_ledger=False files=44762 size_mb=1484.2 mtime=10/20/2026 16:01:09
+  dir=g1-closure-20261018 git=False agent_ledger=False files=367 size_mb=3.5 mtime=10/18/2026 11:18:30
+  dir=g1-dev-20261015 git=False agent_ledger=False files=6478 size_mb=258.2 mtime=10/15/2026 21:34:10
+  dir=g1-stock-20261020 git=True agent_ledger=True files=9666 size_mb=266.2 mtime=10/21/2026 01:09:48
+    head=c68c73b branch=main dirty_entries=107
+  dir=g1-stock-work git=False agent_ledger=False files=226999 size_mb=9564.2 mtime=11/04/2026 14:06:21
+  dir=gpu-mainline-20261017 git=False agent_ledger=False files=7368 size_mb=956.4 mtime=10/17/2026 23:07:43
+  dir=gpu-r5-20261017 git=False agent_ledger=False files=71206 size_mb=2375.9 mtime=10/18/2026 00:22:45
+  dir=h1-offline-20261014 git=False agent_ledger=False files=94 size_mb=14940.8 mtime=10/15/2026 09:37:30
+  dir=honor-hackintosh-lab git=True agent_ledger=True files=5046 size_mb=89.5 mtime=10/19/2026 18:16:39
+    head=cef885e branch=main dirty_entries=0
+  dir=review-evidence-20261025 git=False agent_ledger=False files=1 size_mb=0 mtime=10/25/2026 13:34:05
+  dir=tmp-dsh-append git=False agent_ledger=False files=0 size_mb=0 mtime=10/30/2026 00:52:22
+  dir=tmp-dsh-fix git=False agent_ledger=False files=1 size_mb=0 mtime=10/30/2026 23:27:57
+  dir=undefined git=False agent_ledger=False files=2 size_mb=0 mtime=11/01/2026 13:22:21
+=== root D:\Virtuals
+  dir=backups git=False agent_ledger=False files=46 size_mb=8427.5 mtime=08/13/2026 21:44:33
+  dir=data git=False agent_ledger=False files=2193 size_mb=6279.4 mtime=07/22/2026 00:18:20
+  dir=Docker git=False agent_ledger=False files=191 size_mb=12780.6 mtime=07/19/2026 22:27:34
+  dir=Installers git=False agent_ledger=False files=1 size_mb=608.6 mtime=07/18/2026 14:03:10
+  dir=outputs git=False agent_ledger=False files=6 size_mb=1.9 mtime=08/12/2026 22:39:07
+  dir=pnpm-cache git=False agent_ledger=False files=375 size_mb=143.7 mtime=07/18/2026 14:26:08
+  dir=pnpm-state git=False agent_ledger=False files=1 size_mb=0 mtime=08/12/2026 22:22:56
+  dir=pnpm-store git=False agent_ledger=False files=22129 size_mb=1176.1 mtime=07/18/2026 14:19:40
+  dir=pnpm-virtual-store git=False agent_ledger=False files=23314 size_mb=193.6 mtime=07/18/2026 14:24:15
+  dir=projects git=False agent_ledger=False files=9708 size_mb=3804.9 mtime=08/25/2026 03:16:47
+  dir=releases git=False agent_ledger=False files=51 size_mb=516 mtime=08/01/2026 17:59:02
+  dir=restore-drills git=False agent_ledger=False files=19 size_mb=0.4 mtime=08/13/2026 21:55:45
+  dir=scripts git=False agent_ledger=False files=1 size_mb=0 mtime=08/04/2026 14:40:59
+  dir=test-runs git=False agent_ledger=False files=28 size_mb=0 mtime=07/22/2026 00:10:40
+  dir=worktrees git=False agent_ledger=False files=3791 size_mb=21.9 mtime=08/12/2026 22:45:58
+=== root D:\CLIProxyAPI
+  dir=.claude git=False agent_ledger=False files=1 size_mb=0 mtime=07/12/2026 16:27:14
+  dir=.github git=False agent_ledger=False files=8 size_mb=0 mtime=07/05/2026 22:40:07
+  dir=assets git=False agent_ledger=False files=15 size_mb=1.1 mtime=07/05/2026 22:40:07
+  dir=auths git=False agent_ledger=False files=4 size_mb=0 mtime=11/03/2026 14:33:19
+  dir=auth_disabled git=False agent_ledger=False files=1 size_mb=0 mtime=07/07/2026 14:35:50
+  dir=cmd git=False agent_ledger=False files=4 size_mb=0 mtime=07/05/2026 22:40:07
+  dir=docs git=False agent_ledger=False files=8 size_mb=0 mtime=07/05/2026 22:40:07
+  dir=examples git=False agent_ledger=False files=152 size_mb=0.5 mtime=07/05/2026 22:40:07
+  dir=internal git=False agent_ledger=False files=515 size_mb=5.4 mtime=07/05/2026 22:40:07
+  dir=logs git=False agent_ledger=False files=20 size_mb=47.7 mtime=11/04/2026 17:43:50
+  dir=sdk git=False agent_ledger=False files=151 size_mb=1.6 mtime=07/05/2026 22:40:07
+  dir=static git=False agent_ledger=False files=1 size_mb=3.6 mtime=11/02/2026 03:09:33
+  dir=test git=False agent_ledger=False files=8 size_mb=0.1 mtime=07/05/2026 22:40:07
+=== root D:\Autosave
+  dir=.agent git=False agent_ledger=False files=11 size_mb=0.1 mtime=11/04/2026 17:35:50
+=== root D:\AutoAgentloop
+  dir=.tmp-repo git=False agent_ledger=False files=944 size_mb=12.2 mtime=11/04/2026 21:43:15
+  dir=evidence git=False agent_ledger=False files=42 size_mb=0.1 mtime=11/04/2026 17:38:54
+  dir=outbox git=False agent_ledger=False files=23 size_mb=0.1 mtime=11/04/2026 17:55:44
+  dir=_probe git=False agent_ledger=False files=3 size_mb=0 mtime=11/04/2026 17:38:54
+=== root D:\DPH
+  dir=locales git=False agent_ledger=False files=55 size_mb=48.3 mtime=10/23/2026 16:00:56
+  dir=resources git=False agent_ledger=False files=7739 size_mb=675 mtime=10/23/2026 16:00:56
+

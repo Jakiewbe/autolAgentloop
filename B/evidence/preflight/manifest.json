@@ -1,0 +1,359 @@
+{
+  "schema": "dsh-preflight-manifest/1",
+  "task": "T3",
+  "machine_alias": "B",
+  "collected_at_start": "2026-11-04T17:36:00+08:00",
+  "collected_at_end": "2026-11-04T21:55:00+08:00",
+  "timezone": "Asia/Shanghai",
+  "collected_by": "DSH session on B (lead), no human transcription",
+  "taskbook": {
+    "path": "D:\\Autosave\\DSH_DEPLOYMENT_TASKBOOK.md",
+    "bytes": 26371,
+    "lines": 322,
+    "sha256": "9e0430f77f489a8924ef6a30cd3b2721e7ea7dcfd390deea1fa4bfd4c389c40f",
+    "version_match_note": "需 A 侧核对哈希，确认与 A 使用的任务书为同一版本"
+  },
+  "management_dirs": {
+    "b": "D:\\AutoAgentloop",
+    "evidence_root": "D:\\AutoAgentloop\\evidence\\preflight"
+  },
+  "baseline_commits": {
+    "D:\\Virtuals\\projects\\q": "0eef732762adba5d274f0a3e51351a561881764d",
+    "D:\\Hactk\\honor-hackintosh-lab": "cef885eff5ff539ae26394dab1d994c33a939f5c",
+    "D:\\Hactk\\g1-stock-20261020": "c68c73bca05475b6170367bf6c37ed1c1e2519f5",
+    "D:\\Hactk\\gpu-r5-20261017\\src": "2b6828b",
+    "D:\\CLIProxyAPI": "5afc0f1d"
+  },
+  "agent_versions": {
+    "codex_primary": "0.130.0-alpha.5 (C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe)",
+    "codex_secondary": "0.164.0-alpha.11.1 (C:\\Users\\19082\\.codex\\.sandbox-bin\\codex.exe)",
+    "claude_code": "2.1.310 (C:\\Users\\19082\\.local\\bin\\claude.exe)",
+    "opencode": "1.17.13",
+    "dsh_desktop_and_cli": "0.2.1-rc.3 (D:\\DPH)",
+    "node_system": "v24.12.0",
+    "node_dsh_bundled": "24.21.0",
+    "git": "2.56.0.windows.2",
+    "powershell": "5.1.26100.9711 (pwsh absent)"
+  },
+  "materials": [
+    {
+      "file": "B.md",
+      "bytes": 34479,
+      "sha256": "1579fba08c1e9cddfd486625503a798d20a8d2851796dfa63c6d865fc6f84db6",
+      "role": "T3 报告正文（A 侧落点 evidence/preflight/B.md）"
+    },
+    {
+      "file": "raw/claude-continue-20261104T174304.log",
+      "bytes": 1800,
+      "sha256": "e73f964c1b4929d2951800f170fcc2ba9aab4c6bc3a66a4d07240c46e3c38346",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/claude-edit-20261104T174220.log",
+      "bytes": 2532,
+      "sha256": "976f1a3f4baabbbbcf32ff11a12303ecc084a4ff7fbbc3369f8b0bcf4a0df73a",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/claude-p-20261104T173933.log",
+      "bytes": 1708,
+      "sha256": "8b1365261391f69a41a9c8595f8dff955580beead818d07e91545be9b987db6c",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/codex-alt-20261104T174035.log",
+      "bytes": 704,
+      "sha256": "7e422f6f3cac422ead9263cf21efc482c224dee31a280f5ba963d04951bc8a78",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/codex-edit-20261104T174054.log",
+      "bytes": 7478,
+      "sha256": "98d055cf3d880d1559df29e9582fdadf50e6b975981ec61e3a9f374eae229d24",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/codex-exec-20261104T173901.log",
+      "bytes": 1127,
+      "sha256": "c1c3e8dffbebc834bba0405d88ecfde52088d6d6e83058f609d7e247430019c9",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/codex-resume-20261104T174151.log",
+      "bytes": 802,
+      "sha256": "fdc69e2fb3f4ef1f182909032305e86f9544369398204d59e9dd7f390a9aaeed",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/codex-resume2-20261104T174204.log",
+      "bytes": 1054,
+      "sha256": "3976f1bf0a7cb222f62cd0738818b060c86df77f51405ab20f404a62901917ed",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/dsh-headless-20261104T174439.log",
+      "bytes": 1158,
+      "sha256": "404c1931aa311bfe40e9c7eacfdcac4f0af1b8d43c4f6bc3175ce926bc7a9709",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/dsh-headless-env-20261104T174535.log",
+      "bytes": 235,
+      "sha256": "3df619c128e84565cef34219bddc22da4541f8567d178f9cc37659b5920ceb48",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/dsh-headless-patched-20261104T174457.log",
+      "bytes": 1396,
+      "sha256": "8f5646f751314c999ac90aba6915eb24ed59fc6a15bac4b2e09aded1b5bc774b",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/dsh-headless-patched-20261104T174544.log",
+      "bytes": 16,
+      "sha256": "3a9bf2ec1d63b763f1436dd72a8d2d87ca9d0cbf5a1e262ae998f6249b3daf96",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/headless-opencode-go.patch.yml",
+      "bytes": 466,
+      "sha256": "cba968723279aad96a0613d2b4e407ea0929a4b4e11675715e98104f66420375",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/opencode-run-20261104T174013.log",
+      "bytes": 110,
+      "sha256": "c4d9669776eceb1e6eaa87be8dfb97bae45fd633fce8d0408d3a228e504b2fa7",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/opencode-run2-20261104T174024.log",
+      "bytes": 167,
+      "sha256": "104033a404c6f4a777964466c586ee19be13138592fcd26c266e8d0b32e158fe",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/run-dsh-headless.sh",
+      "bytes": 928,
+      "sha256": "67728bc01902395e2695568c774fd5ba01d4566d1c8e98ceb94c05ea861ce9a0",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "raw/run-dsh-headless2.sh",
+      "bytes": 799,
+      "sha256": "23fce7009678bed7330472e787aae414d3f82efa0b7dc7d2e639b9995a2028aa",
+      "role": "原始日志/脚本（留在 B）"
+    },
+    {
+      "file": "verify-on-B.sh",
+      "bytes": 3641,
+      "sha256": "8aec1cc1d97dfa783693dd5dbecfd7b619f517ac1f1041da4b0b656424236676",
+      "role": "自证脚本：env 模式已在 B 上 PASS，full 模式供 Codex 复验"
+    },
+    {
+      "file": "verify-runs/verify-full-20261104T215415.log",
+      "bytes": 1058,
+      "sha256": "1bec61bdc5b46a982fe62b657ffb80182337989530f221a949307b4ea5b7e4e8",
+      "role": "full 模式复验实测日志（失败态与通过态各一份）"
+    },
+    {
+      "file": "verify-runs/verify-full-20261104T215441.log",
+      "bytes": 947,
+      "sha256": "aad9da50406b806276caf70784af656d287e17bc98c5205fdc0fd6f078fad253",
+      "role": "full 模式复验实测日志（失败态与通过态各一份）"
+    }
+  ],
+  "scenarios": [
+    {
+      "id": "T3-S1",
+      "name": "系统与账户盘点",
+      "command": "powershell Get-ComputerInfo / net config workstation / ipconfig",
+      "result": "exit 0",
+      "level": "[实测]",
+      "log": "无单一日志，输出见 B.md §1"
+    },
+    {
+      "id": "T3-S2",
+      "name": "ExecutionPolicy",
+      "command": "powershell Get-ExecutionPolicy",
+      "result": "exit 0 => RemoteSigned",
+      "level": "[实测]",
+      "log": "B.md §1"
+    },
+    {
+      "id": "T3-S3",
+      "name": "Codex 默认模型",
+      "command": "codex exec \"输出 CODEX_OK\"",
+      "result": "HTTP 429 model_cooldown",
+      "level": "[实测]",
+      "log": "raw/codex-exec-20261104T173901.log"
+    },
+    {
+      "id": "T3-S4",
+      "name": "Codex 备用模型",
+      "command": "codex exec -m deepseek-v4.1-flash-1017",
+      "result": "exit 0, 11s, CODEX_ALT_OK",
+      "level": "[实测]",
+      "log": "raw/codex-alt-20261104T174035.log"
+    },
+    {
+      "id": "T3-S5",
+      "name": "Codex 受控编辑+运行检查",
+      "command": "codex exec -m deepseek-v4.1-flash-1017 (mul + node check.js)",
+      "result": "exit 0, 50s, CHECK_PASS, session 01a1a5ee",
+      "level": "[实测]",
+      "log": "raw/codex-edit-20261104T174054.log"
+    },
+    {
+      "id": "T3-S6",
+      "name": "Codex 会话接续",
+      "command": "codex exec resume --last [-m ...]",
+      "result": "无 -m => 429；有 -m => exit 0, 10s, 同 session",
+      "level": "[实测]",
+      "log": "raw/codex-resume-20261104T174151.log / raw/codex-resume2-20261104T174204.log"
+    },
+    {
+      "id": "T3-S7",
+      "name": "opencode 通道",
+      "command": "opencode run -m cc/deepseek-v4-flash / cc/deepseek-v4.1-flash-1017",
+      "result": "失败：Model is unavailable / UnknownError",
+      "level": "[实测]",
+      "log": "raw/opencode-run-20261104T174013.log / raw/opencode-run2-20261104T174024.log"
+    },
+    {
+      "id": "T3-S8",
+      "name": "Claude Code 读取",
+      "command": "claude -p --model deepseek-v4.1-flash-1017",
+      "result": "is_error=false, 32s, session a60872bc",
+      "level": "[实测]",
+      "log": "raw/claude-p-20261104T173933.log"
+    },
+    {
+      "id": "T3-S9",
+      "name": "Claude 受控编辑+运行检查",
+      "command": "claude -p --permission-mode acceptEdits (sub + node check.js)",
+      "result": "exit 0, 10 turns, 35s",
+      "level": "[实测]",
+      "log": "raw/claude-edit-20261104T174220.log"
+    },
+    {
+      "id": "T3-S10",
+      "name": "Claude 会话接续",
+      "command": "claude -c -p",
+      "result": "成功，session 0fe969c6",
+      "level": "[实测]",
+      "log": "raw/claude-continue-20261104T174304.log"
+    },
+    {
+      "id": "T3-S11",
+      "name": "DSH headless 默认路由",
+      "command": "dsh --profile headless \"...\"",
+      "result": "失败 MISSING_CREDENTIAL deepseek-official",
+      "level": "[实测]",
+      "log": "raw/dsh-headless-20261104T174439.log"
+    },
+    {
+      "id": "T3-S12",
+      "name": "DSH headless + opencode-go patch",
+      "command": "dsh --profile headless --patch raw/headless-opencode-go.patch.yml",
+      "result": "失败 no credential opencode-go",
+      "level": "[实测]",
+      "log": "raw/dsh-headless-patched-20261104T174457.log"
+    },
+    {
+      "id": "T3-S13",
+      "name": "DSH headless + patch + env",
+      "command": "raw/run-dsh-headless2.sh",
+      "result": "exit 0, 5s, DSH_HEADLESS_OK",
+      "level": "[实测]",
+      "log": "raw/dsh-headless-patched-20261104T174544.log"
+    },
+    {
+      "id": "T3-S14",
+      "name": "项目与远端盘点",
+      "command": "find/git status/branch -vv/ls-remote --heads",
+      "result": "见 B.md §6",
+      "level": "[实测]",
+      "log": "B.md §6"
+    },
+    {
+      "id": "T3-S15",
+      "name": "自证脚本 env 模式",
+      "command": "bash verify-on-B.sh env",
+      "result": "PASS (node/git/policy/pwsh/codex/dsh/claude/8317 全项符合)",
+      "level": "[实测]",
+      "log": "本报告 §10.3 记录；无独立日志文件"
+    }
+  ],
+  "results_origin": {
+    "produced_by_dsh_on_b": [
+      "T3-S1..T3-S14"
+    ],
+    "produced_by_codex": [],
+    "note": "本次盘点无 Codex 结论；Codex 复验在 T13 生成 acceptance-codex.md，DSH 不预填通过"
+  },
+  "open_blockers": [
+    "B1 codex default model cooldown 401826s",
+    "B2 OPENCODE_GO_API_KEY not in env",
+    "B3 no cross-network link",
+    "B4 opencode upstream unavailable",
+    "B5 C: free space 7.2GB"
+  ],
+  "dedup_key": "scenario id + task id (T3-S*), not timestamps",
+  "publish": {
+    "repo": "https://github.com/Jakiewbe/autolAgentloop",
+    "branch": "b",
+    "path_prefix": "B/",
+    "base_commit": "717e4b8 (main: A 侧交付快照, author chs <chs@localhost>)",
+    "single_commit": true,
+    "superseded_commits": [
+      "5893f5d",
+      "2f95400"
+    ],
+    "line_endings": "B/.gitattributes sets '* -text' so evidence bytes stay identical to the machine (raw logs are CRLF)",
+    "identity_rule": "main = A's material; b = B's material under B/; B commit author = B Magicbook14-zz <b@magicbook14-zz.local>",
+    "pushed_at": "2026-11-04T21:52:00+08:00",
+    "secret_scan": "no credential values in bundle; scripts apply oc_s<RED> redaction",
+    "note": "单提交；B.md 不内嵌自身提交哈希，实际值以 git log -1 origin/b 为准"
+  },
+  "collector_runs": {
+    "script": "tools/b_preflight/collect_b.ps1 from origin/main (18363 bytes, UTF-8 BOM), unmodified",
+    "run1": {
+      "at": "2026-11-04T21:45:11+08:00",
+      "args": "-Alias B (no -ProjectRoots)",
+      "exit": 0,
+      "artifacts": "evidence/preflight/a-kit/run",
+      "bundle_sha256": "C17869657B07BAFAA67E9E6DA6F7969D9AA827BB0009202D3FF974627FA3F1F9",
+      "note": "projects section reported no_candidate_roots"
+    },
+    "run2": {
+      "at": "2026-11-04T21:47:11+08:00",
+      "args": "-ProjectRoots D:\\Hactk,D:\\Virtuals,D:\\CLIProxyAPI,D:\\Autosave,D:\\AutoAgentloop,D:\\DPH",
+      "exit": 0,
+      "artifacts": "evidence/preflight/a-kit/run2",
+      "bundle_sha256": "BEA39E097130E4024AF11660289EBEEC96750CDD07346935B85F34C5BBE7F7BF",
+      "note": "07-projects.txt present"
+    },
+    "gotcha": "powershell -File rejects array parameters for -ProjectRoots; use -Command \"& 'collect_b.ps1' -ProjectRoots 'a','b'\""
+  },
+  "verify_runs": {
+    "script": "verify-on-B.sh",
+    "usage": "bash verify-on-B.sh env | full",
+    "runs": [
+      {
+        "at": "2026-11-04T21:54:15+08:00",
+        "mode": "full",
+        "exit": 1,
+        "note": "codex 缺 --skip-git-repo-check，非环境问题",
+        "log": "verify-runs/verify-full-20261104T215415.log"
+      },
+      {
+        "at": "2026-11-04T21:54:41+08:00",
+        "mode": "full",
+        "exit": 0,
+        "note": "codex+claude 实测通过；dsh headless 因未注入 key 按预期跳过",
+        "log": "verify-runs/verify-full-20261104T215441.log"
+      }
+    ]
+  }
+}

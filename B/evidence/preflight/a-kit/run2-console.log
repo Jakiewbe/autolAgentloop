@@ -1,0 +1,356 @@
+caption=Microsoft Windows 11 家庭版 中文版 version=10.0.26200 build=26200 arch=64 位
+lastboot=11/04/2026 10:31:46 uptime_hours=11.2
+ram_total_gb=15.7 ram_free_gb=4.9
+cpu=12th Gen Intel(R) Core(TM) i5-12500H cores=12 logical=16
+disk=C: size_gb=120 free_gb=6.8
+disk=D: size_gb=343.2 free_gb=61.4
+disk=F: size_gb=24 free_gb=16.1
+timezone=China Standard Time offset=08:00:00
+culture=zh-CN ui=zh-CN codepage=936
+long_paths_enabled=0
+
+which node = C:\Program Files\nodejs\node.exe
+which npm = C:\Program Files\nodejs\npm.ps1
+which pnpm = (absent)
+which yarn = (absent)
+which git = C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\ucrt64\bin\git.exe
+which python = C:\Users\19082\AppData\Local\Programs\Python\Python312\python.exe
+which py = C:\Users\19082\AppData\Local\Programs\Python\Launcher\py.exe
+which pwsh = (absent)
+which powershell = C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+which cmd = C:\Windows\system32\cmd.exe
+which code = C:\Users\19082\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd
+which gh = (absent)
+which curl = (absent)
+which tar = C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\usr\bin\tar.exe
+which 7z = (absent)
+which rg = (absent)
+--- versions
+node => v24.12.0
+npm => 11.6.2
+git => git version 2.56.0.windows.2
+python => Python 3.12.2
+--- PATH entries
+path: C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\ucrt64\bin
+path: C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\usr\bin
+path: C:\Users\19082\bin
+path: C:\Windows\system32
+path: C:\Windows
+path: C:\Windows\System32\Wbem
+path: C:\Windows\System32\WindowsPowerShell\v1.0
+path: C:\Windows\System32\OpenSSH
+path: C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+path: C:\Program Files\Bandizip
+path: C:\WINDOWS\system32
+path: C:\WINDOWS
+path: C:\WINDOWS\System32\Wbem
+path: C:\WINDOWS\System32\WindowsPowerShell\v1.0
+path: C:\WINDOWS\System32\OpenSSH
+path: D:\Git\cmd
+path: C:\Program Files\nodejs
+path: C:\ProgramData\chocolatey\bin
+path: C:\Program Files (x86)\cloudflared
+path: D:\Virtuals\Docker\app\resources\bin
+path: C:\Users\19082\.cargo\bin
+path: C:\Users\19082\.local\bin
+path: C:\Users\19082\AppData\Local\Programs\Python\Python312\Scripts
+path: C:\Users\19082\AppData\Local\Programs\Python\Python312
+path: C:\Users\19082\AppData\Local\Programs\Python\Launcher
+path: C:\Users\19082\AppData\Local\Microsoft\WindowsApps
+path: C:\Users\19082\AppData\Local\Programs\Microsoft VS Code\bin
+path: C:\Users\19082\AppData\Local\Microsoft\WinGet\Links
+path: C:\Users\19082\AppData\Roaming\npm
+path: C:\Users\19082\.bun\bin
+path: D:\Virtuals\Docker\app\resources\bin
+path: D:\cursor\resources\app\bin
+--- PATHEXT
+.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+
+agent codex: on_path=(absent)
+  found: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe size=245812016 mtime=05/10/2026 01:18:41
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex-command-runner.exe mtime=05/08/2026 04:58:37
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex-windows-sandbox-setup.exe mtime=05/10/2026 01:18:38
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe mtime=05/10/2026 01:18:41
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\node.exe mtime=04/25/2026 12:58:13
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\node_repl.exe mtime=05/08/2026 04:58:43
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\rg.exe mtime=04/25/2026 12:58:14
+agent opencode: on_path=C:\Users\19082\AppData\Roaming\npm\opencode.ps1
+agent claude: on_path=C:\Users\19082\.local\bin\claude.exe
+  found: C:\Users\19082\.local\bin\claude.exe size=296791712 mtime=10/25/2026 12:57:30
+  sibling: C:\Users\19082\.local\bin\claude.exe mtime=10/25/2026 12:57:30
+  sibling: C:\Users\19082\.local\bin\python3.14.exe mtime=05/03/2026 11:53:11
+  sibling: C:\Users\19082\.local\bin\uv.exe mtime=04/27/2026 12:42:34
+  sibling: C:\Users\19082\.local\bin\uvw.exe mtime=04/27/2026 12:42:40
+  sibling: C:\Users\19082\.local\bin\uvx.exe mtime=04/27/2026 12:42:46
+agent dsh: on_path=(absent)
+--- 用户级 Agent 配置目录（仅名字与大小，不读内容）
+dir C:\Users\19082\.codex :
+  .sandbox <dir>
+  .sandbox-bin <dir>
+  .sandbox-secrets <dir>
+  .tmp <dir>
+  ambient-suggestions <dir>
+  attachments <dir>
+  automations <dir>
+  backups <dir>
+  bin <dir>
+  browser <dir>
+  cache <dir>
+  codex-electron-profile-clean <dir>
+  codex-rules <dir>
+  computer-use <dir>
+  computer-use-turn-ended <dir>
+  dictation-history <dir>
+  log <dir>
+  memories <dir>
+  node_repl <dir>
+  pets <dir>
+  plans <dir>
+  plugins <dir>
+  process_manager <dir>
+  project-metadata-locks <dir>
+  rollout-migrations <dir>
+dir C:\Users\19082\.claude :
+  .bak-20261025-125627 <dir>
+  backups <dir>
+  cache <dir>
+  debug <dir>
+  downloads <dir>
+  file-history <dir>
+  ide <dir>
+  paste-cache <dir>
+  plugins <dir>
+  projects <dir>
+  session-env <dir>
+  sessions <dir>
+  shell-snapshots <dir>
+  skills <dir>
+  state <dir>
+  .last-cleanup 24
+  .last-update-result.json 161
+  CLAUDE.md 777
+  history.jsonl 73219
+  settings.json 5928
+  settings.json.bak-1793101116996-pre-auto 6134
+  settings.local.json 43
+  statusline.ps1 948
+dir C:\Users\19082\.opencode : (absent)
+dir C:\Users\19082\.dsh :
+  .agent-presets <dir>
+  attachments <dir>
+  dsh-ops <dir>
+  dsh-purge <dir>
+  llm-deepseek <dir>
+  profiles <dir>
+  redteam <dir>
+  sessions <dir>
+  storages <dir>
+  .anonymous-user-id 37
+  .credentials.yaml 559
+  prompt-inject.md 25127
+dir C:\Users\19082\.agent-autoloop : (absent)
+
+--- 只记录是否存在，不读取内容
+exists: C:\Users\19082\.dsh\.credentials.yaml size=559 mtime=10/23/2026 13:06:43
+exists: C:\Users\19082\.codex\auth.json size=4236 mtime=11/03/2026 23:07:56
+absent: C:\Users\19082\.claude\.credentials.json
+exists: C:\Users\19082\.claude.json size=42169 mtime=11/04/2026 17:44:47
+absent: C:\Users\19082\.opencode\auth.json
+absent: C:\Users\19082\.agent-autoloop\secrets.env
+--- 环境变量中的凭据类变量名（不输出值）
+--- Windows 凭据管理器条目名（不导出秘密）
+目标: MicrosoftAccount:target=SSO_POP_Device
+目标: LegacyGeneric:target=git:https://github.com
+目标: LegacyGeneric:target=MicrosoftAccount:user=1908286019@qq.com
+目标: WindowsLive:target=virtualapp/didlogical
+
+--- 适配器
+if=47 alias=vEthernet (WSL (Hyper-V firewall)) ipv4=172.20.224.1 gw=
+if=4 alias=Meta ipv4=198.18.0.1 gw=198.18.0.2
+if=8 alias=WLAN ipv4=172.17.18.197 gw=172.17.0.1
+if=14 alias=以太网 ipv4=169.254.224.8 gw=
+--- 默认路由
+gw=198.18.0.2 if=Meta metric=0
+gw=172.17.0.1 if=WLAN metric=0
+--- DNS
+Meta: 198.18.0.2
+WLAN: 114.114.114.114,8.8.8.8
+--- 私网/VPN/隧道组件（进程）
+
+ProcessName            Id
+-----------            --
+clash-verge         22048
+clash-verge-service  5316
+GameViewer          16860
+GameViewerHealthd    8596
+GameViewerServer     8488
+GameViewerService    6024
+verge-mihomo        22220
+
+
+
+--- 服务
+
+--- 已安装远程/隧道软件
+
+--- 监听端口（非 loopback）
+
+LocalAddress  LocalPort OwningProcess
+------------  --------- -------------
+::                   53         22220
+::                  135          2028
+0.0.0.0             135          2028
+172.17.18.197       139             4
+172.20.224.1        139             4
+198.18.0.1          139             4
+::                  445             4
+::                 1198          1680
+0.0.0.0            1198          1680
+0.0.0.0            5040         13424
+172.17.18.197      5294         10248
+172.17.18.197      7674         10248
+172.17.18.197      7677          8488
+::                 7680         23688
+::                 7897         22220
+198.18.0.1         7908          8488
+0.0.0.0            7910          8488
+172.17.18.197      8912         10248
+172.17.18.197      8915         10248
+0.0.0.0           10807          5232
+198.18.0.1        14083         22220
+::                49664          1732
+0.0.0.0           49664          1732
+::                49665          1564
+0.0.0.0           49665          1564
+0.0.0.0           49666          2696
+::                49666          2696
+0.0.0.0           49667          3840
+::                49667          3840
+::                49668          4976
+0.0.0.0           49668          4976
+
+
+
+--- 出网
+egress_failed: 远程服务器返回错误: (429) Too Many Requests。
+--- 防火墙配置文件
+
+Name    Enabled DefaultInboundAction DefaultOutboundAction
+----    ------- -------------------- ---------------------
+Domain    False        NotConfigured         NotConfigured
+Private   False        NotConfigured         NotConfigured
+Public     True        NotConfigured         NotConfigured
+
+
+
+
+startup_dir=C:\Users\19082\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+key HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
+  OneDrive = "C:\Users\19082\AppData\Local\Microsoft\OneDrive\OneDrive.exe" /background
+  IC Cloud Worker = "C:\Users\19082\AppData\Local\Programs\iccloud.io\IC Cloud Worker.exe" --hidden
+  Steam = "D:\Steam\steam.exe" -silent
+  GameViewer = "D:\UU\GameViewer\GameViewer.exe" --auto-run
+  com.tencent.qclaw = D:\QClaw\v0.2.35.624\QClaw.exe --auto-launch
+  quark = "D:\Quark\quark.exe" --launch-from=loginitem --brand-clouddrive
+  BaiduYunGuanjia = "D:\BaiduNetdisk\BaiduNetdisk.exe" AutoRun
+  MicrosoftEdgeAutoLaunch_39577D4A034568E6B9B178CE967A6F22 = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window --win-session-start
+key HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
+  SecurityHealth = C:\WINDOWS\system32\SecurityHealthSystray.exe
+  RtkAudUService = "C:\WINDOWS\System32\DriverStore\FileRepository\realtekservice.inf_amd64_78412285c6b2f525\RtkAudUService64.exe" -background
+  SunloginClient = "D:\Software\Sunlogin\SunloginClient\SunloginClient.exe" --cmd=autorun
+  AweSun = "D:\Software\Sunlogin\SunloginClient\AweSun.exe" --cmd=autorun
+--- 计划任务（agent/dsh/autoloop 关键字）
+
+TaskName       State
+--------       -----
+SpaceAgentTask Ready
+
+
+
+--- 自建服务
+
+
+=== root D:\Hactk
+  dir=.claude git=False agent_ledger=False files=1 size_mb=0 mtime=10/27/2026 16:11:51
+  dir=.cursor git=False agent_ledger=False files=1 size_mb=0 mtime=10/13/2026 00:17:06
+  dir=.tmp-g2 git=False agent_ledger=False files=5209 size_mb=209.6 mtime=11/03/2026 22:39:16
+  dir=c-clean git=False agent_ledger=False files=4 size_mb=0 mtime=10/23/2026 14:13:59
+  dir=D??Hactk?gpu-r5-20261017 git=False agent_ledger=False files=2 size_mb=0 mtime=10/18/2026 08:49:57
+  dir=efi-candidates git=False agent_ledger=False files=1139 size_mb=297.6 mtime=10/13/2026 02:09:17
+  dir=g1-audit-fix-20261018 git=False agent_ledger=False files=44762 size_mb=1484.2 mtime=10/20/2026 16:01:09
+  dir=g1-closure-20261018 git=False agent_ledger=False files=367 size_mb=3.5 mtime=10/18/2026 11:18:30
+  dir=g1-dev-20261015 git=False agent_ledger=False files=6478 size_mb=258.2 mtime=10/15/2026 21:34:10
+  dir=g1-stock-20261020 git=True agent_ledger=True files=9666 size_mb=266.2 mtime=10/21/2026 01:09:48
+    head=c68c73b branch=main dirty_entries=107
+  dir=g1-stock-work git=False agent_ledger=False files=226999 size_mb=9564.2 mtime=11/04/2026 14:06:21
+  dir=gpu-mainline-20261017 git=False agent_ledger=False files=7368 size_mb=956.4 mtime=10/17/2026 23:07:43
+  dir=gpu-r5-20261017 git=False agent_ledger=False files=71206 size_mb=2375.9 mtime=10/18/2026 00:22:45
+  dir=h1-offline-20261014 git=False agent_ledger=False files=94 size_mb=14940.8 mtime=10/15/2026 09:37:30
+  dir=honor-hackintosh-lab git=True agent_ledger=True files=5046 size_mb=89.5 mtime=10/19/2026 18:16:39
+    head=cef885e branch=main dirty_entries=0
+  dir=review-evidence-20261025 git=False agent_ledger=False files=1 size_mb=0 mtime=10/25/2026 13:34:05
+  dir=tmp-dsh-append git=False agent_ledger=False files=0 size_mb=0 mtime=10/30/2026 00:52:22
+  dir=tmp-dsh-fix git=False agent_ledger=False files=1 size_mb=0 mtime=10/30/2026 23:27:57
+  dir=undefined git=False agent_ledger=False files=2 size_mb=0 mtime=11/01/2026 13:22:21
+=== root D:\Virtuals
+  dir=backups git=False agent_ledger=False files=46 size_mb=8427.5 mtime=08/13/2026 21:44:33
+  dir=data git=False agent_ledger=False files=2193 size_mb=6279.4 mtime=07/22/2026 00:18:20
+  dir=Docker git=False agent_ledger=False files=191 size_mb=12780.6 mtime=07/19/2026 22:27:34
+  dir=Installers git=False agent_ledger=False files=1 size_mb=608.6 mtime=07/18/2026 14:03:10
+  dir=outputs git=False agent_ledger=False files=6 size_mb=1.9 mtime=08/12/2026 22:39:07
+  dir=pnpm-cache git=False agent_ledger=False files=375 size_mb=143.7 mtime=07/18/2026 14:26:08
+  dir=pnpm-state git=False agent_ledger=False files=1 size_mb=0 mtime=08/12/2026 22:22:56
+  dir=pnpm-store git=False agent_ledger=False files=22129 size_mb=1176.1 mtime=07/18/2026 14:19:40
+  dir=pnpm-virtual-store git=False agent_ledger=False files=23314 size_mb=193.6 mtime=07/18/2026 14:24:15
+  dir=projects git=False agent_ledger=False files=9708 size_mb=3804.9 mtime=08/25/2026 03:16:47
+  dir=releases git=False agent_ledger=False files=51 size_mb=516 mtime=08/01/2026 17:59:02
+  dir=restore-drills git=False agent_ledger=False files=19 size_mb=0.4 mtime=08/13/2026 21:55:45
+  dir=scripts git=False agent_ledger=False files=1 size_mb=0 mtime=08/04/2026 14:40:59
+  dir=test-runs git=False agent_ledger=False files=28 size_mb=0 mtime=07/22/2026 00:10:40
+  dir=worktrees git=False agent_ledger=False files=3791 size_mb=21.9 mtime=08/12/2026 22:45:58
+=== root D:\CLIProxyAPI
+  dir=.claude git=False agent_ledger=False files=1 size_mb=0 mtime=07/12/2026 16:27:14
+  dir=.github git=False agent_ledger=False files=8 size_mb=0 mtime=07/05/2026 22:40:07
+  dir=assets git=False agent_ledger=False files=15 size_mb=1.1 mtime=07/05/2026 22:40:07
+  dir=auths git=False agent_ledger=False files=4 size_mb=0 mtime=11/03/2026 14:33:19
+  dir=auth_disabled git=False agent_ledger=False files=1 size_mb=0 mtime=07/07/2026 14:35:50
+  dir=cmd git=False agent_ledger=False files=4 size_mb=0 mtime=07/05/2026 22:40:07
+  dir=docs git=False agent_ledger=False files=8 size_mb=0 mtime=07/05/2026 22:40:07
+  dir=examples git=False agent_ledger=False files=152 size_mb=0.5 mtime=07/05/2026 22:40:07
+  dir=internal git=False agent_ledger=False files=515 size_mb=5.4 mtime=07/05/2026 22:40:07
+  dir=logs git=False agent_ledger=False files=20 size_mb=47.7 mtime=11/04/2026 17:43:50
+  dir=sdk git=False agent_ledger=False files=151 size_mb=1.6 mtime=07/05/2026 22:40:07
+  dir=static git=False agent_ledger=False files=1 size_mb=3.6 mtime=11/02/2026 03:09:33
+  dir=test git=False agent_ledger=False files=8 size_mb=0.1 mtime=07/05/2026 22:40:07
+=== root D:\Autosave
+  dir=.agent git=False agent_ledger=False files=11 size_mb=0.1 mtime=11/04/2026 17:35:50
+=== root D:\AutoAgentloop
+  dir=.tmp-repo git=False agent_ledger=False files=944 size_mb=12.2 mtime=11/04/2026 21:43:15
+  dir=evidence git=False agent_ledger=False files=42 size_mb=0.1 mtime=11/04/2026 17:38:54
+  dir=outbox git=False agent_ledger=False files=23 size_mb=0.1 mtime=11/04/2026 17:55:44
+  dir=_probe git=False agent_ledger=False files=3 size_mb=0 mtime=11/04/2026 17:38:54
+=== root D:\DPH
+  dir=locales git=False agent_ledger=False files=55 size_mb=48.3 mtime=10/23/2026 16:00:56
+  dir=resources git=False agent_ledger=False files=7739 size_mb=675 mtime=10/23/2026 16:00:56
+
+created=C:\Users\19082\AppData\Local\Temp\中文 目录 probe 65b05c exists=True
+file_with_space=True
+cmd_out=CMD_OK
+ps1_out=PS1_OK
+cleaned=True
+--- 长路径（>260 字符）
+long_path_len=226 readable=True
+
+
+=== B 盘点完成 ===
+报告：D:\AutoAgentloop\evidence\preflight\a-kit\run2\B.md
+原始：D:\AutoAgentloop\evidence\preflight\a-kit\run2\raw
+打包：D:\AutoAgentloop\evidence\preflight\a-kit\run2\B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip
+哈希：BEA39E097130E4024AF11660289EBEEC96750CDD07346935B85F34C5BBE7F7BF
+
+回传 A（任选，优先 1）：
+  1) 把 zip 与 .sha256 复制到 A 的 evidence/raw/preflight/（U 盘/共享目录/远程桌面拖拽均可）
+  2) 若 A 的隧道已开启，按 A 给出的 URL 上传；A 侧收到后必须核对文件名与 sha256
+
+注意：不要打包任何 secrets 文件；本脚本已按关键字脱敏，raw/ 内也只有目录名与大小。
+EXIT=0

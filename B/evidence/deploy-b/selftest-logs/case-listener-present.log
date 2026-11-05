@@ -1,0 +1,12 @@
+[00:30:46] install-b-when-ready.ps1 v2 | selftest=True | worker=b-magicbook14
+[00:30:46] root=D:\AutoAgentloop
+[00:30:46] node=v24.12.0 major=24
+[00:30:46] config: 无既有配置（可继续）| C:\Users\19082\AppData\Local\Temp\b-install-selftest-home-20261105T003046274\config.json
+[00:30:46] package=C:\Users\19082\AppData\Local\Temp\b-install-selftest-20261105T003046274\sim-package.zip sha256=8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85
+[00:30:46] worker_key_file=C:\Users\19082\AppData\Local\Temp\b-install-selftest-20261105T003046274\sim-worker.key.json bytes=2 (内容不打印)
+[00:30:46] center_url=https://center.example.invalid:3350 accepted
+[00:30:46] listeners_3350=1
+[00:30:46] STOP: 本机已有 3350 监听，疑似第二中心或残留服务
+[00:30:46] detail: 0.0.0.0:3350
+[00:30:46] no_state_written=true
+[00:30:46] next: 补齐输入或清理现场后重试；本脚本不删文件、不改既有配置

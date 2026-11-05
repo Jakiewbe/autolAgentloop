@@ -1,0 +1,26 @@
+﻿startup_dir=C:\Users\19082\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+key HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
+  OneDrive = "C:\Users\19082\AppData\Local\Microsoft\OneDrive\OneDrive.exe" /background
+  IC Cloud Worker = "C:\Users\19082\AppData\Local\Programs\iccloud.io\IC Cloud Worker.exe" --hidden
+  Steam = "D:\Steam\steam.exe" -silent
+  GameViewer = "D:\UU\GameViewer\GameViewer.exe" --auto-run
+  com.tencent.qclaw = D:\QClaw\v0.2.35.624\QClaw.exe --auto-launch
+  quark = "D:\Quark\quark.exe" --launch-from=loginitem --brand-clouddrive
+  BaiduYunGuanjia = "D:\BaiduNetdisk\BaiduNetdisk.exe" AutoRun
+  MicrosoftEdgeAutoLaunch_39577D4A034568E6B9B178CE967A6F22 = "C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window --win-session-start
+key HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
+  SecurityHealth = C:\WINDOWS\system32\SecurityHealthSystray.exe
+  RtkAudUService = "C:\WINDOWS\System32\DriverStore\FileRepository\realtekservice.inf_amd64_78412285c6b2f525\RtkAudUService64.exe" -background
+  SunloginClient = "D:\Software\Sunlogin\SunloginClient\SunloginClient.exe" --cmd=autorun
+  AweSun = "D:\Software\Sunlogin\SunloginClient\AweSun.exe" --cmd=autorun
+--- 计划任务（agent/dsh/autoloop 关键字）
+
+TaskName       State
+--------       -----
+SpaceAgentTask Ready
+
+
+
+--- 自建服务
+
+

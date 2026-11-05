@@ -1,0 +1,57 @@
+﻿which node = C:\Program Files\nodejs\node.exe
+which npm = C:\Program Files\nodejs\npm.ps1
+which pnpm = (absent)
+which yarn = (absent)
+which git = C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\ucrt64\bin\git.exe
+which python = C:\Users\19082\AppData\Local\Programs\Python\Python312\python.exe
+which py = C:\Users\19082\AppData\Local\Programs\Python\Launcher\py.exe
+which pwsh = (absent)
+which powershell = C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe
+which cmd = C:\Windows\system32\cmd.exe
+which code = C:\Users\19082\AppData\Local\Programs\Microsoft VS Code\bin\code.cmd
+which gh = (absent)
+which curl = (absent)
+which tar = C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\usr\bin\tar.exe
+which 7z = (absent)
+which rg = (absent)
+--- versions
+node => v24.12.0
+npm => 11.6.2
+git => git version 2.56.0.windows.2
+python => Python 3.12.2
+--- PATH entries
+path: C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\ucrt64\bin
+path: C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\usr\bin
+path: C:\Users\19082\bin
+path: C:\Windows\system32
+path: C:\Windows
+path: C:\Windows\System32\Wbem
+path: C:\Windows\System32\WindowsPowerShell\v1.0
+path: C:\Windows\System32\OpenSSH
+path: C:\Program Files (x86)\NVIDIA Corporation\PhysX\Common
+path: C:\Program Files\Bandizip
+path: C:\WINDOWS\system32
+path: C:\WINDOWS
+path: C:\WINDOWS\System32\Wbem
+path: C:\WINDOWS\System32\WindowsPowerShell\v1.0
+path: C:\WINDOWS\System32\OpenSSH
+path: D:\Git\cmd
+path: C:\Program Files\nodejs
+path: C:\ProgramData\chocolatey\bin
+path: C:\Program Files (x86)\cloudflared
+path: D:\Virtuals\Docker\app\resources\bin
+path: C:\Users\19082\.cargo\bin
+path: C:\Users\19082\.local\bin
+path: C:\Users\19082\AppData\Local\Programs\Python\Python312\Scripts
+path: C:\Users\19082\AppData\Local\Programs\Python\Python312
+path: C:\Users\19082\AppData\Local\Programs\Python\Launcher
+path: C:\Users\19082\AppData\Local\Microsoft\WindowsApps
+path: C:\Users\19082\AppData\Local\Programs\Microsoft VS Code\bin
+path: C:\Users\19082\AppData\Local\Microsoft\WinGet\Links
+path: C:\Users\19082\AppData\Roaming\npm
+path: C:\Users\19082\.bun\bin
+path: D:\Virtuals\Docker\app\resources\bin
+path: D:\cursor\resources\app\bin
+--- PATHEXT
+.COM;.EXE;.BAT;.CMD;.VBS;.VBE;.JS;.JSE;.WSF;.WSH;.MSC;.CPL
+

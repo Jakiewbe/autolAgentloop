@@ -1,0 +1,7 @@
+codex.exe : Reading additional input from stdin...
+ËùÔÚÎ»ÖÃ D:\AutoAgentloop\_incoming\B-reviewed-delivery\extracted\verify-b.ps1:24 ×Ö·û: 11
++ $stdout = & $Executable @agentArgs 2> $stderrFile
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (Reading additional input from stdin...:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

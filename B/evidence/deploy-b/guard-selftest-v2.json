@@ -1,0 +1,90 @@
+[
+    {
+        "case":  "selftest-happy",
+        "exit":  0,
+        "state_written":  1,
+        "printed_DONE":  true,
+        "printed_STOP":  false,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-selftest-happy.log"
+    },
+    {
+        "case":  "verify-failed",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-verify-failed.log"
+    },
+    {
+        "case":  "verify-missing",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-verify-missing.log"
+    },
+    {
+        "case":  "listener-present",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-listener-present.log"
+    },
+    {
+        "case":  "hub-present",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-hub-present.log"
+    },
+    {
+        "case":  "ipv6-loopback",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-ipv6-loopback.log"
+    },
+    {
+        "case":  "ipv4-loopback",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-ipv4-loopback.log"
+    },
+    {
+        "case":  "localhost",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-localhost.log"
+    },
+    {
+        "case":  "ipv6-wildcard",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-ipv6-wildcard.log"
+    },
+    {
+        "case":  "loopback-127-8",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-loopback-127-8.log"
+    },
+    {
+        "case":  "package-missing",
+        "exit":  2,
+        "state_written":  0,
+        "printed_DONE":  false,
+        "printed_STOP":  true,
+        "log":  "C:\\Users\\19082\\AppData\\Local\\Temp\\case-package-missing.log"
+    }
+]

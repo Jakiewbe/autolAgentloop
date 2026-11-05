@@ -1,0 +1,16 @@
+== codex version ==
+codex-cli 0.130.0-alpha.5
+== codex real call (alt model) ==
+只输出一行：B-CODEX-OK
+hook: SessionStart
+hook: SessionStart Completed
+We need answer exactly one line B-CODEX-OK. No tools needed.
+codex
+B-CODEX-OK
+成功: 已终止 PID 20680 (属于 PID 17712 子进程)的进程。
+成功: 已终止 PID 15916 (属于 PID 1964 子进程)的进程。
+成功: 已终止 PID 1964 (属于 PID 17712 子进程)的进程。
+tokens used
+5,330
+B-CODEX-OK
+PIPE_EXIT=0

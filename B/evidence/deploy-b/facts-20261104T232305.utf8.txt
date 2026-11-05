@@ -1,0 +1,31 @@
+== collected_at ==
+2026-11-04T23:23:06+08:00
+== host_user ==
+MAGICBOOK14-ZZ | chs | MAGICBOOK14-ZZ
+== os ==
+Microsoft Windows 11 家庭版 中文版 | 10.0.26200 | build 26200 | 64-bit
+== node ==
+node v24.12.0 | C:\Program Files\nodejs\node.exe
+== npm_git_curl ==
+npm 11.6.2
+git version 2.56.0.windows.2
+curl_absent
+== shells ==
+powershell 5.1.26100.9711
+pwsh_absent
+== existing_agent_autoloop_home ==
+absent: C:\Users\19082\.agent-autoloop
+== listener_3350 ==
+no_listener_on_3350
+== node_processes ==
+14580 "C:\Program Files\nodejs\node.exe" C:\Users\19082\.dsh\profiles\desktop\node_modules\billion-context\dist\index.js start --host 127.0.0.1 --port 18787
+6912 C:\Users\19082\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe C:\Users\19082\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@oai\artifact-tool\dist\artifact-session\host-daemon.mjs
+16244 "C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node.exe" --import file:///C:/Users/19082/.codex/plugins/cache/openai-bundled/unified-computer-use/26.1029.61003/require-browser-access.mjs C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node_modules\@oai\cua-repl\bin\cua-repl.mjs
+11528 "C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node.exe"  ./server.mjs
+== agent_cli ==
+claude_present: C:\Users\19082\.local\bin\claude.exe | 2.1.310 (Claude Code)
+codex_present: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe | codex-cli 0.130.0-alpha.5
+== install_artifacts_search ==
+no_reviewed_delivery_found
+no_install_b_script
+== done ==

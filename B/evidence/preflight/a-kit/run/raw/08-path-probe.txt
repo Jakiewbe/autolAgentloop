@@ -1,0 +1,8 @@
+﻿created=C:\Users\19082\AppData\Local\Temp\中文 目录 probe b4c486 exists=True
+file_with_space=True
+cmd_out=CMD_OK
+ps1_out=PS1_OK
+cleaned=True
+--- 长路径（>260 字符）
+long_path_len=226 readable=True
+

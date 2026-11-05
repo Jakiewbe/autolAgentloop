@@ -1,0 +1,9 @@
+{"passed":false,"error":"Unexpected token 'ï¿½', \"ï¿½É¹ï¿½: ï¿½ï¿½ï¿½ï¿½Ö¹\"... is not valid JSON"}
+Ä£ĞÍÊµ²âÊ§°Ü£¬Ô­Ê¼Êä³öÒÑ±£´æ£»²»ÄÜ¼ÆÎªÍ¨¹ı
+ËùÔÚÎ»ÖÃ D:\AutoAgentloop\evidence\deploy-b\verify-b-pkg\patched-verify-b.ps1:33 ×Ö·û: 28
++ if ($LASTEXITCODE -ne 0) { throw 'Ä£ĞÍÊµ²âÊ§°Ü£¬Ô­Ê¼Êä³öÒÑ±£´æ£»²»ÄÜ¼ÆÎªÍ¨¹ı' }
++                            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : OperationStopped: (Ä£ĞÍÊµ²âÊ§°Ü£¬Ô­Ê¼Êä³öÒÑ±£´æ£»²»ÄÜ¼ÆÎªÍ¨¹ı:String) [], RuntimeExceptio
+n
+    + FullyQualifiedErrorId : Ä£ĞÍÊµ²âÊ§°Ü£¬Ô­Ê¼Êä³öÒÑ±£´æ£»²»ÄÜ¼ÆÎªÍ¨¹ı
+ 

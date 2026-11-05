@@ -1,0 +1,562 @@
+{
+  "schema": "dsh-b-install-state/3",
+  "document_kind": "B 端部署执行状态（脱敏，不含任何密钥或密钥哈希之外的凭据材料）",
+  "generated_at": "2026-11-05T02:08:07.458Z",
+  "host": {
+    "hostname": "MAGICBOOK14-ZZ",
+    "user": "chs",
+    "os": "Windows 11 家庭版 中文版 10.0.26200 build 26200 64-bit",
+    "node": "v24.12.0",
+    "powershell": "5.1.26100.9711",
+    "pwsh": "absent"
+  },
+  "worker_name_expected": "b-magicbook14",
+  "phase": "blocked_before_install",
+  "phase_reason": "审核包已到并校验通过、中心地址 B 侧可达；仍缺 A 为 B 单独签发的 worker 身份文件（私密通道），install-b.mjs 第 1 步即要求 key 文件非空，因此真实安装未执行。",
+  "installer_success_state": false,
+  "real_home_agent_autoloop_exists": false,
+  "package_received": {
+    "path": "D:\\AutoAgentloop\\_incoming\\B-reviewed-delivery\\B-reviewed-delivery.zip",
+    "bytes": 414436,
+    "sha256": "e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853",
+    "expected_sha256": "e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853",
+    "sha256_match": true,
+    "origin": "A 侧 main 提交 43b3c6f 的 deploy/B-reviewed-delivery.zip（在 B 上经 .tmp-repo clone 取得后复制，未使用 b 分支旧产物替代）",
+    "extracted_dir": "D:\\AutoAgentloop\\_incoming\\B-reviewed-delivery\\extracted",
+    "members": [
+      {
+        "file": "agent-autoloop-reviewed.zip",
+        "bytes": 409043,
+        "sha256": "d504e4876d07501e0a5288242a4575ae60dea685c1191c0598949bd9f9c99ebc",
+        "delivery_json_match": true
+      },
+      {
+        "file": "agent_result.mjs",
+        "bytes": 2441,
+        "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+        "delivery_json_match": true
+      },
+      {
+        "file": "delivery.json",
+        "bytes": 959,
+        "sha256": "199dc065c9791cc6e9d11252ff2fbfc36cc77f4653c49db6f4693e0d9cb12c21",
+        "delivery_json_match": null
+      },
+      {
+        "file": "install-b.mjs",
+        "bytes": 4460,
+        "sha256": "50b895e91b54093849dfb1ea8be7e170bc366178c4ea7203612a78618cca8e06",
+        "delivery_json_match": true
+      },
+      {
+        "file": "manifest.json",
+        "bytes": 32262,
+        "sha256": "5278f16e60725408f0cbe0e158e78f6657d7be501b7c77662572b4c474740ffe",
+        "delivery_json_match": true
+      },
+      {
+        "file": "README.md",
+        "bytes": 2943,
+        "sha256": "7f5617d130ade7289c6e3100f9156905831e0248847dc009ded922a3612e9694",
+        "delivery_json_match": true
+      },
+      {
+        "file": "verify-b.ps1",
+        "bytes": 2022,
+        "sha256": "a2fcc50777d8bf317312f7c8a3792641ddb9b45d80e9c6db73bc253a580da3ba",
+        "delivery_json_match": true
+      }
+    ],
+    "delivery_artifacts_verified": "6/6 与 delivery.json 记录逐字节一致"
+  },
+  "center_reachability": {
+    "url": "https://obconic-subtetanic-tamika.ngrok-free.dev",
+    "source": "A 的 evidence/handoff/A-to-B.md（main 2ed6c07）",
+    "probes": [
+      {
+        "at": "2026-11-05T09:41+08:00",
+        "path": "/healthz",
+        "result": "curl: (56) schannel: server closed abruptly，http=000，6.2s",
+        "verdict": "不可达（当时）"
+      },
+      {
+        "at": "2026-11-05T09:53:59+08:00",
+        "path": "/healthz",
+        "http": 200,
+        "time_s": 1.756,
+        "verdict": "可达"
+      },
+      {
+        "at": "2026-11-05T09:53:59+08:00",
+        "path": "/v1/work?claim=probe（无 Authorization）",
+        "http": 401,
+        "time_s": 1.628,
+        "verdict": "鉴权生效"
+      }
+    ],
+    "log": "evidence/deploy-b/center-probe-20261105T095359.log",
+    "note": "免费档 ngrok 域名会漂移；A 若重启隧道需重新给出地址，B 侧以 /healthz 200 + /v1/work 无键 401 作为接线判据。"
+  },
+  "environment_checks": [
+    {
+      "check": "node>=24",
+      "result": "v24.12.0 (C:\\Program Files\\nodejs\\node.exe)",
+      "pass": true
+    },
+    {
+      "check": "已有 config.json",
+      "result": "C:\\Users\\19082\\.agent-autoloop 不存在",
+      "pass": true
+    },
+    {
+      "check": "3350 监听",
+      "result": "本机无 TCP/UDP 监听",
+      "pass": true
+    },
+    {
+      "check": "hub 进程",
+      "result": "无 agent-autoloop/hub 进程（node 进程为 billion-context、codex artifact daemon、cua-repl、server.mjs，均非本项目）",
+      "pass": true
+    },
+    {
+      "check": "包哈希",
+      "result": "e0b4fb5b…94d853 与要求一致",
+      "pass": true
+    },
+    {
+      "check": "包内 6 项 artifact",
+      "result": "6/6 与 delivery.json 一致",
+      "pass": true
+    },
+    {
+      "check": "worker 身份文件",
+      "result": "B 上不存在；A 侧文件在 C:\\Users\\chs\\agent-autoloop-handoff\\b-magicbook14.worker.key",
+      "pass": false
+    },
+    {
+      "check": "codex 可执行",
+      "result": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe = codex-cli 0.130.0-alpha.5；PATH 无 codex",
+      "pass": true
+    },
+    {
+      "check": "claude 可执行",
+      "result": "C:\\Users\\19082\\.local\\bin\\claude.exe = 2.1.310",
+      "pass": true
+    },
+    {
+      "check": "pwsh",
+      "result": "不存在，仅有 Windows PowerShell 5.1.26100.9711",
+      "pass": false
+    }
+  ],
+  "guard_selftests": {
+    "guard_file": "D:\\AutoAgentloop\\evidence\\deploy-b\\install-b-when-ready.ps1",
+    "guard_sha256": "47d48e926ed8fe4ed3211ed238f907fd8d26dd3f2c88b02719f111b3d07f9f24",
+    "fixture_package_sha256": "12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71",
+    "cases_total": 22,
+    "cases_ok": 22,
+    "cases_bad": 0,
+    "result_json": "evidence/deploy-b/guard-selftest-v4.json",
+    "log_dir": "evidence/deploy-b/selftest-logs-v4/",
+    "driver": "_probe/run-guard-tests4.ps1",
+    "cases": [
+      {
+        "case": "happy",
+        "expected": "exit 0 + state",
+        "exit": 0,
+        "installer_started": true,
+        "state_written": true,
+        "done_printed": true,
+        "ok": true
+      },
+      {
+        "case": "happy-base-path",
+        "expected": "exit 0 + state",
+        "exit": 0,
+        "installer_started": true,
+        "state_written": true,
+        "done_printed": true,
+        "ok": true
+      },
+      {
+        "case": "verify-missing",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "verify-fail",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": true,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "package-hash-mismatch",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "receipt-empty",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": true,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "receipt-wrong-status",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": true,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "pre-install-hub",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "post-install-hub",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": true,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "installer-fail",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": true,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-localhost-dot",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-localhost",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-ipv6-loopback",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-ipv4-loopback",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-127-8",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-wildcard",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-ipv4-mapped",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-userinfo",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "center-not-absolute",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "existing-config",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "probe-without-selftest",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      },
+      {
+        "case": "bad-isolation",
+        "expected": "exit 2 + no state",
+        "exit": 2,
+        "installer_started": false,
+        "state_written": false,
+        "done_printed": false,
+        "ok": true
+      }
+    ]
+  },
+  "model_probes": {
+    "native_direct": [
+      {
+        "agent": "codex",
+        "cmd": "codex.exe exec --skip-git-repo-check -m deepseek-v4.1-flash-1017",
+        "native_exit": 0,
+        "log": "evidence/deploy-b/model-codex-20261104T232117.log"
+      },
+      {
+        "agent": "claude",
+        "cmd": "claude.exe -p --model deepseek-v4.1-flash-1017 --output-format json",
+        "native_exit": 0,
+        "session": "d4785a00-845a-41d0-b96b-ae6f65183c2c",
+        "log": "evidence/deploy-b/model-claude-20261104T232010.log"
+      }
+    ],
+    "package_verify_b_ps1_shipped": [
+      {
+        "agent": "codex",
+        "native_exit": 1,
+        "log": "evidence/deploy-b/verify-b-pkg/verify-codex-20261105T095623.log",
+        "root_causes": [
+          "verify-b.ps1:24 `$stdout = & $Executable @agentArgs 2> $stderrFile` 在 `$ErrorActionPreference='Stop'` 下把 codex 的 stderr（Reading additional input from stdin...）当 NativeCommandError，脚本中途终止，stdout 文件未生成",
+          "codex 在 Windows 下等待 stdin（无重定向）",
+          "codex 0.130 的沙箱子进程 taskkill 会把 GBK 文本写入继承的 stdout 句柄，进一步污染 JSONL"
+        ]
+      }
+    ],
+    "package_verify_b_equivalent_node": [
+      {
+        "agent": "codex",
+        "native_exit": 0,
+        "dropped_noise_lines": 3,
+        "passed": true,
+        "session": "01a1a972-5de2-7942-a34a-3d2ca382fff8",
+        "log": "evidence/deploy-b/verify-b-pkg/filtered-codex-20261105T100326.log",
+        "script": "evidence/deploy-b/verify-b-pkg/verify-b-node-filtered.mjs"
+      },
+      {
+        "agent": "claude",
+        "native_exit": 0,
+        "dropped_noise_lines": 0,
+        "passed": true,
+        "session": "7774a215-4c66-4217-bfa2-0115e6a4ab0a",
+        "log": "evidence/deploy-b/verify-b-pkg/filtered-claude-20261105T100643.log"
+      }
+    ],
+    "verdict": "模型通道在 B 上真实可用（两个模型都用包内 agent_result.mjs 判分通过）；但审核包自带的 verify-b.ps1 在 Windows 上无法直接通过，属包缺陷，不是 B 环境问题。"
+  },
+  "search": {
+    "collector": "evidence/deploy-b/collect-b-deploy.ps1",
+    "collector_sha256": "2e2e366a48e1385af049f217025bb6a7ebad7be60a908bd8e838d6df0ddd6404",
+    "facts_file": "evidence/deploy-b/facts-v6-20261105T100049.utf8.txt",
+    "roots": [
+      "C:\\Users\\19082",
+      "D:\\",
+      "F:\\"
+    ],
+    "patterns": [
+      "*reviewed*delivery*",
+      "install-b.mjs",
+      "verify-b.ps1",
+      "B-install-receipt*.json"
+    ],
+    "max_depth": 8,
+    "dirs_scanned": 86198,
+    "hits_total": 455,
+    "hits_real": 0,
+    "hits_received": 3,
+    "hits_clone": 1,
+    "hits_fixture": 451,
+    "hits_by_pattern": {
+      "*reviewed*delivery*": 3,
+      "B-install-receipt*.json": 53,
+      "install-b.mjs": 201,
+      "verify-b.ps1": 198
+    },
+    "access_errors": 12,
+    "access_errors_listed": "全部 12 条逐条列在 facts 文件里（Quark 浏览器 Data 子目录 9 条、D:\\System Volume Information、D:\\Config.Msi、D:\\$RECYCLE.BIN\\S-1-5-18）",
+    "omitted_dirs": 26148,
+    "omitted_reason": "reparse point 与超过 depth=8 的目录，逐条打印 UNSEARCHED_*",
+    "conclusion": "除 B 自己收到的 _incoming 副本、A 仓库克隆与自测夹具外，本机业务目录中没有审核包或安装脚本的第三份副本；不据此断言全机不存在。"
+  },
+  "blocked_inputs_needed_from_a": [
+    {
+      "id": "B-IN-1",
+      "item": "b-magicbook14 的 worker 身份文件（43 字符 base64url，A 侧 sha256 a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f）",
+      "why": "install-b.mjs 第 1 步校验 key 文件非空，并把它写入 config.json",
+      "how": "私密通道交付，不经过聊天/日志/Git；B 只记文件 sha256"
+    },
+    {
+      "id": "B-IN-2",
+      "item": "A 侧把 command[0] 从裸 codex 改为 B 的绝对路径，或 A 侧升级 codex 到 0.166",
+      "why": "B 的 PATH 无 codex（首任务会 spawn ENOENT）；且 0.130.0-alpha.5 在 A 侧会 400 model_not_found",
+      "how": "A 改 rules.json 的 b-magicbook14 command"
+    },
+    {
+      "id": "B-IN-3",
+      "item": "A 侧登记确认：worker 名 b-magicbook14 / 模型 deepseek-v4.1-flash-1017 / cwd D:\\AutoAgentloop",
+      "why": "与 B 实际一致才接得上；A.md 目前只登记 desktop-lm7rki1",
+      "how": "A 在 rules.json / A.md 登记后回传快照"
+    }
+  ],
+  "cross_machine_tests": [
+    {
+      "id": "T1",
+      "name": "派发→执行→回传",
+      "verified": false
+    },
+    {
+      "id": "T2",
+      "name": "临时目录改文件 + 检查 + 回传",
+      "verified": false
+    },
+    {
+      "id": "T3",
+      "name": "同会话第二轮（核对会话号）",
+      "verified": false
+    },
+    {
+      "id": "T4",
+      "name": "取消任务后进程退出",
+      "verified": false
+    },
+    {
+      "id": "T5",
+      "name": "短暂断线重连 + 执行端重启后的状态与不重复执行",
+      "verified": false
+    },
+    {
+      "id": "T6",
+      "name": "登录启动入口（注销前需用户确认）",
+      "verified": false
+    }
+  ],
+  "counts": {
+    "unverified_inputs": 3,
+    "unverified_cross_machine": 6,
+    "unverified_total": 9
+  },
+  "review_response": [
+    {
+      "id": "FAIL-1",
+      "claim": "缺 verify 时安装器仍执行",
+      "fix": "guard v4 步骤 7 把 verify 预检提到安装之前（AST 解析必需参数 + agent_result.mjs 存在/可解析）；自测 verify-missing 用例 exit 2、installer_started=false"
+    },
+    {
+      "id": "FAIL-2",
+      "claim": "安装后未重查 hub",
+      "fix": "步骤 10 新增安装后现场复查；post-install-hub 用例 exit 2 且不打印 DONE"
+    },
+    {
+      "id": "FAIL-3",
+      "claim": "localhost. 被放行",
+      "fix": "Normalize-Host 循环 TrimEnd('.') + 小写；center-localhost-dot 用例 exit 2"
+    },
+    {
+      "id": "FAIL-4",
+      "claim": "采集器只留 5 条错误、未区分夹具",
+      "fix": "错误全部逐条输出（本次 12 条）；新增 FIXTURE_HIT/RECEIVED_HIT/CLONE_HIT/HIT 分类与 HITS_BY_PATTERN/HIT_KIND_TOTALS"
+    },
+    {
+      "id": "FAIL-7",
+      "claim": "递归清单 32 文件只列 20 项、状态 JSON 自哈希错",
+      "fix": "改为生成物 evidence/deploy-b/MATERIALS.sha256（全量递归、可复算）+ B.md §11 只引用生成文件与其项数；状态 JSON 不再包含自身哈希"
+    },
+    {
+      "id": "P1-a",
+      "claim": "生产参数可覆盖固定包哈希",
+      "fix": "哈希写成脚本内硬常量 $EXPECTED_PACKAGE_SHA256，删除 -ExpectedSha256 形参"
+    },
+    {
+      "id": "P1-b",
+      "claim": "空回执 {} 仍写成功状态",
+      "fix": "回执逐字段契约校验（machine/worker/package_sha256/status/model_verified/cross_network_task_verified/pid/app），任一不符 exit 2；receipt-empty 用例列出全部坏字段"
+    },
+    {
+      "id": "P1-c",
+      "claim": "调 verify 未传必需参数",
+      "fix": "步骤 11 传 -Agent codex -Executable <绝对路径> -Model deepseek-v4.1-flash-1017 -OutputDirectory <临时目录>"
+    }
+  ],
+  "boundaries": {
+    "second_center_created": false,
+    "a_admin_identity_reused": false,
+    "a_ledger_modified": false,
+    "a_login_files_copied": false,
+    "public_port_opened": false,
+    "branch_or_worktree_created": false,
+    "secrets_in_chat_log_report_or_git": false,
+    "real_business_project_modified": false,
+    "real_home_touched": false,
+    "note": "自测全部在 %TEMP%\\b-round3-* 隔离根 + 假 HOME 下完成；真实 C:\\Users\\19082\\.agent-autoloop 始终不存在。"
+  },
+  "caveats": [
+    "本状态文件不含自身 sha256（自哈希会自指失效）；其哈希记录在 evidence/deploy-b/MATERIALS.sha256 与 evidence/deployment/B.md §11。",
+    "未执行的 6 项联调与 3 项输入都标为未验证，不按通过计。",
+    "包自带的 verify-b.ps1 在 Windows 上不可直接通过，B 用等价 Node 实现（同一 agent_result.mjs 判分）证明模型通道可用，差异与根因写在 evidence/deployment/B.md §6。"
+  ]
+}

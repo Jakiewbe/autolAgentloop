@@ -1,0 +1,2 @@
+{"agent":"codex","native_exit":0,"stdout_file":"node-run-codex-20261105T100102\\model.stdout.jsonl","stdout_bytes":629,"stderr_bytes":39}
+{"agent":"codex","expected":"AGENT_VERIFY_27b32272ebb241ca894bbf2d6e52dc55","passed":false,"error":"Unexpected token '�', \"�ɹ�: ����ֹ\"... is not valid JSON"}

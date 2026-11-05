@@ -1,0 +1,84 @@
+﻿agent codex: on_path=(absent)
+  found: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe size=245812016 mtime=05/10/2026 01:18:41
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex-command-runner.exe mtime=05/08/2026 04:58:37
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex-windows-sandbox-setup.exe mtime=05/10/2026 01:18:38
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe mtime=05/10/2026 01:18:41
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\node.exe mtime=04/25/2026 12:58:13
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\node_repl.exe mtime=05/08/2026 04:58:43
+  sibling: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\rg.exe mtime=04/25/2026 12:58:14
+agent opencode: on_path=C:\Users\19082\AppData\Roaming\npm\opencode.ps1
+agent claude: on_path=C:\Users\19082\.local\bin\claude.exe
+  found: C:\Users\19082\.local\bin\claude.exe size=296791712 mtime=10/25/2026 12:57:30
+  sibling: C:\Users\19082\.local\bin\claude.exe mtime=10/25/2026 12:57:30
+  sibling: C:\Users\19082\.local\bin\python3.14.exe mtime=05/03/2026 11:53:11
+  sibling: C:\Users\19082\.local\bin\uv.exe mtime=04/27/2026 12:42:34
+  sibling: C:\Users\19082\.local\bin\uvw.exe mtime=04/27/2026 12:42:40
+  sibling: C:\Users\19082\.local\bin\uvx.exe mtime=04/27/2026 12:42:46
+agent dsh: on_path=(absent)
+--- 用户级 Agent 配置目录（仅名字与大小，不读内容）
+dir C:\Users\19082\.codex :
+  .sandbox <dir>
+  .sandbox-bin <dir>
+  .sandbox-secrets <dir>
+  .tmp <dir>
+  ambient-suggestions <dir>
+  attachments <dir>
+  automations <dir>
+  backups <dir>
+  bin <dir>
+  browser <dir>
+  cache <dir>
+  codex-electron-profile-clean <dir>
+  codex-rules <dir>
+  computer-use <dir>
+  computer-use-turn-ended <dir>
+  dictation-history <dir>
+  log <dir>
+  memories <dir>
+  node_repl <dir>
+  pets <dir>
+  plans <dir>
+  plugins <dir>
+  process_manager <dir>
+  project-metadata-locks <dir>
+  rollout-migrations <dir>
+dir C:\Users\19082\.claude :
+  .bak-20261025-125627 <dir>
+  backups <dir>
+  cache <dir>
+  debug <dir>
+  downloads <dir>
+  file-history <dir>
+  ide <dir>
+  paste-cache <dir>
+  plugins <dir>
+  projects <dir>
+  session-env <dir>
+  sessions <dir>
+  shell-snapshots <dir>
+  skills <dir>
+  state <dir>
+  .last-cleanup 24
+  .last-update-result.json 161
+  CLAUDE.md 777
+  history.jsonl 73219
+  settings.json 5928
+  settings.json.bak-1793101116996-pre-auto 6134
+  settings.local.json 43
+  statusline.ps1 948
+dir C:\Users\19082\.opencode : (absent)
+dir C:\Users\19082\.dsh :
+  .agent-presets <dir>
+  attachments <dir>
+  dsh-ops <dir>
+  dsh-purge <dir>
+  llm-deepseek <dir>
+  profiles <dir>
+  redteam <dir>
+  sessions <dir>
+  storages <dir>
+  .anonymous-user-id 37
+  .credentials.yaml 559
+  prompt-inject.md 25127
+dir C:\Users\19082\.agent-autoloop : (absent)
+

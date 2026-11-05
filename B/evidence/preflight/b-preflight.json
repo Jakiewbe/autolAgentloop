@@ -1,0 +1,152 @@
+{
+  "schema": "dsh-b-preflight/1",
+  "machine": {
+    "hostname": "Magicbook14-zz",
+    "domain": "MAGICBOOK14-ZZ",
+    "user": "chs",
+    "home": "C:\\Users\\19082",
+    "os": "Windows 11 Home China 10.0.26200 build 26200",
+    "locale": "zh-CN",
+    "tz": "Asia/Shanghai (+08:00)",
+    "codepage": 936
+  },
+  "disks": {
+    "C": {
+      "total_gb": 120,
+      "free_gb": 7.2,
+      "warn": "low"
+    },
+    "D": {
+      "total_gb": 343.2,
+      "free_gb": 61.5
+    },
+    "F": {
+      "total_gb": 24,
+      "free_gb": 16.1
+    }
+  },
+  "policy": {
+    "execution_policy": "RemoteSigned",
+    "long_paths_enabled": 0,
+    "git_core_longpaths": null,
+    "git_autocrlf": null
+  },
+  "power": {
+    "standby_s0": true,
+    "hibernate": true,
+    "fast_startup": true,
+    "standby_idle_ac": 0,
+    "standby_idle_dc": 0,
+    "note": "S0 待机会断开网络；合盖动作未取得"
+  },
+  "entries": {
+    "node": "C:\\Program Files\\nodejs\\node.exe (v24.12.0)",
+    "git": "/ucrt64/bin/git (2.56.0.windows.2), alt /d/Git/cmd/git",
+    "python": "C:\\Users\\19082\\AppData\\Local\\Programs\\Python\\Python312\\python.exe (3.12.2)",
+    "codex": [
+      "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe (0.130.0-alpha.5)",
+      "C:\\Users\\19082\\.codex\\.sandbox-bin\\codex.exe (0.164.0-alpha.11.1)"
+    ],
+    "claude": "C:\\Users\\19082\\.local\\bin\\claude.exe (2.1.310)",
+    "opencode": "C:\\Users\\19082\\AppData\\Roaming\\npm\\opencode.cmd (1.17.13)",
+    "dsh_cli": "D:\\DPH\\resources\\runtime\\cli\\bin\\dsh.cmd (0.2.1-rc.3)",
+    "dsh_desktop": "D:\\DPH\\DeepSeek Harness.exe",
+    "powershell": "5.1.26100.9711 (pwsh NOT installed)"
+  },
+  "model_channels": {
+    "cliproxyapi:8317": {
+      "used_by": [
+        "codex",
+        "claude"
+      ],
+      "upstream": "https://opencode.ai/zen/go/v1",
+      "default_codex_model": "gpt-6.1-sol",
+      "verified_working_model": "deepseek-v4.1-flash-1017",
+      "default_model_status": "429 model_cooldown reset_seconds=401826"
+    },
+    "opencode direct": {
+      "status": "unavailable",
+      "evidence": "raw/opencode-run*.log"
+    },
+    "dsh headless": {
+      "status": "works_with_env_plus_patch",
+      "evidence": "raw/dsh-headless-patched-20261104T174544.log"
+    }
+  },
+  "credentials_state": {
+    "OPENCODE_GO_API_KEY": "in ~/.dsh/.credentials.yaml refs only; not in User/Machine env",
+    "DEEPSEEK_API_KEY": "unset",
+    "ANTHROPIC_AUTH_TOKEN": "configured in ~/.claude/settings.json",
+    "note": "未导出任何密钥内容"
+  },
+  "autostart": {
+    "cliproxy_task": "\\CLIProxyAPI logon-trigger Interactive Limited, LastResult=0",
+    "dsh": "none (HKCU Run empty, Startup empty)"
+  },
+  "network": {
+    "wlan": "172.17.18.197/18",
+    "gateway": "172.17.0.1",
+    "meta_tunnel": "198.18.0.1/30",
+    "outbound": {
+      "direct_github": "200 in 1.68s",
+      "via_7897": "200 in 1.86s"
+    },
+    "vpn_clients": "none (tailscale/zerotier/wireguard/openvpn absent)",
+    "sshd": "absent",
+    "cloudflared": "PATH dir exists but empty"
+  },
+  "projects": [
+    {
+      "dir": "D:\\Virtuals\\projects\\q",
+      "head": "0eef732",
+      "remote": "Jakiewbe/Virtualsalpha.git",
+      "dirty": 0,
+      "unique_work": "4 local codex/* branches not on remote (worktrees)"
+    },
+    {
+      "dir": "D:\\Hactk\\honor-hackintosh-lab",
+      "head": "cef885e",
+      "remote": "Jakiewbe/honor-hackintosh-lab.git",
+      "dirty": 0,
+      "note": "tracking ref stale; remote main=1fd2a6e"
+    },
+    {
+      "dir": "D:\\Hactk\\g1-stock-20261020",
+      "head": "c68c73b",
+      "remote": "Jakiewbe/honor-hackintosh-lab.git",
+      "dirty": 107,
+      "unique_work": "uncommitted work only here; push status undetermined"
+    },
+    {
+      "dir": "D:\\Hactk\\gpu-r5-20261017\\src",
+      "head": "2b6828b",
+      "remote": null,
+      "dirty": 0,
+      "unique_work": "no remote at all"
+    },
+    {
+      "dir": "D:\\Hactk\\g1-stock-work\\usb-repo",
+      "remote": "file:///D:/Hactk/g1-stock-20261020",
+      "dirty": 0,
+      "unique_work": "local-only clone chain"
+    },
+    {
+      "dir": "D:\\Hactk\\g1-stock-work\\nm-cand",
+      "remote": "NullMoth/nvidia-macos-driver.git",
+      "dirty": 639
+    },
+    {
+      "dir": "D:\\CLIProxyAPI",
+      "head": "5afc0f1d",
+      "remote": "router-for-me/CLIProxyAPI.git",
+      "dirty": 21
+    }
+  ],
+  "blockers": [
+    "B1 codex default model cooldown 401826s",
+    "B2 OPENCODE_GO_API_KEY not in env",
+    "B3 no cross-network link",
+    "B4 opencode upstream unavailable",
+    "B5 C: free space 7.2GB"
+  ]
+}

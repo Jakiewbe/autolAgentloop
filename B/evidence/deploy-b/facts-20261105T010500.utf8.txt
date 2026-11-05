@@ -1,0 +1,52 @@
+﻿== collected_at ==
+2026-11-05T00:35:23+08:00
+== script ==
+collect-b-deploy.ps1 v2 | sha256 3A947AEF2FA2123CC727E5BBCFD9953086BC6902445DD92A3867076753E0FFC2
+== host_user ==
+MAGICBOOK14-ZZ | chs | MAGICBOOK14-ZZ
+== os ==
+Microsoft Windows 11 Home China | 10.0.26200 | build 26200 | 64-bit
+== node ==
+node v24.12.0 | C:\Program Files\nodejs\node.exe
+== npm_git_curl ==
+npm 11.6.2
+git version 2.56.0.windows.2
+curl_powershell_absent (bash curl 可能仍可用，见 bash 侧证据)
+== shells ==
+powershell 5.1.26100.9711
+pwsh_absent
+== existing_agent_autoloop_home ==
+absent: C:\Users\19082\.agent-autoloop
+== listener_3350_all_protocols ==
+no_listener_on_3350
+ipv6_listener_3350: 0
+== node_processes ==
+14580 ppid=14172 "C:\Program Files\nodejs\node.exe" C:\Users\19082\.dsh\profiles\desktop\node_modules\billion-context\dist\index.js start --host 127.0.0.1 --port 18787
+12740 ppid=19748 C:\Users\19082\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe C:\Users\19082\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\node_modules\@oai\artifact-tool\dist\artifact-session\host-daemon.mjs
+12828 ppid=11528 "C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node.exe" --import file:///C:/Users/19082/.codex/plugins/cache/openai-bundled/unified-computer-use/26.1029.61003/require-browser-access.mjs C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node_modules\@oai\cua-repl\bin\cua-repl.mjs
+16684 ppid=4784 "C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node.exe"  ./server.mjs
+== hub_candidates ==
+candidate pid=16684 cmd="C:\Users\19082\AppData\Local\OpenAI\Codex\runtimes\cua_node\9c26d707817e90a7\bin\node.exe"  ./server.mjs
+== agent_cli ==
+claude_present: C:\Users\19082\.local\bin\claude.exe | 2.1.310 (Claude Code)
+codex_present: C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe | codex-cli 0.130.0-alpha.5
+== install_artifacts_search_v2 ==
+expected_sha256: e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853
+roots: C:\Users\19082 ; C:\Users\19082\Downloads ; C:\Users\19082\Desktop ; C:\Users\19082\Documents ; D:\ ; F:\
+patterns: reviewed.*delivery | install-b\.mjs | verify-b\.ps1 | B-install-receipt.*\.json ; max_depth 8 ; 自写遍历器，逐目录 catch
+root: C:\Users\19082 | hits 0 | access_errors 29 | dirs_scanned 41096 | elapsed_ms 96082
+root: C:\Users\19082\Downloads | hits 0 | access_errors 0 | dirs_scanned 40 | elapsed_ms 40
+root: C:\Users\19082\Desktop | hits 0 | access_errors 0 | dirs_scanned 14445 | elapsed_ms 25269
+root: C:\Users\19082\Documents | hits 0 | access_errors 3 | dirs_scanned 3064 | elapsed_ms 4273
+root: D:\ | hits 0 | access_errors 4 | dirs_scanned 50247 | elapsed_ms 46778
+root: F:\ | hits 0 | access_errors 0 | dirs_scanned 1649 | elapsed_ms 5561
+  stat_error: C:\Users\19082\.qclaw\skills\tencentmap-jsapi-gl-skill\references\jsapigl\demos\多边形与3D棱柱_多边形选中高亮显示. :: 使用“1”个参数调用“GetAttributes”时发生异常:“未能找到文件“C:\Users\19082\.qclaw\skills\tencentmap-jsapi-gl-skill\references\jsapigl\demos\多边形与3D棱柱_多边形选中高亮显示”。”
+  access_error: C:\Users\19082\AppData\Local\Application Data :: 使用“1”个参数调用“EnumerateFileSystemEntries”时发生异常:“对路径“C:\Users\19082\AppData\Local\Application Data”的访问被拒绝。”
+  access_error: C:\Users\19082\AppData\Local\History :: 使用“1”个参数调用“EnumerateFileSystemEntries”时发生异常:“对路径“C:\Users\19082\AppData\Local\History”的访问被拒绝。”
+  access_error: C:\Users\19082\AppData\Local\Microsoft\Windows\INetCache\Content.IE5 :: 使用“1”个参数调用“EnumerateFileSystemEntries”时发生异常:“对路径“C:\Users\19082\AppData\Local\Microsoft\Windows\INetCache\Content.IE5”的访问被拒绝。”
+  access_error: C:\Users\19082\AppData\Local\Microsoft\Windows\Temporary Internet Files :: 使用“1”个参数调用“EnumerateFileSystemEntries”时发生异常:“对路径“C:\Users\19082\AppData\Local\Microsoft\Windows\Temporary Internet Files”的访问被拒绝。”
+search_summary: hits 0 ; dirs_scanned 110541 ; access_errors 36
+no_install_artifact_found_in_scanned_roots (roots/patterns/depth 见上，覆盖范围可复核)
+== hash_scan_of_hits ==
+skipped (no hit to hash)
+== done ==

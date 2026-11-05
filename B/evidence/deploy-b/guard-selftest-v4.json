@@ -1,0 +1,235 @@
+{
+    "schema":  "b-guard-selftest/4",
+    "generated_at":  "2026-11-05T09:51:31.2419572+08:00",
+    "guard_sha256":  "47d48e926ed8fe4ed3211ed238f907fd8d26dd3f2c88b02719f111b3d07f9f24",
+    "fixture_package_sha256":  "12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71",
+    "cases_total":  22,
+    "cases_ok":  22,
+    "cases_bad":  0,
+    "cases":  [
+                  {
+                      "case":  "happy",
+                      "expected":  "exit 0 + state",
+                      "exit":  0,
+                      "installer_started":  true,
+                      "state_written":  true,
+                      "done_printed":  true,
+                      "stop_line":  {
+
+                                    },
+                      "ok":  true
+                  },
+                  {
+                      "case":  "happy-base-path",
+                      "expected":  "exit 0 + state",
+                      "exit":  0,
+                      "installer_started":  true,
+                      "state_written":  true,
+                      "done_printed":  true,
+                      "stop_line":  {
+
+                                    },
+                      "ok":  true
+                  },
+                  {
+                      "case":  "verify-missing",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 包内缺 verify-b.ps1：安装器未启动，现场未改动",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "verify-fail",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  true,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: verify-b.ps1 退出非零",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "package-hash-mismatch",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 审核包哈希不匹配",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "receipt-empty",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  true,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 回执契约不满足：machine,worker,package_sha256,status,model_verified,cross_network_task_verified,pid,app",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "receipt-wrong-status",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  true,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 回执契约不满足：status",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "pre-install-hub",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 安装前已存在 3350 监听",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "post-install-hub",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  true,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 安装后发现 hub，疑似第二个中心",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "installer-fail",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  true,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 安装器退出非零",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-localhost-dot",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为回环主机名：localhost",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-localhost",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为回环主机名：localhost",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-ipv6-loopback",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为回环 IP：::1",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-ipv4-loopback",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为回环 IP：127.0.0.1",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-127-8",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为回环 IP：127.5.5.5",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-wildcard",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为通配 IP：0.0.0.0",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-ipv4-mapped",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址为回环 IP：127.0.0.1",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-userinfo",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址含内嵌凭据/查询/片段",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "center-not-absolute",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 中心地址不是绝对 URL",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "existing-config",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 已存在 config.json，保留现场",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "probe-without-selftest",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 真实模式禁止模拟探针",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "bad-isolation",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "stop_line":  "STOP: 隔离模拟边界不满足",
+                      "ok":  true
+                  }
+              ]
+}

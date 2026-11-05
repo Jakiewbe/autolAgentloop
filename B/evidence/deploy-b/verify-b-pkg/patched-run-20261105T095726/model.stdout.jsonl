@@ -1,0 +1,7 @@
+{"type":"thread.started","thread_id":"01a1a96c-e300-7072-964e-8ec2307784c6"}
+{"type":"turn.started"}
+{"type":"item.completed","item":{"id":"item_0","type":"agent_message","text":"AGENT_VERIFY_8598009c208a4590b4329b0d61860594"}}
+{"type":"turn.completed","usage":{"input_tokens":129667,"cached_input_tokens":0,"output_tokens":24,"reasoning_output_tokens":0}}
+成功: 已终止 PID 10780 (属于 PID 25108 子进程)的进程。
+成功: 已终止 PID 11172 (属于 PID 30112 子进程)的进程。
+成功: 已终止 PID 30112 (属于 PID 25108 子进程)的进程。

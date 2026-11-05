@@ -1,0 +1,8 @@
+[00:30:56] install-b-when-ready.ps1 v2 | selftest=False | worker=b-magicbook14
+[00:30:56] root=D:\AutoAgentloop
+[00:30:56] node=v24.12.0 major=24
+[00:30:56] config: 无既有配置（可继续）| C:\Users\19082\.agent-autoloop\config.json
+[00:30:56] STOP: 审核包不存在
+[00:30:56] detail: D:\AutoAgentloop\_incoming\NOPE.zip
+[00:30:56] no_state_written=true
+[00:30:56] next: 补齐输入或清理现场后重试；本脚本不删文件、不改既有配置

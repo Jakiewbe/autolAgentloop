@@ -1,0 +1,8 @@
+Start-Process : 无法运行此命令，因为参数“RedirectStandardInput 'C:\WINDOWS\System32\NUL'”具有无效的值或不适用于此命令
+。请指定一个有效输入，然后再次运行此命令。
+所在位置 D:\AutoAgentloop\evidence\deploy-b\verify-b-pkg\patched-verify-b.ps1:28 字符: 7
++ $sp = Start-Process -FilePath $Executable -ArgumentList $quotedArgs - ...
++       ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : InvalidOperation: (:) [Start-Process]，FileNotFoundException
+    + FullyQualifiedErrorId : FileNotFoundException,Microsoft.PowerShell.Commands.StartProcessCommand
+ 

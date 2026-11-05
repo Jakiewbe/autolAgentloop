@@ -1,0 +1,15 @@
+[00:30:34] install-b-when-ready.ps1 v2 | selftest=True | worker=b-magicbook14
+[00:30:34] root=D:\AutoAgentloop
+[00:30:34] node=v24.12.0 major=24
+[00:30:34] config: 无既有配置（可继续）| C:\Users\19082\AppData\Local\Temp\b-install-selftest-home-20261105T003034679\config.json
+[00:30:34] package=C:\Users\19082\AppData\Local\Temp\b-install-selftest-20261105T003034679\sim-package.zip sha256=8739c76e681f900923b900c9df0ef75cf421d39cabb54650c4b9ad19b6a76d85
+[00:30:34] worker_key_file=C:\Users\19082\AppData\Local\Temp\b-install-selftest-20261105T003034679\sim-worker.key.json bytes=2 (内容不打印)
+[00:30:34] center_url=https://center.example.invalid:3350 accepted
+[00:30:36] listeners_3350=0
+[00:30:37] hub_candidates=0
+[00:30:37] unpack_dir=C:\Users\19082\AppData\Local\Temp\b-install-selftest-20261105T003034679
+[00:30:37] selftest: 跳过真实安装，写桩回执
+[00:30:37] selftest: verify 模拟结果=pass exit=0
+[00:30:38] post_listeners_3350=0
+[00:30:38] state_written: C:\Users\19082\AppData\Local\Temp\b-install-selftest-20261105T003034679\install-b-state-20261105T003034679.json
+[00:30:38] DONE: 部署与验证均通过，未发现第二中心

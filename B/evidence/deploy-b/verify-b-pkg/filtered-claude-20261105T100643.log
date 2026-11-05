@@ -1,0 +1,3 @@
+{"agent":"claude","native_exit":0,"stdout_file":"filtered-run-claude-20261105T100643\\model.stdout.jsonl","stdout_bytes":1669,"stderr_bytes":91}
+{"agent":"claude","dropped_lines":0,"dropped_samples":[]}
+{"agent":"claude","expected":"AGENT_VERIFY_62ec7087384042cabb664b102a474a8f","passed":true,"session":"7774a215-4c66-4217-bfa2-0115e6a4ab0a"}

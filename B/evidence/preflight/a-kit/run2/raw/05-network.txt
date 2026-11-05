@@ -1,0 +1,80 @@
+﻿--- 适配器
+if=47 alias=vEthernet (WSL (Hyper-V firewall)) ipv4=172.20.224.1 gw=
+if=4 alias=Meta ipv4=198.18.0.1 gw=198.18.0.2
+if=8 alias=WLAN ipv4=172.17.18.197 gw=172.17.0.1
+if=14 alias=以太网 ipv4=169.254.224.8 gw=
+--- 默认路由
+gw=198.18.0.2 if=Meta metric=0
+gw=172.17.0.1 if=WLAN metric=0
+--- DNS
+Meta: 198.18.0.2
+WLAN: 114.114.114.114,8.8.8.8
+--- 私网/VPN/隧道组件（进程）
+
+ProcessName            Id
+-----------            --
+clash-verge         22048
+clash-verge-service  5316
+GameViewer          16860
+GameViewerHealthd    8596
+GameViewerServer     8488
+GameViewerService    6024
+verge-mihomo        22220
+
+
+
+--- 服务
+
+--- 已安装远程/隧道软件
+
+--- 监听端口（非 loopback）
+
+LocalAddress  LocalPort OwningProcess
+------------  --------- -------------
+::                   53         22220
+::                  135          2028
+0.0.0.0             135          2028
+172.17.18.197       139             4
+172.20.224.1        139             4
+198.18.0.1          139             4
+::                  445             4
+::                 1198          1680
+0.0.0.0            1198          1680
+0.0.0.0            5040         13424
+172.17.18.197      5294         10248
+172.17.18.197      7674         10248
+172.17.18.197      7677          8488
+::                 7680         23688
+::                 7897         22220
+198.18.0.1         7908          8488
+0.0.0.0            7910          8488
+172.17.18.197      8912         10248
+172.17.18.197      8915         10248
+0.0.0.0           10807          5232
+198.18.0.1        14083         22220
+::                49664          1732
+0.0.0.0           49664          1732
+::                49665          1564
+0.0.0.0           49665          1564
+0.0.0.0           49666          2696
+::                49666          2696
+0.0.0.0           49667          3840
+::                49667          3840
+::                49668          4976
+0.0.0.0           49668          4976
+
+
+
+--- 出网
+egress_failed: 远程服务器返回错误: (429) Too Many Requests。
+--- 防火墙配置文件
+
+Name    Enabled DefaultInboundAction DefaultOutboundAction
+----    ------- -------------------- ---------------------
+Domain    False        NotConfigured         NotConfigured
+Private   False        NotConfigured         NotConfigured
+Public     True        NotConfigured         NotConfigured
+
+
+
+
