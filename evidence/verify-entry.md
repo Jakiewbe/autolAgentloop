@@ -58,7 +58,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File deploy/B-reviewed/verify-b.p
 
 **结论口径**：01/02 证明「输入不合法就不发起调用」，且 `invoked:false` 可核对；03/04/07/15 证明「跑完了但结果不合格，绝不返回成功」；16 证明「已经发起过」绝不冒充「输入错误」；11 证明「真实成功时保存原生退出码、完整输出、判分结果」；05/06/09/14 证明 stdin、参数、空格路径、默认输出目录；10/12 证明失败被原样报出，没有被入口吞掉。
 
-复跑方式：`bash tools/checks/verify_entry_matrix.sh`（桩用例）或 `bash tools/checks/verify_entry_matrix.sh --with-network`（追加 10/11 真实 codex，标 A 本机）。13 项（含 10/11）本轮全部按期望退出码通过，逐项记录在各自目录的 `result.txt`。
+复跑方式：`bash tools/checks/verify_entry_matrix.sh`（桩用例）或 `bash tools/checks/verify_entry_matrix.sh --with-network`（追加 10/11 真实 codex，标 A 本机）。14 个用例（01–16，缺 08 编号；含真实模型的 10/11）本轮全部命中期望退出码，逐项记录在各自目录的 `result.txt`。
 
 ## 4. 判分器的口径（未改，供 B 对齐）
 
@@ -78,7 +78,7 @@ claude: 最后一条 result 必须 subtype==="success" 且 is_error 为假
 
 ## 5. A 已验 / 仍需 B 验
 
-A 已验：上面 15 项（01–16，缺 08 编号），全在本机 Windows PowerShell 5.1 真实执行。
+A 已验：上面 14 个用例（01–16，缺 08 编号），全在本机 Windows PowerShell 5.1 真实执行。
 
 仍需 B 实机：
 
@@ -104,7 +104,7 @@ A 已验：上面 15 项（01–16，缺 08 编号），全在本机 Windows Pow
 | 3 | 缺 `-Model` 实际退出 1，与契约写的 2 矛盾（`evidence/verify-entry.md:42`） | 弃用 `[Parameter(Mandatory)]`/`[ValidateSet]`（PS 绑定失败恒为 exit 1，与「判分失败」撞车），改为入口自己校验：缺参/取值非法 → 打印 `stage:input, invoked:false` 的 JSON 并 exit 2 | `tests/01`：exit **2**；无参数直接调用也是 exit 2 |
 | 4 | 第 14 项产物只在临时目录；README:104「令牌不符已测」引用的 06 实际是通过用例 | 第 14 项改为在仓库内 `evidence/raw/verify-entry/default-run/with space/` 执行，产物归档到 `evidence/raw/verify-entry/tests/14/verification-output/`；新增 `tests/15`（合法 JSONL + 最终文本 = 令牌 + 后缀）真正覆盖「令牌不符」，README 改指向 15 | `tests/14/verification-output/`（含 `verify-result.json`）；`tests/15` `judgeError: 实际最终回复与检查标识不一致`；README §5 表格已改 |
 
-配套：`tools/checks/verify_entry_matrix.sh` 把上面所有场景脚本化（`--with-network` 追加 10/11），每条产出 `result.txt`（title/expected/actual/verdict）与 `console.log`，本轮 13 次执行全部命中期望退出码。
+配套：`tools/checks/verify_entry_matrix.sh` 把上面所有场景脚本化（`--with-network` 追加 10/11），每条产出 `result.txt`（title/expected/actual/verdict）与 `console.log`，本轮 14 个用例全部命中期望退出码（`console.log` + `result.txt` 逐项可判）。
 
 ### 6.1 v1（提交 ea76351 / 128c1b3）的字节，供追溯
 
