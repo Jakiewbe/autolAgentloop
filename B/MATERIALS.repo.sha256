@@ -15,6 +15,7 @@
 1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721  B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stderr.log
 1bec61bdc5b46a982fe62b657ffb80182337989530f221a949307b4ea5b7e4e8  B/evidence/preflight/verify-runs/verify-full-20261104T215415.log
 1ced3648118c01fc6646dd206f8c20c3c9ea1b5cb641dc5d50b88e66657750ee  B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095709.log
+1d53b1e32d69ec241c41a895a7d898cb66a9fe9fb8889336f92e7195caea8366  B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219.log
 23fce7009678bed7330472e787aae414d3f82efa0b7dc7d2e639b9995a2028aa  B/evidence/preflight/raw/run-dsh-headless2.sh
 248cc8b6dafa2102a61b1d8c2ea559e8279d21fc3dd6b60ce558dc93411d6f22  B/evidence/deploy-b/env-20261104T232131.log
 283933a0ce42c6b775f3c5aae830360e9b4512d382e996c8918bdf258aba6b17  B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stdout.jsonl
@@ -50,6 +51,7 @@
 7cffc7636829c54e23f486c31d79406ec01dcd58084da9d42505112eea072092  B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.jsonl
 7d01f89c3418c5a45e0200325404aed8e85a3e5b32c17d349da3c1fc40b08c10  B/evidence/preflight/a-kit/run/raw/01-system.txt
 7e422f6f3cac422ead9263cf21efc482c224dee31a280f5ba963d04951bc8a78  B/evidence/preflight/raw/codex-alt-20261104T174035.log
+7ebd2f5ebce7889f04de1fbbd146ce1dda6816fe49b1fd1d06f9b95d119e1fec  B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stderr.log
 83a5f14b3ebff90ca58eb29636e4bc6112cf037b72800a2dd7d27941ee2a9943  B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.jsonl
 85af2e305edf3ac01c7f657aad04a68091b9774d13688e007ae032199c9e72e1  B/evidence/preflight/a-kit/run/raw/03-agents.txt
 85af2e305edf3ac01c7f657aad04a68091b9774d13688e007ae032199c9e72e1  B/evidence/preflight/a-kit/run2/raw/03-agents.txt
@@ -113,6 +115,8 @@ dd9e156a132976bfcd121dd94a9823230f8699ae6cd47d1cd80fda7740599ff2  B/evidence/pre
 dd9e156a132976bfcd121dd94a9823230f8699ae6cd47d1cd80fda7740599ff2  B/evidence/preflight/a-kit/run2/raw/06-autostart.txt
 e13116c887cb0f52881543157f68f5d3918f29e4c3f9742e4788134796e501f9  B/evidence/preflight/a-kit/run/raw/07-projects.txt
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/stdin-empty.txt
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.filtered.jsonl
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.jsonl
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/run-20261105T095623/model.stderr.log
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  B/evidence/deploy-b/verify-b-pkg/run-20261105T095635/model.stderr.log
 e445b396c8152777b60f4cc7c2f59580433becfdd18a83f2d89e796e5016c442  B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip.sha256

@@ -1,0 +1,3 @@
+{"agent":"claude","native_exit":1,"stdout_file":"recheck-claude-20261105T102219\\model.stdout.jsonl","stdout_bytes":0,"stderr_bytes":90}
+{"agent":"claude","dropped_lines":0,"dropped_samples":[]}
+{"agent":"claude","expected":"AGENT_VERIFY_2149a034454a4514957195a8d9354e1f","passed":false,"error":"进程退出码为 1"}
