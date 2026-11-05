@@ -1,0 +1,42 @@
+{
+  "passed": true,
+  "stage": "graded",
+  "invoked": true,
+  "agent": "claude",
+  "model": "deepseek-v4.1-flash-1017",
+  "agentArgs": [
+    "-p",
+    "Reply with only this token: AGENT_VERIFY_88f414ee01dda2187a3af5acee05051c",
+    "--output-format",
+    "json",
+    "--model",
+    "deepseek-v4.1-flash-1017",
+    "--settings",
+    "C:\\Users\\19082\\.claude\\settings.json",
+    "--strict-mcp-config"
+  ],
+  "executable": "C:\\Users\\19082\\.local\\bin\\claude.exe",
+  "executableSize": 296791712,
+  "settingsFile": "C:\\Users\\19082\\.claude\\settings.json",
+  "expectedToken": "AGENT_VERIFY_88f414ee01dda2187a3af5acee05051c",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:44:05.665Z",
+  "finishedAt": "2026-11-05T04:44:12.638Z",
+  "durationMs": 6973,
+  "nativeExitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "D:\\AutoAgentloop\\evidence\\deploy-b\\verify-entry-A\\out-claude\\model.stdout.jsonl",
+  "stdoutBytes": 1677,
+  "stdoutSha256": "d8531ff3854e5881e5e80e7745da740abede2b75213563a568a521af56cb2ab5",
+  "stderrFile": "D:\\AutoAgentloop\\evidence\\deploy-b\\verify-entry-A\\out-claude\\model.stderr.log",
+  "stderrBytes": 91,
+  "stderrSha256": "d8e28b065c6ef95bf89ab3afc1c22dfbb6b038fdfc00a82bc4ce85d084743f8a",
+  "judge": {
+    "path": "D:\\AutoAgentloop\\evidence\\deploy-b\\supplement\\agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": true,
+    "session": "59124b05-653a-4fdb-b4d9-347a26ed90aa",
+    "error": null
+  }
+}

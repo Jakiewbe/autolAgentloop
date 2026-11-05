@@ -342,7 +342,10 @@
     "cross_machine_tests_total": 6,
     "round5_gaps_fixed": 3,
     "round6_gaps_fixed": 3,
-    "judge_pin_negative_cases": 2
+    "judge_pin_negative_cases": 2,
+    "a_entry_runs": 2,
+    "a_entry_passed": 1,
+    "a_entry_failed": 1
   },
   "review_response": [
     {
@@ -722,5 +725,47 @@
       "cross_machine_verified": "0/6",
       "key_landing_exists": false
     }
+  },
+  "a_entry_deploy_verify_entry": {
+    "source_commit_seen": "231a0b778629be5d1d564c55b475710c5488e0c7",
+    "published_table": {
+      "verify-entry.ps1": {
+        "bytes": 1754,
+        "sha256": "a95d0a7d2d338b129fb59e06eedb5c7ae657f375fd7e569723e8167fba572092"
+      },
+      "verify-model.mjs": {
+        "bytes": 9185,
+        "sha256": "c313bbaa2fb79348f773050a7c62e84cf3613671046f3a80bd56a74c2dfcd9de"
+      }
+    },
+    "actual_blob": {
+      "verify-entry.ps1": {
+        "bytes": 2470,
+        "sha256": "b997a5241ce4369f123916b684565f5557109e6aaea2a47d103fcd6452348294"
+      },
+      "verify-model.mjs": {
+        "bytes": 10458,
+        "sha256": "b320d19d8e1fb968722bf05ffb15cd31548f50f2d7a38908ac73e10f9b46b413"
+      }
+    },
+    "byte_rule": "hash-pinned deliverables must be read with git cat-file; working-tree bytes differ because .gitattributes covers *.ps1 only and the system core.autocrlf=true rewrites .mjs (10458 -> 10750)",
+    "measured": {
+      "claude": {
+        "version": "2.1.310",
+        "native_exit": 0,
+        "passed": true,
+        "session": "59124b05-653a-4fdb-b4d9-347a26ed90aa"
+      },
+      "codex": {
+        "version": "0.130.0-alpha.5",
+        "native_exit": 0,
+        "passed": false,
+        "session": null,
+        "reason": "three non-JSON GBK lines from the sandbox taskkill grandchild landed in model.stdout.jsonl; agent_result.mjs JSON.parse failed"
+      }
+    },
+    "evidence": "evidence/deploy-b/verify-entry-A/{codex-run.log,claude-run.log,out-codex/,out-claude/}",
+    "guard_pin_unchanged": true,
+    "guard_pin_reason": "A published table does not match the committed bytes; pinning an unconfirmed hash is worse than pinning the already-verified verify-b-fixed.ps1"
   }
 }

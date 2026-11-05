@@ -465,3 +465,30 @@ dep    : agent_result.mjs 2441  sha256 0bead26b5e5cad1239682b9e38b6b258239876097
 ### 21.5 未变的边界
 
 `phase=blocked_before_install`、`installer_success_state=false`、`real_install_executed=false`、`cross_machine_verified=0/6`、key 落点不存在 —— 审核方列出的「正确保留的边界」逐项未变。
+
+## 22. A 侧新验证入口（deploy/verify-entry）在 B 的实测，2026-11-05T12:45+08:00 起
+
+A 在 main 新增 `deploy/verify-entry/`（`verify-entry.ps1` + `verify-model.mjs` + README），明确写「本目录是补充交付，审核包保持原样」。B 按「先核字节、再实测」的顺序处理。
+
+### 22.1 字节口径两处不符（A 侧待修）
+
+- README 表声明：`verify-entry.ps1` 1754 字节 / `a95d0a7d2d338b129fb59e06eedb5c7ae657f375fd7e569723e8167fba572092`；`verify-model.mjs` 9185 字节 / `c313bbaa2fb79348f773050a7c62e84cf3613671046f3a80bd56a74c2dfcd9de`。
+- 同一提交里的实际 blob（`git cat-file -p origin/main:<path> | sha256sum`）：`verify-entry.ps1` 2470 字节 / `b997a5241ce4369f123916b684565f5557109e6aaea2a47d103fcd6452348294`；`verify-model.mjs` 10458 字节 / `b320d19d8e1fb968722bf05ffb15cd31548f50f2d7a38908ac73e10f9b46b413`。两边逐项不等。
+- 仓库 `.gitattributes` 只对 `*.ps1` 设 `-text`，`.mjs` 未覆盖；B 的系统级 `core.autocrlf=true` 会把工作区的 `verify-model.mjs` 变成 10750 字节，磁盘哈希与对象字节不同。**结论：按字节校验的交付只能从 git 对象取（`git cat-file`），不能用工作区文件。**
+
+### 22.2 实测（B 本机，真实参数，入口与依赖均取对象字节）
+
+| 代理 | 版本 | 原生退出码 | 判分 | 会话 | 结论 |
+| --- | --- | --- | --- | --- | --- |
+| claude | 2.1.310 | 0 | `passed=true` | `59124b05-653a-4fdb-b4d9-347a26ed90aa` | 通过 |
+| codex | 0.130.0-alpha.5 | 0 | `passed=false` | 无 | 失败：stdout 混入 3 行非 JSON |
+
+- 证据：`evidence/deploy-b/verify-entry-A/{codex-run.log,claude-run.log,out-codex/,out-claude/}`。
+- codex 的 3 行是 GBK 文本（原文形如「成功: 已终止 PID … 的进程。」），来自 codex 沙箱收尾时 `taskkill` 子进程继承了 stdout 管道句柄。判分因此报 `Unexpected token`，会话编号取不到。
+- 对照：同样的 codex 调用在 B 的 Node 等价实现里能通过（剔除 3 行噪声后由**同一** `agent_result.mjs` 判分）。所以问题在 stdout 通道被污染，不在模型不可用。
+- A 的新入口已经解决两点：`$PSScriptRoot` 默认值移入脚本体、stdin 用 `ignore` 关掉、stderr 不再触发 `NativeCommandError`。剩下的第三点（子进程句柄继承）在 B 上仍在。
+
+### 22.3 结论与下一步
+
+- 本轮**不把新入口列入守卫的哈希钉**：A 自述哈希与 blob 不符，按 `b997a524…` 记录，等 A 更正表后再定。
+- 守卫仍钉历史补充入口 `verify-b-fixed.ps1`（`36c964e3…`），其字节已核对；A 若确认改钉新入口，B 的流程是：拿到 A 更正后的字节与哈希 → 更新第 7 步常量与自测夹具 → 重跑 26 例 → 才进安装。
