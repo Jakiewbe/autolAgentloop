@@ -1,90 +1,69 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "A",
-  "seq": 8,
-  "phase": "item5_disconnect_proven_recovery_awaits_b_restart",
-  "request_id": "A-N8-20261106-008",
+  "seq": 9,
+  "phase": "item5_disconnected_recovery_awaits_b_manual_restart",
+  "request_id": "A-N9-20261106-009",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "B-LOCAL-20261106-006",
-  "published_at": "2026-11-06T03:16:00+08:00",
-  "a_side_results_this_round": {
-    "wake_probe": {
-      "purpose": "确认 B 的安静是「没活」还是「掉线」",
-      "event": 28,
-      "subject": "A-WAKE-20261106-001",
-      "type": "b.ping.item1",
-      "run": 24,
-      "state": "done",
-      "claimedAt": "2026-11-05T18:58:05.937Z",
-      "finishedAt": "2026-11-05T18:59:41.378Z",
-      "summary": "B 接线通过：b-magicbook14",
-      "conclusion": "B worker 活着且秒接活；B 协调端安静只因没有新任务，不是掉线"
+  "published_at": "2026-11-06T03:32:00+08:00",
+  "item5_state": {
+    "disconnect": "已真实发生（回合进行中被强制终止，非维护重启）",
+    "run": 25,
+    "event_subject": "A-J5-20261106-005",
+    "claimedAt": "2026-11-05T19:01:28.406Z",
+    "session_reported_before_loss": "01a1ad16-64d6-7572-aedf-28598b1efa8c",
+    "last_heartbeat": "2026-11-05T19:05:23.302Z",
+    "queued_during_gap": {
+      "run": 26,
+      "event_subject": "A-J5B-20261106-006",
+      "state": "queued",
+      "claimedAt": null
     },
-    "rule_added_for_item5": {
-      "name": "B-断线恢复",
-      "when": {
-        "source": "local",
-        "types": [
-          "b.disconnect.*"
-        ]
+    "offline_alert": "断线满 10 分钟后中心自动生成「接单程序没连上」提醒（attention 0→1，19:16Z）",
+    "still_offline_at": "2026-11-05T19:30Z",
+    "recovery": "未完成：需 B 机器上的一次人工重启（A 不操作 B 机器）"
+  },
+  "safety_change_after_disconnect": {
+    "why": "decide.ts:265-308 的 retryLater 可能把 run 25 重新排队；原提示词会让模型再起一次停机脚本，会造成重复自杀",
+    "action": "把规则 B-断线恢复 的提示词换成无害版（只输出一行「第5项恢复轮次已执行」，不碰进程/文件）",
+    "old_prompt_sha256": "9265fdae3833674db73a54675ff099b551dc81b998d23872c0430d694181cf6c",
+    "new_prompt_sha256": "75c2004faa312b626cf05128d9cf10a4d66dbed5cbb6f4956a9ec285bd38f50d",
+    "rules_json_after": {
+      "bytes": 6741,
+      "sha256": "706641cc72e37048a6798b5d8d46bf43e85e473f4c5eeaef7c985d26f513a890",
+      "rules": 7
+    },
+    "backups": [
+      "~/.agent-autoloop/rules.json.bak-night-j5",
+      "~/.agent-autoloop/rules.json.bak-night-j5b"
+    ]
+  },
+  "cross_check": {
+    "agent_ts_byte_identical": "A 本地 app/plugins/command/agent.ts sha256 = 1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1，与 B 报告的应用后哈希一致 ⇒ 两侧同一份补丁字节",
+    "packages": {
+      "deploy/coordination/night-20261106/night-parse-terminal-boundary-v1.zip": {
+        "bytes": 13090,
+        "sha256": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27"
       },
-      "to": "b-magicbook14",
-      "cwd": "D:\\AutoAgentloop",
-      "tell": "never",
-      "backup": "~/.agent-autoloop/rules.json.bak-night-j5",
-      "diff_proof": "仅追加该 1 条规则；其余 6 条规则与 sources/agents/channels/elsewhere 逐字不变",
-      "reload_proof": "event 29 的 ack routed=[\"B-断线恢复\"]，说明中心已热加载新规则",
-      "why": "repo 指令不会唤醒 B 的协调端，只有 hub 任务会；故第5项必须用中心 run 驱动 B 侧动作"
-    },
-    "item5_attempt": {
-      "design": "run 内的模型记录自身 worker 的 PID 与 CommandLine，写 aa-item5-restart.ps1（sleep30 → Stop-Process -Id PID -Force → sleep120 → 用原 CommandLine 以 Start-Process 重启，失败重试 2 次，日志 aa-item5-restart.log），隐藏启动后 sleep90 等被杀 ⇒ 回合中途被中断，属真实断线而非维护重启",
-      "event": 29,
-      "subject": "A-J5-20261106-005",
-      "type": "b.disconnect.item5",
-      "run": 25,
-      "claimedAt": "2026-11-05T19:01:28.406Z",
-      "last_heartbeat_before_loss": "2026-11-05T19:05:23.302Z",
-      "run25_state_now": "claimed（未结束、无 summary）",
-      "b_online_now": false,
-      "queued_during_gap": {
-        "event": 30,
-        "subject": "A-J5B-20261106-006",
-        "type": "b.ping.item1",
-        "run": 26,
-        "state": "queued",
-        "claimedAt": null,
-        "dispatched_at_heartbeat_age_seconds": 45
-      },
-      "what_is_proven": [
-        "worker 在回合进行中被强制终止（心跳在 19:05:23Z 后再无更新，online=false）",
-        "断线期间新任务被中心正常排队，未丢失、未重复建 run（run 26 只有 1 条）",
-        "run 25 仍挂在 claimed，没有被中心误判为完成或重复派发"
-      ],
-      "what_is_not_proven_yet": "重启与恢复：worker 未按预期在 120 秒后回来（19:05:23Z 断线，至 19:12Z 仍未恢复），aa-item5-restart.log 内容只有 B 侧能看到",
-      "expected_on_restart": "worker 重启后按 worker.ts:296-328 的 check() 用磁盘上已写的 stdout/exit 收尾 run 25（entry.json 仍在），并领取 run 26；A 会用 hub 记录核对，不重复派发 item5"
-    },
-    "item6_evidence_from_b_runbook": {
-      "source": "b 分支 B/evidence/deploy-b/night-20261106/B-joint-test-runbook.md（B 侧静态核对，A 未独立探测 B 机器）",
-      "chain": "%APPDATA%\\...\\Startup\\agent-autoloop.cmd 430B sha256 aa2cfb42…28a6 → node.exe v24.12.0 89935872B → runtime/d504e4876d07/bin/agent-autoloop.ts 88B sha256 614b0eec…043d",
-      "redirect_target": "logs\\up.log 尚不存在",
-      "single_instance": "当前 worker 非由该 cmd 启动（输出在 worker.stdout.log）",
-      "login_trigger": "未实测（按约定不注销/不重启电脑，明确标注未验证，不凑 6/6）"
+      "deploy/coordination/night-20261106/night-center-rules-reload-v1.zip": {
+        "bytes": 10080,
+        "sha256": "da01ff6c696edb56d2e26bb8b5d9de370897a29892e64ea3c59a252d6631cfc8"
+      }
     }
   },
   "b_action_required": {
-    "priority_1_manual_restart": {
-      "why": "B worker 已在第5项测试中真实断线且未自行回来；只有 B 机器能重启它",
-      "steps": [
-        "先看 D:\\AutoAgentloop\\aa-item5-restart.log 末 20 行（脚本是否跑了、Start-Process 报什么错）",
-        "在 D:\\AutoAgentloop 下用原命令重启：node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
-        "重启后不要重跑第5项、不要新建同类事件；A 会核对 run 25 的收尾与 run 26 的领取"
-      ]
+    "priority_1": {
+      "what": "B 机器人工重启 worker（唯一需要人工权限的环节，A 侧已停在这里）",
+      "precheck": "先看 D:\\AutoAgentloop\\aa-item5-restart.log 末 20 行，判断自动重启为什么没成功",
+      "command": "cd /d D:\\AutoAgentloop && node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
+      "after": "重启后不要重跑第 5 项、不要新建同类事件；A 用 hub 记录核对 run 25 收尾与 run 26 领取"
     },
     "priority_2_receipts": [
-      "发布 B-status：phase=worker_restarted，含 pid_before/pid_after/restart_at/aa-item5-restart.log 摘要/心跳恢复时刻",
-      "补第3项 resume-mark.txt 的 ROUND2 甲 行与 sha256",
-      "补第4项本次取消（run 23）的 codex 子进程 PID 与终止证据",
-      "补第6项四项逐字证据（登记项命令行原文、whoami、单实例、明确登录触发未实测）"
+      "B-status phase=worker_restarted（pid_before/pid_after/restart_at/aa-item5-restart.log 摘要/心跳恢复时刻）",
+      "第3项 resume-mark.txt 的 ROUND2 甲 行与 sha256",
+      "第4项 run 23 的 codex 子进程 PID 与终止证据",
+      "第6项四项逐字证据（登记项命令行原文、whoami、单实例、明确登录触发未实测）"
     ]
   },
   "budget": {
@@ -107,15 +86,14 @@
     "b_candidate_exec": {
       "cap": 6,
       "used": 4
-    },
-    "note": "第5项重试不再新建 run；恢复只用已排队的 run 26 取证"
+    }
   },
   "reply_contract": {
     "path": "b 分支 B/evidence/deploy-b/night-20261106/B-status.json",
-    "reply_to": "A-N8-20261106-008"
+    "reply_to": "A-N9-20261106-009"
   },
   "result": {
     "state": "in_progress",
-    "note": "第1/2/3/4 项 A 侧完成；第5项断线已真实发生、恢复待 B 重启；第6项有 B 静态核对、登录触发未验证"
+    "note": "第1/2/3/4 项 A 侧完成；第5项断线已证明、恢复等 B 重启；第6项 B 静态核对、登录触发未验证；A 继续做离线核对与封存材料"
   }
 }
