@@ -1,0 +1,33 @@
+{
+  "schema": "b-verify-supplement/1",
+  "received_at": "2026-11-05T12:16:00+08:00",
+  "source": {
+    "repo": "https://github.com/Jakiewbe/autolAgentloop",
+    "ref": "origin/main",
+    "commit": "d07b41267632e446d2f082f08ddc79b89b363e2a",
+    "path": "deploy/B-reviewed/verify-b-fixed.ps1"
+  },
+  "files": [
+    {
+      "name": "verify-b-fixed.ps1",
+      "bytes": 2563,
+      "sha256": "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31",
+      "blob": "c12f9ba7deb165e0634791bbd29de41d8e573c34",
+      "role": "formal-verification-entry"
+    },
+    {
+      "name": "agent_result.mjs",
+      "bytes": 2441,
+      "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+      "role": "dependency: judge (byte-identical to package copy)",
+      "same_as_package": true
+    }
+  ],
+  "original_package": {
+    "file": "B-reviewed-delivery.zip",
+    "bytes": 414436,
+    "sha256": "e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853",
+    "unchanged": true
+  },
+  "note": "原审核包与其固定 SHA256 未改动；本补充交付单独列哈希，供守卫第 7 步按硬常量 36c964e3… 校验后执行。"
+}

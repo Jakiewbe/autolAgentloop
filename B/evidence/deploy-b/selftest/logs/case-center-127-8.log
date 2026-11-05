@@ -1,0 +1,16 @@
+SIMULATION ONLY: fixture package/hash and system probes; NOT a B deployment
+step=1 node
+node=v24.12.0
+step=2 existing_config
+step=3 package_hash
+package_sha256=12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71
+package_sha256_expected=e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853 (hard constant; 无参数可覆盖)
+step=4 identity
+worker_key_file_sha256=d61dc0db6fe94c696ef9a056cbb971f5b11b482c09ae58da6ddd59290a1a43b6 bytes=44 (只记哈希，不读内容)
+worker_key_first_byte_is_brace=false (描述性元数据，不参与判定)
+worker_key_contract=recorded-only (未传 -ExpectedKeySha256；安装门禁第 1 步由 report-key-file.ps1 核对)
+step=5 center_url
+STOP: 中心地址为回环 IP：127.5.5.5
+installer_started=false
+success_state_written=false
+no_files_deleted=true; 不自动清理 HOME 或回滚未知文件

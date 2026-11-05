@@ -1,7 +1,7 @@
 {
-  "schema": "dsh-b-install-state/5",
+  "schema": "dsh-b-install-state/6",
   "document_kind": "B 端部署执行状态（脱敏，不含任何密钥或密钥哈希之外的凭据材料）",
-  "generated_at": "2026-11-05T10:30:00+08:00",
+  "generated_at": "2026-11-05T12:35:00+08:00",
   "host": {
     "hostname": "MAGICBOOK14-ZZ",
     "user": "chs",
@@ -12,7 +12,7 @@
   },
   "worker_name_expected": "b-magicbook14",
   "phase": "blocked_before_install",
-  "phase_reason": "审核包已到并校验通过、中心地址 B 侧可达；仍缺 A 为 B 单独签发的 worker 身份文件（私密通道），install-b.mjs 第 1 步即要求 key 文件非空，因此真实安装未执行。",
+  "phase_reason": "正式验证入口（补充交付 verify-b-fixed.ps1）在 B 本机两次实测均原生 exit 1、判分未运行；按约定停在安装之前，等 A 修入口后重测。身份文件仍未收到。",
   "installer_success_state": false,
   "real_home_agent_autoloop_exists": false,
   "package_received": {
@@ -151,214 +151,23 @@
   ],
   "guard_selftests": {
     "guard_file": "D:\\AutoAgentloop\\evidence\\deploy-b\\install-b-when-ready.ps1",
-    "guard_sha256": "47d48e926ed8fe4ed3211ed238f907fd8d26dd3f2c88b02719f111b3d07f9f24",
+    "guard_sha256": "3fedbcc6aedd39348615dc55bddff7ca7202e11fc5aa0c8ae11ce5c101138c8a",
+    "driver": "evidence/deploy-b/selftest/run-guard-tests.ps1 (in-repo)",
+    "logs": "evidence/deploy-b/selftest/logs/case-*.log|.err|.argv.txt (in-repo)",
+    "summary_json": "evidence/deploy-b/selftest/guard-selftest-v5.json (in-repo)",
+    "fixture_package": "evidence/deploy-b/selftest/fixture/B-reviewed-delivery.zip",
     "fixture_package_sha256": "12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71",
-    "cases_total": 22,
-    "cases_ok": 22,
+    "cases_total": 24,
+    "cases_ok": 24,
     "cases_bad": 0,
-    "result_json": "evidence/deploy-b/guard-selftest-v4.json",
-    "log_dir": "evidence/deploy-b/selftest-logs-v4/",
-    "driver": "_probe/run-guard-tests4.ps1",
-    "cases": [
-      {
-        "case": "happy",
-        "expected": "exit 0 + state",
-        "exit": 0,
-        "installer_started": true,
-        "state_written": true,
-        "done_printed": true,
-        "ok": true
-      },
-      {
-        "case": "happy-base-path",
-        "expected": "exit 0 + state",
-        "exit": 0,
-        "installer_started": true,
-        "state_written": true,
-        "done_printed": true,
-        "ok": true
-      },
-      {
-        "case": "verify-missing",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "verify-fail",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": true,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "package-hash-mismatch",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "receipt-empty",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": true,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "receipt-wrong-status",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": true,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "pre-install-hub",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "post-install-hub",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": true,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "installer-fail",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": true,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-localhost-dot",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-localhost",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-ipv6-loopback",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-ipv4-loopback",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-127-8",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-wildcard",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-ipv4-mapped",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-userinfo",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "center-not-absolute",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "existing-config",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "probe-without-selftest",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      },
-      {
-        "case": "bad-isolation",
-        "expected": "exit 2 + no state",
-        "exit": 2,
-        "installer_started": false,
-        "state_written": false,
-        "done_printed": false,
-        "ok": true
-      }
-    ]
+    "new_cases": [
+      "verify-entry-missing",
+      "verify-entry-hash-bad",
+      "entry-no-settingsfile"
+    ],
+    "self_test_boundary": "合成夹具 + 桩验证入口；只证明控制流程，不证明 B 已部署，不证明模型可用",
+    "driver_sha256": "bea9559f83b9d2b1bdce3cb7e437d6f78267d740faccc1d88ecc33228ae7e2d2",
+    "supplement_entry_sha256": "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31"
   },
   "model_probes": {
     "native_direct": [
@@ -508,12 +317,17 @@
     }
   ],
   "counts": {
-    "unverified_inputs": 3,
-    "unverified_cross_machine": 6,
-    "unverified_total": 9,
-    "recheck_checks": 10,
-    "recheck_passed": 10,
-    "audit_round4_fixed": 3
+    "guard_selftest_cases": 24,
+    "guard_selftest_passed": 24,
+    "guard_selftest_failed": 0,
+    "key_fixture_cases": 4,
+    "key_fixture_passed": 4,
+    "verification_entry_runs": 2,
+    "verification_entry_failed": 2,
+    "real_install_executed": false,
+    "cross_machine_tests_verified": 0,
+    "cross_machine_tests_total": 6,
+    "round5_gaps_fixed": 3
   },
   "review_response": [
     {
@@ -706,5 +520,142 @@
       "A must confirm current center URL",
       "A-side command[0] bare codex and codex version expectation"
     ]
-  }
+  },
+  "key_contract": {
+    "delivery_contract": {
+      "form": "raw text",
+      "bytes": 43,
+      "lines": 1,
+      "json": false,
+      "sha256_expected": "a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f",
+      "landing_path": "D:\\AutoAgentloop\\_incoming\\secrets\\b-magicbook14.worker.key"
+    },
+    "json_like_role": "descriptive metadata only; not a stop condition",
+    "fixed_locations": [
+      "B/evidence/deploy-b/key-receipt-protocol.md:6",
+      "B/evidence/deploy-b/report-key-file.ps1",
+      "B/evidence/deploy-b/install-b-when-ready.ps1 step 4"
+    ],
+    "fixture_test": {
+      "driver": "evidence/deploy-b/tools/key-fixture-test.ps1",
+      "log": "evidence/deploy-b/key-fixture-20261105T121400.log",
+      "cases": 4,
+      "passed": 4,
+      "failed": 0,
+      "content_leaks": 0
+    },
+    "real_file_received": false,
+    "report_script_sha256": "0ac048e68d4964fee0fa72a3fc38b1a7b1bfcda3dedf640bb0a8fbc09f168a0e"
+  },
+  "supplement_entry": {
+    "name": "verify-b-fixed.ps1",
+    "provenance": {
+      "repo": "https://github.com/Jakiewbe/autolAgentloop",
+      "ref": "origin/main",
+      "commit": "d07b41267632e446d2f082f08ddc79b89b363e2a",
+      "path": "deploy/B-reviewed/verify-b-fixed.ps1",
+      "blob": "c12f9ba7deb165e0634791bbd29de41d8e573c34"
+    },
+    "bytes": 2563,
+    "sha256": "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31",
+    "dependency": {
+      "name": "agent_result.mjs",
+      "bytes": 2441,
+      "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+      "same_as_package_copy": true
+    },
+    "original_package_unchanged": {
+      "file": "B-reviewed-delivery.zip",
+      "bytes": 414436,
+      "sha256": "e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853"
+    },
+    "wired_in_guard": {
+      "step": 7,
+      "hard_constant_pin": true,
+      "fallback_to_shipped_verify_b_ps1": false,
+      "executed_in_step": 11
+    }
+  },
+  "verification_entry_runs": [
+    {
+      "at": "2026-11-05T12:17:40+08:00",
+      "agent": "codex",
+      "executable": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+      "version_output": "codex-cli 0.130.0-alpha.5",
+      "model": "deepseek-v4.1-flash-1017",
+      "native_exit": 1,
+      "judge_ran": false,
+      "stdout_bytes": 0,
+      "stderr_log": "evidence/deploy-b/verify-b-fixed/codex-20261105T121700/script.stderr.utf8.log",
+      "root_cause": "verify-b-fixed.ps1:31 `$stdout = & $Executable @agentArgs 2> $stderrFile` under $ErrorActionPreference=Stop turns child stderr into NativeCommandError",
+      "verdict": "FAILED_STOPPED_BEFORE_INSTALL"
+    },
+    {
+      "at": "2026-11-05T12:18:30+08:00",
+      "agent": "claude",
+      "executable": "C:\\Users\\19082\\.local\\bin\\claude.exe",
+      "version_output": "2.1.310 (Claude Code)",
+      "model": "deepseek-v4.1-flash-1017",
+      "native_exit": 1,
+      "judge_ran": false,
+      "stdout_bytes": 0,
+      "stderr_log": "evidence/deploy-b/verify-b-fixed/claude-20261105T121800/script.stderr.utf8.log",
+      "root_cause": "same line; stderr line = [claude-code:unrecognized_model]",
+      "verdict": "FAILED_STOPPED_BEFORE_INSTALL"
+    }
+  ],
+  "input_status": {
+    "key_file": {
+      "received": false,
+      "expected_path": "D:\\AutoAgentloop\\_incoming\\secrets\\b-magicbook14.worker.key",
+      "expected_bytes": 43,
+      "expected_sha256": "a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f"
+    },
+    "center": {
+      "url_published_by_a": "https://obconic-subtetanic-tamika.ngrok-free.dev",
+      "last_reachable_probe": "2026-11-05T09:53:59+08:00 /healthz=200, no-key /v1/work=401",
+      "earlier_failure": "2026-11-05T09:41 curl(56) schannel server closed abruptly",
+      "needs_reconfirm_before_install": true
+    },
+    "registration_consistency": {
+      "worker_name": "match",
+      "model": "match (deepseek-v4.1-flash-1017)",
+      "cwd": "match (D:\\AutoAgentloop)",
+      "command_0": "MISMATCH (A registers bare codex; B PATH has none)",
+      "b_absolute_path_provided": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+      "codex_version_basis": "B measured 0.130.0-alpha.5; A's 0.166 success is not a B requirement"
+    }
+  },
+  "review_response_round5": [
+    {
+      "id": "GAP-1",
+      "item": "身份协议把 KEY_JSON_LIKE=False 当停止条件",
+      "fixed_at": [
+        "B/evidence/deploy-b/key-receipt-protocol.md:6",
+        "B/evidence/deploy-b/report-key-file.ps1",
+        "B/evidence/deploy-b/install-b-when-ready.ps1 step4",
+        "_incoming/secrets/README.md:6"
+      ],
+      "evidence": "key-fixture-20261105T121400.log 4/4 PASS"
+    },
+    {
+      "id": "GAP-2",
+      "item": "包装器执行原审核包 verify-b.ps1，与状态记录的成功路径不一致",
+      "fixed_at": [
+        "install-b-when-ready.ps1 step7/step11",
+        "evidence/deploy-b/supplement/SUPPLEMENT.json"
+      ],
+      "evidence": "v5 只执行占位固定的 supplement 入口；独立实测两次原生 exit 1，判分未运行 → 停在安装前，未用另一条路径冒充成功"
+    },
+    {
+      "id": "GAP-3",
+      "item": "自测驱动与逐例日志未随快照交付",
+      "fixed_at": [
+        "evidence/deploy-b/selftest/run-guard-tests.ps1",
+        "evidence/deploy-b/selftest/logs/",
+        "evidence/deploy-b/selftest/fixture/"
+      ],
+      "evidence": "24/24 PASS"
+    }
+  ]
 }

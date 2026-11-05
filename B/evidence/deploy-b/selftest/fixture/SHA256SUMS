@@ -1,0 +1,3 @@
+# 守卫自测夹具包（合成件，非审核包）：install-b.mjs 与 verify-b.ps1 为桩，agent_result.mjs 为 process.exit(0) 桩。
+# 用途：只验证守卫控制流程，不证明任何真实部署或模型调用。
+12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71  B-reviewed-delivery.zip

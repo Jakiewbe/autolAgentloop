@@ -1,0 +1,4 @@
+STOP: 真实模式禁止模拟探针
+installer_started=false
+success_state_written=false
+no_files_deleted=true; 不自动清理 HOME 或回滚未知文件

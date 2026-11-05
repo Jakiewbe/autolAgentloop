@@ -129,7 +129,7 @@ SEARCH_SUMMARY dirs=86198 hits=455 real=0 received=3 clone=1 fixture=451 errors=
 
 任何停止路径统一打印 `STOP: <原因>`、`installer_started=true|false`、`success_state_written=false`、`no_files_deleted=true` 并 exit 2。
 
-自测：**22 例，通过 22，失败 0**（`evidence/deploy-b/guard-selftest-v4.json`，逐例日志 `evidence/deploy-b/selftest-logs-v4/case-*.log|.err|.argv.txt`，驱动 `_probe/run-guard-tests4.ps1`，夹具包 SHA256 `12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71`）：
+自测：**22 例，通过 22，失败 0**（`evidence/deploy-b/guard-selftest-v4.json`，逐例日志 `evidence/deploy-b/selftest-logs-v4/case-*.log|.err|.argv.txt`，驱动 `evidence/deploy-b/selftest/run-guard-tests.ps1`（历史 22 例驱动，本轮扩展为 24 例，见 §20.3），夹具包 SHA256 `12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71`）：
 
 | 用例 | 期望 | 实际 |
 | --- | --- | --- |
@@ -170,7 +170,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\evidence\de
 
 ## 11. 材料哈希
 
-递归全量清单是生成物 evidence/deploy-b/MATERIALS.sha256，严格 sha256sum 格式（哈希 + 两空格 + 相对路径，故可直接 -c 校验；字节数另存在 _probe/materials-table.md 表里，不掺进清单行，避免 -c 把字节当文件名）。覆盖 evidence/deploy-b、evidence/deployment、outbox/to-A-deploy 下全部文件，不列自身以免自引用。核对方式：
+递归全量清单是生成物 evidence/deploy-b/MATERIALS.sha256，严格 sha256sum 格式（哈希 + 两空格 + 相对路径，故可直接 -c 校验；字节数另存在生成脚本输出表里，不掺进清单行，避免 -c 把字节当文件名）。覆盖 evidence/deploy-b、evidence/deployment、outbox/to-A-deploy 下全部文件，不列自身以免自引用。核对方式：
 
 ```
 cd D:\AutoAgentloop && sha256sum -c evidence/deploy-b/MATERIALS.sha256 | tail -3
@@ -243,7 +243,7 @@ git clone -b b https://github.com/Jakiewbe/autolAgentloop.git && cd autolAgentlo
 cd D:\AutoAgentloop && sha256sum -c evidence/deploy-b/MATERIALS.sha256 | tail -3
 
 # 2. 复跑守卫 22 例（隔离，不触真实 HOME；约 2 分钟）
-cd D:\AutoAgentloop && powershell -NoProfile -ExecutionPolicy Bypass -File _probe/run-guard-tests4.ps1
+cd D:\AutoAgentloop && powershell -NoProfile -ExecutionPolicy Bypass -File evidence/deploy-b/selftest/run-guard-tests.ps1
 
 # 3. 复跑模型等价判分（codex 一次，可换 claude）
 cd D:\AutoAgentloop\evidence\deploy-b\verify-b-pkg
@@ -262,7 +262,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\evidence\de
 
 ### 18.1 复核方式
 
-不复用本地工作副本自证：从 GitHub 重新克隆到 `D:\AutoAgentloop\_verify\clone-<stamp>`，`git checkout -B recheck origin/b` 后按证据自身声明逐项核对。脚本 `_probe/recheck-b.sh`，原始输出 `evidence/deploy-b/recheck-<stamp>.log`。
+不复用本地工作副本自证：从 GitHub 重新克隆到 `D:\AutoAgentloop\_verify\clone-<stamp>`，`git checkout -B recheck origin/b` 后按证据自身声明逐项核对。脚本 `evidence/deploy-b/tools/recheck-b.sh`，原始输出 `evidence/deploy-b/recheck-<stamp>.log`。
 
 | 核对项 | 结果（目标提交 `2eaedc4282f824f5e9b13411763b0ba36446173e`，全量输出见 `evidence/deploy-b/recheck-20261105T115122.log`） |
 | --- | --- |
@@ -342,3 +342,89 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\evidence\de
 - V1 目标提交与哈希口径：已改为提交可指定 + 全量输出 + 两列哈希。
 - V3 全量校验：已在日志中逐条输出 133 行结果。
 - 剩余依赖未变：A 送 key、A 确认当下有效的中心地址、A 侧改 `command[0]` 与 codex 版本口径；六项联调仍为 0/6。
+
+## 20. 第五轮修复（审核目标 a1c6095，2026-11-05T12:06+08:00 起）
+
+本轮不执行真实安装、join/init/up/try/service install，不做跨机派发，不注销登录；只修三个缺口、验证正式验证入口、交付固定版本。
+
+### 20.1 身份协议纠正（缺口 1）
+
+| 位置 | 改动前 | 改动后 |
+| --- | --- | --- |
+| `evidence/deploy-b/key-receipt-protocol.md` 第 6 条 | 「`KEY_JSON_LIKE=False` 或 `KEY_BYTES` 明显不符就停下并请 A 重新签发」——把 JSON 形态当停止条件 | 交付契约写死为**原始文本、43 字节、单行、非 JSON**；`KEY_JSON_LIKE` 降级为**描述性元数据，不参与判定**；判定只看完整 SHA256 与字节数；不把 key 包成 JSON，也不因形态要求 A 重新签发 |
+| `evidence/deploy-b/report-key-file.ps1` | 只输出 `KEY_JSON_LIKE`，缺契约比对 | 新增 `KEY_EXPECTED_SHA256`/`KEY_EXPECTED_BYTES`/`KEY_SHA_MATCH`/`KEY_BYTES_MATCH`/`KEY_JSON_LIKE_IS_METADATA_ONLY=yes`/`KEY_VERDICT`；退出码 0=符合、2=未到、3=不符；仍只输出元数据，`KEY_CONTENT_PRINTED=no` |
+| `evidence/deploy-b/install-b-when-ready.ps1` 第 4 步 | 只记哈希与字节 | 记哈希、字节、首字节是否 `{`（标注为描述性）；传 `-ExpectedKeySha256` 时按 sha+43 字节判定，未传则 `worker_key_contract=recorded-only`，由 `report-key-file.ps1` 在门禁第 1 步核对 |
+| `_incoming/secrets/README.md` 第 6 条（本机协议副本） | 同上一处错误口径 | 与协议一致：只有哈希或字节数不符才停 |
+
+夹具自测（`evidence/deploy-b/tools/key-fixture-test.ps1`，输出 `evidence/deploy-b/key-fixture-20261105T121400.log`，夹具目录 `%TEMP%\b-key-fixture`，内容为示例串，不是任何真实密钥）：
+
+| 用例 | 输入 | 退出码 | JSON_LIKE | SHA_MATCH | BYTES_MATCH | 内容外泄 |
+| --- | --- | --- | --- | --- | --- | --- |
+| raw43-match | 43 字节原始文本、哈希自洽 | 0 | false | yes | yes | no |
+| json43-match | 43 字节、以 `{` 开头、哈希自洽 | 0 | true | yes | yes | no |
+| raw43-hash-mismatch | 43 字节、按 A 的预期哈希核对 | 3 | false | no | yes | no |
+| missing | 路径不存在 | 2 | — | — | — | no |
+
+结论：`KEY_JSON_LIKE=False` 不再影响放行；哈希不符仍然停止；4/4 通过，`CONTENT_LEAKS=0`。真实文件仍未收到，夹具**不作为送达证明**。
+
+### 20.2 正式验证入口（缺口 2）
+
+固定补充交付已从 A 的 `main` 取得并单独入账（原审核包与其 SHA256 未改动）：
+
+```
+source : https://github.com/Jakiewbe/autolAgentloop  origin/main  d07b41267632e446d2f082f08ddc79b89b363e2a
+path   : deploy/B-reviewed/verify-b-fixed.ps1  (blob c12f9ba7deb165e0634791bbd29de41d8e573c34)
+bytes  : 2563        sha256: 36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31
+dep    : agent_result.mjs 2441  sha256 0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f (= 包内同一份)
+```
+
+落点 `_incoming/B-reviewed-delivery/supplement/`（另在 `evidence/deploy-b/supplement/` 留一份入库副本），provenance 记在 `SUPPLEMENT.json`、哈希记在 `SUPPLEMENT.sha256`。
+
+守卫接线（v5）：第 7 步按**硬常量** `36c964e3…` 校验该入口，要求参数含 Agent/Executable/Model/OutputDirectory 且含 SettingsFile，要求同目录 `agent_result.mjs` 存在并通过 `node --check`；入口缺失或哈希不符一律在**安装器启动前**停止，**不回退**到包内 `verify-b.ps1`。第 11 步只执行该入口，传真实参数（`-Agent codex -Executable <Codex 绝对路径> -Model deepseek-v4.1-flash-1017 -OutputDirectory <独立目录>`）。
+
+独立实测（安装之前，用正式入口本身、真实参数）：
+
+| 代理 | 绝对路径 | 版本原始输出 | 模型 | 原生退出码 | 关键 stderr | 判分 | 日志目录 |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| codex | `C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe` | codex-cli 0.130.0-alpha.5 | deepseek-v4.1-flash-1017 | **1** | `codex.exe : Reading additional input from stdin...` + `NativeCommandError`（`verify-b-fixed.ps1:31` `$stdout = & $Executable @agentArgs 2> $stderrFile`） | 未运行（`model.stdout.jsonl` 未生成） | `evidence/deploy-b/verify-b-fixed/codex-20261105T121700/` |
+| claude | `C:\Users\19082\.local\bin\claude.exe` | 2.1.310 (Claude Code) | deepseek-v4.1-flash-1017 | **1** | `claude.exe : [claude-code:unrecognized_model] …` + `NativeCommandError`（同一行） | 未运行 | `evidence/deploy-b/verify-b-fixed/claude-20261105T121800/` |
+
+结论：补充交付只修掉了 `$PSScriptRoot` 在 param 默认值里为空的问题（本机可复现），**没有**修掉 `$ErrorActionPreference=Stop` 下 `2>` 把子进程 stderr 变成本脚本级异常这一条；两条路径都在写入 `model.stdout.jsonl` 之前终止，判分器根本没跑。按本轮约定**停在此处**：不用 Node 等价实现冒充正式入口成功，不换模型、不升级 codex、不拿 Claude 顶替 Codex 路径。脱敏原件（`script.stdout.log`、`script.stderr.log` 及 UTF-8 副本）已随本提交入库。
+
+给 A 的最小修复方向（只作建议，B 未以此替代审核入口）：把 `& $Executable @agentArgs 2> $stderrFile` 换成 `Start-Process -Wait -PassThru -RedirectStandardOutput <file> -RedirectStandardError <file> -RedirectStandardInput <空文件>`（不继承句柄，避免 codex 沙箱 taskkill 噪声混入 JSONL），或把该调用的 `$ErrorActionPreference` 局部置 `Continue` 并在调用后自己取 `$LASTEXITCODE`。
+
+### 20.3 自测交付补齐（缺口 3）
+
+- 驱动入库：`evidence/deploy-b/selftest/run-guard-tests.ps1`（24 例，脚本内自带隔离根 `%TEMP%\b-round5-<case>`、临时 HOME、`SIMULATION-ONLY` 标记、`probe.json` 系统探针）。
+- 夹具入库：`evidence/deploy-b/selftest/fixture/B-reviewed-delivery.zip`（3193 字节，sha256 `12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71`），桩安装器/桩 verify/桩判分器，`fixture/SHA256SUMS` 记录。
+- 逐例原始日志入库：`evidence/deploy-b/selftest/logs/case-*.log|.err|.argv.txt`；汇总 `evidence/deploy-b/selftest/guard-selftest-v5.json`。
+- 结果：**24 例，通过 24，失败 0**（`cases_total=24, cases_ok=24, cases_bad=0`）。新增用例：`verify-entry-missing`（未就位→安装器未启动）、`verify-entry-hash-bad`（哈希不符→安装前停止）、`entry-no-settingsfile`（缺 SettingsFile 参数→安装前停止）。
+- 本轮修的三处驱动缺陷（都在自测过程中暴露，非事后补记）：①`$PSScriptRoot` 在 param 默认值里为空（与 A 遇到的同一台机器同一问题）；②守卫隔离前缀写死 `b-round3-` 导致新根全被判「隔离模拟边界不满足」；③驱动按 `B-install-state*.json` 找状态文件，而守卫实际写 `install-b-state-<stamp>.json`。
+- 其他引用已纠正：`evidence/deploy-b/tools/{recheck-b.sh,gen-materials.mjs,audit-round4.mjs,key-fixture-test.ps1}` 为实际使用的驱动副本，报告中的复跑命令指向这些入库路径。
+
+### 20.4 剩余输入分开记录（不再统一写「A 三项都未提供」）
+
+| 项 | 状态 | 依据 |
+| --- | --- | --- |
+| 身份文件是否收到 | **未收到** | `_incoming/secrets/` 只有协议与 README；`*magicbook*`/`*.worker.key` 在 `_incoming`、Downloads、Desktop、Documents、`D:\AutoAgentloop` 无命中 |
+| 身份文件核对值 | 已由 A 发布：43 字节、sha256 `a221bdfd990c3fc9d89241a43f6be065a04d3be661988f8e91a78151b0ef695f` | A 交接单；B 侧 `report-key-file.ps1` 已能按此核对 |
+| 中心是否 B 可达 | 历史上可达（2026-11-05T09:53:59 `/healthz` 200、无键 `/v1/work` 401，日志 `center-probe-20261105T095359.log`）；09:41 曾 `curl(56)` | A 交接单地址 `https://obconic-subtetanic-tamika.ngrok-free.dev`（免费档域名会变，安装前需 A 确认当下地址） |
+| A 登记与 B 实际是否一致 | worker 名一致、模型一致、cwd 一致；**`command[0]` 不一致** | A 登记裸 `codex`，B 的 PATH 无 codex；B 提供的已实测绝对路径 `C:\Users\19082\AppData\Local\OpenAI\Codex\bin\codex.exe`（0.130.0-alpha.5） |
+
+- 已删除「升级 A 本机 Codex 可以解决 B 问题」这类替代条件：版本选择以 B 实测为准（0.130.0-alpha.5 在 B 上能完成模型调用），不把 A 本机 0.166 的成功当作 B 的要求。
+
+### 20.5 计数与状态
+
+| 项 | 值 |
+| --- | --- |
+| 守卫自测 | 24 例通过 / 0 失败 |
+| 身份协议夹具 | 4 例通过 / 0 失败 |
+| 正式验证入口实测 | 2 次（codex、claude）均原生 exit 1，判分未运行 → 判定失败并停止 |
+| 真实安装 | **未执行**（`join`/`init`/`up`/`try`/`service install` 均未跑） |
+| 六项跨机联调 | **0/6**（未获 A 联调许可，且安装未完成） |
+
+### 20.6 边界（本轮未越线）
+
+- 未建第二中心、未复用 A 管理员身份、未复制 A 登录文件、未改 A 账本、未开公网端口、未推送 A 的 main。
+- 未向任何日志/报告/Git 写入 key 内容；只记路径、字节、哈希一类元数据。
+- 未升级 codex、未换模型、未用 Claude 冒充 Codex 路径通过。

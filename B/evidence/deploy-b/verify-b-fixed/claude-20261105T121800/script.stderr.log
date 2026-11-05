@@ -1,0 +1,7 @@
+claude.exe : [claude-code:unrecognized_model] {"model":"deepseek-v4.1-flash-1017","query_source":"sdk"}
+ËùÔÚÎ»ÖÃ D:\AutoAgentloop\_incoming\B-reviewed-delivery\supplement\verify-b-fixed.ps1:31 ×Ö·û: 11
++ $stdout = & $Executable @agentArgs 2> $stderrFile
++           ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: ([claude-code:un..._source":"sdk"}:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 

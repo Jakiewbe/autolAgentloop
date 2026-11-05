@@ -1,0 +1,9 @@
+SIMULATION ONLY: fixture package/hash and system probes; NOT a B deployment
+step=1 node
+node=v24.12.0
+step=2 existing_config
+existing_config={"url":"\u003cinvalid-or-unavailable\u003e","worker":"\u003cother-or-missing\u003e","key_present":false}
+STOP: 已存在 config.json，保留现场
+installer_started=false
+success_state_written=false
+no_files_deleted=true; 不自动清理 HOME 或回滚未知文件

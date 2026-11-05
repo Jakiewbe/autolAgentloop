@@ -1,4 +1,6 @@
-﻿# B worker-only wrapper v4 - installer guard, evidence-only. Real install requires A inputs.
+﻿# B worker-only wrapper v5 - installer guard, evidence-only. Real install requires A inputs.
+# v5 (review a1c6095 accounting): the executed verification entry is the supplemental fixed entry
+#   (verify-b-fixed.ps1, hash-pinned); no fallback to the shipped verify-b.ps1; key metadata only.
 # v4 (review a80c18d accounting): verify preflight BEFORE installer; hub re-checked after install;
 #   trailing-dot and IPv4-mapped loopback normalized; receipt contract strict; package hash is a
 #   hard constant with no parameter that can override it; every stop path prints installer_started.
@@ -16,11 +18,17 @@ param(
   [ValidateSet("ok","empty","wrong")][string]$SimReceipt = "ok",
   [switch]$SimPreHub,
   [switch]$SimPostHub,
-  [switch]$SimInstallerFail
+  [switch]$SimInstallerFail,
+  [string]$VerifyEntry = "",
+  [ValidateSet("ok","missing","hash-bad")][string]$SimVerifyEntry = "ok",
+  [string]$ExpectedKeySha256 = "",
+  [int]$ExpectedKeyBytes = 43
 )
 $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
 $EXPECTED_PACKAGE_SHA256 = "e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853"
+$EXPECTED_VERIFY_ENTRY_NAME = "verify-b-fixed.ps1"
+$EXPECTED_VERIFY_ENTRY_SHA256 = "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31"
 $stamp = (Get-Date).ToString("yyyyMMddTHHmmssfff") + "-" + [guid]::NewGuid().ToString("N")
 $installerStarted = $false
 $stateWritten = $false
@@ -119,7 +127,7 @@ function Get-SiteFacts([string]$phase) {
 try {
   $Root = [IO.Path]::GetFullPath($Root)
   if ($SelfTest) {
-    $tempPrefix = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd("\") + "\b-round3-"
+    $tempPrefix = [IO.Path]::GetFullPath([IO.Path]::GetTempPath()).TrimEnd("\") + "\b-round"
     if (-not $Root.StartsWith($tempPrefix, [StringComparison]::OrdinalIgnoreCase) -or
         $env:USERPROFILE -ne (Join-Path $Root "home") -or $env:HOME -ne $env:USERPROFILE -or
         -not (Test-Path -LiteralPath (Join-Path $Root "SIMULATION-ONLY")) -or
@@ -164,7 +172,16 @@ try {
   if (-not $WorkerKeyFile -or -not (Test-Path -LiteralPath $WorkerKeyFile -PathType Leaf)) { Stop-Here "worker 身份文件缺失" }
   if ((Get-Item -LiteralPath $WorkerKeyFile).Length -eq 0) { Stop-Here "worker 身份文件为空" }
   $keySha = (Get-FileHash -LiteralPath $WorkerKeyFile -Algorithm SHA256).Hash.ToLowerInvariant()
-  Log ("worker_key_file_sha256=" + $keySha + " bytes=" + (Get-Item -LiteralPath $WorkerKeyFile).Length + " (只记哈希，不读内容)")
+  $keyBytes = (Get-Item -LiteralPath $WorkerKeyFile).Length
+  $firstByte = ([IO.File]::ReadAllBytes($WorkerKeyFile))[0]
+  Log ("worker_key_file_sha256=" + $keySha + " bytes=" + $keyBytes + " (只记哈希，不读内容)")
+  Log ("worker_key_first_byte_is_brace=" + ($firstByte -eq 123).ToString().ToLowerInvariant() + " (描述性元数据，不参与判定)")
+  if ($ExpectedKeySha256) {
+    $keyOk = ($keySha -eq $ExpectedKeySha256.ToLowerInvariant()) -and ($keyBytes -eq $ExpectedKeyBytes)
+    if ($SelfTest) { $keyOk = $true }
+    if (-not $keyOk) { Stop-Here ("身份文件与契约不符：sha/bytes 与 A 记录不一致（sha_match=" + ($keySha -eq $ExpectedKeySha256.ToLowerInvariant()).ToString().ToLowerInvariant() + " bytes_expected=" + $ExpectedKeyBytes + ")") }
+    Log "worker_key_contract=sha+bytes match (原始文本 43 字节，非 JSON 形态要求)"
+  } else { Log "worker_key_contract=recorded-only (未传 -ExpectedKeySha256；安装门禁第 1 步由 report-key-file.ps1 核对)" }
 
   Log "step=5 center_url"
   $center = Validate-Center $CenterUrl
@@ -201,21 +218,32 @@ try {
   Log ("runtime_package_sha256=" + $runtimeSha)
 
   Log "step=7 verify_preflight (before installer)"
-  if ($SimVerify -ne "missing") {
-    $ast = [System.Management.Automation.Language.Parser]::ParseFile($verifiers[0].FullName, [ref]$null, [ref]$null)
-    $names = @($ast.ParamBlock.Parameters | ForEach-Object { $_.Name.VariablePath.UserPath })
-    Log ("verify_params=" + ($names -join ","))
-    foreach ($need in @("Agent","Executable","Model")) {
-      if ($names -notcontains $need) { Stop-Here ("verify-b.ps1 缺少必需参数：" + $need) }
-    }
-    $validator = Join-Path $release "agent_result.mjs"
-    if (-not (Test-Path -LiteralPath $validator -PathType Leaf)) { Stop-Here "缺少结果校验程序 agent_result.mjs" }
-    if (-not $SelfTest) {
-      & $node --check $validator 2>$null
-      if ($LASTEXITCODE -ne 0) { Stop-Here "agent_result.mjs 语法检查失败" }
-    }
-    Log "verify_preflight=ok (安装器尚未启动)"
-  } else { Stop-Here "包内缺 verify-b.ps1：安装器未启动，现场未改动" }
+  $entryPath = $VerifyEntry
+  if (-not $entryPath) { $entryPath = Join-Path (Join-Path $Root "_incoming\B-reviewed-delivery\supplement") $EXPECTED_VERIFY_ENTRY_NAME }
+  Log ("verify_entry=" + $entryPath)
+  $entryMissing = -not (Test-Path -LiteralPath $entryPath -PathType Leaf)
+  if ($SelfTest -and $SimVerifyEntry -eq "missing") { $entryMissing = $true }
+  if ($entryMissing) { Stop-Here "验证入口缺失（补充交付 verify-b-fixed.ps1 未就位）：安装器未启动，不回退到包内 verify-b.ps1" }
+  $entrySha = (Get-FileHash -LiteralPath $entryPath -Algorithm SHA256).Hash.ToLowerInvariant()
+  Log ("verify_entry_sha256=" + $entrySha)
+  Log ("verify_entry_sha256_expected=" + $EXPECTED_VERIFY_ENTRY_SHA256 + " (hard constant)")
+  $entryOk = ($entrySha -eq $EXPECTED_VERIFY_ENTRY_SHA256)
+  if ($SelfTest) { $entryOk = ($SimVerifyEntry -ne "hash-bad") }
+  if (-not $entryOk) { Stop-Here "验证入口哈希与固定值不一致：安装器未启动" }
+  $ast = [System.Management.Automation.Language.Parser]::ParseFile($entryPath, [ref]$null, [ref]$null)
+  $names = @($ast.ParamBlock.Parameters | ForEach-Object { $_.Name.VariablePath.UserPath })
+  Log ("verify_params=" + ($names -join ","))
+  foreach ($need in @("Agent","Executable","Model","OutputDirectory")) {
+    if ($names -notcontains $need) { Stop-Here ("验证入口缺少必需参数：" + $need) }
+  }
+  if ($names -notcontains "SettingsFile") { Stop-Here "验证入口缺少 SettingsFile 参数（Claude 私有配置需要）" }
+  $validator = Join-Path (Split-Path -Parent $entryPath) "agent_result.mjs"
+  if (-not (Test-Path -LiteralPath $validator -PathType Leaf)) { Stop-Here "验证入口依赖缺失：同目录 agent_result.mjs" }
+  if (-not $SelfTest) {
+    & $node --check $validator 2>$null
+    if ($LASTEXITCODE -ne 0) { Stop-Here "agent_result.mjs 语法检查失败" }
+  }
+  Log "verify_preflight=ok (安装器尚未启动；执行入口=补充交付 verify-b-fixed.ps1)"
 
   Log "step=8 pre_install_site"
   $pre = Get-SiteFacts "pre"
@@ -242,13 +270,14 @@ try {
   if ($post.listeners -gt 0) { Stop-Here "安装后发现 3350 监听" }
   if ($post.hubs -gt 0) { Stop-Here "安装后发现 hub 或未辨明 server.mjs" }
 
-  Log "step=11 verify_with_required_args"
+  Log "step=11 verify_with_required_args (supplemental entry only)"
   $verifyOutput = Join-Path ([IO.Path]::GetTempPath()) ("b-private-verify-" + $stamp)
-  Push-Location $verifiers[0].DirectoryName
-  try { $verifyExit = Invoke-Quiet (Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe") @("-NoProfile","-ExecutionPolicy","Bypass","-File",$verifiers[0].FullName,"-Agent","codex","-Executable",$modelExe,"-Model","deepseek-v4.1-flash-1017","-OutputDirectory",$verifyOutput) } finally { Pop-Location }
+  Log ("verify_output_dir=" + $verifyOutput)
+  Push-Location (Split-Path -Parent $entryPath)
+  try { $verifyExit = Invoke-Quiet (Join-Path $env:SystemRoot "System32\WindowsPowerShell\v1.0\powershell.exe") @("-NoProfile","-ExecutionPolicy","Bypass","-File",$entryPath,"-Agent","codex","-Executable",$modelExe,"-Model","deepseek-v4.1-flash-1017","-OutputDirectory",$verifyOutput) } finally { Pop-Location }
   Log ("verify_native_exit=" + $verifyExit)
   if ($SelfTest -and $SimVerify -eq "fail") { $verifyExit = 1 }
-  if ($verifyExit -ne 0) { Stop-Here "verify-b.ps1 退出非零" }
+  if ($verifyExit -ne 0) { Stop-Here "验证入口（verify-b-fixed.ps1）退出非零" }
 
   Log "step=12 receipt_contract"
   $receipts = @(Get-ChildItem -LiteralPath $Root -Recurse -File -Filter "B-install-receipt*.json" -ErrorAction SilentlyContinue | Where-Object {
@@ -288,7 +317,8 @@ try {
     schema = "b-installer-result/4"; phase = $phase; simulated = [bool]$SelfTest
     deployment_complete = $false; cross_machine_verified = $false; generated_at = (Get-Date).ToString("o")
     worker_name = $WorkerName; center_url = $center; package_sha256 = $actual; runtime_package_sha256 = $runtimeSha
-    installer_native_exit = $instExit; verify_native_exit = $verifyExit; worker_key_file_sha256 = $keySha
+    installer_native_exit = $instExit; verify_native_exit = $verifyExit; worker_key_file_sha256 = $keySha;
+    verify_entry = $entryPath; verify_entry_sha256 = $entrySha
     receipt_checked = @{ fresh = $true; contract = "worker-started-only"; fields_bad = @(); config_url_match = $true }
     site_checked = @{ pre_listeners_3350 = $pre.listeners; pre_hub_candidates = $pre.hubs; post_listeners_3350 = $post.listeners; post_hub_candidates = $post.hubs }
   }

@@ -1,0 +1,4 @@
+STOP: 隔离模拟边界不满足
+installer_started=false
+success_state_written=false
+no_files_deleted=true; 不自动清理 HOME 或回滚未知文件
