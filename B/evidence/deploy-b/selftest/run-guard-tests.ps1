@@ -1,4 +1,4 @@
-﻿# run-guard-tests.ps1 - 驱动 install-b-when-ready.ps1 v5 走受控自测用例（合成夹具，不触真实系统）。
+﻿# run-guard-tests.ps1 - 驱动 install-b-when-ready.ps1 v6 走受控自测用例（合成夹具，不触真实系统）。
 # 每个用例使用全新隔离根与临时 HOME；真实 HOME/配置不被写入。
 [CmdletBinding()]
 param(
@@ -17,7 +17,7 @@ if (-not $scriptDir) { $scriptDir = (Get-Location).Path }
 if (-not $Guard) { $Guard = Join-Path $scriptDir "..\install-b-when-ready.ps1" }
 if (-not $FixturePackage) { $FixturePackage = Join-Path $scriptDir "fixture\B-reviewed-delivery.zip" }
 if (-not $Supplement) { $Supplement = Join-Path $scriptDir "..\supplement" }
-if (-not $OutJson) { $OutJson = Join-Path $scriptDir "guard-selftest-v5.json" }
+if (-not $OutJson) { $OutJson = Join-Path $scriptDir "guard-selftest-v6.json" }
 if (-not $LogDir) { $LogDir = Join-Path $scriptDir "logs" }
 
 if (-not (Test-Path -LiteralPath $Guard)) { throw "guard missing: $Guard" }
@@ -62,6 +62,14 @@ function Run-Case([string]$name, [string]$center, [string[]]$extra, [bool]$expec
       ) -join [Environment]::NewLine
       [IO.File]::WriteAllText((Join-Path $suppDir "verify-b-fixed.ps1"), $stub2, (New-Object Text.UTF8Encoding($false)))
     }
+    if ($supplementMode -eq "judge-bad") {
+      $judgePath = Join-Path $suppDir "agent_result.mjs"
+      $judgeText = [IO.File]::ReadAllText($judgePath)
+      [IO.File]::WriteAllText($judgePath, ($judgeText + [Environment]::NewLine + "// substituted judge: syntax valid, bytes and hash differ" + [Environment]::NewLine), (New-Object Text.UTF8Encoding($false)))
+    }
+    if ($supplementMode -eq "judge-missing") {
+      Remove-Item -LiteralPath (Join-Path $suppDir "agent_result.mjs") -Force
+    }
     if ($supplementMode -eq "hash-bad") {
       [IO.File]::WriteAllText((Join-Path $suppDir "verify-b-fixed.ps1"), "; tampered fixture" + [Environment]::NewLine, (New-Object Text.UTF8Encoding($false)))
     }
@@ -100,6 +108,8 @@ Run-Case "happy" "https://example.com" $base $true
 Run-Case "happy-base-path" "https://example.com:443/base" $base $true
 Run-Case "verify-entry-missing" "https://example.com" ($base + @("-SimVerifyEntry","missing")) $false $null "" "missing"
 Run-Case "verify-entry-hash-bad" "https://example.com" ($base + @("-SimVerifyEntry","hash-bad")) $false $null "" "hash-bad"
+Run-Case "judge-hash-bad" "https://example.com" $base $false $null "" "judge-bad"
+Run-Case "judge-missing" "https://example.com" $base $false $null "" "judge-missing"
 Run-Case "entry-no-settingsfile" "https://example.com" $base $false $null "" "no-settings"
 Run-Case "verify-fail" "https://example.com" ($base + @("-SimVerify","fail")) $false
 Run-Case "package-hash-mismatch" "https://example.com" ($base + @("-SimPackageHash","mismatch")) $false
@@ -121,7 +131,7 @@ Run-Case "existing-config" "https://example.com" $base $false { param($root) New
 Run-Case "probe-without-selftest" "https://example.com" @() $false
 Run-Case "bad-isolation" "https://example.com" $base $false $null (Join-Path $env:TEMP "b-other-root")
 $summary = [ordered]@{
-  schema = "b-guard-selftest/5"; generated_at = (Get-Date).ToString("o")
+  schema = "b-guard-selftest/6"; generated_at = (Get-Date).ToString("o")
   guard_path = (Resolve-Path -LiteralPath $Guard).ProviderPath
   guard_sha256 = (Get-FileHash -LiteralPath $Guard -Algorithm SHA256).Hash.ToLower()
   fixture_package_sha256 = (Get-FileHash -LiteralPath $FixturePackage -Algorithm SHA256).Hash.ToLower()

@@ -1,5 +1,6 @@
-﻿# B worker-only wrapper v5 - installer guard, evidence-only. Real install requires A inputs.
-# v5 (review a1c6095 accounting): the executed verification entry is the supplemental fixed entry
+﻿# B worker-only wrapper v6 - installer guard, evidence-only. Real install requires A inputs.
+# v6 (round6 audit accounting): the judge agent_result.mjs is pinned by sha256 + byte count before the installer runs;
+#   a syntax-valid but substituted judge stops the run. v5: the executed verification entry is the supplemental fixed entry
 #   (verify-b-fixed.ps1, hash-pinned); no fallback to the shipped verify-b.ps1; key metadata only.
 # v4 (review a80c18d accounting): verify preflight BEFORE installer; hub re-checked after install;
 #   trailing-dot and IPv4-mapped loopback normalized; receipt contract strict; package hash is a
@@ -21,6 +22,7 @@ param(
   [switch]$SimInstallerFail,
   [string]$VerifyEntry = "",
   [ValidateSet("ok","missing","hash-bad")][string]$SimVerifyEntry = "ok",
+  [ValidateSet("ok","missing","hash-bad")][string]$SimJudge = "ok",
   [string]$ExpectedKeySha256 = "",
   [int]$ExpectedKeyBytes = 43
 )
@@ -29,6 +31,9 @@ $ErrorActionPreference = "Stop"
 $EXPECTED_PACKAGE_SHA256 = "e0b4fb5b2e03bd9701cf8af42d9c7f9af0106dc09fd1c3018fd64e427394d853"
 $EXPECTED_VERIFY_ENTRY_NAME = "verify-b-fixed.ps1"
 $EXPECTED_VERIFY_ENTRY_SHA256 = "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31"
+$EXPECTED_JUDGE_NAME = "agent_result.mjs"
+$EXPECTED_JUDGE_SHA256 = "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f"
+$EXPECTED_JUDGE_BYTES = 2441
 $stamp = (Get-Date).ToString("yyyyMMddTHHmmssfff") + "-" + [guid]::NewGuid().ToString("N")
 $installerStarted = $false
 $stateWritten = $false
@@ -237,13 +242,21 @@ try {
     if ($names -notcontains $need) { Stop-Here ("验证入口缺少必需参数：" + $need) }
   }
   if ($names -notcontains "SettingsFile") { Stop-Here "验证入口缺少 SettingsFile 参数（Claude 私有配置需要）" }
-  $validator = Join-Path (Split-Path -Parent $entryPath) "agent_result.mjs"
+  $validator = Join-Path (Split-Path -Parent $entryPath) $EXPECTED_JUDGE_NAME
   if (-not (Test-Path -LiteralPath $validator -PathType Leaf)) { Stop-Here "验证入口依赖缺失：同目录 agent_result.mjs" }
+  $judgeBytes = (Get-Item -LiteralPath $validator).Length
+  $judgeSha = (Get-FileHash -LiteralPath $validator -Algorithm SHA256).Hash.ToLowerInvariant()
+  Log ("judge_sha256=" + $judgeSha)
+  Log ("judge_sha256_expected=" + $EXPECTED_JUDGE_SHA256 + " (hard constant)")
+  Log ("judge_bytes=" + $judgeBytes + " expected=" + $EXPECTED_JUDGE_BYTES)
+  $judgeOk = ($judgeSha -eq $EXPECTED_JUDGE_SHA256) -and ($judgeBytes -eq $EXPECTED_JUDGE_BYTES)
+  if ($SelfTest -and $SimJudge -eq "missing") { $judgeOk = $false; Log "fixture: judge treated as missing" }
+  if ($SelfTest -and $SimJudge -eq "hash-bad") { $judgeOk = $false; Log "fixture: judge substituted (syntax-valid, hash/bytes differ)" }
+  if (-not $judgeOk) { Stop-Here "判分器 agent_result.mjs 与固定哈希/字节不一致（可能被替换）：安装器未启动" }
   if (-not $SelfTest) {
     & $node --check $validator 2>$null
     if ($LASTEXITCODE -ne 0) { Stop-Here "agent_result.mjs 语法检查失败" }
-  }
-  Log "verify_preflight=ok (安装器尚未启动；执行入口=补充交付 verify-b-fixed.ps1)"
+  }Log "verify_preflight=ok (安装器尚未启动；执行入口=补充交付 verify-b-fixed.ps1；判分器已按固定 sha256+字节校验)"
 
   Log "step=8 pre_install_site"
   $pre = Get-SiteFacts "pre"

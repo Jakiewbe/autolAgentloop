@@ -129,7 +129,7 @@ SEARCH_SUMMARY dirs=86198 hits=455 real=0 received=3 clone=1 fixture=451 errors=
 
 任何停止路径统一打印 `STOP: <原因>`、`installer_started=true|false`、`success_state_written=false`、`no_files_deleted=true` 并 exit 2。
 
-自测：**22 例，通过 22，失败 0**（`evidence/deploy-b/guard-selftest-v4.json`，逐例日志 `evidence/deploy-b/selftest-logs-v4/case-*.log|.err|.argv.txt`，驱动 `evidence/deploy-b/selftest/run-guard-tests.ps1`（历史 22 例驱动，本轮扩展为 24 例，见 §20.3），夹具包 SHA256 `12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71`）：
+自测：**22 例，通过 22，失败 0**（`evidence/deploy-b/guard-selftest-v4.json`，逐例日志 `evidence/deploy-b/selftest-logs-v4/case-*.log|.err|.argv.txt`，驱动 `evidence/deploy-b/selftest/run-guard-tests.ps1`（历史 22 例驱动；v5 扩到 24 例见 §20.3；v6 扩到 26 例见 §21），夹具包 SHA256 `12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71`）：
 
 | 用例 | 期望 | 实际 |
 | --- | --- | --- |
@@ -220,9 +220,9 @@ cd D:\AutoAgentloop && sha256sum -c evidence/deploy-b/MATERIALS.sha256 | tail -3
 
 ## 15. 未验证计数
 
-- 输入类 3 项：worker 身份文件未到 B（阻塞安装）；A 侧 command[0] 仍是裸 codex 且 A 侧 codex 需 0.166（B 的 PATH 无 codex，0.130 在 A 侧会 400 model_not_found）；A 侧登记仅 desktop-lm7rki1，尚无 b-magicbook14。
+- 输入类 3 项：①worker 身份文件未到 B（阻塞安装）；②A 侧 `command[0]` 仍是裸 codex，需改为 B 的绝对路径（B 的 PATH 无 codex，首任务会 spawn ENOENT；版本以 B 实测 0.130.0-alpha.5 为准，不把 A 本机 0.166 当作 B 的要求）；③A 侧登记确认：worker 名 / 模型 / cwd 与 B 实测一致，仅 command 参数待改。
 - 跨机联调 6 项（§7 全表）。
-- 合计 9 项未验证，与 A 交接单口径一致；环境检查 10 项、守卫自测 22 例、模型探测单列，不混算。
+- 合计 9 项未验证，与 A 交接单口径一致；环境检查 10 项、守卫自测 v6 的 26 例、模型探测单列，不混算。
 - 已确认完成：审核包接收与哈希（1 项）、中心可达性与鉴权（1 项）、模型通道（2 个 agent，含等价判分实现）。
 
 ## 16. 复盘
@@ -242,7 +242,7 @@ git clone -b b https://github.com/Jakiewbe/autolAgentloop.git && cd autolAgentlo
 # 1. 在 B 上逐字节核对材料
 cd D:\AutoAgentloop && sha256sum -c evidence/deploy-b/MATERIALS.sha256 | tail -3
 
-# 2. 复跑守卫 22 例（隔离，不触真实 HOME；约 2 分钟）
+# 2. 复跑守卫 26 例（隔离，不触真实 HOME；约 3 分钟）
 cd D:\AutoAgentloop && powershell -NoProfile -ExecutionPolicy Bypass -File evidence/deploy-b/selftest/run-guard-tests.ps1
 
 # 3. 复跑模型等价判分（codex 一次，可换 claude）
@@ -397,7 +397,7 @@ dep    : agent_result.mjs 2441  sha256 0bead26b5e5cad1239682b9e38b6b258239876097
 
 - 驱动入库：`evidence/deploy-b/selftest/run-guard-tests.ps1`（24 例，脚本内自带隔离根 `%TEMP%\b-round5-<case>`、临时 HOME、`SIMULATION-ONLY` 标记、`probe.json` 系统探针）。
 - 夹具入库：`evidence/deploy-b/selftest/fixture/B-reviewed-delivery.zip`（3193 字节，sha256 `12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71`），桩安装器/桩 verify/桩判分器，`fixture/SHA256SUMS` 记录。
-- 逐例原始日志入库：`evidence/deploy-b/selftest/logs/case-*.log|.err|.argv.txt`；汇总 `evidence/deploy-b/selftest/guard-selftest-v5.json`。
+- 逐例原始日志入库：`evidence/deploy-b/selftest/logs/case-*.log|.err|.argv.txt`；汇总 `evidence/deploy-b/selftest/guard-selftest-v6.json（26 例，见 §21）`。
 - 结果：**24 例，通过 24，失败 0**（`cases_total=24, cases_ok=24, cases_bad=0`）。新增用例：`verify-entry-missing`（未就位→安装器未启动）、`verify-entry-hash-bad`（哈希不符→安装前停止）、`entry-no-settingsfile`（缺 SettingsFile 参数→安装前停止）。
 - 本轮修的三处驱动缺陷（都在自测过程中暴露，非事后补记）：①`$PSScriptRoot` 在 param 默认值里为空（与 A 遇到的同一台机器同一问题）；②守卫隔离前缀写死 `b-round3-` 导致新根全被判「隔离模拟边界不满足」；③驱动按 `B-install-state*.json` 找状态文件，而守卫实际写 `install-b-state-<stamp>.json`。
 - 其他引用已纠正：`evidence/deploy-b/tools/{recheck-b.sh,gen-materials.mjs,audit-round4.mjs,key-fixture-test.ps1}` 为实际使用的驱动副本，报告中的复跑命令指向这些入库路径。
@@ -428,3 +428,40 @@ dep    : agent_result.mjs 2441  sha256 0bead26b5e5cad1239682b9e38b6b258239876097
 - 未建第二中心、未复用 A 管理员身份、未复制 A 登录文件、未改 A 账本、未开公网端口、未推送 A 的 main。
 - 未向任何日志/报告/Git 写入 key 内容；只记路径、字节、哈希一类元数据。
 - 未升级 codex、未换模型、未用 Claude 冒充 Codex 路径通过。
+
+## 21. 第六轮审核（目标 aff6473）的回应：3 PASS / 3 FAIL，2026-11-05T12:37+08:00 起
+
+审核对象固定为 `aff6473c5b80a1b6f7efd2096e9776faf44df113`。结论：Z1 PASS、Z2 FAIL、Z3 PASS、Z4 FAIL、Z5 PASS、Z6 FAIL。三项 FAIL 本轮全部修复，每项都与新增用例绑定。
+
+### 21.1 Z2：判分器完整性改为按哈希 + 字节钉死
+
+- 守卫升 v6，新增硬常量 `$EXPECTED_JUDGE_SHA256` = `0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f`、`$EXPECTED_JUDGE_BYTES` = `2441`，位置 `evidence/deploy-b/install-b-when-ready.ps1:35-36`。
+- 第 7 步在**安装器启动前**读取实际将被执行的 `agent_result.mjs`，比对 sha256 与字节数；不一致即停，日志原文：`STOP: 判分器 agent_result.mjs 与固定哈希/字节不一致（可能被替换）：安装器未启动`（`install-b-when-ready.ps1:246-255`）。
+- 审核用的反例（入口字节不变、只替换判分器 → `NATIVE_EXIT=0` 并接受假输出）现在被拦在安装前：新增 `judge-hash-bad`（判分器改成语法有效但内容不同）与 `judge-missing` 两例，均 `exit 2`、`installer_started=false`、无状态文件。
+- 守卫自身 sha256 变为 `bafab6b138d442ea6fcbbb7a7784e5b6b2d7236f98f3422c136c06ee2fedf180`。
+
+### 21.2 Z4：指引与驱动都回到快照内
+
+- `evidence/deploy-b/key-receipt-protocol.md:39` 的自测命令改指 `D:\AutoAgentloop\evidence\deploy-b\tools\key-fixture-test.ps1`，不再指向未入库的 `_probe` 路径。
+- `evidence/deploy-b/tools/key-fixture-test.ps1:1-12` 去掉写死的本机 reporter 默认值，改为按驱动自身位置解析 `../report-key-file.ps1`；解析不到就 `REPORTER_MISSING` 并 `exit 2`，运行时先打印 `REPORTER=` 实际路径。
+- 不带任何参数实跑（本轮）：`REPORTER=D:\AutoAgentloop\evidence\deploy-b\report-key-file.ps1`，`CASES=4 CONTENT_LEAKS=0`，`RESULT=PASS FAILURES=0`。
+
+### 21.3 Z6：删除仍在生效的升级替代条件与旧登记口径
+
+- `B-install-state.json` 的 B-IN-2 只保留「A 侧把 command[0] 从裸 codex 改为 B 的绝对路径」，删掉「或 A 侧升级 codex 到 0.166」；原因改为「版本以 B 实测 0.130.0-alpha.5 为准，不把 A 本机 0.166 当作 B 的要求」。
+- B-IN-3 与本文件 §15 的旧句「A.md 目前只登记 desktop-lm7rki1」替换为「A 交接单已登记 worker 名 / 模型 / cwd（与 B 实测一致），仅 command 参数待改」，不再同时宣称已一致又只登记旧 worker。
+
+### 21.4 本轮计数（分开记，不与历史合并）
+
+| 项 | 结果 | 目标 / 依据 |
+| --- | --- | --- |
+| 守卫隔离自测 | 26 例 / 通过 26 / 失败 0 | `selftest/guard-selftest-v6.json`，schema `b-guard-selftest/6` |
+| 判分器固定负例 | 2 例（judge-hash-bad、judge-missing）都在安装前停止 | `selftest/logs/case-judge-*.log|.err|.argv.txt` |
+| 身份夹具 | 4/4，零内容外泄 | `tools/key-fixture-test.ps1` 无参数实跑 |
+| 正式验证入口 | 2 次失败（codex / claude 各 exit 1） | A 侧脚本缺陷，未用等价实现冒充 |
+| 真实安装 | 未执行 | 停在安装前 |
+| 六项跨机联调 | 0/6 | 等 key 与 A 许可 |
+
+### 21.5 未变的边界
+
+`phase=blocked_before_install`、`installer_success_state=false`、`real_install_executed=false`、`cross_machine_verified=0/6`、key 落点不存在 —— 审核方列出的「正确保留的边界」逐项未变。

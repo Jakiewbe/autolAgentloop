@@ -1,7 +1,15 @@
-﻿param([string]$Work = (Join-Path $env:TEMP "b-key-fixture"), [string]$Report = "D:\AutoAgentloop\evidence\deploy-b\report-key-file.ps1")
+﻿param([string]$Work = "", [string]$Report = "")
 # 非凭据夹具：只验证核对逻辑；夹具内容是明显的示例串，不是任何真实密钥。
 $ErrorActionPreference = "Stop"
 [Console]::OutputEncoding = [Text.Encoding]::UTF8
+if (-not $Work) { $Work = Join-Path $env:TEMP "b-key-fixture" }
+if (-not $Report) {
+  $sd = $PSScriptRoot; if (-not $sd -and $MyInvocation.MyCommand.Path) { $sd = Split-Path -Parent $MyInvocation.MyCommand.Path }
+  $Report = Join-Path (Split-Path -Parent $sd) "report-key-file.ps1"
+}
+if (-not (Test-Path -LiteralPath $Report -PathType Leaf)) { [Console]::WriteLine("REPORTER_MISSING=" + $Report); exit 2 }
+[Console]::WriteLine("REPORTER=" + (Resolve-Path -LiteralPath $Report).Path)
+
 if (Test-Path -LiteralPath $Work) { Remove-Item -LiteralPath $Work -Recurse -Force }
 New-Item -ItemType Directory -Path $Work -Force | Out-Null
 function New-Fixture([string]$name, [string]$text) {

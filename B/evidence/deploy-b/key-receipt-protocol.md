@@ -36,7 +36,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File D:\AutoAgentloop\evidence\de
   -Path D:\AutoAgentloop\_incoming\secrets\b-magicbook14.worker.key
 ```
 
-自测（非凭据夹具，可复跑）：`D:\AutoAgentloop\_probe\key-fixture-test.ps1`，用例见第 4 节。
+自测（非凭据夹具，可复跑）：`D:\AutoAgentloop\evidence\deploy-b\tools\key-fixture-test.ps1`，用例见第 4 节。驱动不带参数时按自身位置定位 reporter（`../report-key-file.ps1`），快照外复跑可用 `-Report` 显式指定；两者都会先打印 `REPORTER=` 实际路径。
 
 ## 4. 夹具自测判据（2026-11-05 执行）
 

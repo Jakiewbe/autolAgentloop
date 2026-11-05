@@ -1,12 +1,12 @@
 {
-    "schema":  "b-guard-selftest/5",
-    "generated_at":  "2026-11-05T12:15:40.9888835+08:00",
+    "schema":  "b-guard-selftest/6",
+    "generated_at":  "2026-11-05T12:40:13.3609483+08:00",
     "guard_path":  "D:\\AutoAgentloop\\evidence\\deploy-b\\install-b-when-ready.ps1",
-    "guard_sha256":  "3fedbcc6aedd39348615dc55bddff7ca7202e11fc5aa0c8ae11ce5c101138c8a",
+    "guard_sha256":  "bafab6b138d442ea6fcbbb7a7784e5b6b2d7236f98f3422c136c06ee2fedf180",
     "fixture_package_sha256":  "12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71",
     "supplement_entry_sha256":  "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31",
-    "cases_total":  24,
-    "cases_ok":  24,
+    "cases_total":  26,
+    "cases_ok":  26,
     "cases_bad":  0,
     "cases":  [
                   {
@@ -55,6 +55,28 @@
                       "done_printed":  false,
                       "verify_entry_missing":  false,
                       "stop_line":  "STOP: 验证入口哈希与固定值不一致：安装器未启动",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "judge-hash-bad",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "verify_entry_missing":  false,
+                      "stop_line":  "STOP: 判分器 agent_result.mjs 与固定哈希/字节不一致（可能被替换）：安装器未启动",
+                      "ok":  true
+                  },
+                  {
+                      "case":  "judge-missing",
+                      "expected":  "exit 2 + no state",
+                      "exit":  2,
+                      "installer_started":  false,
+                      "state_written":  false,
+                      "done_printed":  false,
+                      "verify_entry_missing":  false,
+                      "stop_line":  "STOP: 验证入口依赖缺失：同目录 agent_result.mjs",
                       "ok":  true
                   },
                   {

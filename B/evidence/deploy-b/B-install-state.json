@@ -1,4 +1,4 @@
-{
+﻿{
   "schema": "dsh-b-install-state/6",
   "document_kind": "B 端部署执行状态（脱敏，不含任何密钥或密钥哈希之外的凭据材料）",
   "generated_at": "2026-11-05T12:35:00+08:00",
@@ -151,14 +151,14 @@
   ],
   "guard_selftests": {
     "guard_file": "D:\\AutoAgentloop\\evidence\\deploy-b\\install-b-when-ready.ps1",
-    "guard_sha256": "3fedbcc6aedd39348615dc55bddff7ca7202e11fc5aa0c8ae11ce5c101138c8a",
+    "guard_sha256": "bafab6b138d442ea6fcbbb7a7784e5b6b2d7236f98f3422c136c06ee2fedf180",
     "driver": "evidence/deploy-b/selftest/run-guard-tests.ps1 (in-repo)",
     "logs": "evidence/deploy-b/selftest/logs/case-*.log|.err|.argv.txt (in-repo)",
-    "summary_json": "evidence/deploy-b/selftest/guard-selftest-v5.json (in-repo)",
+    "summary_json": "evidence/deploy-b/selftest/guard-selftest-v6.json (in-repo)",
     "fixture_package": "evidence/deploy-b/selftest/fixture/B-reviewed-delivery.zip",
     "fixture_package_sha256": "12501105805449531747e6f7cf399933bf06e36d8647cbedb86a8e87f569ac71",
-    "cases_total": 24,
-    "cases_ok": 24,
+    "cases_total": 26,
+    "cases_ok": 26,
     "cases_bad": 0,
     "new_cases": [
       "verify-entry-missing",
@@ -167,7 +167,20 @@
     ],
     "self_test_boundary": "合成夹具 + 桩验证入口；只证明控制流程，不证明 B 已部署，不证明模型可用",
     "driver_sha256": "bea9559f83b9d2b1bdce3cb7e437d6f78267d740faccc1d88ecc33228ae7e2d2",
-    "supplement_entry_sha256": "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31"
+    "supplement_entry_sha256": "36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31",
+    "guard_version": "v6",
+    "cases_added_round6": [
+      "judge-hash-bad",
+      "judge-missing"
+    ],
+    "judge_pin": {
+      "file": "agent_result.mjs",
+      "expected_sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+      "expected_bytes": 2441,
+      "checked_before_installer": true,
+      "guard_lines": "35-36 constants, 246-255 check and STOP",
+      "reverse_case": "judge-hash-bad: entry bytes unchanged, judge substituted with syntax-valid content -> exit 2, installer_started=false, no state file"
+    }
   },
   "model_probes": {
     "native_direct": [
@@ -261,14 +274,14 @@
     },
     {
       "id": "B-IN-2",
-      "item": "A 侧把 command[0] 从裸 codex 改为 B 的绝对路径，或 A 侧升级 codex 到 0.166",
-      "why": "B 的 PATH 无 codex（首任务会 spawn ENOENT）；且 0.130.0-alpha.5 在 A 侧会 400 model_not_found",
+      "item": "A 侧把 command[0] 从裸 codex 改为 B 的绝对路径（完整路径见 B.md 20.4 节的 B 侧实测记录）",
+      "why": "B 的 PATH 无 codex，首任务会 spawn ENOENT；版本以 B 实测 0.130.0-alpha.5 为准，不把 A 本机 0.166 当作 B 的要求",
       "how": "A 改 rules.json 的 b-magicbook14 command"
     },
     {
       "id": "B-IN-3",
       "item": "A 侧登记确认：worker 名 b-magicbook14 / 模型 deepseek-v4.1-flash-1017 / cwd D:\\AutoAgentloop",
-      "why": "与 B 实际一致才接得上；A.md 目前只登记 desktop-lm7rki1",
+      "why": "与 B 实际一致才接得上；A 交接单已登记 worker 名 / 模型 / cwd（与 B 实测一致），仅 command 参数待改为绝对路径",
       "how": "A 在 rules.json / A.md 登记后回传快照"
     }
   ],
@@ -317,8 +330,8 @@
     }
   ],
   "counts": {
-    "guard_selftest_cases": 24,
-    "guard_selftest_passed": 24,
+    "guard_selftest_cases": 26,
+    "guard_selftest_passed": 26,
     "guard_selftest_failed": 0,
     "key_fixture_cases": 4,
     "key_fixture_passed": 4,
@@ -327,7 +340,9 @@
     "real_install_executed": false,
     "cross_machine_tests_verified": 0,
     "cross_machine_tests_total": 6,
-    "round5_gaps_fixed": 3
+    "round5_gaps_fixed": 3,
+    "round6_gaps_fixed": 3,
+    "judge_pin_negative_cases": 2
   },
   "review_response": [
     {
@@ -657,5 +672,55 @@
       ],
       "evidence": "24/24 PASS"
     }
-  ]
+  ],
+  "key_fixture_rerun_round6": {
+    "when": "2026-11-05T12:44+08:00",
+    "command": "powershell -File evidence/deploy-b/tools/key-fixture-test.ps1 (no arguments)",
+    "reporter_resolved": "D:\\AutoAgentloop\\evidence\\deploy-b\\report-key-file.ps1",
+    "reporter_source": "resolved from driver location (../report-key-file.ps1), not a hard-coded working copy",
+    "cases": 4,
+    "passed": 4,
+    "content_leaks": 0,
+    "note": "raw43-match exit 0, json43-match exit 0, raw43-hash-mismatch exit 3, missing exit 2"
+  },
+  "audit_round6": {
+    "run_at": "2026-11-05T12:36:59+08:00",
+    "auditor": "independent Codex review with locally executed Python 3.12 scripts",
+    "target_commit": "aff6473c5b80a1b6f7efd2096e9776faf44df113",
+    "verdicts": {
+      "Z1": "PASS",
+      "Z2": "FAIL",
+      "Z3": "PASS",
+      "Z4": "FAIL",
+      "Z5": "PASS",
+      "Z6": "FAIL"
+    },
+    "fixed_this_round": [
+      {
+        "id": "Z2",
+        "issue": "judge agent_result.mjs pinned only by existence plus syntax; a substituted judge accepted the same invalid model output",
+        "fix": "guard v6 pins sha256 plus 2441 bytes as hard constants (35-36) and stops before the installer (246-255); new negative cases judge-hash-bad and judge-missing",
+        "evidence": "selftest/guard-selftest-v6.json (26/26), selftest/logs/case-judge-*.log|.err|.argv.txt"
+      },
+      {
+        "id": "Z4",
+        "issue": "protocol pointed at an unshipped _probe driver; the driver defaulted to a local working-copy reporter",
+        "fix": "protocol now points at evidence/deploy-b/tools/key-fixture-test.ps1; driver resolves ../report-key-file.ps1 from its own location and prints REPORTER=",
+        "evidence": "key-receipt-protocol.md:39, tools/key-fixture-test.ps1:1-12, rerun with no arguments 4/4 PASS"
+      },
+      {
+        "id": "Z6",
+        "issue": "the retired A-side codex upgrade alternative survived in the active blocker list, and the registration wording contradicted itself",
+        "fix": "B-IN-2 keeps only the absolute-path change; B-IN-3 and B.md section 15 now state that registration matches B measurements except the command parameter",
+        "evidence": "B-install-state.json blocked_inputs_needed_from_a, B.md section 15"
+      }
+    ],
+    "unchanged_boundaries": {
+      "phase": "blocked_before_install",
+      "installer_success_state": false,
+      "real_install_executed": false,
+      "cross_machine_verified": "0/6",
+      "key_landing_exists": false
+    }
+  }
 }

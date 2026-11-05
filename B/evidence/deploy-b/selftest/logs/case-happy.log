@@ -18,7 +18,10 @@ verify_entry=C:\Users\19082\AppData\Local\Temp\b-round5-happy\_incoming\B-review
 verify_entry_sha256=fd0e2f4da98f8a1a52d15002218bc19798e9c1bdd124256a0f520c6d133a3462
 verify_entry_sha256_expected=36c964e32c039c158d422c4d4ad648a25442226182945f7fadd1b05b653a7e31 (hard constant)
 verify_params=Agent,Executable,Model,SettingsFile,OutputDirectory
-verify_preflight=ok (安装器尚未启动；执行入口=补充交付 verify-b-fixed.ps1)
+judge_sha256=0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f
+judge_sha256_expected=0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f (hard constant)
+judge_bytes=2441 expected=2441
+verify_preflight=ok (安装器尚未启动；执行入口=补充交付 verify-b-fixed.ps1；判分器已按固定 sha256+字节校验)
 step=8 pre_install_site
 pre_listeners_3350=0 pre_hub_candidates=0
 step=9 installer
@@ -26,10 +29,10 @@ installer_native_exit=0
 step=10 post_install_site (hub re-checked)
 post_listeners_3350=0 post_hub_candidates=0
 step=11 verify_with_required_args (supplemental entry only)
-verify_output_dir=C:\Users\19082\AppData\Local\Temp\b-private-verify-20261105T121459690-98f50abe8f7b466a8a9d6f83ddb54fe2
+verify_output_dir=C:\Users\19082\AppData\Local\Temp\b-private-verify-20261105T123927916-7c7ec88f1f3b415c9d2487e28c7faff6
 verify_native_exit=0
 step=12 receipt_contract
 receipt_fields_bad=none
 step=13 write_state
-state_written=true path=C:\Users\19082\AppData\Local\Temp\b-round5-happy\evidence\deploy-b\install-b-state-20261105T121459690-98f50abe8f7b466a8a9d6f83ddb54fe2.json
+state_written=true path=C:\Users\19082\AppData\Local\Temp\b-round5-happy\evidence\deploy-b\install-b-state-20261105T123927916-7c7ec88f1f3b415c9d2487e28c7faff6.json
 SIMULATION PASS: not a B installation
