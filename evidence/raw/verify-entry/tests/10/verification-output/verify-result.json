@@ -1,0 +1,42 @@
+{
+  "passed": false,
+  "stage": "graded",
+  "invoked": true,
+  "agent": "codex",
+  "model": "deepseek-v4.1-flash-1017",
+  "agentArgs": [
+    "exec",
+    "--json",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "workspace-write",
+    "-m",
+    "deepseek-v4.1-flash-1017",
+    "Reply with only this token: AGENT_VERIFY_8b92a89ef38415759cc4eea3fc5b71c6"
+  ],
+  "executable": "C:/Users/chs/AppData/Local/OpenAI/Codex/bin/22cfb1d302613eae/codex.exe",
+  "executableSize": 368970544,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_8b92a89ef38415759cc4eea3fc5b71c6",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:36:23.356Z",
+  "finishedAt": "2026-11-05T04:36:38.265Z",
+  "durationMs": 14909,
+  "nativeExitCode": 1,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\10\\verification-output\\model.stdout.jsonl",
+  "stdoutBytes": 578,
+  "stdoutSha256": "62ba259eb180808ffcd30fa5f07bf651a4d9d6216544b219d880503baafe5222",
+  "stderrFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\10\\verification-output\\model.stderr.log",
+  "stderrBytes": 414,
+  "stderrSha256": "904aa167ea695b35cc7f98f586ffb9e66ed697b1f6aa87aac0b6564a69f9e4ae",
+  "judge": {
+    "path": "D:/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": false,
+    "session": null,
+    "error": "进程退出码为 1"
+  },
+  "error": "进程退出码为 1"
+}

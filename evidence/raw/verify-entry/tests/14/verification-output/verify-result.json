@@ -1,0 +1,41 @@
+{
+  "passed": true,
+  "stage": "graded",
+  "invoked": true,
+  "agent": "codex",
+  "model": "m",
+  "agentArgs": [
+    "exec",
+    "--json",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "workspace-write",
+    "-m",
+    "m",
+    "Reply with only this token: AGENT_VERIFY_6ad51977b46223168ea61adb87ffc03c"
+  ],
+  "executable": "D:/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/default-run/with space/stub-args.cmd",
+  "executableSize": 40,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_6ad51977b46223168ea61adb87ffc03c",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:35:48.944Z",
+  "finishedAt": "2026-11-05T04:35:49.090Z",
+  "durationMs": 145,
+  "nativeExitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\default-run\\with space\\verification-output\\model.stdout.jsonl",
+  "stdoutBytes": 535,
+  "stdoutSha256": "6a1a83ce39b6de47e3e0ebfa57fb828a7db6d2a6aaa96451c6e52b96a9d414a5",
+  "stderrFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\default-run\\with space\\verification-output\\model.stderr.log",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "judge": {
+    "path": "D:/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/default-run/with space/judge copy.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": true,
+    "session": "stub-args-thread",
+    "error": null
+  }
+}

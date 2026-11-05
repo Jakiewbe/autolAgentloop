@@ -1,0 +1,5 @@
+test=14
+title=default output dir under the copy's own spaced path
+expected_exit=0
+actual_exit=0
+verdict=PASS

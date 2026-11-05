@@ -1,0 +1,6 @@
+test=01
+title=missing -Model exits 2 without invoking
+expected_exit=2
+actual_exit=2
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable /d/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/stub-args.cmd -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs

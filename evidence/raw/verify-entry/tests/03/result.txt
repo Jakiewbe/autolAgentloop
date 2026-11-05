@@ -1,0 +1,6 @@
+test=03
+title=child exit 3 is graded as failure
+expected_exit=1
+actual_exit=1
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable /d/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/stub-exit3.cmd -Model m -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs

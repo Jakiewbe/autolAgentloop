@@ -1,0 +1,1 @@
+{"passed":false,"stage":"output","invoked":true,"error":"the model ran but its output could not be saved: EISDIR: illegal operation on a directory, open 'D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\16\\verification-output\\model.stdout.jsonl'"}

@@ -1,3 +1,0 @@
-Reading additional input from stdin...
-2026-11-05T04:10:10.394609Z ERROR codex_core::session::session: failed to load skill C:\Users\chs\.codex\skills\research-vault-ingest\SKILL.md: missing YAML frontmatter delimited by ---
-2026-11-05T04:10:10.394637Z ERROR codex_core::session::session: failed to load skill C:\Users\chs\.codex\skills\research-vault-retrieval\SKILL.md: missing YAML frontmatter delimited by ---

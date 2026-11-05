@@ -1,0 +1,42 @@
+{
+  "passed": false,
+  "stage": "graded",
+  "invoked": true,
+  "agent": "codex",
+  "model": "m",
+  "agentArgs": [
+    "exec",
+    "--json",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "workspace-write",
+    "-m",
+    "m",
+    "Reply with only this token: AGENT_VERIFY_a8e054fed4d53156432d17459a45c6c0"
+  ],
+  "executable": "D:/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/stub-exit3.cmd",
+  "executableSize": 112,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_a8e054fed4d53156432d17459a45c6c0",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:35:39.556Z",
+  "finishedAt": "2026-11-05T04:35:39.613Z",
+  "durationMs": 58,
+  "nativeExitCode": 3,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\03\\verification-output\\model.stdout.jsonl",
+  "stdoutBytes": 80,
+  "stdoutSha256": "2da11fa724ba98037d05015d31994e6b9c17842a06163748c3e8fe131bd0e8ad",
+  "stderrFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\03\\verification-output\\model.stderr.log",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "judge": {
+    "path": "D:/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": false,
+    "session": null,
+    "error": "进程退出码为 3"
+  },
+  "error": "进程退出码为 3"
+}

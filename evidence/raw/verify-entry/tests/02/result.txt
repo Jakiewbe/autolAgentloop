@@ -1,0 +1,6 @@
+test=02
+title=nonexistent -Executable exits 2
+expected_exit=2
+actual_exit=2
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable /d/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/does-not-exist.cmd -Model m -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs

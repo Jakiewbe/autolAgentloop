@@ -1,0 +1,6 @@
+test=10
+title=A-local real codex with an explicit -m (this account rejects it)
+expected_exit=1
+actual_exit=1
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable C:/Users/chs/AppData/Local/OpenAI/Codex/bin/22cfb1d302613eae/codex.exe -Model deepseek-v4.1-flash-1017 -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs

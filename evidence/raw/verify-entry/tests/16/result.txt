@@ -1,0 +1,5 @@
+test=16
+title=post-run save failure exits 4 with invoked=true
+expected_exit=4
+actual_exit=4
+verdict=PASS

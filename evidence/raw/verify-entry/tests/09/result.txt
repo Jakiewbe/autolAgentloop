@@ -1,0 +1,6 @@
+test=09
+title=paths with spaces work
+expected_exit=0
+actual_exit=0
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable /d/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/with space/stub-args.cmd -Model m -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs

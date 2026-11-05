@@ -1,0 +1,6 @@
+test=11
+title=A-local real codex, -Model auto
+expected_exit=0
+actual_exit=0
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable C:/Users/chs/AppData/Local/OpenAI/Codex/bin/22cfb1d302613eae/codex.exe -Model auto -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs

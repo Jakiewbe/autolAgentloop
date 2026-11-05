@@ -1,0 +1,10 @@
+test=13
+title=repository bytes are LF and run as-is
+expected_exit=0
+actual_exit=0
+verdict=PASS
+command=verify-entry.ps1 -Agent codex -Executable /d/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/stub-args.cmd -Model m -Validator /d/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs -OutputDirectory /d/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/tests/13/verification-output
+entry_identical=yes
+lf_only=yes
+b997a5241ce4369f123916b684565f5557109e6aaea2a47d103fcd6452348294 */d/Vibe_coding-Project/autoAgentloop/deploy/verify-entry/verify-entry.ps1
+b320d19d8e1fb968722bf05ffb15cd31548f50f2d7a38908ac73e10f9b46b413 */d/Vibe_coding-Project/autoAgentloop/deploy/verify-entry/verify-model.mjs

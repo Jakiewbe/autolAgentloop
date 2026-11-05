@@ -114,18 +114,13 @@ node D:\AutoAgentloop\_reviewed\install-b.mjs `
 
 | 文件 | 字节 | SHA256 |
 | --- | --- | --- |
-| `deploy/verify-entry/verify-entry.ps1` | 1754 | `a95d0a7d2d338b129fb59e06eedb5c7ae657f375fd7e569723e8167fba572092` |
-| `deploy/verify-entry/verify-model.mjs` | 9185 | `c313bbaa2fb79348f773050a7c62e84cf3613671046f3a80bd56a74c2dfcd9de` |
+| `deploy/verify-entry/verify-entry.ps1` | 2470 | `b997a5241ce4369f123916b684565f5557109e6aaea2a47d103fcd6452348294` |
+| `deploy/verify-entry/verify-model.mjs` | 10458 | `b320d19d8e1fb968722bf05ffb15cd31548f50f2d7a38908ac73e10f9b46b413` |
 
 唯一有效版本是**远端提交里的这两个文件**（`.gitattributes` 已对 `*.ps1` 设 `-text`，仓库里就是 LF、1754 字节）；下载后先 `sha256` 对上再跑，不要自己改换行。判分器仍用 B 自己解压出来的原包 `agent_result.mjs`（2441 B / `0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f`），入口每次运行前会校验它，哈希不符直接退出 2，不会用改过的判分器放行。
 
 ```powershell
-powershell -NoProfile -ExecutionPolicy Bypass -File <下载目录>\verify-entry.ps1 ^
-  -Agent codex ^
-  -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<目录>\codex.exe" ^
-  -Model deepseek-v4.1-flash-1017 ^
-  -Validator "D:\AutoAgentloop\_reviewed\agent_result.mjs" ^
-  -OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"
+powershell -NoProfile -ExecutionPolicy Bypass -File "<下载目录>\verify-entry.ps1" -Agent codex -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<目录>\codex.exe" -Model deepseek-v4.1-flash-1017 -Validator "D:\AutoAgentloop\_reviewed\agent_result.mjs" -OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"
 ```
 
 | 参数 | 必填 | 说明 |
@@ -141,7 +136,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File <下载目录>\verify-entry.
 
 **产物**（全部落在 `-OutputDirectory`）：`model.stdout.jsonl`（stdout 原始字节，不转码不裁剪）、`model.stderr.log`、`verify-result.json`（`passed`、`nativeExitCode`、`signal`、`agentArgs`、两个输出的 `bytes`/`sha256`、`judge{path,sha256,passed,session,error}`）。判分口径与原包一致：**usage 不参与判定**。
 
-**A 本机已验证**（Windows PowerShell 5.1，证据 `evidence/verify-entry.md` §3）：参数正确进入真实调用并**通过**（codex 0.166.0-alpha.5.1、`-Model auto`、22 s、`thread_id` 非空、最终文本逐字等于随机令牌）；缺参退出 1、路径不存在退出 2；退出码 3、非 JSON 行、无 `turn.completed`、令牌不符四种都返回失败；stdin 不等待（`pause` 桩 1 s）；CRLF + 中文输出落盘字节与桩输出 sha256 完全相同；含空格路径的 8 个 argv 全部还原。claude 分支走到真实 CLI 后如实失败（199 s、exit 1、`401 Upstream request failed: Go requires a credential`）。
+**A 本机已验证**（Windows PowerShell 5.1，证据 `evidence/verify-entry.md` §3，可复跑脚本 `tools/checks/verify_entry_matrix.sh`）：参数正确进入真实调用并**通过**（codex 0.166.0-alpha.5.1、`-Model auto`、22 s、`thread_id` 非空、最终文本逐字等于随机令牌）；**缺参退出 2**（入口自己校验，`invoked:false`）、路径不存在退出 2；退出码 3、非 JSON 行、无 `turn.completed`、令牌不符四种都返回失败（令牌不符见 `tests/15`）；**已发起调用但收尾失败退出 4**（`tests/16`，`invoked:true`）；stdin 不等待（`pause` 桩 1 s）；CRLF + 中文输出落盘字节与桩输出 sha256 完全相同；含空格路径的 8 个 argv 全部还原。claude 分支走到真实 CLI 后如实失败（199 s、exit 1、`401 Upstream request failed: Go requires a credential`）。
 
 **仍需 B 实机验证**：B 的 codex/claude 真实模型能否通过（A 的账号只接受默认模型，**不能用 A 的成功替代 B**）、B 的包装器接入后整链、B 本机 `agent_result.mjs` 哈希是否等于原版、B 的 PowerShell 执行策略。
 

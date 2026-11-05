@@ -59,8 +59,9 @@ powershell -NoProfile -ExecutionPolicy Bypass -File <...>\verify-entry.ps1 ^
 | --- | --- | --- |
 | 0 | 判分器 `verifyAgentResult` 返回通过（进程退出码 0、有成功终态、最终文本逐字等于令牌、会话编号非空） | 是 |
 | 1 | 真实跑完但判分不通过（非零退出、非 JSON 行、无 `turn.completed`、出现 `turn.failed`/`error`、回答不符、无会话编号） | 否 |
-| 2 | 输入/依赖问题：缺参、路径不存在、claude 缺 `-SettingsFile`、`-Model auto` 配 claude、找不到 `agent_result.mjs` 或其哈希不是原版、找不到 `node.exe` | 否（此时**没有**发起模型调用） |
-| 3 | 程序起不来或收不到进程结束事件（`spawn` 失败等） | 否 |
+| 2 | 输入/依赖问题：缺参、路径不存在、claude 缺 `-SettingsFile`、`-Model auto` 配 claude、找不到 `agent_result.mjs` 或其哈希不是原版、找不到 `node.exe` | 否（此时**没有**发起模型调用，`invoked` 必为 `false`） |
+| 3 | 程序起不来或收不到进程结束事件（`spawn` 失败）——已经尝试发起 | 否（`invoked` 为 `true`） |
+| 4 | **已经发起调用**，但入口自己没收尾：输出保存失败、`verify-result.json` 写不下去、未预期异常 | 否（`invoked` 必为 `true`） |
 
 **产物（全部落在 `-OutputDirectory`）**
 
@@ -68,7 +69,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -File <...>\verify-entry.ps1 ^
 | --- | --- |
 | `model.stdout.jsonl` | 模型进程 stdout **原始字节**（不转码、不裁剪） |
 | `model.stderr.log` | 模型进程 stderr 原始字节 |
-| `verify-result.json` | `passed`、`stage`、`agent`、`model`、`agentArgs`、`executable`+`executableSize`、`expectedToken`、`nativeExitCode`、`signal`、`durationMs`、两个输出的 `bytes`/`sha256`、`judge{path,sha256,passed,session,error}`、`error` |
+| `verify-result.json` | `passed`、`stage`、`invoked`、`agent`、`model`、`agentArgs`、`executable`+`executableSize`、`expectedToken`、`nativeExitCode`、`signal`、`durationMs`、两个输出的 `bytes`/`sha256`、`judge{path,sha256,passed,session,error}`、`error` |
 | 控制台 | 一行 JSON 摘要（同样的关键字段），交给包装器解析 |
 
 ## 4. B 侧怎么接
@@ -80,14 +81,15 @@ powershell -NoProfile -ExecutionPolicy Bypass -File <...>\verify-entry.ps1 ^
 Get-FileHash -Algorithm SHA256 <下载目录>\verify-entry.ps1   # 期望 a95d0a7d2d338b129fb59e06eedb5c7ae657f375fd7e569723e8167fba572092
 Get-FileHash -Algorithm SHA256 <下载目录>\verify-model.mjs    # 期望 c313bbaa2fb79348f773050a7c62e84cf3613671046f3a80bd56a74c2dfcd9de
 
-# 2) 真实调用
-powershell -NoProfile -ExecutionPolicy Bypass -File <下载目录>\verify-entry.ps1 ^
-  -Agent codex ^
-  -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<目录>\codex.exe" ^
-  -Model deepseek-v4.1-flash-1017 ^
-  -Validator "D:\AutoAgentloop\_reviewed\agent_result.mjs" ^
-  -OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"
+# 2) 真实调用（单行，直接粘进 PowerShell 5.1）
+powershell -NoProfile -ExecutionPolicy Bypass -File "<下载目录>\verify-entry.ps1" -Agent codex -Executable "C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<目录>\codex.exe" -Model deepseek-v4.1-flash-1017 -Validator "D:\AutoAgentloop\_reviewed\agent_result.mjs" -OutputDirectory "C:\Users\<B账户>\agent-autoloop-verify"
+
+# 等价的散列写法（变量多时更好读，仍是 PowerShell 语法）
+$p = @{ Agent = 'codex'; Executable = 'C:\Users\<B账户>\AppData\Local\OpenAI\Codex\bin\<目录>\codex.exe'; Model = 'deepseek-v4.1-flash-1017'; Validator = 'D:\AutoAgentloop\_reviewed\agent_result.mjs'; OutputDirectory = 'C:\Users\<B账户>\agent-autoloop-verify' }
+& "<下载目录>\verify-entry.ps1" @p
 ```
+
+> 续行符：PowerShell 的续行符是反引号 \`（行尾一个），**不是** `^`；上面给的单行命令不需要续行符，粘上就能跑。
 
 - `-Executable` 与 `-Model` 必须填 **B 本机实测可用**的那个（A 不替 B 猜，也不用 A 的成功替代 B）。
 - `-Validator` 指向 B 自己解压出来的原包 `agent_result.mjs`；哈希不是 `0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f` 时入口直接退出 2，不会用改过的判分器放行。
@@ -98,14 +100,16 @@ powershell -NoProfile -ExecutionPolicy Bypass -File <下载目录>\verify-entry.
 | 项 | 状态 | 证据 |
 | --- | --- | --- |
 | 原 `verify-b.ps1` 在真实 codex 上失败（stdin/stderr） | A 已复现 | `evidence/verify-entry.md` §2 |
-| 新入口参数正确 → 进入真实调用 | A 已验（codex 0.166.0-alpha.5.1） | `evidence/raw/verify-entry/tests/11-real-codex-auto/` |
+| 新入口参数正确 → 进入真实调用 | A 已验（codex 0.166.0-alpha.5.1） | `evidence/raw/verify-entry/tests/11/` |
 | 真实成功时保存原生退出码 + 完整输出 + 判分结果 | A 已验（exit 0、22 s、`thread_id` 非空、令牌逐字相符） | 同上 |
-| 缺参 / 路径不存在 → 明确失败 | A 已验（退出 1 / 2，均未发起调用） | 同目录 `01-missing-model`、`02-bad-exe` |
-| 非零退出或结果不合格 → 不返回成功 | A 已验（退出码 3、非 JSON 行、无 `turn.completed`、令牌不符四种） | `03-exit3`、`04-garbage`、`06-args`、`07-bytes` |
+| 缺参 / 路径不存在 → 明确失败且未发起调用 | A 已验（两者均退出 **2**，控制台 `invoked:false`） | `tests/01`、`tests/02` |
+| 非零退出或结果不合格 → 不返回成功 | A 已验（子进程退出 3、非 JSON 行、无 `turn.completed`、最终文本不等令牌，四种各自失败） | `tests/03`、`tests/04`、`tests/07`、`tests/15`（令牌不符=**15**，不是 06——06 是合法通过用例） |
 | stdin 不被等待 | A 已验（`pause` 桩 1 s 返回） | `05-stdin` |
 | stdout 字节保真（CRLF + 中文） | A 已验（落盘 sha256 与桩输出逐字节相同） | `07-bytes` |
-| `.cmd` 与含空格路径的参数保真 | A 已验（8 个 argv 逐个还原，提示词未被拆开） | `06-args`、`09-space` |
-| claude 分支能走到真实 CLI 并如实失败 | A 已验（199 s、exit 1、判分器报 `进程退出码为 1`，stdout 里是 `401 Go requires a credential`） | `12-real-claude` |
+| `.cmd` 与含空格路径的参数保真 | A 已验（argv 逐个还原，提示词未被拆开） | `tests/06`、`tests/09` |
+| claude 分支能走到真实 CLI 并如实失败 | A 已验（199 s、exit 1、判分器报 `进程退出码为 1`，stdout 里是 `401 Go requires a credential`） | `evidence/raw/verify-entry/tests/12/` |
+| 已发起调用但收尾失败 → 退出 4（不是 2） | A 已验（`model.stdout.jsonl` 位置是目录，`stage=output`、`invoked=true`） | `tests/16` |
+| 默认输出目录 + 全路径含空格 | A 已验（产物落在脚本同目录 `verification-output\`，已归档） | `tests/14/verification-output/` |
 | **B 的 codex/claude 真实模型能否通过** | **未验，需 B 实机** | — |
 | B 的包装器接入 `verify-entry.ps1` 后整链 | **未验，需 B 实机** | — |
 | B 的 `agent_result.mjs` 哈希是否等于原版 | **未验，需 B 实机**（入口会在运行时校验并拒绝不符） | — |

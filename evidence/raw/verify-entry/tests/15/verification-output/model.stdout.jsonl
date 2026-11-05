@@ -1,0 +1,3 @@
+{"type":"thread.started","thread_id":"stub-wrongtext-thread"}
+{"type":"item.completed","item":{"type":"agent_message","text":"AGENT_VERIFY_37f071743b6f2ffad325d0624b55ca08 (extra)"}}
+{"type":"turn.completed"}

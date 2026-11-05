@@ -1,0 +1,5 @@
+{"type":"thread.started","thread_id":"01a1a9fe-6405-73f2-a87b-6e22e2705d6a"}
+{"type":"item.completed","item":{"id":"item_0","type":"error","message":"Model metadata for `deepseek-v4.1-flash-1017` not found. Defaulting to fallback metadata; this can degrade performance and cause issues."}}
+{"type":"turn.started"}
+{"type":"error","message":"The 'deepseek-v4.1-flash-1017' model is not supported when using Codex with a ChatGPT account."}
+{"type":"turn.failed","error":{"message":"The 'deepseek-v4.1-flash-1017' model is not supported when using Codex with a ChatGPT account."}}

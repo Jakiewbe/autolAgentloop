@@ -3,8 +3,11 @@
 // the native exit code, and grades the result with the ORIGINAL judge
 // (agent_result.mjs from the reviewed package, pinned by SHA256 below).
 //
-// Exit codes: 0 passed, 1 model/grading failed, 2 invalid input or judge mismatch,
-//             3 the agent program could not be started.
+// Exit codes: 0 passed, 1 graded and failed, 2 invalid input or judge mismatch (the
+//             model was NOT invoked), 3 the agent program could not be started,
+//             4 the model was invoked but this entry could not finish (saving output,
+//             writing the result). Every result carries "invoked" so the caller can
+//             tell "nothing ran" (2) from "it ran and we lost the record" (4).
 // No dependencies besides Node 18+.
 import { spawn } from "node:child_process";
 import { createHash, randomBytes } from "node:crypto";
@@ -40,11 +43,18 @@ function sha256File(file) {
   return createHash("sha256").update(readFileSync(file)).digest("hex");
 }
 
+// Set the instant before spawn() is called; it is the only thing permitted to say
+// "the model was invoked". Exit code 2 is impossible once this is true.
+let INVOKED = false;
+
 function fail(code, message, extra) {
-  const payload = { passed: false, stage: extra?.stage ?? "input", error: message };
+  let exitCode = code;
+  let stage = extra?.stage ?? (INVOKED ? "internal" : "input");
+  if (exitCode === 2 && INVOKED) exitCode = 4; // never claim "input error" after a run
+  const payload = { passed: false, stage, invoked: INVOKED, error: message };
   if (extra?.resultPath) payload.result = extra.resultPath;
   process.stdout.write(JSON.stringify(payload) + "\n");
-  process.exit(code);
+  process.exit(exitCode);
 }
 
 // Windows command line quoting for cmd.exe /c when the target is a .cmd/.bat shim.
@@ -135,6 +145,7 @@ async function main() {
   let signal = null;
 
   const child = (() => {
+    INVOKED = true;
     try {
       return spawnTarget(executable, agentArgs, {
         stdio: ["ignore", "pipe", "pipe"],
@@ -170,15 +181,23 @@ async function main() {
 
   const stdoutBuffer = Buffer.concat(stdoutChunks);
   const stderrBuffer = Buffer.concat(stderrChunks);
-  writeFileSync(stdoutFile, stdoutBuffer);
-  writeFileSync(stderrFile, stderrBuffer);
   const finishedAt = new Date().toISOString();
+  try {
+    writeFileSync(stdoutFile, stdoutBuffer);
+    writeFileSync(stderrFile, stderrBuffer);
+  } catch (error) {
+    fail(4, "the model ran but its output could not be saved: " + String(error?.message ?? error), {
+      stage: "output",
+    });
+  }
 
   // A signalled run has no exit code; report it as 124 so the judge fails closed
   // instead of being graded as a successful process.
   const judgeExitCode = exitCode === null && signal ? 124 : exitCode;
   const result = {
     passed: false,
+    stage: "ran",
+    invoked: true,
     agent,
     model,
     agentArgs,
@@ -207,7 +226,13 @@ async function main() {
     result.error =
       "could not start or could not collect the model process: " + result.spawnError;
     result.judge.error = null;
-    writeFileSync(resultFile, JSON.stringify(result, null, 2) + "\n");
+    try {
+      writeFileSync(resultFile, JSON.stringify(result, null, 2) + "\n");
+    } catch (error) {
+      fail(4, "could not write verify-result.json: " + String(error?.message ?? error), {
+        stage: "output",
+      });
+    }
     return fail(3, result.error, { stage: "spawn", resultPath: resultFile });
   }
 
@@ -235,10 +260,17 @@ async function main() {
     result.error = judgeError;
   }
 
-  writeFileSync(resultFile, JSON.stringify(result, null, 2) + "\n");
+  try {
+    writeFileSync(resultFile, JSON.stringify(result, null, 2) + "\n");
+  } catch (error) {
+    fail(4, "could not write verify-result.json: " + String(error?.message ?? error), {
+      stage: "output",
+    });
+  }
   const summary = {
     passed: result.passed,
     stage: result.stage,
+    invoked: true,
     agent,
     model,
     nativeExitCode: exitCode,
@@ -255,5 +287,6 @@ async function main() {
 }
 
 main().catch((error) => {
-  fail(2, "verification entry crashed: " + String(error?.message ?? error));
+  const message = "verification entry crashed: " + String(error?.message ?? error);
+  fail(INVOKED ? 4 : 2, message, { stage: INVOKED ? "internal" : "input" });
 });

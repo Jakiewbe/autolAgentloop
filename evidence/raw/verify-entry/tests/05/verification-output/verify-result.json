@@ -1,0 +1,42 @@
+{
+  "passed": false,
+  "stage": "graded",
+  "invoked": true,
+  "agent": "codex",
+  "model": "m",
+  "agentArgs": [
+    "exec",
+    "--json",
+    "--skip-git-repo-check",
+    "--sandbox",
+    "workspace-write",
+    "-m",
+    "m",
+    "Reply with only this token: AGENT_VERIFY_0c3b0a474baed999c0785f4fc4012e57"
+  ],
+  "executable": "D:/Vibe_coding-Project/autoAgentloop/evidence/raw/verify-entry/stubs/stub-stdin.cmd",
+  "executableSize": 29,
+  "settingsFile": null,
+  "expectedToken": "AGENT_VERIFY_0c3b0a474baed999c0785f4fc4012e57",
+  "node": "v24.12.0",
+  "startedAt": "2026-11-05T04:35:42.632Z",
+  "finishedAt": "2026-11-05T04:35:42.698Z",
+  "durationMs": 66,
+  "nativeExitCode": 0,
+  "signal": null,
+  "spawnError": null,
+  "stdoutFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\05\\verification-output\\model.stdout.jsonl",
+  "stdoutBytes": 22,
+  "stdoutSha256": "dc02f4b724923dd38801ac70a5bd7acfa04916dc8747a3babf5d50d4dffafa72",
+  "stderrFile": "D:\\Vibe_coding-Project\\autoAgentloop\\evidence\\raw\\verify-entry\\tests\\05\\verification-output\\model.stderr.log",
+  "stderrBytes": 0,
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "judge": {
+    "path": "D:/Vibe_coding-Project/autoAgentloop/deploy/B-reviewed/agent_result.mjs",
+    "sha256": "0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f",
+    "passed": false,
+    "session": null,
+    "error": "Unexpected token '�', \"�밴���������. . . \" is not valid JSON"
+  },
+  "error": "Unexpected token '�', \"�밴���������. . . \" is not valid JSON"
+}
