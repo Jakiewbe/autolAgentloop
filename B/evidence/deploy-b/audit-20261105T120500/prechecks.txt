@@ -1,0 +1,296 @@
+### git log -4 exit=0
+8e17be8ab163965ba7eae95b465e9deb3599e63e B Magicbook14-zz <b@magicbook14-zz.local> 2026-11-05 10:32:42 +0800 B: 第四轮审核 prompt（V1-V8）
+a9c98a4ce94a07c4da97fdfda4d68007a7efc659 B Magicbook14-zz <b@magicbook14-zz.local> 2026-11-05 10:26:45 +0800 B: 第四轮 — 重新克隆独立复核（117/117）、Codex/模型实测回传、安装与联调门禁序列固定
+d536485cabd1945485409bc6cb549139e3488ec1 B Magicbook14-zz <b@magicbook14-zz.local> 2026-11-05 10:19:28 +0800 B: 材料清单同步 outbox 交付副本（全量 -c 通过）
+e84ce4782a3721b3bafe219923372908b45abd6c B Magicbook14-zz <b@magicbook14-zz.local> 2026-11-05 10:18:19 +0800 B: 第三轮 Codex 审核 prompt（固定提交 d71f32e，10 项必核）
+
+### diff-status exit=0
+A	B/.gitattributes
+A	B/MATERIALS.repo.sha256
+A	B/README.md
+A	B/evidence/deploy-b/B-install-state.json
+A	B/evidence/deploy-b/MATERIALS.sha256
+A	B/evidence/deploy-b/center-probe-20261105T095359.log
+A	B/evidence/deploy-b/collect-b-deploy.ps1
+A	B/evidence/deploy-b/env-20261104T232131.log
+A	B/evidence/deploy-b/env-u8-20261104T232229.log
+A	B/evidence/deploy-b/facts-20261104T232305.utf8.txt
+A	B/evidence/deploy-b/facts-20261105T003500.utf8.txt
+A	B/evidence/deploy-b/facts-20261105T004500.utf8.txt
+A	B/evidence/deploy-b/facts-20261105T010500.utf8.txt
+A	B/evidence/deploy-b/facts-v6-20261105T100049.utf8.txt
+A	B/evidence/deploy-b/guard-selftest-v2.json
+A	B/evidence/deploy-b/guard-selftest-v4.json
+A	B/evidence/deploy-b/install-b-when-ready.ps1
+A	B/evidence/deploy-b/installation-20261104T234056.log
+A	B/evidence/deploy-b/installation-20261104T234321.log
+A	B/evidence/deploy-b/key-receipt-protocol.md
+A	B/evidence/deploy-b/model-claude-20261104T232010.log
+A	B/evidence/deploy-b/model-claude-20261105T005000.log
+A	B/evidence/deploy-b/model-codex-20261104T232117.log
+A	B/evidence/deploy-b/model-codex-20261105T005000.log
+A	B/evidence/deploy-b/model-probe-native-exit.sh
+A	B/evidence/deploy-b/recheck-20261105T102109.log
+A	B/evidence/deploy-b/report-key-file.ps1
+A	B/evidence/deploy-b/selftest-logs/case-hub-present.log
+A	B/evidence/deploy-b/selftest-logs/case-ipv4-loopback.log
+A	B/evidence/deploy-b/selftest-logs/case-ipv6-loopback.log
+A	B/evidence/deploy-b/selftest-logs/case-ipv6-wildcard.log
+A	B/evidence/deploy-b/selftest-logs/case-listener-present.log
+A	B/evidence/deploy-b/selftest-logs/case-localhost.log
+A	B/evidence/deploy-b/selftest-logs/case-loopback-127-8.log
+A	B/evidence/deploy-b/selftest-logs/case-package-missing.log
+A	B/evidence/deploy-b/selftest-logs/case-selftest-happy.log
+A	B/evidence/deploy-b/selftest-logs/case-verify-failed.log
+A	B/evidence/deploy-b/selftest-logs/case-verify-missing.log
+A	B/evidence/deploy-b/u8-env-20261104T232131.log
+A	B/evidence/deploy-b/u8-model-codex-20261104T232117.log
+A	B/evidence/deploy-b/u8-model-codex-20261105T005000.log
+A	B/evidence/deploy-b/verify-b-pkg/agent_result.mjs
+A	B/evidence/deploy-b/verify-b-pkg/filtered-claude-20261105T100643.log
+A	B/evidence/deploy-b/verify-b-pkg/filtered-codex-20261105T100326.log
+A	B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stdout.filtered.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stdout.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.filtered.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/node-run-codex-20261105T100102/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/node-run-codex-20261105T100102/model.stdout.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095709.log
+A	B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095717.log
+A	B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095726.log
+A	B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stdout.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/stdin-empty.txt
+A	B/evidence/deploy-b/verify-b-pkg/patched-verify-b.ps1
+A	B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444.log
+A	B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.filtered.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219.log
+A	B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stdout.filtered.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stdout.jsonl
+A	B/evidence/deploy-b/verify-b-pkg/recheck-settings.json
+A	B/evidence/deploy-b/verify-b-pkg/run-20261105T095623/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/run-20261105T095635/model.stderr.log
+A	B/evidence/deploy-b/verify-b-pkg/verify-b-node-filtered.mjs
+A	B/evidence/deploy-b/verify-b-pkg/verify-b-node.mjs
+A	B/evidence/deploy-b/verify-b-pkg/verify-codex-20261105T095623.log
+A	B/evidence/deploy-b/verify-b-pkg/verify-codex-stdin-null-20261105T095635.log
+A	B/evidence/deploy-b/verify-b-pkg/verify-node-codex-20261105T100102.log
+A	B/evidence/deploy-b/win-cli-20261104T233328.log
+A	B/evidence/deployment/B.md
+A	B/evidence/preflight/B.md
+A	B/evidence/preflight/a-kit/B_bootstrap.md
+A	B/evidence/preflight/a-kit/B_expected.md
+A	B/evidence/preflight/a-kit/collect_b.ps1
+A	B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip
+A	B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip.sha256
+A	B/evidence/preflight/a-kit/run/B.md
+A	B/evidence/preflight/a-kit/run/raw/01-system.txt
+A	B/evidence/preflight/a-kit/run/raw/02-toolchain.txt
+A	B/evidence/preflight/a-kit/run/raw/03-agents.txt
+A	B/evidence/preflight/a-kit/run/raw/04-credentials.txt
+A	B/evidence/preflight/a-kit/run/raw/05-network.txt
+A	B/evidence/preflight/a-kit/run/raw/06-autostart.txt
+A	B/evidence/preflight/a-kit/run/raw/07-projects.txt
+A	B/evidence/preflight/a-kit/run/raw/08-path-probe.txt
+A	B/evidence/preflight/a-kit/run2-console.log
+A	B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip
+A	B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip.sha256
+A	B/evidence/preflight/a-kit/run2/B.md
+A	B/evidence/preflight/a-kit/run2/raw/01-system.txt
+A	B/evidence/preflight/a-kit/run2/raw/02-toolchain.txt
+A	B/evidence/preflight/a-kit/run2/raw/03-agents.txt
+A	B/evidence/preflight/a-kit/run2/raw/04-credentials.txt
+A	B/evidence/preflight/a-kit/run2/raw/05-network.txt
+A	B/evidence/preflight/a-kit/run2/raw/06-autostart.txt
+A	B/evidence/preflight/a-kit/run2/raw/07-projects.txt
+A	B/evidence/preflight/a-kit/run2/raw/08-path-probe.txt
+A	B/evidence/preflight/b-preflight.json
+A	B/evidence/preflight/manifest.json
+A	B/evidence/preflight/raw/claude-continue-20261104T174304.log
+A	B/evidence/preflight/raw/claude-edit-20261104T174220.log
+A	B/evidence/preflight/raw/claude-p-20261104T173933.log
+A	B/evidence/preflight/raw/codex-alt-20261104T174035.log
+A	B/evidence/preflight/raw/codex-edit-20261104T174054.log
+A	B/evidence/preflight/raw/codex-exec-20261104T173901.log
+A	B/evidence/preflight/raw/codex-resume-20261104T174151.log
+A	B/evidence/preflight/raw/codex-resume2-20261104T174204.log
+A	B/evidence/preflight/raw/dsh-headless-20261104T174439.log
+A	B/evidence/preflight/raw/dsh-headless-env-20261104T174535.log
+A	B/evidence/preflight/raw/dsh-headless-patched-20261104T174457.log
+A	B/evidence/preflight/raw/dsh-headless-patched-20261104T174544.log
+A	B/evidence/preflight/raw/headless-opencode-go.patch.yml
+A	B/evidence/preflight/raw/opencode-run-20261104T174013.log
+A	B/evidence/preflight/raw/opencode-run2-20261104T174024.log
+A	B/evidence/preflight/raw/run-dsh-headless.sh
+A	B/evidence/preflight/raw/run-dsh-headless2.sh
+A	B/evidence/preflight/verify-on-B.sh
+A	B/evidence/preflight/verify-runs/verify-full-20261104T215415.log
+A	B/evidence/preflight/verify-runs/verify-full-20261104T215441.log
+A	B/reviews/2026-11-04-t11-round1.md
+A	B/reviews/2026-11-05-t11-round2.md
+A	B/reviews/2026-11-05-t11-round3.md
+A	B/reviews/2026-11-05-t11-round4.md
+
+### diff-names exit=0
+B/.gitattributes
+B/MATERIALS.repo.sha256
+B/README.md
+B/evidence/deploy-b/B-install-state.json
+B/evidence/deploy-b/MATERIALS.sha256
+B/evidence/deploy-b/center-probe-20261105T095359.log
+B/evidence/deploy-b/collect-b-deploy.ps1
+B/evidence/deploy-b/env-20261104T232131.log
+B/evidence/deploy-b/env-u8-20261104T232229.log
+B/evidence/deploy-b/facts-20261104T232305.utf8.txt
+B/evidence/deploy-b/facts-20261105T003500.utf8.txt
+B/evidence/deploy-b/facts-20261105T004500.utf8.txt
+B/evidence/deploy-b/facts-20261105T010500.utf8.txt
+B/evidence/deploy-b/facts-v6-20261105T100049.utf8.txt
+B/evidence/deploy-b/guard-selftest-v2.json
+B/evidence/deploy-b/guard-selftest-v4.json
+B/evidence/deploy-b/install-b-when-ready.ps1
+B/evidence/deploy-b/installation-20261104T234056.log
+B/evidence/deploy-b/installation-20261104T234321.log
+B/evidence/deploy-b/key-receipt-protocol.md
+B/evidence/deploy-b/model-claude-20261104T232010.log
+B/evidence/deploy-b/model-claude-20261105T005000.log
+B/evidence/deploy-b/model-codex-20261104T232117.log
+B/evidence/deploy-b/model-codex-20261105T005000.log
+B/evidence/deploy-b/model-probe-native-exit.sh
+B/evidence/deploy-b/recheck-20261105T102109.log
+B/evidence/deploy-b/report-key-file.ps1
+B/evidence/deploy-b/selftest-logs/case-hub-present.log
+B/evidence/deploy-b/selftest-logs/case-ipv4-loopback.log
+B/evidence/deploy-b/selftest-logs/case-ipv6-loopback.log
+B/evidence/deploy-b/selftest-logs/case-ipv6-wildcard.log
+B/evidence/deploy-b/selftest-logs/case-listener-present.log
+B/evidence/deploy-b/selftest-logs/case-localhost.log
+B/evidence/deploy-b/selftest-logs/case-loopback-127-8.log
+B/evidence/deploy-b/selftest-logs/case-package-missing.log
+B/evidence/deploy-b/selftest-logs/case-selftest-happy.log
+B/evidence/deploy-b/selftest-logs/case-verify-failed.log
+B/evidence/deploy-b/selftest-logs/case-verify-missing.log
+B/evidence/deploy-b/u8-env-20261104T232131.log
+B/evidence/deploy-b/u8-model-codex-20261104T232117.log
+B/evidence/deploy-b/u8-model-codex-20261105T005000.log
+B/evidence/deploy-b/verify-b-pkg/agent_result.mjs
+B/evidence/deploy-b/verify-b-pkg/filtered-claude-20261105T100643.log
+B/evidence/deploy-b/verify-b-pkg/filtered-codex-20261105T100326.log
+B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stdout.filtered.jsonl
+B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stdout.jsonl
+B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.filtered.jsonl
+B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.jsonl
+B/evidence/deploy-b/verify-b-pkg/node-run-codex-20261105T100102/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/node-run-codex-20261105T100102/model.stdout.jsonl
+B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095709.log
+B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095717.log
+B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095726.log
+B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stdout.jsonl
+B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/stdin-empty.txt
+B/evidence/deploy-b/verify-b-pkg/patched-verify-b.ps1
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444.log
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.filtered.jsonl
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.jsonl
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219.log
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stdout.filtered.jsonl
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stdout.jsonl
+B/evidence/deploy-b/verify-b-pkg/recheck-settings.json
+B/evidence/deploy-b/verify-b-pkg/run-20261105T095623/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/run-20261105T095635/model.stderr.log
+B/evidence/deploy-b/verify-b-pkg/verify-b-node-filtered.mjs
+B/evidence/deploy-b/verify-b-pkg/verify-b-node.mjs
+B/evidence/deploy-b/verify-b-pkg/verify-codex-20261105T095623.log
+B/evidence/deploy-b/verify-b-pkg/verify-codex-stdin-null-20261105T095635.log
+B/evidence/deploy-b/verify-b-pkg/verify-node-codex-20261105T100102.log
+B/evidence/deploy-b/win-cli-20261104T233328.log
+B/evidence/deployment/B.md
+B/evidence/preflight/B.md
+B/evidence/preflight/a-kit/B_bootstrap.md
+B/evidence/preflight/a-kit/B_expected.md
+B/evidence/preflight/a-kit/collect_b.ps1
+B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip
+B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip.sha256
+B/evidence/preflight/a-kit/run/B.md
+B/evidence/preflight/a-kit/run/raw/01-system.txt
+B/evidence/preflight/a-kit/run/raw/02-toolchain.txt
+B/evidence/preflight/a-kit/run/raw/03-agents.txt
+B/evidence/preflight/a-kit/run/raw/04-credentials.txt
+B/evidence/preflight/a-kit/run/raw/05-network.txt
+B/evidence/preflight/a-kit/run/raw/06-autostart.txt
+B/evidence/preflight/a-kit/run/raw/07-projects.txt
+B/evidence/preflight/a-kit/run/raw/08-path-probe.txt
+B/evidence/preflight/a-kit/run2-console.log
+B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip
+B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip.sha256
+B/evidence/preflight/a-kit/run2/B.md
+B/evidence/preflight/a-kit/run2/raw/01-system.txt
+B/evidence/preflight/a-kit/run2/raw/02-toolchain.txt
+B/evidence/preflight/a-kit/run2/raw/03-agents.txt
+B/evidence/preflight/a-kit/run2/raw/04-credentials.txt
+B/evidence/preflight/a-kit/run2/raw/05-network.txt
+B/evidence/preflight/a-kit/run2/raw/06-autostart.txt
+B/evidence/preflight/a-kit/run2/raw/07-projects.txt
+B/evidence/preflight/a-kit/run2/raw/08-path-probe.txt
+B/evidence/preflight/b-preflight.json
+B/evidence/preflight/manifest.json
+B/evidence/preflight/raw/claude-continue-20261104T174304.log
+B/evidence/preflight/raw/claude-edit-20261104T174220.log
+B/evidence/preflight/raw/claude-p-20261104T173933.log
+B/evidence/preflight/raw/codex-alt-20261104T174035.log
+B/evidence/preflight/raw/codex-edit-20261104T174054.log
+B/evidence/preflight/raw/codex-exec-20261104T173901.log
+B/evidence/preflight/raw/codex-resume-20261104T174151.log
+B/evidence/preflight/raw/codex-resume2-20261104T174204.log
+B/evidence/preflight/raw/dsh-headless-20261104T174439.log
+B/evidence/preflight/raw/dsh-headless-env-20261104T174535.log
+B/evidence/preflight/raw/dsh-headless-patched-20261104T174457.log
+B/evidence/preflight/raw/dsh-headless-patched-20261104T174544.log
+B/evidence/preflight/raw/headless-opencode-go.patch.yml
+B/evidence/preflight/raw/opencode-run-20261104T174013.log
+B/evidence/preflight/raw/opencode-run2-20261104T174024.log
+B/evidence/preflight/raw/run-dsh-headless.sh
+B/evidence/preflight/raw/run-dsh-headless2.sh
+B/evidence/preflight/verify-on-B.sh
+B/evidence/preflight/verify-runs/verify-full-20261104T215415.log
+B/evidence/preflight/verify-runs/verify-full-20261104T215441.log
+B/reviews/2026-11-04-t11-round1.md
+B/reviews/2026-11-05-t11-round2.md
+B/reviews/2026-11-05-t11-round3.md
+B/reviews/2026-11-05-t11-round4.md
+
+### main-authors exit=0
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+chs
+Jakiec
+
+### manifest-check exit=0
+8e17be8ab163965ba7eae95b465e9deb3599e63e
+
+### manifest-and-counts exit=0
+129
+129
+130
+0
+0

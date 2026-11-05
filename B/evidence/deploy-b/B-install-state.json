@@ -1,5 +1,5 @@
 {
-  "schema": "dsh-b-install-state/4",
+  "schema": "dsh-b-install-state/5",
   "document_kind": "B 端部署执行状态（脱敏，不含任何密钥或密钥哈希之外的凭据材料）",
   "generated_at": "2026-11-05T10:30:00+08:00",
   "host": {
@@ -512,7 +512,8 @@
     "unverified_cross_machine": 6,
     "unverified_total": 9,
     "recheck_checks": 10,
-    "recheck_passed": 10
+    "recheck_passed": 10,
+    "audit_round4_fixed": 3
   },
   "review_response": [
     {
@@ -575,29 +576,33 @@
     "this file still contains no self hash; its own sha256 appears only in evidence/deploy-b/MATERIALS.sha256"
   ],
   "recheck": {
-    "method": "fresh clone from GitHub (not local worktree), git checkout -B recheck origin/b, then verify by the artifacts own claims",
-    "script": "_probe/recheck-b.sh",
-    "log": "evidence/deploy-b/recheck-20261105T102109.log",
-    "clone_dir": "D:/AutoAgentloop/_verify/clone-20261105T102109",
+    "method": "fresh clone from GitHub; target commit passed as argument; no reuse of the local working copy",
+    "script": "_probe/recheck-b.sh <commit>",
+    "log": "evidence/deploy-b/recheck-20261105T115122.log",
+    "target_commit": "2eaedc4282f824f5e9b13411763b0ba36446173e",
     "results": {
-      "clone_head": "d536485cabd1945485409bc6cb549139e3488ec1",
-      "clone_head_minus2": "d71f32eb5d4f79685f827af97519062dd46fff86",
+      "clone_head": "2eaedc4282f824f5e9b13411763b0ba36446173e",
+      "origin_b": "2eaedc4282f824f5e9b13411763b0ba36446173e",
       "main_head": "d07b41267632e446d2f082f08ddc79b89b363e2a",
-      "diff_files": 118,
+      "diff_files": 134,
       "diff_outside_B": 0,
       "diff_types": [
         "A"
       ],
       "main_has_b_commits": 0,
-      "repo_manifest_ok": 117,
-      "repo_manifest_total": 117,
-      "b_md_sha256": "af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e",
-      "self_reference_hits": 0,
-      "secret_scan_hits": 0,
-      "keylike_files_in_repo": 0
+      "manifest_lines": 133,
+      "b_files": 134,
+      "manifest_ok": 133,
+      "manifest_bad": 0,
+      "b_md_sha_verified": "af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e",
+      "state_sha_verified": "e9f178095052406a64996f8a2a06850cb8d5a18a8f2fd43e9450136e7867ee0b",
+      "self_reference_lines": 0,
+      "self_sha_field": 0,
+      "secret_hits": 0,
+      "keylike_files": 0
     },
-    "verdict": "passed",
-    "note": "B.md 的 sha256 在复核后再编辑（追加 §18），因此本字段记录的是复核之后的最终值；复核当时的值是 be59d284…，两次差异只来自 §18 追加。"
+    "full_output": "every sha256sum -c line is in the log, not just counts",
+    "offbyone_note": "a log cannot contain its own hash, so each log records the origin/b of the moment before it was committed; the target commit is printed as TARGET= on line 3"
   },
   "agent_paths_and_versions": {
     "codex_primary": {
@@ -674,5 +679,32 @@
     "5 six joint tests in this order on the SAME executor: dispatch→execute→report; temp-dir edit+check+report; second round in same session (compare session id); cancel → process exit; short disconnect + executor restart (state and no duplicate execution); login-start entry (needs user confirmation)",
     "5a cancel test and disconnect/restart test run sequentially, never in parallel"
   ],
-  "gate_reason_sequential": "cancel verifies termination semantics; disconnect/restart verifies recovery and idempotence; running both at once makes the failure cause indistinguishable"
+  "gate_reason_sequential": "cancel verifies termination semantics; disconnect/restart verifies recovery and idempotence; running both at once makes the failure cause indistinguishable",
+  "audit_round4": {
+    "run_at": "2026-11-05T11:39+08:00",
+    "auditor_cli": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe (codex-cli 0.130.0-alpha.5)",
+    "cli_flags": "--sandbox read-only -c approval_policy=\"never\" -c model_reasoning_effort=\"low\" --json",
+    "clone_used": "D:/AutoAgentloop/_verify/clone-20261105T103251",
+    "artifacts": "evidence/deploy-b/audit-20261105T120500/ (codex-raw.txt, codex-dropped.txt, codex-verdict.md, prechecks.txt)",
+    "verdicts": {
+      "V1": "FAIL",
+      "V2": "PASS",
+      "V3": "evidence-insufficient",
+      "V4": "FAIL",
+      "V5": "PASS",
+      "V6": "PASS",
+      "V7": "PASS",
+      "V8": "PASS"
+    },
+    "fixed_this_round": {
+      "V1": "recheck log now pinned to an explicit target commit with full output; B.md 18.1 shows commit-pinned value and recomputed value side by side",
+      "V3": "every sha256sum -c line written to the log",
+      "V4": "missing claude failure log and its model.stderr.log added (commit 2eaedc4)"
+    },
+    "unchanged_blockers": [
+      "worker key not delivered",
+      "A must confirm current center URL",
+      "A-side command[0] bare codex and codex version expectation"
+    ]
+  }
 }

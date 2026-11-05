@@ -1,0 +1,171 @@
+RECHECK_START=20261105T115122
+HOST=Magicbook14-zz USER=chs
+TARGET=origin/b
+== 1. 重新克隆（不复用本地工作副本）==
+CLONE_HEAD=2eaedc4282f824f5e9b13411763b0ba36446173e
+ORIGIN_B=2eaedc4282f824f5e9b13411763b0ba36446173e
+MAIN_HEAD=d07b41267632e446d2f082f08ddc79b89b363e2a
+AUTHOR=B Magicbook14-zz <b@magicbook14-zz.local>
+PARENT=8e17be8ab163965ba7eae95b465e9deb3599e63e
+== 2. 分支形态 ==
+DIFF_NAMES=134 NON_B=0 DIFF_TYPES=A 
+MAIN_HAS_B_COMMITS=0
+== 3. 清单全量校验（逐条输出，不抽样）==
+MANIFEST_LINES=133
+B_FILES=134
+B/evidence/deploy-b/verify-b-pkg/verify-codex-20261105T095623.log: OK
+B/evidence/deploy-b/verify-b-pkg/verify-codex-stdin-null-20261105T095635.log: OK
+B/evidence/deploy-b/key-receipt-protocol.md: OK
+B/evidence/deploy-b/win-cli-20261104T233328.log: OK
+B/evidence/deploy-b/model-claude-20261104T232010.log: OK
+B/evidence/deploy-b/selftest-logs/case-verify-missing.log: OK
+B/evidence/deploy-b/verify-b-pkg/agent_result.mjs: OK
+B/evidence/deploy-b/model-probe-native-exit.sh: OK
+B/evidence/preflight/raw/opencode-run2-20261104T174024.log: OK
+B/evidence/deploy-b/installation-20261104T234321.log: OK
+B/evidence/preflight/B.md: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stderr.log: OK
+B/evidence/deploy-b/verify-b-pkg/node-run-codex-20261105T100102/model.stderr.log: OK
+B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stderr.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stderr.log: OK
+B/evidence/preflight/verify-runs/verify-full-20261104T215415.log: OK
+B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095709.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219.log: OK
+B/evidence/preflight/raw/run-dsh-headless2.sh: OK
+B/evidence/deploy-b/env-20261104T232131.log: OK
+B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stdout.jsonl: OK
+B/.gitattributes: OK
+B/evidence/preflight/a-kit/run/raw/04-credentials.txt: OK
+B/evidence/preflight/a-kit/run2/raw/04-credentials.txt: OK
+B/evidence/deploy-b/verify-b-pkg/verify-node-codex-20261105T100102.log: OK
+B/evidence/deploy-b/collect-b-deploy.ps1: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.filtered.jsonl: OK
+B/evidence/deploy-b/u8-model-codex-20261105T005000.log: OK
+B/evidence/preflight/raw/codex-resume2-20261104T174204.log: OK
+B/evidence/preflight/raw/dsh-headless-patched-20261104T174544.log: OK
+B/evidence/deploy-b/selftest-logs/case-ipv4-loopback.log: OK
+B/evidence/preflight/raw/dsh-headless-env-20261104T174535.log: OK
+B/evidence/preflight/raw/dsh-headless-20261104T174439.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.filtered.jsonl: OK
+B/evidence/deploy-b/model-claude-20261105T005000.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stdout.jsonl: OK
+B/evidence/deploy-b/install-b-when-ready.ps1: OK
+B/evidence/preflight/a-kit/B_bootstrap.md: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stdout.filtered.jsonl: OK
+B/evidence/preflight/a-kit/run2/raw/08-path-probe.txt: OK
+B/evidence/deploy-b/selftest-logs/case-loopback-127-8.log: OK
+B/evidence/preflight/raw/run-dsh-headless.sh: OK
+B/evidence/deploy-b/verify-b-pkg/verify-b-node.mjs: OK
+B/evidence/deploy-b/installation-20261104T234056.log: OK
+B/evidence/deploy-b/verify-b-pkg/patched-verify-b.ps1: OK
+B/evidence/preflight/a-kit/run/raw/02-toolchain.txt: OK
+B/evidence/preflight/a-kit/run2/raw/02-toolchain.txt: OK
+B/evidence/deploy-b/selftest-logs/case-verify-failed.log: OK
+B/evidence/preflight/a-kit/collect_b.ps1: OK
+B/evidence/deploy-b/selftest-logs/case-package-missing.log: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-run-codex-20261105T100326/model.stdout.jsonl: OK
+B/evidence/preflight/a-kit/run/raw/01-system.txt: OK
+B/evidence/preflight/raw/codex-alt-20261104T174035.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stderr.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.jsonl: OK
+B/evidence/preflight/a-kit/run/raw/03-agents.txt: OK
+B/evidence/preflight/a-kit/run2/raw/03-agents.txt: OK
+B/evidence/deploy-b/facts-20261105T004500.utf8.txt: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444.log: OK
+B/evidence/preflight/verify-on-B.sh: OK
+B/evidence/preflight/raw/claude-p-20261104T173933.log: OK
+B/evidence/deploy-b/u8-model-codex-20261104T232117.log: OK
+B/evidence/preflight/a-kit/run/raw/08-path-probe.txt: OK
+B/evidence/preflight/raw/dsh-headless-patched-20261104T174457.log: OK
+B/evidence/deploy-b/verify-b-pkg/node-run-codex-20261105T100102/model.stdout.jsonl: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-codex-20261105T100326.log: OK
+B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095717.log: OK
+B/evidence/deploy-b/selftest-logs/case-hub-present.log: OK
+B/reviews/2026-11-05-t11-round3.md: OK
+B/evidence/preflight/raw/claude-edit-20261104T174220.log: OK
+B/evidence/preflight/raw/codex-edit-20261104T174054.log: OK
+B/reviews/2026-11-04-t11-round1.md: OK
+B/evidence/deploy-b/facts-v6-20261105T100049.utf8.txt: OK
+B/evidence/deploy-b/selftest-logs/case-selftest-happy.log: OK
+B/evidence/preflight/a-kit/run2-console.log: OK
+B/evidence/preflight/a-kit/B_expected.md: OK
+B/evidence/deploy-b/recheck-20261105T102109.log: OK
+B/evidence/preflight/a-kit/run2/raw/01-system.txt: OK
+B/evidence/deploy-b/selftest-logs/case-localhost.log: OK
+B/evidence/deploy-b/model-codex-20261105T005000.log: OK
+B/evidence/deploy-b/guard-selftest-v2.json: OK
+B/evidence/preflight/verify-runs/verify-full-20261104T215441.log: OK
+B/evidence/deploy-b/facts-20261104T232305.utf8.txt: OK
+B/evidence/deploy-b/u8-env-20261104T232131.log: OK
+B/evidence/deployment/B.md: OK
+B/evidence/preflight/b-preflight.json: OK
+B/evidence/deploy-b/selftest-logs/case-ipv6-loopback.log: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stdout.jsonl: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219.log: OK
+B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip: OK
+B/evidence/deploy-b/env-u8-20261104T232229.log: OK
+B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip: OK
+B/evidence/preflight/raw/codex-exec-20261104T173901.log: OK
+B/evidence/preflight/raw/opencode-run-20261104T174013.log: OK
+B/evidence/preflight/a-kit/run/B.md: OK
+B/evidence/deploy-b/selftest-logs/case-ipv6-wildcard.log: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-claude-20261105T100643.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-settings.json: OK
+B/evidence/preflight/manifest.json: OK
+B/evidence/preflight/raw/headless-opencode-go.patch.yml: OK
+B/evidence/deploy-b/facts-20261105T003500.utf8.txt: OK
+B/evidence/deploy-b/model-codex-20261104T232117.log: OK
+B/evidence/deploy-b/selftest-logs/case-listener-present.log: OK
+B/evidence/deploy-b/verify-b-pkg/verify-b-node-filtered.mjs: OK
+B/evidence/deploy-b/MATERIALS.sha256: OK
+B/evidence/deploy-b/verify-b-pkg/patched-codex-20261105T095726.log: OK
+B/evidence/deploy-b/report-key-file.ps1: OK
+B/reviews/2026-11-05-t11-round4.md: OK
+B/evidence/deploy-b/guard-selftest-v4.json: OK
+B/evidence/deploy-b/verify-b-pkg/filtered-run-claude-20261105T100643/model.stderr.log: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stderr.log: OK
+B/evidence/deploy-b/facts-20261105T010500.utf8.txt: OK
+B/README.md: OK
+B/evidence/preflight/a-kit/run/raw/06-autostart.txt: OK
+B/evidence/preflight/a-kit/run2/raw/06-autostart.txt: OK
+B/evidence/preflight/a-kit/run/raw/07-projects.txt: OK
+B/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/stdin-empty.txt: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.filtered.jsonl: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.jsonl: OK
+B/evidence/deploy-b/verify-b-pkg/run-20261105T095623/model.stderr.log: OK
+B/evidence/deploy-b/verify-b-pkg/run-20261105T095635/model.stderr.log: OK
+B/evidence/preflight/a-kit/run2/B-bundle-MAGICBOOK14-ZZ-20261104_214711.zip.sha256: OK
+B/evidence/preflight/raw/claude-continue-20261104T174304.log: OK
+B/evidence/deploy-b/B-install-state.json: OK
+B/evidence/preflight/a-kit/run2/raw/07-projects.txt: OK
+B/evidence/preflight/a-kit/run/B-bundle-MAGICBOOK14-ZZ-20261104_214511.zip.sha256: OK
+B/evidence/preflight/a-kit/run2/B.md: OK
+B/evidence/deploy-b/verify-b-pkg/recheck-codex-20261105T102219/model.stdout.filtered.jsonl: OK
+B/evidence/preflight/a-kit/run/raw/05-network.txt: OK
+B/evidence/preflight/a-kit/run2/raw/05-network.txt: OK
+B/reviews/2026-11-05-t11-round2.md: OK
+B/evidence/deploy-b/center-probe-20261105T095359.log: OK
+B/evidence/preflight/raw/codex-resume-20261104T174151.log: OK
+MANIFEST_OK=133
+MANIFEST_BAD=0
+== 4. 报告与状态机哈希一致性 ==
+B_MD_SHA_NOW=af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e
+B_MD_SHA_IN_MANIFEST=af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e
+STATE_SHA_NOW=e9f178095052406a64996f8a2a06850cb8d5a18a8f2fd43e9450136e7867ee0b
+STATE_SHA_IN_MANIFEST=e9f178095052406a64996f8a2a06850cb8d5a18a8f2fd43e9450136e7867ee0b
+== 5. 自指检查 ==
+SELF_REF_LINES=0
+SELF_SHA_FIELD=0
+== 6. 密钥扫描 ==
+SECRET_HITS=0
+KEYLIKE_FILES=0
+== 7. 关键证据存在性 ==
+EXISTS 1d53b1e32d69ec241c41a895a7d898cb66a9fe9fb8889336f92e7195caea8366 B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219.log
+EXISTS 7ebd2f5ebce7889f04de1fbbd146ce1dda6816fe49b1fd1d06f9b95d119e1fec B/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stderr.log
+EXISTS 0bead26b5e5cad1239682b9e38b6b2582398760971f163dabdbef3ba7f8b5a6f B/evidence/deploy-b/verify-b-pkg/agent_result.mjs
+EXISTS 47d48e926ed8fe4ed3211ed238f907fd8d26dd3f2c88b02719f111b3d07f9f24 B/evidence/deploy-b/install-b-when-ready.ps1
+EXISTS d6a2f043f01f09c5a127c8f678876dee87a49f4aac1e1e6d37b8ca115e115122 B/evidence/deploy-b/report-key-file.ps1
+EXISTS 018b07ba39be1dd8bb48a81f22f49db511d9f661c101410c9daf9f5d5f12ae2d B/evidence/deploy-b/key-receipt-protocol.md
+== 8. 失败留档原文（claude 第 1 次） ==
+Error: Settings file not found: D:\AutoAgentloop\evidence\deploy-b\verify-b-pkg\undefined
+RECHECK_END=20261105T115122

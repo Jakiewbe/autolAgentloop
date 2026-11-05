@@ -1,4 +1,15 @@
-e9f178095052406a64996f8a2a06850cb8d5a18a8f2fd43e9450136e7867ee0b  evidence/deploy-b/B-install-state.json
+44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a  evidence/deploy-b/audit-20261105T113310/settings.json
+469f4c16958241e89009e80a4566de3cac532555859245f4a553ff220aecaf3f  evidence/deploy-b/audit-20261105T113610/prechecks.txt
+44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a  evidence/deploy-b/audit-20261105T113610/settings.json
+469f4c16958241e89009e80a4566de3cac532555859245f4a553ff220aecaf3f  evidence/deploy-b/audit-20261105T114320/prechecks.txt
+44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a  evidence/deploy-b/audit-20261105T114320/settings.json
+0a3189f611361975720bcf539e95ad9b912b53f8c32ea011172542bc72e8d4e2  evidence/deploy-b/audit-20261105T120500/codex-dropped.txt
+4a9733c88036f3543a194654a6627fd503fddeecd78940f9c558da44a27c7b2f  evidence/deploy-b/audit-20261105T120500/codex-raw.txt
+7acce6cadcac5cdf6b83861cf89a8b1569c7e2362980d3ae7033d04f961d9c15  evidence/deploy-b/audit-20261105T120500/codex-verdict.md
+469f4c16958241e89009e80a4566de3cac532555859245f4a553ff220aecaf3f  evidence/deploy-b/audit-20261105T120500/prechecks.txt
+44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a  evidence/deploy-b/audit-20261105T120500/settings.json
+44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a  evidence/deploy-b/audit-settings.json
+0934dbcd35ab130b988783fe44b442db1f35204abef7c718cf45a9f2c8ededac  evidence/deploy-b/B-install-state.json
 faef1d87bcfff013b62efbbb95623f7e1f742f07c937080616aec793f9ac2b26  evidence/deploy-b/center-probe-20261105T095359.log
 2e2e366a48e1385af049f217025bb6a7ebad7be60a908bd8e838d6df0ddd6404  evidence/deploy-b/collect-b-deploy.ps1
 248cc8b6dafa2102a61b1d8c2ea559e8279d21fc3dd6b60ce558dc93411d6f22  evidence/deploy-b/env-20261104T232131.log
@@ -22,6 +33,8 @@ a50d1331bb343eb97c0828713a0b3d40214fc4335e4497b6824b26dd75a51a71  evidence/deplo
 0c2beb64ed241e920c16017b2b585e8697df3f0848112c4a192846c497baf38c  evidence/deploy-b/model-probe-native-exit.sh
 a2f8b0ed30976fe6b4f47e4db2e52fe5f770e461e58daba0832ea2ac85667f80  evidence/deploy-b/recheck-20261105T102109.log
 7f272a1ad4b838facc2bc9ac1eb417f8461ae09975706c4656963eceeb4eb8c7  evidence/deploy-b/recheck-20261105T102815.log
+f24b1d936a7bdd87ae4b9e2aeca734149e47b0b6534c6b4340a89dd4c93035c1  evidence/deploy-b/recheck-20261105T103251.log
+c72da71a9d0abf7386edd0d7dd99ad554c75b50df0a9c07339e5a0c2293ed1f2  evidence/deploy-b/recheck-20261105T115122.log
 d6a2f043f01f09c5a127c8f678876dee87a49f4aac1e1e6d37b8ca115e115122  evidence/deploy-b/report-key-file.ps1
 bfd85cc4d0f7387210ad384693446d722c3cb7740961395be7dbd40b72a20971  evidence/deploy-b/round2-20261105/attempt-history.json
 b2aa34421d6d62c126f997ac1ad81e22188fed2b27867131b00a09f5b3a2b732  evidence/deploy-b/round2-20261105/audit-reviewed-package.py
@@ -293,7 +306,7 @@ d4c989d161e2020ce516bfb55b8c3f3bb29866b0022d728ef7c9efb2ba972d79  evidence/deplo
 0133dc2eeb82870ebc284a19626ed5b38387a131eb126081028a09dfd6411024  evidence/deploy-b/verify-b-pkg/verify-codex-stdin-null-20261105T095635.log
 2da57d21ea89732856018066cee464cd11e8317ac1309a7b9f22ab51457362fc  evidence/deploy-b/verify-b-pkg/verify-node-codex-20261105T100102.log
 02a7478f817be66e53af3162963bc4e43ab1c888c24d16950cb9f00e8f9f89f5  evidence/deploy-b/win-cli-20261104T233328.log
-af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e  evidence/deployment/B.md
+7e5f492d6aa96dd73e6b8755f63e70c6296d87b08669fdc3138465b9fac43ea3  evidence/deployment/B.md
 e9f178095052406a64996f8a2a06850cb8d5a18a8f2fd43e9450136e7867ee0b  outbox/to-A-deploy/evidence/deploy-b/B-install-state.json
 faef1d87bcfff013b62efbbb95623f7e1f742f07c937080616aec793f9ac2b26  outbox/to-A-deploy/evidence/deploy-b/center-probe-20261105T095359.log
 2e2e366a48e1385af049f217025bb6a7ebad7be60a908bd8e838d6df0ddd6404  outbox/to-A-deploy/evidence/deploy-b/collect-b-deploy.ps1
@@ -310,7 +323,7 @@ d8c67326fb580336d1f3e0087fa7c0fddb29d8e4d517f08b71d9909dbee02b71  outbox/to-A-de
 6ea325a8446b1ada71280ca0a1aefd87dd7a984ca761beb11f1120697536f805  outbox/to-A-deploy/evidence/deploy-b/installation-20261104T234056.log
 138f0a1c3f44fdf3bc68f808848ba91d98bb85551c7fb55026b0f70719bedc32  outbox/to-A-deploy/evidence/deploy-b/installation-20261104T234321.log
 018b07ba39be1dd8bb48a81f22f49db511d9f661c101410c9daf9f5d5f12ae2d  outbox/to-A-deploy/evidence/deploy-b/key-receipt-protocol.md
-cb4be12e7e4b2ce6d9e7ac3f074d2e194880bbd87b0c997a6b8ba9c497703d1c  outbox/to-A-deploy/evidence/deploy-b/MATERIALS.repo.sha256
+ffad2a367b9a424568baba943c3a3ff0ea13236adc4811303a39f3f6430b7198  outbox/to-A-deploy/evidence/deploy-b/MATERIALS.repo.sha256
 03ba79a85b947feec95227d5d56f3774b4222969876d963e063f710db9d55f9b  outbox/to-A-deploy/evidence/deploy-b/model-claude-20261104T232010.log
 43cef212e3a02adb440d55be12ee9ab891ebb39a4e8a45844da7c364e7d311f2  outbox/to-A-deploy/evidence/deploy-b/model-claude-20261105T005000.log
 d2bd3b54393e1ed9801a7128f745baa4333e0c042a77aa3de38f13438e5da9d5  outbox/to-A-deploy/evidence/deploy-b/model-codex-20261104T232117.log
@@ -318,6 +331,7 @@ a50d1331bb343eb97c0828713a0b3d40214fc4335e4497b6824b26dd75a51a71  outbox/to-A-de
 0c2beb64ed241e920c16017b2b585e8697df3f0848112c4a192846c497baf38c  outbox/to-A-deploy/evidence/deploy-b/model-probe-native-exit.sh
 a2f8b0ed30976fe6b4f47e4db2e52fe5f770e461e58daba0832ea2ac85667f80  outbox/to-A-deploy/evidence/deploy-b/recheck-20261105T102109.log
 7f272a1ad4b838facc2bc9ac1eb417f8461ae09975706c4656963eceeb4eb8c7  outbox/to-A-deploy/evidence/deploy-b/recheck-20261105T102815.log
+f24b1d936a7bdd87ae4b9e2aeca734149e47b0b6534c6b4340a89dd4c93035c1  outbox/to-A-deploy/evidence/deploy-b/recheck-20261105T103251.log
 d6a2f043f01f09c5a127c8f678876dee87a49f4aac1e1e6d37b8ca115e115122  outbox/to-A-deploy/evidence/deploy-b/report-key-file.ps1
 774674693804de2a93174b58a0f3dda989c5a44f879b869c48abb962f472b969  outbox/to-A-deploy/evidence/deploy-b/selftest-logs-v4/case-bad-isolation.argv.txt
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  outbox/to-A-deploy/evidence/deploy-b/selftest-logs-v4/case-bad-isolation.err
@@ -419,6 +433,10 @@ d5dcfa50c349dfe0179a92ee4d8fb2cc4685c4765a2319f5a1a6353ac4f40d6e  outbox/to-A-de
 283933a0ce42c6b775f3c5aae830360e9b4512d382e996c8918bdf258aba6b17  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/model.stdout.jsonl
 e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/patched-run-20261105T095726/stdin-empty.txt
 6ee0f6ccf1e7f59a825cda74ed750f79b3c2f3882bafbd5966e2b11edc4f10e5  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/patched-verify-b.ps1
+1d53b1e32d69ec241c41a895a7d898cb66a9fe9fb8889336f92e7195caea8366  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219.log
+7ebd2f5ebce7889f04de1fbbd146ce1dda6816fe49b1fd1d06f9b95d119e1fec  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stderr.log
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.filtered.jsonl
+e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102219/model.stdout.jsonl
 8ab863379e54166e482faaf4f04f9cd50afb9c4ed58b67bdf60080e667abd871  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444.log
 d8e28b065c6ef95bf89ab3afc1c22dfbb6b038fdfc00a82bc4ce85d084743f8a  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stderr.log
 41ce0b5c05bd30d1f794a6be71c2fe4c53b440cf6eb73fb5e8b20dd9a65df7ee  outbox/to-A-deploy/evidence/deploy-b/verify-b-pkg/recheck-claude-20261105T102444/model.stdout.filtered.jsonl
@@ -441,5 +459,5 @@ af2b6d3debe6f1acfcce781f9df96815221f3c3b91c6be0e9f49cacf6a2c4d0e  outbox/to-A-de
 991e778a38a4d68832c20b6db028089e7f9c1b93fc1e8133ea8ffdd1e3e3df76  outbox/to-A-deploy/reviews/2026-11-04-t11-round1.md
 fac46edd524d75936e4dd79d5f61ef6a3011171c2f8044265a7f544d0d20a452  outbox/to-A-deploy/reviews/2026-11-05-t11-round2.md
 969752457168ef9b737b95eb6794cc6e379e6601435dbc2d36b48c1c719499d0  outbox/to-A-deploy/reviews/2026-11-05-t11-round3.md
-374ecf2d870d1959d4f64b846c9e39dc4c2efb0e0a52b4f2f82e6e613f6d8f67  outbox/to-A-deploy/reviews/2026-11-05-t11-round4.md
-8c416a7abb7de5dfa0f755b4dd869cbd1487ec11bfe5c9327d35d3daf756edb8  outbox/to-A-deploy/SHA256SUMS
+d8713f56b32b5df11b6838c027f1cf8cd7e5e2ed7e2596aa2d73b7be20e41725  outbox/to-A-deploy/reviews/2026-11-05-t11-round4.md
+187d8597ad5bec60a80e38afb5dac45cbfe7d8be1962b08bf6e348ce2c7dad95  outbox/to-A-deploy/SHA256SUMS
