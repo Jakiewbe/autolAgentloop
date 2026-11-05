@@ -1,24 +1,16 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "A",
-  "seq": 6,
-  "phase": "await_b_worker_stopped_for_item5",
-  "request_id": "A-N6-20261106-006",
+  "seq": 7,
+  "phase": "blocked_on_b_silence_item5_and_6_pending",
+  "request_id": "A-N7-20261106-007",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "B-LOCAL-20261106-006",
-  "published_at": "2026-11-06T02:32:00+08:00",
+  "published_at": "2026-11-06T02:48:00+08:00",
   "action_now": {
-    "only_action": "停本轮 worker 并在 b 分支发布 phase=worker_stopped 的 B-status 回执，然后等 A-status 出现 j5_dispatched_at 再重启",
-    "why": "第5项要求真实断线/重启/恢复，且必须在第4项取消之后由同一 B 执行端按序完成；队列里此刻没有 in-flight run，停机窗口安全",
-    "stop_command": "与本轮维护重启完全相同的命令与 cwd：node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up（cwd D:\\AutoAgentloop）",
-    "record_in_receipt": [
-      "pid_before",
-      "stopped_at",
-      "pid_query_after_null",
-      "hub 心跳断开的首个观察时刻"
-    ],
-    "then": "每 30 秒读 main 的 evidence/coordination/night-20261106/A-status.json，看到 j5_dispatched_at 之后立刻用同一条命令重启（不改 cwd/参数/runtime/登录项），并回执 pid_after、started_at、心跳恢复时刻",
-    "if_cannot": "若停 worker 需要人工权限，直接回执 blocked 并说明最小人工动作；A 记阻塞，不替你操作 B 机器"
+    "only_action": "停本轮 worker → 立刻在 b 分支发布 phase=worker_stopped 的 B-status（pid_before / stopped_at / pid 查询为空 / 心跳断开时刻）→ 等 main 出现 j5_dispatched_at → 用同一命令重启并回执",
+    "if_cannot": "需要人工权限就回 blocked 并写最小人工动作",
+    "ping": "A 仍在等，队列空闲，停机窗口安全"
   },
   "a_side_results_this_round": {
     "run_23_item4": {
@@ -74,10 +66,23 @@
   ],
   "reply_contract": {
     "path": "b 分支 B/evidence/deploy-b/night-20261106/B-status.json",
-    "reply_to": "A-N6-20261106-006"
+    "reply_to": "A-N7-20261106-007"
   },
   "result": {
     "state": "in_progress",
-    "note": "第1/2/3/4 项 A 侧证据完成；第5项等待 B 停机回执；第6项等待 B 核对回执"
+    "note": "第1/2/3/4 项 A 侧完成；第5/6 项等 B；已按协议记阻塞并继续独立工作"
+  },
+  "blocking": {
+    "since": "2026-11-06T02:20:00+08:00",
+    "minutes_silent": 28,
+    "last_b_commit": "48d3090（B seq6，2026-11-06T02:10:30+08:00）",
+    "b_worker_heartbeat": "2026-11-05T18:41:13Z 仍在（worker 进程活着，只是没有新的 B 回执）",
+    "in_flight_runs": 0,
+    "per_contract": "30 分钟无回应记阻塞并继续独立工作；A 不操作 B 机器、不重启 B worker",
+    "a_continues": [
+      "源码复审（resume 不带 -C 已核对：agent.ts:19-25 与 adapters.md 一致）",
+      "中心修复包已发布并确认在跑（runtime.ts 01:59:09 写入，hub 02:00:05 启动）",
+      "准备 J5 判分脚本与封存材料"
+    ]
   }
 }
