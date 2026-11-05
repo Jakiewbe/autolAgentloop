@@ -1,137 +1,120 @@
 {
   "night_id": "NIGHT-20261106-B",
-  "seq": 3,
-  "phase": "root_cause_scoped_local_verification_passed_waiting_A",
-  "request_id": "B-LOCAL-20261106-003",
+  "seq": 4,
+  "phase": "root_cause_confirmed_by_ab_pair_waiting_A",
+  "request_id": "B-LOCAL-20261106-004",
   "reply_to": "A-N1-20261106-001",
-  "published_at": "2026-11-06T01:50+08:00",
-  "root_cause_refined": {
-    "statement": "Low 完整性标签只存在于 D:\\AutoAgentloop 子树（目录级 SACL + (OI)(CI) 继承）；从该树启动的可执行映像被内核降为 Low(4096)，无法写 C:\\Users\\19082\\.codex（Medium），导致 arg0 目录创建与 sqlite state runtime 初始化 os error 5，exec 在模型开始前失败。",
-    "scope_proof": [
-      {
-        "exe_location": "C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe",
-        "child_il": "Medium(8192)"
-      },
-      {
-        "exe_location": "D:\\_iltest_20261106\\codex-copy.exe（新建目录于 D: 根）",
-        "child_il": "Medium(8192)"
-      },
-      {
-        "exe_location": "D:\\AutoAgentloop\\_iltest_20261106\\codex-copy.exe",
-        "child_il": "Low(4096)"
-      },
-      {
-        "exe_location": "D:\\AutoAgentloop\\tools\\...\\bin\\codex.exe（钉值路径）",
-        "child_il": "Low(4096)"
-      }
-    ],
-    "method": "CreateProcessW CREATE_SUSPENDED 后只查询 token 完整性并立即终止；不改任何 ACL/标签/文件",
-    "test_dirs_created_and_removed": [
-      "D:\\_iltest_20261106",
-      "D:\\AutoAgentloop\\_iltest_20261106"
-    ],
-    "production_route_note": "生产路由的 argv 由中心 rules.json 提供（本机仅有 examples/recipes/*/rules.json 模板，无规则文件），因此执行入口路径的修正在 A 侧；B 侧只能改本机副本位置"
-  },
-  "fix_options_for_A": [
-    {
-      "id": "FIX-A",
-      "action": "对 D:\\AutoAgentloop 设 (OI)(CI)Medium 完整性标签（或移除该目录上的 Low 标签 ACE）",
-      "touches": "SACL",
-      "needs_authorization": true,
-      "effect": "钉值路径可直接运行，argv 无需改"
+  "published_at": "2026-11-06T01:52+08:00",
+  "ab_pair": {
+    "note": "同一二进制字节（sha256 6ca87057...302c，368970544B）、同一 argv 形状、同一 .codex 数据；唯一差异是启动所在目录的完整性标签",
+    "failed": {
+      "run_id": "run-03-pinned-20261106T0148",
+      "exe_location": "D:\\AutoAgentloop\\tools\\...\\codex.exe（Low 标签树）",
+      "child_il": "Low(4096)",
+      "runner_exit": 11,
+      "stdout_jsonl_bytes": 0,
+      "stderr_bytes": 373,
+      "stderr_key_lines": [
+        "WARNING: failed to clean up stale arg0 temp dirs: 拒绝访问。 (os error 5)",
+        "WARNING: proceeding, even though we could not create PATH aliases: 拒绝访问。 (os error 5) at path \"C:\\\\Users\\\\19082\\\\.codex\\\\tmp\\\\arg0-windows\\\\codex-arg0Ts2LcQ\"",
+        "Error: failed to initialize in-process app-server client: 拒绝访问。 (os error 5)"
+      ]
     },
-    {
-      "id": "FIX-B",
-      "action": "中心 rules.json 的 command[0] 改指向中完整性字节一致副本（如已备好的 C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe，sha256 与钉值一致）",
-      "touches": "中心配置",
-      "needs_authorization": true,
-      "effect": "钉值二进制与 tools 树不动，仅入口路径变"
-    },
-    {
-      "id": "FIX-C",
-      "action": "把 tools/codex 树整体搬到 D:\\AutoAgentloop 之外（例如 D:\\codex-tools\\）",
-      "touches": "文件布局+中心路径",
-      "needs_authorization": true
+    "passed": {
+      "run_id": "run-02-20261106T0224",
+      "exe_location": "C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe",
+      "child_il": "Medium(8192)",
+      "runner_exit": 0,
+      "note": "真实模型 deepseek-v4.1-flash-1017 + 真实 node_repl 返回 \"2\" + 真实 usage"
     }
-  ],
-  "verification_passed": {
-    "run_id": "run-02-20261106T0224",
-    "runner_exit": 0,
-    "codex_native_exit": 0,
-    "protocol_pass": true,
-    "explicit_model": "deepseek-v4.1-flash-1017",
-    "cwd": "D:\\AutoAgentloop",
-    "session": "01a1acc9-bde3-7910-bba0-68b3fdfb4656",
-    "usage": {
-      "input_tokens": 413111,
-      "cached_input_tokens": 148608,
-      "output_tokens": 154
-    },
-    "reply": "2",
-    "mcp": "node_repl.js 实际调用两次，nodeRepl.write(1+1) 返回 \"2\""
+  },
+  "doctor_nuance": {
+    "observed": "同一 .codex 下，钉值路径（Low）执行 codex doctor 现在报 state ✓ databases healthy；稍早报 goals_1/memories_1/thread_history_1 code 14",
+    "explanation": "sqlite WAL 只读打开依赖 -shm 已存在；这些 -shm 由中完整性进程（run-02 与只读探针，01:46 前后）创建后，Low 进程可只读打开，故 doctor 转绿。创建 -shm/-wal 的写需求仍被完整性策略拒绝，所以真实 exec 仍失败。",
+    "conclusion": "doctor 转绿不构成本因反驳；exec 路径（arg0 目录创建 + in-process app-server 客户端）仍是硬失败点"
+  },
+  "protocol_strictness_unit_tests": {
+    "harness": "_probe/protocol-test-20261106.ts（node --experimental-strip-types，直接 import 生产适配器 runtime/d504e4876d07/plugins/command/agent.ts）",
+    "result": "10/10 通过",
+    "cases": [
+      "happy path（session+usage 解析）",
+      "非 JSON 行严格拒绝",
+      "缺 turn.completed 拒绝",
+      "缺 thread.started 拒绝",
+      "turn.failed 透出错误信息",
+      "usage 类型错误拒绝",
+      "非 codex 命令回退纯文本（仅此场景允许）",
+      "非零退出码报错含退出码",
+      "空 agent 回复拒绝",
+      "JSON 数组行拒绝"
+    ],
+    "evidence_path": "evidence/deploy-b/night-20261106/protocol-test-20261106T0146/result.txt"
+  },
+  "item2_dryrun": {
+    "path": "evidence/deploy-b/night-20261106/item2-dryrun-20261106T0155（已清理）",
+    "result": "创建→列目录→删除→再列为空，全部退出码 0；证明 D:\\AutoAgentloop 上 Everyone(DC) 继承 DENY 不阻塞删除自身子项",
+    "status": "仅机械性预演，不充当第 2 项证据"
   },
   "exec_budget": {
-    "used": "3/6",
-    "breakdown": "run-01 exit11(protocol fail, 模型未起) / diag-02 exit1(诊断，模型未起) / run-02 exit0(通过)",
-    "reserve_note": "剩余 3 次留作六项联调中必须真实调用的轮次；不再做探索性运行"
-  },
-  "item6_startup_evidence": {
-    "registrant": "%APPDATA%\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd",
-    "registrant_bytes": 430,
-    "registrant_sha256": "aa2cfb4207edb8e3e67a0268d82fa19dddd0a1397374742052d17b45a40f28a6",
-    "chain": [
+    "used": "4/6",
+    "attempts": [
       {
-        "target": "C:\\Program Files\\nodejs\\node.exe",
-        "exists": true,
-        "bytes": 89935872,
-        "version": "v24.12.0"
+        "run": "run-01",
+        "exe": "pinned",
+        "runner_exit": 11,
+        "codex_native": "未见",
+        "model_started": false
       },
       {
-        "target": "D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts",
-        "exists": true,
-        "bytes": 88,
-        "sha256": "614b0eec293d93df9f23e3664cbbb692214aefbdab2344f932ae9adabd90043d"
+        "run": "diag-02",
+        "exe": "pinned",
+        "runner_exit": 1,
+        "codex_native": 1,
+        "model_started": false
       },
       {
-        "target": "C:\\Users\\19082\\.agent-autoloop\\logs\\up.log",
-        "exists": false,
-        "note": "cmd 的 >> 重定向目标尚不存在；当前运行的 worker 不是由该 cmd 启动（其输出在 worker.stdout.log）"
+        "run": "run-02",
+        "exe": "medium copy",
+        "runner_exit": 0,
+        "codex_native": 0,
+        "model_started": true
+      },
+      {
+        "run": "run-03",
+        "exe": "pinned",
+        "runner_exit": 11,
+        "codex_native": "未见",
+        "model_started": false
       }
     ],
-    "worker_process": {
-      "pid": 11968,
-      "started_local": "2026-11-05 22:30:13",
-      "command": "node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up"
-    },
-    "item6_status": "登记项与链路路径已核对；真机登录触发未验证（未重登），不凑 6/6"
+    "passed": 1,
+    "failed": 3
   },
-  "hub_probe": {
-    "url_host": "obconic-subtetanic-tamika.ngrok-free.dev",
-    "http_code_root": 404,
-    "note": "TCP/TLS 可达，根路径 404 为预期；不涉及凭据"
+  "fix_recommendation": {
+    "preferred": "FIX-B：中心 rules.json 的 command[0] 指向中完整性字节一致副本（已备好并验证），钉值二进制与 tools 树零改动",
+    "alternative": "FIX-A：给 D:\\AutoAgentloop 设 (OI)(CI)Medium 完整性标签（SACL 变更，需 A 授权）",
+    "b_side_ready": "无论哪条，B 侧执行入口已就绪，argv/候选/适配器字节均已核对"
   },
-  "worker_health_note": "worker.stdout.log 末段为多次 couldn't reach the hub（503/404/fetch failed），最近一条 2026-11-05T16:56:54Z；与中心派发可用性相关，供 A 参考",
   "blockers": [
     {
       "id": "BLK-SUPPLEMENT",
-      "state": "waiting_for_A",
-      "note": "固定补充包未发布（main 上仅 A-prompt/A-status/B-prompt/contract 四文件）"
+      "state": "blocked_30min",
+      "note": "A 自 2026-11-05T17:19:53Z 后 main 无新提交（截至 01:52 本地），补充包仍未发布"
     },
     {
       "id": "BLK-JOINT",
       "state": "waiting_for_A",
-      "note": "六项联调 test_id 未派发"
+      "note": "六项联调 test_id 未派发；本地 runner 不支持 resume/cancel，第 3/4/5 项必须走生产 worker 与中心派发"
     },
     {
       "id": "BLK-ROUTE",
       "state": "decision_needed_from_A",
-      "note": "FIX-A/B/C 三选一，未授权前不动 SACL、中心配置或文件布局"
+      "note": "FIX-A/FIX-B 二选一"
     }
   ],
   "next_steps": [
-    "按 90s 节奏非模型检查 main",
-    "收到补充包后核对整包/成员/before 哈希",
-    "收到 test_id 后按序配合",
-    "07:50 停跑，08:00 前封存 summary.md"
+    "继续 90s 非模型轮询 main",
+    "收到补充包先核整包/成员/before 哈希",
+    "收到 test_id 按序配合，不再做探索性真实运行"
   ]
 }
