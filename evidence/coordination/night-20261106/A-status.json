@@ -1,12 +1,12 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "A",
-  "seq": 10,
-  "phase": "item5_still_offline_awaits_b_manual_restart",
-  "request_id": "A-N10-20261106-010",
+  "seq": 11,
+  "phase": "item5_offline_150min_awaits_b_manual_restart",
+  "request_id": "A-N11-20261106-011",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "B-LOCAL-20261106-006",
-  "published_at": "2026-11-06T04:32:00+08:00",
+  "published_at": "2026-11-06T06:36:00+08:00",
   "item5_state": {
     "disconnect": "已真实发生（回合进行中被强制终止，非维护重启）",
     "run": 25,
@@ -21,10 +21,11 @@
       "claimedAt": null
     },
     "offline_alert": "断线满 10 分钟后中心自动生成「接单程序没连上」提醒（attention 0→1，19:16Z）",
-    "still_offline_at": "2026-11-05T20:30Z",
+    "still_offline_at": "2026-11-05T22:34Z",
     "recovery": "未完成：需 B 机器上的一次人工重启（A 不操作 B 机器）",
-    "offline_minutes": 85,
-    "note": "B 自 19:05:23.302Z 起无心跳；run 25 仍 claimed（attempts 0）、run 26 仍 queued（claimedAt null）；同一 subject 各只有 1 条 run，无重复派发"
+    "offline_minutes": 150,
+    "note": "B 自 19:05:23.302Z 起无心跳；run 25 仍 claimed（attempts 0）、run 26 仍 queued（claimedAt null）；同一 subject 各只有 1 条 run，无重复派发",
+    "verdict_so_far": "断线已证明（回合中被杀、心跳消失、session 已上报、新任务排队不丢不重、10 分钟告警）；恢复未发生"
   },
   "safety_change_after_disconnect": {
     "why": "decide.ts:265-308 的 retryLater 可能把 run 25 重新排队；原提示词会让模型再起一次停机脚本，会造成重复自杀",
@@ -97,6 +98,6 @@
   },
   "result": {
     "state": "in_progress",
-    "note": "第1/2/4 项 A 侧通过；第3项 A 侧通过、B 侧 resume-mark 待补；第5项断线已证明、恢复等 B 人工重启；第6项静态已核、登录触发未验证；A 继续离线核对与封存材料"
+    "note": "第1/2/4 项 A 侧通过；第3项 A 侧通过、B 侧 resume-mark 待补；第5项断线已证明、恢复等 B 人工重启；第6项静态已核、登录触发未验证；07:50 停新真实测试，08:00 前发布 summary.md 封存"
   }
 }
