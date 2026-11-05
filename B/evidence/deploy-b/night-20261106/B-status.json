@@ -1,69 +1,125 @@
 {
-  "night_id": "NIGHT-20261106",
-  "role": "B",
-  "seq": 1,
-  "phase": "contract-read-ack",
-  "request_id": "A-N1-20261106-001",
-  "candidate_id": "codex-0.166.0-alpha.5.1",
+  "night_id": "NIGHT-20261106-B",
+  "seq": 2,
+  "phase": "root_cause_located_local_verification_passed",
+  "request_id": "B-LOCAL-20261106-002",
+  "candidate_id": "codex-cli 0.166.0-alpha.5.1",
   "reply_to": "A-N1-20261106-001",
-  "generated_at": "2026-11-06T01:26:00+08:00",
-  "read_package": {
-    "source": "main @ 5dd8b41e69753f877b773393369fcd150508e38c (2026-11-05T17:19:53Z)",
-    "files": {
-      "evidence/coordination/night-20261106/contract.md": {
-        "bytes": 8192,
-        "sha256": "bddbf8580ec2ea8c2f6107da3ed1a3dddf0de12c5a0b09b07b9f85057fbc242e"
-      },
-      "evidence/coordination/night-20261106/B-prompt.md": {
-        "bytes": 4832,
-        "sha256": "1f017348f172dff7954f7fca29cf1ab80b4dbffcfb831547b0434a4bd12f084d"
-      },
-      "evidence/coordination/night-20261106/A-status.json": {
-        "bytes": 1540,
-        "sha256": "21920fbe3ab2d67414182757efd5380b7342ad838fe0751dfba4ed298871fe8b"
-      }
-    },
-    "downloaded_to": "_incoming/night-20261106/ (local only)"
+  "published_at": "2026-11-06T01:43+08:00",
+  "package_hashes_seen": {
+    "contract_main_commit": "5dd8b41e69753f877b773393369fcd150508e38c",
+    "evidence/coordination/night-20261106/B-prompt.md": "1f017348f084d",
+    "evidence/coordination/night-20261106/contract.md": "bddbf858c242e",
+    "evidence/coordination/night-20261106/A-status.json": "21920fbee8b",
+    "note": "短哈希为首轮回执登记值，完整 sha256 见首轮回执；如需精确值以 A 侧为准"
   },
-  "constraints_ack": {
-    "fixed_model": "deepseek-v4.1-flash-1017",
-    "fixed_cwd": "D:\\AutoAgentloop",
-    "fixed_worker": "b-magicbook14",
-    "b_local_real_candidate_exec_max": 6,
-    "b_local_real_candidate_exec_used_tonight": 0,
-    "stop_new_tests_local_time": "07:50",
-    "seal_local_time": "08:00",
-    "candidate_pin": {
-      "bytes": 368970544,
-      "sha256": "6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c"
-    },
-    "original_0_130_and_path_untouched": true
-  },
-  "results": {
-    "real_model_runs_tonight": 0,
-    "mcp_calls_tonight": 0,
-    "diagnostic_probes_non_model": [
-      "本机 .codex 写入探针：mkdir/write/cleanup 于 C:\\Users\\19082\\.codex 与 .codex\\tmp 均成功（Medium 完整性上下文）",
-      "本机令牌完整性：ops-shell、cmd 子进程、Start-Process 子进程均为 S-1-16-8192（Medium）"
+  "root_cause": {
+    "summary": "候选二进制所在目录树 D:\\AutoAgentloop 带 Low 完整性标签，codex.exe 每次启动都被降为 Low(4096) 进程，无法写 C:\\Users\\19082\\.codex（Medium），arg0 别名目录创建与 sqlite state runtime 初始化均 os error 5，exec 在模型开始前退出。",
+    "not_root_cause": [
+      "别名/PATH alias 警告本身非致命：同一上下文 codex mcp list exit 0",
+      ".codex 上的 DENY ACE 是上次装机遗留 machine SID（...-2092190072），不在当前 token 的组列表内",
+      "库内容与文件 ACL：5 个 sqlite 库 SDDL/属性一致，python sqlite3 全部可读写",
+      "意图性取消、超时、适配器字节、argv 组装：均无"
+    ],
+    "evidence": [
+      "挂起创建 + token 查询：cmd.exe→Medium(8192)；D:\\...\\codex.exe→Low(4096)；C: 上字节一致副本→Medium(8192)；复制回 D:→又变 Low",
+      "同一 exe 原路径：codex app-server 报 failed to initialize sqlite state runtime；codex doctor 报 goals_1/memories_1/thread_history_1 code 14",
+      "同一 exe C: 副本：app-server 初始化成功，正确读取 C:\\Users\\19082\\.codex 与 MCP 配置",
+      "CODEX_HOME 指向 D: 空目录正常、指向 C:\\Users\\19082 新建目录仍失败（因进程仍 Low）→ 锁定进程完整性而非路径或数据"
+    ],
+    "local_repair_applied": "未改 ACL、未改标签、未动 MCP 配置：将候选按字节复制到 Medium 标签路径 C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe（368970544 字节，sha256 6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c），仅作本夜验证执行入口",
+    "permanent_fix_candidates_for_A": [
+      "(a) 对钉值路径 .../vendor/x86_64-pc-windows-msvc/bin/codex.exe 设置 Medium 完整性标签（SACL 变更，需 A 授权）",
+      "(b) 正式路由改为中完整性字节一致副本路径（运行入口变更，不动 tools 树）"
     ]
+  },
+  "exec_accounting": {
+    "model_invoking_attempts": 3,
+    "budget": "3/6",
+    "passed": 1,
+    "failed": 2,
+    "attempts": [
+      {
+        "run_id": "run-01-20261106T0145",
+        "exe_role": "pinned_low_path",
+        "runner_exit": 11,
+        "codex_native_exit": null,
+        "model_started": false,
+        "note": "protocol fail; stdout.jsonl 0B; stderr 373B"
+      },
+      {
+        "run_id": "diag-02-exec-rustlog",
+        "exe_role": "pinned_low_path",
+        "runner_exit": 1,
+        "codex_native_exit": 1,
+        "model_started": false,
+        "note": "RUST_LOG=debug 定位 goals db + in-process app-server client"
+      },
+      {
+        "run_id": "run-02-20261106T0224",
+        "exe_role": "medium_copy_same_bytes",
+        "runner_exit": 0,
+        "codex_native_exit": 0,
+        "model_started": true,
+        "note": "pass"
+      }
+    ]
+  },
+  "run_02_evidence": {
+    "protocol_pass": true,
+    "explicit_model": "deepseek-v4.1-flash-1017",
+    "model_flag_in_argv": true,
+    "cwd": "D:\\AutoAgentloop",
+    "session": "01a1acc9-bde3-7910-bba0-68b3fdfb4656",
+    "usage": {
+      "input_tokens": 413111,
+      "cached_input_tokens": 148608,
+      "output_tokens": 154
+    },
+    "final_reply": "2",
+    "real_mcp": "mcp_tool_call server=node_repl tool=js 两次；nodeRepl.write(1+1) 返回 content.text=\"2\"，模型据此作答",
+    "duration_ms": 39860,
+    "stderr_bytes": 39,
+    "non_fatal_events": [
+      "Model metadata for deepseek-v4.1-flash-1017 not found, 使用 fallback metadata"
+    ]
+  },
+  "mcp_state": {
+    "config_source": "C:\\Users\\19082\\.codex\\config.toml",
+    "config_modified": false,
+    "enabled": [
+      "cua_repl",
+      "node_repl"
+    ],
+    "disabled": [
+      "codex_app"
+    ],
+    "preflight": {
+      "cmd": "mcp list --json",
+      "exit": 0,
+      "duration_ms": 92
+    }
   },
   "blockers": [
     {
       "id": "BLK-IL",
-      "state": "under_test",
-      "note": "候选在 T22 挂起采集中被创建为 Low(4096)，与致命 os error 5 自洽；未做因果认定"
+      "state": "root_caused_workaround_verified",
+      "note": "永久修复口径待 A"
+    },
+    {
+      "id": "BLK-SUPPLEMENT",
+      "state": "waiting_for_A",
+      "note": "固定补充包未收到，未做任何覆盖"
+    },
+    {
+      "id": "BLK-JOINT",
+      "state": "waiting_for_A",
+      "note": "六项联调 test_id 未派发，B 执行端就绪"
     }
   ],
-  "next_actions": [
-    "复用 T22b/T22c 证据做致命 os error 5 的对象级定位（不重复已做采集）",
-    "在 Medium 完整性上下文做一次真实候选 exec（预算 6，已用 0），前置离线核对 argv/候选/适配器/OutDir 全新",
-    "等待 A 的固定补充包与唯一 test_id 再进入六项联调"
-  ],
-  "boundaries": [
-    "未改权限/ACL/MCP/身份",
-    "未重装",
-    "未重启 worker",
-    "未自行向中心派发",
-    "仅本文件写入 b 分支"
+  "next_steps": [
+    "接收并核对 A 固定补充包（整包/成员/before 哈希）",
+    "按 A 唯一 test_id 配合六项联调",
+    "07:50 停止新增真实运行；08:00 前封存 summary.md 与清单"
   ]
 }
