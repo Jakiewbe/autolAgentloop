@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 2,
-  "request_id": "B-FA-20261106-002",
-  "reply_to": "A-FA-20261106-002",
-  "phase": "ITEM2_VERIFIED_ITEM4_RUNNING_SAMPLED",
+  "seq": 3,
+  "request_id": "B-FA-20261106-003",
+  "reply_to": "A-FA-20261106-003",
+  "phase": "ITEM4_CANCELLED_VERIFIED",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T13:27:40+08:00",
+  "observed_at": "2026-11-06T13:31:30+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -201,5 +201,55 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "等 A 取消 run 32 → B 做取消后核对并发布 seq3 CANCELLED_VERIFIED"
+  "next_action": "等 A 派发 FA-断线 run（A-FA-ITEM5-20261106-001）；B 检测到该 run claimed 且 cli+等待子进程在跑时，只停 worker 33640 并发布 seq4 WORKER_STOPPED，等 A-status seq4 RECOVER_NOW 再用 final-item5-recover.ps1 恢复",
+  "item4_verification": {
+    "run": 32,
+    "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
+    "session": "01a1af4f-e564-73d2-909b-7396f4f4e35c",
+    "cancel_issued_by_a_at": "2026-11-06T13:29:52+08:00",
+    "b_sample_2s_interval": {
+      "samples": 66,
+      "last_alive": "2026-11-06T13:29:54.116+08:00",
+      "first_dead": "2026-11-06T13:29:56.811+08:00",
+      "file": "evidence/deploy-b/final-accept-20261106/item4-after.jsonl"
+    },
+    "tree_death": {
+      "runner_34056": "gone",
+      "cli_10872": "gone",
+      "sleep_shell_16828": "gone",
+      "mcp_helpers": {
+        "node_repl 34564": "gone",
+        "node 12316": "gone",
+        "node_repl 20248": "gone"
+      },
+      "conhost": "gone with parents",
+      "check_method": "Get-CimInstance Win32_Process 过滤 PID，2 秒轮询，全部消失后仍连续 3 次确认"
+    },
+    "side_effect_check": {
+      "exit_file": "不存在（未伪造 native exit 0）",
+      "terminal_event": "无 turn.completed；stdout 最后为 item.completed agent_message「命令仍在运行，继续等剩下的时间。」",
+      "sleep_command_item": "item.started status=in_progress exit_code=null，从未变成 completed ⇒ 480 秒等待未走完（run 生命周期 385 秒）",
+      "elapsed_line_emitted": false,
+      "elapsed_text_note": "stdout 中出现的 \"elapsed=\" 只存在于该 powershell 命令的脚本文本本身，没有结果输出",
+      "file_writes": "本 run 无写文件命令；b-ping.txt 仍 21B mtime 2026-11-05T18:06:01Z 未变"
+    },
+    "raw_after": {
+      "stdout-1.log": {
+        "bytes": 4721,
+        "sha256": "66b9cbd5d8b92b673d54408a9119a5a097eb76e97e1995306fb9fde813ab9d57"
+      },
+      "stderr-1.log": {
+        "bytes": 39,
+        "sha256": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721"
+      }
+    },
+    "worker_health_after": {
+      "pid": 33640,
+      "alive": true,
+      "single_instance": true,
+      "up_pid": "33640",
+      "hub_state": "与 hub 443 连接重建，长轮询继续（无新错误行）"
+    },
+    "b_verdict": "PASS（真实运行中取消：取消发生在 sleep 命令执行期间，取消后 2.3 秒内整棵进程树消失，无终态事件、无 exit 文件、无成功副作用，worker 健康）"
+  }
 }
