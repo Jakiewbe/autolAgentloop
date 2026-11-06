@@ -24,6 +24,9 @@ import acp from "../plugins/acp/agent.ts";
 import { bridge, permission } from "../plugins/acp/bridge.ts";
 import { versionName } from "../host/version.ts";
 import { acpAgent } from "./helpers.ts";
+// 目录链接：Windows 非管理员建不了符号链接（需 SeCreateSymbolicLinkPrivilege），junction 可以，lstat 同样认成链接。
+const linkDirectory = (target: string, path: string) =>
+  symlinkSync(target, path, process.platform === "win32" ? "junction" : "dir");
 const home = mkdtempSync(join(tmpdir(), "agent-autoloop-acp-"));
 after(() => rmSync(home, { recursive: true, force: true }));
 const fake = join(home, "fake.mjs");
@@ -340,7 +343,7 @@ test("ACP chooses only a one-time permission and respects structured kinds and r
   assert.equal(ask("read", { kind: "execute", title: "read file" }).optionId, "no");
   assert.equal(ask("edit", { kind: "edit", locations: [{ path: join(home, "new.txt") }] }).optionId, "once");
   mkdirSync(join(home, "work"));
-  symlinkSync(tmpdir(), join(home, "work", "escape"));
+  linkDirectory(tmpdir(), join(home, "work", "escape"));
   assert.equal(
     ask("edit", { kind: "edit", locations: [{ path: join(home, "work", "escape", "outside") }] }).optionId,
     "no",
@@ -349,7 +352,7 @@ test("ACP chooses only a one-time permission and respects structured kinds and r
   assert.equal(ask("full", { kind: "other" }).optionId, "once");
 });
 
-test("ACP doesn't take a link that goes nowhere for a new file in the folder", () => {
+test("ACP doesn't take a link that goes nowhere for a new file in the folder", (t) => {
   const options = [
     { optionId: "once", kind: "allow_once" },
     { optionId: "no", kind: "reject_once" },
@@ -360,6 +363,22 @@ test("ACP doesn't take a link that goes nowhere for a new file in the folder", (
   mkdirSync(outside);
   const edit = (path: string, access = "edit") =>
     permission({ access, cwd: work } as any, { options, toolCall: { kind: "edit", locations: [{ path }] } }).optionId;
+  if (process.platform === "win32") {
+    // Windows 上非管理员建不了符号链接，也建不出悬空文件链接、相对链接与链接环；用目录 junction 覆盖可达的同一语义：
+    // 先把 junction 指向存在的目录，再删掉目标目录，它就变成"指向不存在的位置"的链接。
+    mkdirSync(join(outside, "gone"), { recursive: true });
+    symlinkSync(join(outside, "gone"), join(work, "dangling-dir"), "junction");
+    symlinkSync(join(outside, "gone"), join(work, "link-to-dangling"), "junction");
+    rmSync(join(outside, "gone"), { recursive: true, force: true });
+    for (const path of ["dangling-dir", "dangling-dir/new.txt", "dangling-dir/new/deeper.txt", "link-to-dangling"]) {
+      assert.equal(edit(join(work, path)), "no", path);
+      assert.equal(edit(`${work}/${path}`), "no", `${path}, not normalised`);
+    }
+    assert.equal(edit(join(work, "real", "new-file.txt")), "once", "a new file is still fine");
+    assert.equal(edit(join(work, "new-folder", "new-file.txt")), "once", "in a new folder too");
+    t.diagnostic("Windows: 悬空文件链接/相对链接/链接环需要 SeCreateSymbolicLinkPrivilege，改用悬空目录 junction 覆盖");
+    return;
+  }
   symlinkSync(join(outside, "not-there"), join(work, "dangling"));
   symlinkSync(join(outside, "no-such-dir"), join(work, "dangling-dir"));
   symlinkSync(join(work, "dangling"), join(work, "link-to-dangling"));
@@ -385,7 +404,7 @@ test("ACP doesn't take a link that goes nowhere for a new file in the folder", (
     assert.equal(edit(`${work}/${path}`), "no", `${path}, not normalised`);
   }
   // Win32 normalizes .. before traversing the filesystem; POSIX traverses the dangling link first.
-  assert.equal(edit(`${work}/dangling/../inside.txt`), process.platform === "win32" ? "once" : "no");
+  assert.equal(edit(`${work}/dangling/../inside.txt`), "no");
   assert.equal(edit(join(work, "real", "new-file.txt")), "once", "a new file is still fine");
   assert.equal(edit(join(work, "new-folder", "new-file.txt")), "once", "in a new folder too");
   assert.equal(edit(join(work, "dangling"), "full"), "once", "full doesn't look at paths");

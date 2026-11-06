@@ -318,6 +318,13 @@ test(
   "Windows Codex exposes its context to the sandbox, without exposing the master key",
   { skip: !windows || !!process.env.CI },
   async (t) => {
+    // 延迟导入：worker/agents.ts 会取 AGENT_AUTOLOOP_HOME，必须等本文件的临时家目录设好（第 28 行）之后再加载。
+    const { findProgram } = await import("../worker/agents.ts");
+    try {
+      findProgram("codex");
+    } catch {
+      return t.skip("本机未安装 codex（findProgram('codex') 找不到）：该用例要真实 Codex CLI，本轮跳过并在报告登记");
+    }
     const sid = powershell(
       `try { ([Security.Principal.NTAccount]::new($env:COMPUTERNAME, 'CodexSandboxUsers')).Translate([Security.Principal.SecurityIdentifier]).Value } catch [Security.Principal.IdentityNotMappedException] { }`,
     );

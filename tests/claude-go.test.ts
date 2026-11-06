@@ -43,6 +43,16 @@ test("keeps the native Claude result parser instead of accepting raw output", ()
   assert.equal(result.session, "s1");
 });
 
+test("loads by folder name from the shipped plugins folder, and only under a legal name", async () => {
+  const { loadPlugin } = await import("../host/plugins.ts");
+  const loaded: any = await loadPlugin("claude-go", "agent");
+  assert.equal(loaded.command(turn)[0], "D:/claude.exe");
+  assert.equal(typeof loaded.read, "function");
+  assert.equal(loaded.link, adapter.link);
+  await assert.rejects(() => loadPlugin("Claude_Go", "agent"), /插件名字不正确/);
+  await assert.rejects(() => loadPlugin("no-such-plugin", "agent"), /没有 no-such-plugin 的插件/);
+});
+
 test("does not report Claude's estimate as a verified Go charge", () => {
   const result = adapter.read(
     JSON.stringify({

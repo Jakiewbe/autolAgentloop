@@ -59,6 +59,18 @@ test("executable or symlink documents and unknown history always need release", 
     if (mode === "executable") {
       chmodSync(join(root, "docs/a.md"), 0o755);
       git("update-index", "--chmod=+x", "docs/a.md");
+    } else if (process.platform === "win32") {
+      // 非管理员建不了符号链接：把 120000（符号链接）条目直接写进索引——产品读的是 git 对象，不是工作区。
+      rmSync(join(root, "docs/a.md"));
+      const blob = execFileSync("git", ["hash-object", "-w", "--stdin"], {
+        cwd: root,
+        input: "../app.ts",
+        encoding: "utf8",
+      }).trim();
+      git("update-index", "--add", "--cacheinfo", `120000,${blob},docs/a.md`);
+      git("-c", "user.name=test", "-c", "user.email=test@example.invalid", "commit", "-qm", "test");
+      assert.equal(releaseRequired(root, base, git("rev-parse", "HEAD"), config.internal), true, "symlink");
+      continue;
     } else {
       rmSync(join(root, "docs/a.md"));
       symlinkSync("../app.ts", join(root, "docs/a.md"));
