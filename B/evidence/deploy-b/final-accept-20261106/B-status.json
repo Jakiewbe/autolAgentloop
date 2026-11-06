@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 6,
-  "request_id": "B-FA-20261106-006",
-  "reply_to": "A-FA-20261106-004",
-  "phase": "LOGIN_READY",
+  "seq": 7,
+  "request_id": "B-FA-20261106-007",
+  "reply_to": "A-FA-20261106-005",
+  "phase": "LOGOFF_EXECUTING",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T13:44:10+08:00",
+  "observed_at": "2026-11-06T13:47:30+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -201,7 +201,7 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "等 A 确认中心队列空闲；B 收到用户就绪确认后执行一次 shutdown /l，用户亲自登录，登录后按上面的观察计划采集并发布 seq7",
+  "next_action": "执行 shutdown /l 一次；用户登录后 B 运行观察脚本采集自动启动证据并发布 seq8",
   "item4_verification": {
     "run": 32,
     "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
@@ -380,7 +380,7 @@
   "item4_verdict": "PASS（A 侧 4 秒取消延迟 + B 侧 2.3 秒树死确认 + 无终态/无 exit 文件/无副作用）",
   "item6": {
     "subject": "A-FA-ITEM6-20261106-001",
-    "state": "READY_TO_LOGOFF（等用户确认可在本机重新登录后执行，只注销一次）",
+    "state": "LOGOFF_EXECUTING（A seq5 LOGOFF_NOW + 用户当场确认「现在注销，我马上重新登录」）",
     "pre_checks": {
       "queue_idle_local": true,
       "runs_without_exit": 0,
@@ -412,6 +412,19 @@
       "判成功：进程创建时间晚于登录时间，且父链可追到启动项 cmd 或 up.log 首行晚于登录",
       "判失败：观察窗口内无 worker 进程 → 如实记第 6 项失败，只修既有启动链并留原件，不第二次注销"
     ],
-    "caveat": "本机观察脚本事后落盘；登录触发证据以进程创建时间/父进程链/up.log 第一行为准，不用手工启动冒充"
+    "caveat": "本机观察脚本事后落盘；登录触发证据以进程创建时间/父进程链/up.log 第一行为准，不用手工启动冒充",
+    "logoff_authorized_by": "A-FA-20261106-005（LOGOFF_NOW）+ 用户在会话内明确确认",
+    "logoff_count_cap": 1,
+    "logoff_executed": false,
+    "observer_script": {
+      "path": "D:\\AutoAgentloop\\_probe\\final-item6-observe.ps1",
+      "note": "登录后由 B 运行：每 15 秒采样 worker 进程/父链/up.pid/up.log/hub 连接，≥120 秒"
+    },
+    "pre_logoff_snapshot": {
+      "worker_pid": 30208,
+      "up_pid": "30208",
+      "up_log_absent": true,
+      "logoff_request_at": "2026-11-06T13:47:30+08:00"
+    }
   }
 }
