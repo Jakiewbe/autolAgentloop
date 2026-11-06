@@ -1,7 +1,7 @@
 {
   "night_id": "STRICT-V2-ACCEPT-20261106",
   "role": "B",
-  "generated_at": "2026-11-06T05:14:00.000Z",
+  "generated_at": "2026-11-06T05:02:30.000Z",
   "local_root": "D:\\AutoAgentloop\\evidence\\deploy-b\\v2-accept-20261106",
   "policy": "原始 stdout/stderr/rollout/argv/env 与身份登录材料只留本机；发布侧仅脱敏回执、回放脚本与解析结果",
   "local_files": [
@@ -111,16 +111,16 @@
       "sha256": "0078956259beeadf23b0504b13102633bcbeeaa756accbe68cee34b4134e6293"
     },
     {
-      "path": "audit-run27-20261106T1306/run27-execution-audit.json",
-      "bytes": 3424,
-      "sha256": "57373d8328ec34581f628441133082c8b8da2e383356451ea88e5b5ae3d7e508"
+      "path": "audit-run27-20261106T1259/run27-execution-audit.json",
+      "bytes": 3578,
+      "sha256": "e90a93eec9a1110eca78bd2059bef5fae0d8b6a317c2e51ac5f0915e37d92da4"
     }
   ],
   "published_subset": [
     {
       "path": "B-status.json",
-      "bytes": 28778,
-      "sha256": "6875a1d8134de6f4a772f2fa23ef60ede9f9941adc877d59c938261cd56b9a3b"
+      "bytes": 29622,
+      "sha256": "e797a6da4763ff99a419141a9072186f82416d4ae68b8507349d709d79b569db"
     },
     {
       "path": "PREPARED.md",
@@ -139,8 +139,8 @@
     },
     {
       "path": "summary.md",
-      "bytes": 10056,
-      "sha256": "1c6d6426cd42aee6a5a8c3a96cd45fda66ecd5be6d1add21e7d26e6c9b3698b8"
+      "bytes": 10385,
+      "sha256": "412685557913ced4a2620d3647925e026902ebca298246d545a02029458d9627"
     }
   ],
   "counts": {
@@ -149,5 +149,6 @@
     "local_files": 22,
     "published_files": 5,
     "note": "本轮新增 run27 执行次数审计；B-status 更新为 seq5（准备期字段归入 historical_states）"
-  }
+  },
+  "notes_timestamp": "generated_at 为 UTC；实际写入 13:02:30+08"
 }

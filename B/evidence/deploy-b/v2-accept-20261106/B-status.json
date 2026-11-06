@@ -5,11 +5,11 @@
   "request_id": "B-V2-20261106-001",
   "reply_to": "A-V2A-20261106-006",
   "prepared_at": "2026-11-06T12:11:00+08:00",
-  "seq": 6,
+  "seq": 7,
   "phase": "EXEC_DONE",
   "phase_label": "正式两轮均已完成（A 派发 run 29/run 30，2/2 通过）；阶段目标达成，等统筹复核；worker 与正式入口保持运行，B 未再执行任何模型调用",
   "receipt_type": "audit_and_state_normalization",
-  "audited_at": "2026-11-06T13:14:00+08:00",
+  "audited_at": "2026-11-06T13:02:20+08:00",
   "historical_states": [
     {
       "at": "2026-11-06T12:11:00+08:00",
@@ -573,9 +573,9 @@
       "failure_stage": "回执远端提交环节（worker 判定 failed），模型 turn 本身以 turn.completed 正常结束"
     },
     "local_artifact": {
-      "path": "evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1306/run27-execution-audit.json",
-      "bytes": 3424,
-      "sha256": "57373d8328ec34581f628441133082c8b8da2e383356451ea88e5b5ae3d7e508"
+      "path": "evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1259/run27-execution-audit.json",
+      "bytes": 3578,
+      "sha256": "e90a93eec9a1110eca78bd2059bef5fae0d8b6a317c2e51ac5f0915e37d92da4"
     }
   },
   "conflict_resolution_check": {
@@ -658,5 +658,34 @@
     },
     "run28": "A 记 claimed=false；本机 worker/runs 下无 28-* 目录，与 A 一致（未领取即取消，无执行）",
     "read_method_note": "本 clone 为单分支 refspec（remote.origin.fetch 仅 b），origin/main 曾停在 96bc760；本轮用 git fetch origin '+refs/heads/main:refs/remotes/origin/main' 才取到 3ffbf34。此前「main 无新提交」的旧断言属同一原因，已作废。"
+  },
+  "audit_rounds": [
+    {
+      "seq": 5,
+      "at": "2026-11-06T13:00:28+08:00",
+      "what": "run27 执行次数审计 + 状态归一"
+    },
+    {
+      "seq": 6,
+      "at": "2026-11-06T13:01:48+08:00",
+      "what": "与 A seq8 收口交叉核对"
+    },
+    {
+      "seq": 7,
+      "at": "2026-11-06T13:02:20+08:00",
+      "what": "时间戳校正（seq5/6 里 13:06/13:14 为自估，实际为 12:59–13:02）"
+    }
+  ],
+  "timestamp_correction": {
+    "wrong": [
+      "run27_execution_audit 原写生成时间 13:06",
+      "audited_at 原写 13:06/13:14"
+    ],
+    "actual": {
+      "audit_file_written": "2026-11-06T12:59:27+08:00",
+      "seq5_commit": "2026-11-06T13:00:28+08:00",
+      "seq6_commit": "2026-11-06T13:01:48+08:00"
+    },
+    "method": "以文件 mtime 与 git commit 时间回填；不使用自估时刻"
   }
 }

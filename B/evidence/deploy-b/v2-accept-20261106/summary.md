@@ -78,7 +78,7 @@
 
 本阶段未改判分逻辑以外的任何规则内容、未过滤非 JSON、未关 MCP、未重装、未改身份/标签/权限/PATH/ACL/登录项、未重启 A 中心、未推送原始日志或环境。发布侧只含脱敏哈希、计数与脚本。
 
-## 9. 状态归一与 run27 执行次数审计（seq5，2026-11-06T13:06+08:00）
+## 9. 状态归一与 run27 执行次数审计（seq5，2026-11-06T13:00+08:00）
 
 准备期字段（`route_not_switched=true`、`waiting_for=等 A 派发两条正式执行`、`plan_on_go`）描述的是 12:11 时点，已被 GO_maintenance(12:19) → APPLIED(12:21) → ROUTE_READY(12:28) → STARTED(12:29) → EXEC_DONE(12:34) 依次取代。本轮把这些字段整体移入 `B-status.json.historical_states`（每项带 `at` 时间与 `superseded_by`），顶层改为 `current_state`：路由已由 A 切换（`route_switched=true`）、v2 已应用、worker PID 33640 单实例存活、正式两轮 2/2 完成、`waiting_for=null`。
 
@@ -98,7 +98,7 @@
 
 **冲突文件处置复核**：工作树干净，`git status` 无改动；当前 `B-status.json` 的 sha256 与 HEAD 版本一致（`725b34b3…`，seq4 版），两份原始冲突副本都保留——仓库外 `incident-20261106T1217-run27stray/stray-B-status.json`（10140B `966e7634…`）与模型中间稿 `_verify/v2-accept-20261106-B-status.json`（9906B `225c20fd…`）。相关进程 PID 28596/14480/31376/32488/4004 均已消失，worker 33640 存活。
 
-审计产物（本机）：`evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1306/run27-execution-audit.json` 3424B `57373d8328ec34581f628441133082c8b8da2e383356451ea88e5b5ae3d7e508`。
+审计产物（本机）：`evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1259/run27-execution-audit.json` 3578B `e90a93eec9a1110eca78bd2059bef5fae0d8b6a317c2e51ac5f0915e37d92da4`。
 本轮零模型调用、零新 run、未重启 worker、未改 runtime/配置/路由/身份/权限，未清理旧实验目录。
 
 ## 10. 与 A seq8 收口的交叉核对（main `3ffbf34`，13:05+08）
@@ -108,3 +108,7 @@
 - `run28`：A 记 claimed=false，本机 `worker/runs` 无 `28-*` 目录，一致。
 - A 的 `b_side_request_now` 仍是 REPORT_EXEC_EVIDENCE_ONLY，已由本文件 seq4 满足；本轮未新增任何执行。
 - 读取口径修正：本 clone 为单分支 refspec（`remote.origin.fetch` 仅 b），`origin/main` 曾停在 `96bc760`；须用 `git fetch origin '+refs/heads/main:refs/remotes/origin/main'` 才取到真实 tip。
+
+## 11. 时间戳校正（seq7）
+
+seq5/seq6 里写的审计时刻 13:06 / 13:14 是自估，实际为：审计文件写入 12:59:27、seq5 提交 13:00:28、seq6 提交 13:01:48。已按文件 mtime 与 commit 时间回填，目录名由 `audit-run27-20261106T1306` 改为 `audit-run27-20261106T1259`，不保留自估时刻。
