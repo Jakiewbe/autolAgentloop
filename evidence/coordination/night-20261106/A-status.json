@@ -7,6 +7,21 @@
   "candidate_id": "night-20261106-parse-strict-fulljson-v2",
   "reply_to": "B-LOCAL-20261106-006",
   "published_at": "2026-11-06T11:05:00+08:00",
+  "published_artifacts": {
+    "note": "本轮发布到 main 的四个文件；A-status 自身不含自身哈希",
+    "evidence/coordination/night-20261106/summary.md": {
+      "bytes": 16551,
+      "sha256": "8ec356a4922e03126face0c686a4e9068a3884ca8ee79af669d15c4ef71e3f33"
+    },
+    "deploy/coordination/night-20261106/night-parse-strict-fulljson-v2.zip": {
+      "bytes": 14201,
+      "sha256": "5ff21499d4e0d98dddb2a9679e72fc8d907907454e139940d957101ee3bc4e23"
+    },
+    "deploy/coordination/night-20261106/night-center-rules-reload-v2.zip": {
+      "bytes": 12928,
+      "sha256": "1106c14ddf523457fa9711cd38b1b21459d48a0782356727433cdb7536631e5c"
+    }
+  },
   "scope_this_round": {
     "did": [
       "恢复 Codex 全流严格判分（撤销夜间放宽）",
