@@ -2,11 +2,11 @@
   "night_id": "STRICT-V2-ACCEPT-20261106",
   "role": "A",
   "stage": "STRICT-V2-ACCEPT-20261106",
-  "seq": 6,
-  "phase": "EXEC_DONE_AWAITING_B_SIDE_LOG",
-  "request_id": "A-V2A-20261106-006",
+  "seq": 7,
+  "phase": "STAGE_CLOSED_WITH_B_EVIDENCE",
+  "request_id": "A-V2A-20261106-007",
   "reply_to": "B-V2-20261106-002",
-  "published_at": "2026-11-06T12:41:00+08:00",
+  "published_at": "2026-11-06T12:52:00+08:00",
   "effective_route_confirmed": {
     "method": "GET /v1/runs/29/why 返回 hub 当前已加载的 config.rules 行（不是本地文件读回）",
     "agent": "b-magicbook14",
@@ -111,7 +111,8 @@
       30
     ],
     "b_restart": "1/1 已用",
-    "hard_stop_at": "2026-11-06T12:53:00+08:00"
+    "hard_stop_at": "2026-11-06T12:53:00+08:00",
+    "new_runs_after_hard_stop": 0
   },
   "deviations": [
     "B 侧在 A 发布 seq5 ROUTE_READY 之前（12:29:15+08）就启动了 worker；因 A 已于 12:28 先完成 command[0] 切换，启动时路由已是 0.166，未产生错误路径执行",
@@ -127,5 +128,116 @@
     "不重启 A 中心",
     "不重做六项",
     "不宣布总验收"
-  ]
+  ],
+  "b_side_evidence": {
+    "branch": "b",
+    "commit": "1b79099",
+    "seq": 4,
+    "phase": "EXEC_DONE",
+    "accepted": true,
+    "cross_checked_equal_with_hub": {
+      "exec1": {
+        "session": "01a1af1f-ba77-7451-9963-e14049e17b99",
+        "usage": {
+          "input": 1009471,
+          "output": 2730,
+          "cached": 998144
+        },
+        "matches_hub_run29": true
+      },
+      "exec2": {
+        "session": "01a1af1f-ba77-7451-9963-e14049e17b99",
+        "usage": {
+          "input": 1462654,
+          "output": 3365,
+          "cached": 1431936
+        },
+        "matches_hub_run30": true,
+        "same_session_as_exec1": true
+      }
+    },
+    "stdout_facts": {
+      "exec1": {
+        "worker_out_dir": "worker/runs/29-1",
+        "stdout_bytes": 26633,
+        "stdout_sha256": "cb5d2368753f88e03931627ef06e2817702e9d182be04695cd63ce8fcd1e6cbd",
+        "total_lines": 29,
+        "terminal": "turn.completed",
+        "terminal_line": 29,
+        "non_json_after_terminal": 0,
+        "native_exit_code": 0
+      },
+      "exec2": {
+        "worker_out_dir": "worker/runs/30-1",
+        "stdout_bytes": 8475,
+        "stdout_sha256": "a70bcde26decdaa2f33a90a04814a194dc05e6d26f87fb589298b74afb8cac0a",
+        "total_lines": 14,
+        "terminal": "turn.completed",
+        "terminal_line": 14,
+        "non_json_after_terminal": 0,
+        "native_exit_code": 0
+      }
+    },
+    "mcp": {
+      "exec1": {
+        "server": "node_repl",
+        "tool": "js",
+        "code": "console.log(1 + 1);",
+        "status": "completed",
+        "return_text": "2",
+        "returns_2": true
+      },
+      "exec2": {
+        "server": "node_repl",
+        "tool": "js",
+        "code": "console.log(2 + 2);",
+        "status": "completed",
+        "return_text": "4",
+        "note": "A 的 prompt 在续接轮指定 2+2，返回 4 属预期"
+      }
+    },
+    "final_message_first_two_lines": {
+      "exec1": [
+        "V2 初轮通过：V2A-D45D004B",
+        "2"
+      ],
+      "exec2": [
+        "V2 续接通过：乙：V2A-D45D004B",
+        "4"
+      ]
+    },
+    "strict_replay": {
+      "dir": "evidence/deploy-b/v2-accept-20261106/replay-exec-29-30",
+      "adapter": "runtime/d504e4876d07/plugins/command/agent.ts c077041d",
+      "result": "两条均被严格 v2 接受，text/session/usage 与记录一致，未放过任何非 JSON 行"
+    }
+  },
+  "stage_outcome": {
+    "result": "2/2 正式执行通过、0 失败、0 重试",
+    "one_build": {
+      "parse": "night-parse-strict-fulljson-v2.zip 5ff21499…",
+      "runtime_after": {
+        "agent": "c077041d 6141B",
+        "worker": "8416191f 17436B",
+        "agents": "6c150fc0 2328B"
+      },
+      "route": "0.166 标准名 codex.exe 6ca87057 368970544B",
+      "model": "deepseek-v4.1-flash-1017"
+    },
+    "verified_by_both_sides": [
+      "initial turn reply + token",
+      "MCP node_repl 返回 2",
+      "strict JSON 全流无非法行",
+      "native exit 0",
+      "真实 usage 双侧逐数字相同",
+      "card 甲/乙 出卡-回答-关单",
+      "同 session resume 第二轮 2+2 返回 4"
+    ],
+    "not_done_here": [
+      "未重做六项跨机联调",
+      "未宣布总验收",
+      "未部署中心包、未重启中心"
+    ],
+    "remaining_manual": "统筹复核 A seq6/seq7 与 B seq4 后决定是否把 0.166+严格 v2 定为正式通道；若要在该组合下重验六项，需另行授权"
+  }
 }
