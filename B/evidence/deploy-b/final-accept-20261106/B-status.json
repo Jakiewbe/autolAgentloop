@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 3,
-  "request_id": "B-FA-20261106-003",
+  "seq": 4,
+  "request_id": "B-FA-20261106-004",
   "reply_to": "A-FA-20261106-003",
-  "phase": "ITEM4_CANCELLED_VERIFIED",
+  "phase": "WORKER_STOPPED",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T13:31:30+08:00",
+  "observed_at": "2026-11-06T13:34:20+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -187,13 +187,12 @@
     "awaiting": "A 用 /v1/runs/32/cancel 取消该 run；取消落地后 B 立即核对整棵进程树消失、无成功副作用、worker 33640 健康"
   },
   "budget_used": {
-    "real_model_execs": 2,
+    "real_model_execs": 3,
     "cap": 10,
-    "a_new_hub_runs": 2,
+    "a_new_hub_runs": 3,
     "b_maintenance_restarts": 0,
     "item5_recovery_restarts": 0,
-    "item6_login_triggers": 0,
-    "note": "run31（item2）=1、run32（item4，进行中）=1，均在 cap 内"
+    "item6_login_triggers": 0
   },
   "compliance": [
     "未改 runtime/配置/路由/MCP/身份/权限/标签/ACL",
@@ -201,7 +200,7 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "等 A 派发 FA-断线 run（A-FA-ITEM5-20261106-001）；B 检测到该 run claimed 且 cli+等待子进程在跑时，只停 worker 33640 并发布 seq4 WORKER_STOPPED，等 A-status seq4 RECOVER_NOW 再用 final-item5-recover.ps1 恢复",
+  "next_action": "等 A-status seq4（RECOVER_NOW）",
   "item4_verification": {
     "run": 32,
     "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
@@ -251,5 +250,112 @@
       "hub_state": "与 hub 443 连接重建，长轮询继续（无新错误行）"
     },
     "b_verdict": "PASS（真实运行中取消：取消发生在 sleep 命令执行期间，取消后 2.3 秒内整棵进程树消失，无终态事件、无 exit 文件、无成功副作用，worker 健康）"
+  },
+  "item5": {
+    "test_id": "ITEM5-20261106-1320",
+    "subject": "A-FA-ITEM5-20261106-001",
+    "rule": "FA-断线",
+    "run": 33,
+    "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\33-1",
+    "session": "01a1af56-2084-73f2-9364-1aa788b59aa2",
+    "received_at": "2026-11-06T05:30:19.954Z",
+    "stop_action": {
+      "method": "_probe/final-item5-stop.ps1（只对 worker PID 执行 taskkill /F，不杀其他 node/codex）",
+      "worker_pid": 33640,
+      "worker_created": "2026-11-06T12:29:15.815+08:00",
+      "stop_issued_at": "2026-11-06T13:33:38.940+08:00",
+      "stop_effective_at": "2026-11-06T13:33:41.924+08:00",
+      "worker_remaining_after": 0,
+      "up_pid_file_after": "33640（未更新，worker 已被强停，符合预期）"
+    },
+    "state_at_stop": {
+      "cli": {
+        "pid": 27320,
+        "ppid": 34788,
+        "created": "2026-11-06T13:30:19.267+08:00",
+        "cmdline_head": "…tools\\codex\\0.166.0-alpha.5.1\\…\\codex.exe exec --skip-git-repo-check -C D:\\AutoAgentloop --json -m deepseek-v4.1-flash-1017 <prompt>"
+      },
+      "runner": {
+        "pid": 34788,
+        "note": "runner.ts 对应 33-1"
+      },
+      "waiting_shells": [
+        {
+          "pid": 21984,
+          "ppid": 27320,
+          "created": "2026-11-06T13:30:29.010+08:00",
+          "kind": "powershell wrapper"
+        },
+        {
+          "pid": 28008,
+          "ppid": 21984,
+          "created": "2026-11-06T13:30:31.976+08:00",
+          "cmdline_verbatim": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -Command \"Start-Sleep -Seconds 300\""
+        },
+        {
+          "pid": 32336,
+          "ppid": 27320,
+          "created": "2026-11-06T13:31:02.372+08:00",
+          "kind": "powershell wrapper（模型第二次执行等待命令）"
+        },
+        {
+          "pid": 32604,
+          "ppid": 32336,
+          "created": "2026-11-06T13:31:04.793+08:00",
+          "cmdline_verbatim": "\"C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe\" -NoProfile -Command \"Start-Sleep -Seconds 300\""
+        }
+      ],
+      "note": "模型确实在跑 Start-Sleep 300（同一轮起了两条，第二条用于替代轮询），停止时两条都在运行中"
+    },
+    "survivor_after_stop": {
+      "at": "2026-11-06T13:33:52.358+08:00",
+      "worker_count": 0,
+      "still_alive": [
+        34788,
+        27320,
+        21984,
+        28008,
+        32336,
+        32604
+      ],
+      "finding": "只停 worker（node 父进程）不会连带结束 runner/codex/等待子进程：它们成为孤儿继续跑（taskkill /F 不构成 job 级联终止）",
+      "implication": "这是本机实际观察到的行为，用于第 5 项断线语义说明；不改变判决，但必须记入未解决事项（worker 停止后 CLI 子进程残留）"
+    },
+    "run_dir_bytes_at_stop": {
+      "command-1.json": {
+        "bytes": 4126,
+        "sha256": "c4aeadcbc481478acb94591410e066426fcd47f209cd889dfb8e61c3388692a1"
+      },
+      "context.json": {
+        "bytes": 560,
+        "sha256": "6ef7cbad1ef3673054978f27dc2de65dabc6403ec883fa54e4faf6dadaf81d9b"
+      },
+      "entry.json": {
+        "bytes": 5712,
+        "sha256": "6a7395e03d2c644ac2dee0f56b5d905e4b6f8ab9b8362cb6e865fc2448adb8e4"
+      },
+      "stderr-1.log": {
+        "bytes": 212,
+        "sha256": "3b8ee43f4ec13fdc58b7414fb33db9aabe3d2576e8725d95bfe653fb01ba052a"
+      },
+      "stdout-1.log": {
+        "bytes": 7255,
+        "sha256": "5877939c453bacfeedd9a7341eb7fe5b7b306c5bedb11af47209a1b98138c409"
+      },
+      "exit_file": "不存在（interrupted，native exit 未产生，不伪造）"
+    },
+    "recovery_assets": {
+      "script": {
+        "path": "D:\\AutoAgentloop\\_probe\\final-item5-recover.ps1",
+        "bytes": 1374,
+        "sha256": "2dca01a87cc14d0c2e6bd84fe69af5b320deee578a95d9643ce06013194108a3",
+        "runs_with": "powershell.exe -NoProfile -ExecutionPolicy Bypass -File"
+      },
+      "independent_log": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.final-item5-recover.log（本次新建，此前不存在）",
+      "note_file": "B/evidence/deploy-b/final-accept-20261106/item5-local-recovery.md 781B 4dd0b498…4181aa",
+      "ready": true,
+      "not_yet_run": true
+    },
+    "next": "等 A 取消 run 33、排 1 条无害离线任务并发布 seq4 RECOVER_NOW；B 收到后用上面的脚本恢复一次并核对单实例/up.pid/心跳与离线任务恰执行一次"
   }
 }
