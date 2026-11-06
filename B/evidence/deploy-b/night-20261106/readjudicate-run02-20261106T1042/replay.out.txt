@@ -1,0 +1,7 @@
+A exact-replay code=0 => {"text":"2","session":"01a1acc9-bde3-7910-bba0-68b3fdfb4656","usage":{"input":413111,"output":154,"cached":148608}}
+B nonJSON-before-terminal => {"error":"Codex stdout 第 10 行不是 JSON 对象，原始输出保留在日志中","session":"01a1acc9-bde3-7910-bba0-68b3fdfb4656"}
+C missing-turn.completed => {"error":"Codex 没有成功完成本轮","session":"01a1acc9-bde3-7910-bba0-68b3fdfb4656"}
+D code=11 => {"error":"退出码 11：Reading additional input from stdin...","session":"01a1acc9-bde3-7910-bba0-68b3fdfb4656"}
+E mcp_calls => [{"id":"item_1","server":"node_repl","tool":"js","args":{"code":"1+1","title":"Evaluating 1+1"},"status":"in_progress","resultText":null},{"id":"item_1","server":"node_repl","tool":"js","args":{"code":"1+1","title":"Evaluating 1+1"},"status":"completed","resultText":[""]},{"id":"item_3","server":"node_repl","tool":"js","args":{"code":"nodeRepl.write(1+1)","title":"Writing the result"},"status":"in_progress","resultText":null},{"id":"item_3","server":"node_repl","tool":"js","args":{"code":"nodeRepl.write(1+1)","title":"Writing the result"},"status":"completed","resultText":["2"]}]
+F thread_id=01a1acc9-bde3-7910-bba0-68b3fdfb4656 agent_message="2" usage={"input_tokens":413111,"cached_input_tokens":148608,"cache_write_input_tokens":0,"output_tokens":154,"reasoning_output_tokens":16}
+G cached<=input => true

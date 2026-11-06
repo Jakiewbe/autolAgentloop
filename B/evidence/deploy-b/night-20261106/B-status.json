@@ -1,13 +1,13 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "seq": 9,
-  "phase": "cleanup_done_final",
-  "request_id": "B-LOCAL-20261106-009",
+  "seq": 10,
+  "phase": "readjudication_and_corrections",
+  "request_id": "B-LOCAL-20261106-010",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
-  "reply_to": "A-N4-20261106-004",
-  "published_at": "2026-11-06T10:18:00+08:00",
-  "deadline_note": "夜间窗口 08:00 到期时为 worker 不在运行状态（08:00–10:06 无真实运行）；10:07:37 显式维护重启恢复服务，10:07:39 A 派发 A-J5B-20261106-006，run 26 于 10:09:09 通过，第 5 项恢复段由此闭环；本回执为最终封存版。",
+  "reply_to": "A-N12-20261106-012",
+  "published_at": "2026-11-06T10:55:00+08:00",
+  "deadline_note": "夜间窗口 08:00 到期时为 worker 不在运行状态（08:00–10:06 无真实运行）。run 26 的事件由 A 在 2026-11-05T19:06:08.978Z（= 03:06:08+08）生成并在中心排队（当时 worker 已被 run 25 脚本停止）；B 于 10:07:37 维护重启 worker=9420 后 1.8 s 领取执行，10:09:09 通过 第 5 项恢复段闭环。本回执为封存后补正版（只读复判 + 更正，无新增真实运行）。",
   "results": {
     "item1": {
       "test_id": "A-J1-20261106-001",
@@ -62,7 +62,10 @@
       "exit_file": "absent",
       "stdout_bytes": 101,
       "side_effect_check": "b-ping.txt mtime 未变 → 非排队重试",
-      "verdict": "pass"
+      "verdict": "pass",
+      "codex_child_pid": 30012,
+      "session_first_seen": "01a1aceb-766f-7f43-886e-e5e6a5d812b3",
+      "termination": "worker 日志 18:14:55.943Z 'run 23: stopping (cancel)' → 18:14:56.386Z 'run 23: cancelled'；无 exit-1 文件；stdout 停在 thread.started + turn.started"
     },
     "item5": {
       "test_id": "A-J5-20261106-005",
@@ -80,7 +83,6 @@
         "run": 26,
         "worker_pid": 9420,
         "started": "2026-11-06T10:07:37+08:00",
-        "dispatch_at": "10:07:39",
         "done": "10:09:09",
         "native_exit": 0,
         "session": "01a1ae9c-96f3-7bf1-afea-8026e0684aef",
@@ -93,14 +95,30 @@
         "strict_protocol": true,
         "non_json_after_terminal": 3,
         "non_json_before_terminal": 0,
-        "caveat": "stderr 有一次 git 命令 fatal: not a git repository（exit 1），非致命，无 error 事件"
+        "caveat": "stderr 有一次 git 命令 fatal: not a git repository（exit 1），非致命，无 error 事件",
+        "received_at": "2026-11-05T19:06:08.978Z (= 2026-11-06T03:06:08+08, worker 已停止 → 中心排队)",
+        "claimed_at": "2026-11-06T10:07:39.317+08:00 (worker 侧 command-1.json/context.json 写入，领取即执行)",
+        "start_lag_seconds": 1.8,
+        "dispatch_semantics": "排队事件，不是 10:07 的新派发；离线期间不丢不重（A 侧 seq10/seq11 记 queued / claimedAt=null）"
       },
       "verdict": "pass"
     },
     "item6": {
       "test_id": null,
       "verdict": "unverified",
-      "reason": "A 未派发；离线只核对了启动项 430B aa2cfb42 与 node/runtime 路径；真机重登未做，按约定不凑 6/6"
+      "reason": "A 未派发第 6 项；离线只做静态核对；真机重登未做，按约定不凑 6/6",
+      "verbatim": {
+        "startup_cmd_path": "C:\\Users\\19082\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd",
+        "startup_cmd_bytes": 430,
+        "startup_cmd_sha256": "aa2cfb4207edb8e3e67a0268d82fa19dddd0a1397374742052d17b45a40f28a6",
+        "startup_cmd_body": "@echo off / set \"AGENT_AUTOLOOP_HOME=C:\\Users\\19082\\.agent-autoloop\" / :agent-autoloop / \"C:\\Program Files\\nodejs\\node.exe\" \"--disable-warning=ExperimentalWarning\" \"D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts\" \"up\" >>\"C:\\Users\\19082\\.agent-autoloop\\logs\\up.log\" 2>&1 / timeout /t 10 /nobreak >nul / goto agent-autoloop",
+        "whoami": "magicbook14-zz\\chs",
+        "hostname": "Magicbook14-zz",
+        "profile_dir_note": "home 为 C:\\Users\\19082 而账户名为 chs（目录名与账户名不一致，属既有装机状态，B 未改）",
+        "single_instance": "10:42 采样：node.exe 共 6 个，命令行匹配 agent-autoloop.ts up 的仅 1 个（PID 9420，up.pid=9420 一致）",
+        "login_trigger": "未实测（未做真机注销/重登录），故第 6 项只报静态链",
+        "note_redirect_target": "启动项重定向目标 C:\\Users\\19082\\.agent-autoloop\\logs\\up.log 至今不存在；9420 也不是由该 cmd 拉起（父进程 11060 为工具宿主 pwsh，非 cmd 循环）"
+      }
     },
     "wake": {
       "test_id": "A-WAKE-20261106-001",
@@ -154,14 +172,20 @@
   "unresolved": [
     "钉值路径候选的永久修复口径待 A 选定（FIX-A 需提权 / FIX-B 中心 rules.json 指向 Medium 副本 / FIX-C 去标签）；B 已完成 4/6 预算，余 2 次仅留作切换验证",
     "第 6 项真机重登未验证（A 未派发 test_id，B 只做了启动项与链路静态核对，不凑 6/6）",
-    "A 侧 main 自 96bc760（seq4）后无新提交，J2–J6 判定未落 git；B 侧 seq5–seq8 为单向发布",
+    "A 侧 main 引用已更正（当前 HEAD 32a8eeb；见 corrections.main_head）；B 侧 seq5–seq10 仍为单向发布",
     "D:\\AutoAgentloop 树上的 Low 完整性标签仍在（B 不越权改标签/ACL）"
   ],
   "published_artifacts": [
     "B/evidence/deploy-b/night-20261106/B-status.json",
     "B/evidence/deploy-b/night-20261106/summary.md",
-    "B/evidence/deploy-b/night-20261106/MANIFEST-20261106T1017.json",
-    "B/evidence/deploy-b/night-20261106/final-runs-20261106T1012.json"
+    "B/evidence/deploy-b/night-20261106/MANIFEST-20261106T1056.json",
+    "B/evidence/deploy-b/night-20261106/final-runs-20261106T1012.json",
+    "B/evidence/deploy-b/night-20261106/B-readjudication-run02-20261106T1042.md",
+    "B/evidence/deploy-b/night-20261106/B-worker-9420-residency-20261106T1042.md",
+    "B/evidence/deploy-b/night-20261106/readjudicate-run02-20261106T1042/replay.ts",
+    "B/evidence/deploy-b/night-20261106/readjudicate-run02-20261106T1042/replay.out.txt",
+    "B/evidence/deploy-b/night-20261106/probe-9420-20261106T1039/job-owner-9420.ps1",
+    "B/evidence/deploy-b/night-20261106/probe-9420-20261106T1039/job-owner.out.txt"
   ],
   "declarations": {
     "no_rerun_after_cutoff": true,
@@ -173,7 +197,7 @@
     "other_processes_touched": false,
     "raw_logs_uploaded": false
   },
-  "summary_sha256": "7041fa744f8ee605a240d723ea0b8c73f3c78a6c90b9844c19dec8046e969906",
+  "summary_sha256": "894f11dff052fc1995ce9d498494202e7d8d6b02f96af31fc8a3eaf69359c91c",
   "live_state": {
     "worker_pid": 9420,
     "up_pid_file": 9420,
@@ -182,7 +206,7 @@
     "last_run": "26 exit 0 @10:09:09",
     "note": "worker 于 03:07 的 3600 已消失；10:07:37 重启为 9420 并成功接活"
   },
-  "manifest_sha256": "0a77b47d8e12c6fcfa93a43c6b5fd39baf9d1180f33ce2936e3a55fa1e9c3335",
+  "manifest_sha256": "fa2b3470c1b38d4210d14d1c0f605d5e818b16a2544b11ca8073fadc5f3cd7d2",
   "inventory_sha256": "a67b368137a22beff5304f8472ad94635761b5389c045f51e3ba12a6ceca7ef7",
   "cleanup": {
     "removed": [
@@ -200,5 +224,190 @@
       "D:\\AutoAgentloop\\aa-item5-restart.log",
       "evidence/deploy-b/night-20261106 全树"
     ]
-  }
+  },
+  "corrections": {
+    "main_head": {
+      "old_statement": "A 侧 main 自 96bc760（seq4）后无新提交（原引用过期，作废）",
+      "verified_at": "2026-11-06T10:45+08:00",
+      "main_head": "32a8eeb",
+      "main_head_date": "2026-11-05T23:41:22Z",
+      "main_head_subject": "A 封存修正：summary.md 时间线表格补齐最后一行的本地时间（不重写历史，post-seal 追加提交）",
+      "preceding": [
+        "97d4d60 (A seq12 封存, 2026-11-05T23:41:07Z)",
+        "f7cd7d2 (A seq11, 2026-11-05T22:35:18Z)",
+        "4c3fc29 (A seq10, 2026-11-05T20:30:52Z)",
+        "962175c (A seq9, 2026-11-05T19:16:44Z)"
+      ],
+      "effect": "A 的 J1–J5 判定与派发均已落在 git；B 侧 seq5–seq9 仍为单向发布"
+    },
+    "run26_description": {
+      "old_forms": [
+        "10:07 恢复服务后由 A 派发 1 次",
+        "重启后 2 s 内被接活（脱离 receivedAt 单独引用会掩盖离线排队 7 小时）"
+      ],
+      "unified": "事件创建/排队于 2026-11-06T03:06:08+08（worker 已于 03:05:22 停止）；B 维护重启 9420 后 1.8 s（10:07:39.337）领取执行，10:09:09 完成",
+      "source": "worker/runs/26-1/context.json events[0].receivedAt + command-1.json/context.json mtime + worker.stdout.post-night-20261106T1020.log"
+    },
+    "wrapper_exit_code": {
+      "old_form": "run-01/run-03 exit 11（被读成 codex 退出码）",
+      "corrected": "11 是包装器 isolated-one-turn.mjs 的协议判定失败码；CLI 原生 exitCode 记录在 result.json meta.exitCode = 1（stderr 三行 os error 5）",
+      "table": [
+        {
+          "run": "run-01",
+          "wrapper_exit": 11,
+          "native_exit": 1
+        },
+        {
+          "run": "run-03-pinned",
+          "wrapper_exit": 11,
+          "native_exit": 1
+        },
+        {
+          "run": "run-02",
+          "wrapper_exit": 0,
+          "native_exit": 0
+        },
+        {
+          "run": "run 19-26",
+          "wrapper_exit": "exit 文件 0（run 23 取消无文件）",
+          "native_exit": 0
+        }
+      ]
+    },
+    "run02_dir_name": {
+      "old_form": "run-02-20261106T0224（目录名被当作发生时间）",
+      "corrected": "实际 01:37:44–01:38:24 +08（meta.startedAt 2026-11-05T17:37:44.515Z，durationMs 39860，文件 mtime 01:37–01:38）；目录名偏移约 46 分钟"
+    }
+  },
+  "readjudication_run02": {
+    "mode": "offline_replay_no_model_call",
+    "executed_at": "2026-11-06T10:42–10:50+08:00",
+    "input_sha256": {
+      "stdout_jsonl": {
+        "bytes": 1786,
+        "sha256": "39a97bda127015185ae782d915129f1b9df6f92568c878eb86c6989a75bed138"
+      },
+      "stderr_log": {
+        "bytes": 39,
+        "sha256": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721"
+      },
+      "prompt_txt": {
+        "bytes": 127,
+        "sha256": "704eba6d5e9fdc1209164b9a413f7cfde02cede48dddc3f494ea9a52e0dccc66"
+      }
+    },
+    "adapter_used": {
+      "path": "evidence/deploy-b/night-20261106/apply-v1-20261106T0157/backup/plugins/command/agent.ts",
+      "bytes": 5691,
+      "sha256": "ac23aa9b634065786a25e9b53f2301d618d68227f8c460f56a4b3bcabd4e894b",
+      "equals_run02_record": true,
+      "current_disk_adapter": {
+        "bytes": 6268,
+        "sha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1",
+        "note": "01:57 应用补丁后的新逻辑，非 run-02 运行字节 ⇒ 不能用于复判"
+      },
+      "worker_agents_ts": {
+        "bytes": 2328,
+        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471"
+      }
+    },
+    "model": "deepseek-v4.1-flash-1017（meta.model 与 argv -m 一致；item_0 提示元数据缺失走 fallback，非致命）",
+    "replay_result": {
+      "text": "2",
+      "session": "01a1acc9-bde3-7910-bba0-68b3fdfb4656",
+      "usage": {
+        "input": 413111,
+        "cached": 148608,
+        "output": 154
+      }
+    },
+    "matches_recorded_protocol": true,
+    "strictness_controls": {
+      "non_json_before_terminal": "error: Codex stdout 第 10 行不是 JSON 对象，原始输出保留在日志中",
+      "missing_turn_completed": "error: Codex 没有成功完成本轮",
+      "upstream_code_11": "error: 退出码 11：Reading additional input from stdin..."
+    },
+    "real_mcp_evidence": {
+      "node_repl_item_1": {
+        "args": "{\"code\":\"1+1\"}",
+        "result_text": ""
+      },
+      "node_repl_item_3": {
+        "args": "{\"code\":\"nodeRepl.write(1+1)\"}",
+        "result_text": "2",
+        "meta": "codex/nodeReplExecutionDurationMs=0"
+      },
+      "agent_message": "2",
+      "turn_completed_usage": {
+        "input_tokens": 413111,
+        "cached_input_tokens": 148608,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 154,
+        "reasoning_output_tokens": 16
+      },
+      "mcp_list_is_not_handshake": "result.json mcp.connection=unverified；mcp list 只报配置与启用状态"
+    },
+    "artifacts": {
+      "readjudicate-run02-20261106T1042/replay.ts": "ed81f4af7de9f6581e2d690abafeb0a46a3030082ec678e846b1dbc730501989",
+      "readjudicate-run02-20261106T1042/replay.out.txt": "012edd3463fea780a6f74485103aa3fb7ce73694daa30fb16c47c7bde9ab583c",
+      "B-readjudication-run02-20261106T1042.md": "见 MANIFEST"
+    },
+    "limitation": "同源复核：证明给定存档字节 ⇒ 归档适配器必然得出记录的结论；不独立证明字节来源时刻（由 meta spawn 记录/mtime/version/log 记录链支撑）"
+  },
+  "worker_residency_9420": {
+    "start_script": {
+      "path": "D:\\AutoAgentloop\\_probe\\restart-worker-post-night.ps1",
+      "bytes": 697,
+      "sha256": "ce498d7377e667db333f368be6581b8a19f1883c4ada3715a6dbac7d00499f1a",
+      "mtime": "2026-11-06T10:07:33.752+08:00",
+      "method": "Start-Process -FilePath node -ArgumentList ... -PassThru -RedirectStandardOutput/Error，由工具宿主 pwsh 执行"
+    },
+    "process": {
+      "pid": 9420,
+      "image": "C:\\Program Files\\nodejs\\node.exe",
+      "creation": "2026-11-06T10:07:37+08:00",
+      "parent_pid": 11060,
+      "parent_alive": false,
+      "up_pid_file": 9420
+    },
+    "alive_samples": [
+      "2026-11-06T10:11+08:00",
+      "2026-11-06T10:37:19+08:00",
+      "2026-11-06T10:39:47+08:00",
+      "2026-11-06T10:42:18+08:00"
+    ],
+    "hub_connection": "Established 198.18.1.108:443，10:39 本地端口 4151 → 10:42 本地端口 1213（重连）⇒ 轮询在工作",
+    "job_membership": {
+      "is_in_job": true,
+      "api": "IsProcessInJob(OpenProcess(PROCESS_QUERY_INFORMATION,9420), NULL)",
+      "job_name": "未取得（未提权，无 NtQueryInformationJobObject）",
+      "implication": "位于某 job 内且父进程退出后未被终止 ⇒ 该 job 未 kill-on-close 或已 breakaway"
+    },
+    "single_instance": "10:42：node.exe 6 个，命令行匹配 agent-autoloop.ts up 的仅 9420",
+    "redirect_is_not_residency": "输出重定向只写日志，不证明进程存活；反例 run 25 的 PID 3600 同样有日志与 START 记录但已消失 ⇒ 驻留判定用进程采样 + up.pid + 长连接",
+    "vs_3600_inference": "3600 的启动链在 run 25 回合内（codex → PowerShell → Start-Process），回合结束被回收；9420 由工具宿主直接 Start-Process 且宿主退出后存活。3600 已消失故其 job 归属不可再测，此条为推断",
+    "artifacts": {
+      "probe-9420-20261106T1039/job-owner-9420.ps1": "5602c5de06b8b58b53636126a2f89c4d815afcdce61bf59640497c63da0fced8",
+      "probe-9420-20261106T1039/job-owner.out.txt": "d5b51e5817df8b9fda7dd4fa7af1bc075c0c992d0bb74e21aee80590cb391ddd",
+      "B-worker-9420-residency-20261106T1042.md": "见 MANIFEST"
+    }
+  },
+  "this_round_actions": {
+    "model_calls": 0,
+    "real_runs_created": 0,
+    "worker_restarts": 0,
+    "config_changes": 0,
+    "unchanged": [
+      "config.toml",
+      "MCP 配置",
+      "路由 rules.json",
+      "完整性标签",
+      "ACL",
+      "身份",
+      "登录启动项",
+      "其他进程"
+    ],
+    "purpose": "按统筹要求只做局部只读复判与更正，保持现有服务"
+  },
+  "manifest_file": "MANIFEST-20261106T1056.json"
 }

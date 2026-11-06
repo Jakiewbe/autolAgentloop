@@ -1,0 +1,31 @@
+== parent 11060
+parent alive: NO (gone)
+== IsProcessInJob via P/Invoke
+pid 9420 inAnyJob=True ok=True err=203
+== tcp from 9420
+
+      State RemoteAddress RemotePort LocalPort
+      ----- ------------- ---------- ---------
+      Bound 0.0.0.0                0      1213
+Established 198.18.1.108         443      1213
+
+
+
+== log files
+
+Name                                       Length LastWriteTime     
+----                                       ------ -------------     
+worker.stdout.post-night-20261106T1020.log    241 2026/11/6 10:09:09
+worker.stderr.post-night-20261106T1020.log      0 2026/11/6 10:07:37
+up.pid                                          4 2026/11/6 10:07:37
+
+
+
+== up.pid
+9420
+== tail stdout log
+2026-11-06T02:07:37.551Z [worker] worker b-magicbook14 started
+2026-11-06T02:07:38.516Z [worker] run 25: done
+2026-11-06T02:07:39.337Z [worker] run 26 (B-接线验证) turn 1 started, pid 18964
+2026-11-06T02:09:09.294Z [worker] run 26: done
+== tail stderr log

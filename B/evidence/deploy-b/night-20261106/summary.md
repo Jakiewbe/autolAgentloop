@@ -2,7 +2,8 @@
 
 - night_id: NIGHT-20261106
 - 角色: B（本机 Magicbook14-zz / worker b-magicbook14）
-- 封存时间: 2026-11-06T10:12+08:00（夜间窗口 08:00 到期后补封存；08:00–10:06 无真实运行，10:07 恢复服务后由 A 派发 1 次，见第 3.2 节 run 26）
+- 封存时间: 2026-11-06T10:12+08:00（夜间窗口 08:00 到期后补封存；08:00–10:06 无真实运行）
+- 更正（10:42 只读复判后）: run 26 的事件**不是** 10:07 由 A 新派发，而是 A 在 **2026-11-06T03:06:08+08**（= 2026-11-05T19:06:08.978Z）生成、在中心**排队**（当时 worker 已被 run 25 脚本停止）；B 于 10:07:37 维护重启 worker=9420 后，10:07:39 由本机**领取并执行**。见第 8 节。
 - 模型: deepseek-v4.1-flash-1017（固定未改）
 - cwd: D:\AutoAgentloop（固定）
 - MCP: 保持，未改 C:\Users\19082\.codex\config.toml
@@ -86,7 +87,7 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 22 | 3 接续第 2 轮 | A-J3-20261106-003 | 0 | 通过（resume 同会话，ROUND2 甲） |
 | 23 | 4 运行中取消 | A-J4-20261106-004 | 无 exit 文件（取消） | 通过（21.7 s 后被真实取消） |
 | 24 | 唤醒探测 | A-WAKE-20261106-001 | 0 | 通过 |
-| 26 | 重启后接活 | A-J5B-20261106-006 | 0 | 通过（worker 9420 启动 2 s 后接到派发并完成整轮） |
+| 26 | 重启后接活 | A-J5B-20261106-006 | 0 | 通过（事件 03:06:08 离线排队；worker 9420 于 10:07:37 维护重启后 1.8 s 领取，10:09:09 完成整轮） |
 | 25 | 5 断线恢复 | A-J5-20261106-005 | 0 | 部分通过（停机+重启执行成功，重启后接活未验证） |
 
 合计真实模型运行 12 次（候选 4 + 正式 8：19/20/21/22/23/24/25/26），机械解析明细见 `final-runs-20261106T1012.json`。
@@ -99,16 +100,16 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 2 合成临时目录增删列清 | **通过** | run 20：exit 0，建 `D:\AutoAgentloop\aa-tmp-item2-20261106020807`，写 a.txt(ITEM2-A)/b.txt(ITEM2-B)，列 a.txt、b.txt，删除并确认不存在；B 侧复查 `none_remaining`；过程中一次多行 PowerShell 脚本被审批策略 declined，改单行完成，B 未改任何策略 |
 | 3 同会话 回执→卡片→回答→resume | **通过** | run 21 发卡片（key `b-resume-item3`，选项 甲/乙）；run 22 argv 为 `exec resume 01a1ace6-40d4-72c3-8d63-306059611b9e …`，session 与第 1 轮相同，回答 choice=0(甲)，`resume-mark.txt` 追加 `ROUND2 甲`（54 B，sha256 `c73b859b…`），首行「第3项第2轮完成：你选了 甲，接续成功」 |
 | 4 运行中取消（非排队重试） | **通过** | run 23：18:14:34.243Z 启动 → 18:14:55.943Z `run 23: stopping (cancel)` → 18:14:56.386Z `run 23: cancelled`，历时 21.7 s；无 exit-1；stdout 仅 101 B（thread.started + turn.started）；b-ping.txt mtime 未变（仍为 02:06）证明模型侧未写入 |
-| 5 断线/重启/恢复 | **通过（分两段取证）** | 段一 run 25：脚本 `aa-item5-restart.ps1` 1561 B 布置成功，`aa-item5-restart.log` 记录 STOP succeeded(33160) 03:05:22.909、START succeeded workerPid=3600 03:07:23.069；但该进程未存活（10:04 复查无 node.exe）。段二：B 于 10:07:37 显式维护重启 worker=9420（up.pid=9420，日志 `worker.stdout.post-night-20261106T1020.log` 见 `worker b-magicbook14 started`），10:07:39 即接到 A 派发的 A-J5B-20261106-006，10:09:09 完成整轮 exit 0（session `01a1ae9c-96f3-7bf1-afea-8026e0684aef`，usage 539242/2062/403328）→ 重启后接活已闭环 |
+| 5 断线/重启/恢复 | **通过（分两段取证）** | 段一 run 25：脚本 `aa-item5-restart.ps1` 1561 B 布置成功，`aa-item5-restart.log` 记录 STOP succeeded(33160) 03:05:22.909、START succeeded workerPid=3600 03:07:23.069；但该进程未存活（10:04 复查无 node.exe）。段二：B 于 10:07:37 显式维护重启 worker=9420（up.pid=9420，日志 `worker.stdout.post-night-20261106T1020.log` 见 `worker b-magicbook14 started`），10:07:39 领取 A 在 03:06:08 排队（离线期间未丢）的 A-J5B-20261106-006，10:09:09 完成整轮 exit 0（session `01a1ae9c-96f3-7bf1-afea-8026e0684aef`，usage 539242/2062/403328）→ 重启后接活已闭环 |
 | 6 登录启动项登记与路径核对 | **未验证** | 离线核对：`%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\agent-autoloop.cmd` 430 B sha256 `aa2cfb42…`，指向 `C:\Program Files\nodejs\node.exe`(v24.12.0) + `runtime\d504e4876d07\bin\agent-autoloop.ts`，重定向目标 `~/.agent-autoloop/logs/up.log` 不存在；真机重登录未做，故按约定报未验证，不凑 6/6 |
 
 ## 5. 未解决事项 / 移交 A
 
 1. **永久修复口径未定**：钉值路径候选仍因 Low 标签无法真实运行（run-03 可复现），需 A 在 FIX-A / FIX-B / FIX-C 中选定；B 已备好 run-02 的 Medium 字节一致副本可立即复测。
-2. ~~worker 当前不在运行~~ **已恢复**：03:07 拉起的 PID 3600 未存活；B 于 10:07:37 显式维护重启为 PID 9420（授权范围内、带日志重定向），10:07:39 即接到 A 派发并完成 run 26 → 服务已恢复且接活已验证。
-3. ~~第 5 项恢复段未闭环~~ **已闭环**：run 26（A-J5B-20261106-006）在重启后 2 s 内被接活并完成整轮；第 4→第 5 项紧接顺序亦满足（run 23 → run 25）。
+2. ~~worker 当前不在运行~~ **已恢复**：03:07 拉起的 PID 3600 未存活；B 于 10:07:37 显式维护重启为 PID 9420（授权范围内、带日志重定向），10:07:39 领取中心排队的 run 26 并完成 → 服务已恢复且接活已验证（该事件创建于 03:06:08，不是 10:07 新派发）。
+3. ~~第 5 项恢复段未闭环~~ **已闭环**：run 26（A-J5B-20261106-006，03:06:08 离线排队）在重启后 1.8 s 内被领取并完成整轮；第 4→第 5 项紧接顺序亦满足（run 23 → run 25）。
 4. **第 6 项真机重登未做**：只完成启动项与链路静态核对，未做真实登录/重登复现。
-5. **A 侧 main 自 96bc760（seq4）后无新提交**：J2–J5 的判定与补充派发未落到 git，B 的 seq5/seq6 与本封存回执只能单向发布。
+5. ~~A 侧 main 自 96bc760（seq4）后无新提交~~ **已更正（10:42 核实，原引用过期）**：A 侧 main 当前 HEAD = `32a8eeb`（2026-11-05T23:41:22Z，封存补丁），其前依次为 `97d4d60`（A seq12 封存）、`f7cd7d2`（A seq11）、`4c3fc29`（A seq10）、`962175c`（A seq9）。A 的 J1–J5 判定与派发均已落到 git；B 的 seq5–seq9 仍为单向发布这一点不变。
 6. **第 2 项审批策略噪声**：多行 PowerShell 脚本被 declined（未触发 ask 升级），属中心策略口径，B 未改。
 7. **doctor 噪声已解释**：钉值路径 `codex doctor` 的 state 项时好时坏，因 `-shm` 由中完整性进程创建后 Low 进程可只读打开 WAL，不构成本因反驳。
 
@@ -126,9 +127,9 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 时间 | 事件 |
 | --- | --- |
 | 01:40 前后 | 协调文件落地；非模型探针开始 |
-| 01:45 | run-01 失败（exit 11） |
+| 01:45 | run-01 失败（**包装器 exit 11 / CLI 原生 exit 1**，stderr 三行 os error 5） |
 | 01:55–02:10 | 完整性 token 取证 → 根因定位；配对实验（D:\ 根 Medium / 树内 Low） |
-| 02:24 | run-02 通过（真实模型 + 真实 MCP） |
+| 01:37:44–01:38:24 | run-02 通过（真实模型 + 真实 MCP；目录名 `T0224` 是命名偏移，真实 `meta.startedAt = 2026-11-05T17:37:44.515Z`） |
 | 01:57 | worker 维护重启 11968 → 33160 |
 | 02:04 | 补充包应用 + 离线 14/14 + run18 差分回放 |
 | 02:04:32–02:06:08 | run 19 第 1 项通过 |
@@ -142,3 +143,60 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 10:07:37 | B 显式维护重启 worker=9420，服务恢复 |
 | 10:07:39–10:09:09 | run 26（A-J5B-20261106-006）重启后接活通过 |
 | 10:12 | 二次封存：把 run 26 并入 summary/清单/回执，生成最终清单 |
+
+
+## 8. 更正记录（2026-11-06T10:42+08:00，局部只读复判）
+
+本节只做更正与补证，**不新增真实运行**：本轮零模型调用、零正式 run、未重启 worker、未改 config.toml / MCP / 路由 / 标签 / ACL / 身份。
+
+### 8.1 run 26 的口径统一（两次表述都纠正）
+
+- 事实：`context.json` 的 `events[0].receivedAt = 2026-11-05T19:06:08.978Z`（= **2026-11-06T03:06:08+08**），summary 原文「第5项 离线窗口内的排队任务」；worker 侧文件写入时间 `command-1.json 10:07:39.330`、`context.json 10:07:39.317`；worker 日志 `10:07:37.551 started` → `10:07:39.337 run 26 turn 1 started` → `10:09:09.294 run 26: done`。
+- 正确表述：事件创建并**排队**于 03:06:08（worker 已于 03:05:22 被 run 25 脚本停止，中心侧 A seq10/seq11 亦记 `run 26 queued / claimedAt=null`）；B 在 10:07:37 维护重启后 **1.8 s 领取执行**。
+- 被更正的两种旧写法：①「10:07 恢复服务后由 A 派发 1 次」——把排队事件写成 10:07 的新派发；②「重启后 2 s 内被接活」若脱离 receivedAt 单独引用，会掩盖"离线期间排队 7 小时"这一事实。统一按本节表述。
+
+### 8.2 包装器退出码 ≠ CLI 原生退出码
+
+| 轮次 | 包装器 `isolated-one-turn.mjs` | CLI 原生 `meta.exitCode` |
+| --- | --- | --- |
+| run-01 | 11 | **1**（stderr 三行 os error 5，stdout.jsonl 0 B） |
+| run-03-pinned | 11 | **1**（同签名，arg0 dir `codex-arg0Ts2LcQ`） |
+| run-02 | 0 | 0（`signal=null, timedOut=false, durationMs=39860`） |
+| run 19–26 | exit 文件 0（run 23 取消无文件） | 0 |
+
+⇒ 「exit 11」是包装器的协议判定失败码；先前"run-01/03 exit 11"的简写已按此改。
+
+### 8.3 run-02 离线复判（用归档严格适配器，非当前磁盘文件）
+
+- run-02 实际执行的适配器 = `ac23aa9b…e894b`（5691 B，打旧补丁、**未**打本夜补丁）；当前磁盘为 `1b8933c0…d4f1`（6268 B，01:57 应用后）⇒ 复判必须用归档副本 `apply-v1-20261106T0157/backup/plugins/command/agent.ts`。
+- 复判输入 `out/stdout.jsonl` 1786 B sha256 `39a97bda…d138`、`out/stderr.log` 39 B sha256 `1aa26269…d721`，与 `result.json meta` 记录一致。
+- 精确回放结果：`{"text":"2","session":"01a1acc9-bde3-7910-bba0-68b3fdfb4656","usage":{"input":413111,"output":154,"cached":148608}}`，与 `result.json protocol` 逐项相等。
+- 严格性对照：终态前插非 JSON → 「第 10 行不是 JSON 对象」；删 `turn.completed` → 「Codex 没有成功完成本轮」；传 `code=11` → 「退出码 11：…」。
+- 真实 MCP：`item_3` `node_repl/js {"code":"nodeRepl.write(1+1)"}` → `content[0].text="2"`；`mcp list --json` 仅为配置检查（`connection=unverified`），不作握手证据。
+- 详细报告：`B-readjudication-run02-20261106T1042.md`。
+
+### 8.4 worker 9420 的驻留证据
+
+- 启动：`_probe/restart-worker-post-night.ps1`（697 B sha256 `ce498d73…9f1a`）经 `Start-Process -PassThru` 由工具宿主 pwsh 拉起；PID 9420，创建于 `10:07:37`，父进程 11060 **已退出**。
+- 存活采样：10:11 / 10:37:19 / 10:39:47 / 10:42:18 均存活；`up.pid=9420`；到 `198.18.1.108:443` 的 `Established` 长连接在两次采样间本地端口 4151→1213 重建 ⇒ 轮询线程在工作。
+- job：`IsProcessInJob(NULL)=TRUE`，父进程退出后未被终止（job 未 kill-on-close 或已 breakaway）；未提权取不到 job 名称，故只记"在某 job 内 + 宿主退出后存活"。
+- **输出重定向不能当驻留证据**：run 25 拉起的 PID 3600 同样有日志与启动记录，10:04 复查已消失 ⇒ 同一手法一死一活。驻留判定只用进程采样 + `up.pid` + 长连接。
+- 单实例核对（10:42）：6 个 `node.exe` 中命令行匹配 `agent-autoloop.ts up` 的仅 9420。
+- 详细报告：`B-worker-9420-residency-20261106T1042.md`。
+
+### 8.5 main 引用更正
+
+- 旧文「A 侧 main 自 96bc760（seq4）后无新提交」作废。实测 main HEAD = `32a8eeb`（2026-11-05T23:41:22Z，「A 封存修正：summary.md 时间线表格补齐最后一行的本地时间」），前序 `97d4d60`（A seq12 封存）/ `f7cd7d2`（A seq11）/ `4c3fc29`（A seq10）/ `962175c`（A seq9）。A 侧 seq12 已将 phase 置 `sealed`，并列出 `b_action_required.priority_2_receipts` 四项：worker_restarted 回执、`resume-mark.txt` ROUND2 与 sha256、第 4 项 run 23 的 codex 子进程 PID 与终止证据、第 6 项四项逐字证据 —— 前三项本回执已含（见 `B-status.json`），第 6 项登录触发仍为未实测。
+
+## 9. 本轮新增证据文件（相对 `evidence/deploy-b/night-20261106/`）
+
+| 文件 | 字节 | sha256 |
+| --- | --- | --- |
+| `B-readjudication-run02-20261106T1042.md` | 6251 | 见清单 |
+| `B-worker-9420-residency-20261106T1042.md` | 3258 | 见清单 |
+| `readjudicate-run02-20261106T1042/replay.ts` | — | `ed81f4af7de9f6581e2d690abafeb0a46a3030082ec678e846b1dbc730501989` |
+| `readjudicate-run02-20261106T1042/replay.out.txt` | — | `012edd3463fea780a6f74485103aa3fb7ce73694daa30fb16c47c7bde9ab583c` |
+| `probe-9420-20261106T1039/job-owner-9420.ps1` | — | `5602c5de06b8b58b53636126a2f89c4d815afcdce61bf59640497c63da0fced8` |
+| `probe-9420-20261106T1039/job-owner.out.txt` | — | `d5b51e5817df8b9fda7dd4fa7af1bc075c0c992d0bb74e21aee80590cb391ddd` |
+
+完整字节/哈希以本目录最新 `MANIFEST-*.json` 为准（清单最后生成）。
