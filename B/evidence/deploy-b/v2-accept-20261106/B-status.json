@@ -3,7 +3,7 @@
   "role": "B",
   "stage": "prepared",
   "request_id": "B-V2-20261106-001",
-  "reply_to": "A-N13-20261106-013",
+  "reply_to": "A-V2A-20261106-001",
   "prepared_at": "2026-11-06T12:11:00+08:00",
   "route_not_switched": true,
   "v2_not_applied_yet": true,
@@ -160,5 +160,32 @@
     "no_identity_or_login_change": true,
     "raw_logs_kept_local": true,
     "old_experiment_dirs_kept": true
+  },
+  "phase": "prepared",
+  "stage_window": {
+    "hard_stop_at": "2026-11-06T12:53:00+08:00"
+  },
+  "probe_budget_usage": {
+    "suspended_token_queries_used": 1,
+    "suspended_token_queries_cap": 1,
+    "version_preflights_used": 1,
+    "version_preflights_cap": 1,
+    "exec_or_mcp_calls": 0,
+    "note": "两次探针已用尽配额，不再重复；未调用 exec / MCP"
+  },
+  "budget": {
+    "b_restart": {
+      "cap": 1,
+      "used": 0
+    },
+    "a_formal_execs": {
+      "cap": 2,
+      "used": 0
+    }
+  },
+  "hub_context_from_a": {
+    "b_online_at": "2026-11-06T04:07:31Z",
+    "inflight_runs": 0,
+    "latest_run": 26
   }
 }
