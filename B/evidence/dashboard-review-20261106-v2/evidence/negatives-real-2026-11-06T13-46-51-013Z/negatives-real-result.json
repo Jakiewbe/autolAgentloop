@@ -1,0 +1,177 @@
+{
+  "at": "2026-11-06T13:46:51.014Z",
+  "total": 15,
+  "caught": 15,
+  "missed": 0,
+  "results": [
+    {
+      "mutation": "drop-answer",
+      "caseId": "T1",
+      "why": "页面把答案抹掉",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "页面回显选择题答案",
+        "页面回显文字答案"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "drop-reason",
+      "caseId": "T2",
+      "why": "结案原因不显示",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "页面显示结案原因"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "strip-summary",
+      "caseId": "T3",
+      "why": "运行结果被清空",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "运行结果单独呈现"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "dup-card",
+      "caseId": "T4",
+      "why": "同一张卡重复渲染",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "页面上这张卡只出现一次"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "no-form",
+      "caseId": "T5",
+      "why": "取消没有确认表单",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "取消先弹确认表单"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "fabricate-fact",
+      "caseId": "T6",
+      "why": "时间线伪造事实 id",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "没有凭空事实"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "drop-plan",
+      "caseId": "T7",
+      "why": "计划面被抹掉",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "计划面在",
+        "外部计划在",
+        "延后任务在"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "same-page",
+      "caseId": "T7",
+      "why": "翻页不换内容",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "翻页真的换内容"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "force-actionable",
+      "caseId": "T8",
+      "why": "只读卡片也报可操作",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "只读卡片自身无可操作"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "stale-off",
+      "caseId": "T9",
+      "why": "断线仍显示正常",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "断线时提示并可重试"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "leak-key",
+      "caseId": "T10",
+      "why": "页面出现钥匙",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "页面不含钥匙"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "strip-cancel",
+      "caseId": "T11",
+      "why": "排队取消不显示已取消",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "界面显示已取消"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "strip-cancel",
+      "caseId": "T12",
+      "why": "执行中不显示等待停止",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "确认前只说等待停止"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "fake-stop",
+      "caseId": "T13",
+      "why": "终态仍给取消入口",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "已完成是终态、没有取消入口",
+        "已取消是终态、没有取消入口"
+      ],
+      "error": null
+    },
+    {
+      "mutation": "drop-items",
+      "caseId": "T14",
+      "why": "泳道分组被抹掉",
+      "caught": true,
+      "status": "FAIL",
+      "failedChecks": [
+        "页面按泳道分组"
+      ],
+      "error": null
+    }
+  ]
+}

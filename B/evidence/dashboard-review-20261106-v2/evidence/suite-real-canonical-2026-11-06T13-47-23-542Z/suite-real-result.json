@@ -1,0 +1,423 @@
+{
+  "suite": "dashboard-real-suite-v2.1.0",
+  "label": "canonical",
+  "at": "2026-11-06T13:49:34.412Z",
+  "counts": {
+    "PASS": 14,
+    "FAIL": 0,
+    "UNVERIFIED": 0,
+    "SKIP": 0
+  },
+  "results": [
+    {
+      "id": "T1",
+      "name": "选择与文字都必须结案并回显",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "选择题按序号结案",
+          "ok": true,
+          "detail": "{\"state\":\"decided\",\"choice\":1}"
+        },
+        {
+          "name": "文字题按原文结案",
+          "ok": true,
+          "detail": "{\"state\":\"decided\",\"answer\":\"T1-TEXT-UGMNK\"}"
+        },
+        {
+          "name": "页面回显选择题答案",
+          "ok": true,
+          "detail": "{\"answer\":\"乙\"}"
+        },
+        {
+          "name": "页面回显文字答案",
+          "ok": true,
+          "detail": "{\"answer\":\"T1-TEXT-UGMNK\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T1-2026-11-06T13-47-23-543Z"
+    },
+    {
+      "id": "T2",
+      "name": "通知必须带原因结案，fyi 只读",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "通知卡片自身有结案操作",
+          "ok": true,
+          "detail": "{\"actionable\":1,\"tag\":\"等待处理\"}"
+        },
+        {
+          "name": "结案原因落到中台",
+          "ok": true,
+          "detail": "{\"state\":\"closed\",\"result\":\"T2-REASON-3TPE0\"}"
+        },
+        {
+          "name": "页面显示结案原因",
+          "ok": true,
+          "detail": "{\"closedReason\":\"T2-REASON-3TPE0\"}"
+        },
+        {
+          "name": "fyi 卡片只读",
+          "ok": true,
+          "detail": "{\"actionable\":0,\"state\":\"closed\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T2-2026-11-06T13-47-36-537Z"
+    },
+    {
+      "id": "T3",
+      "name": "后续轮真实完成，卡片结果与运行结果分立",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "后续轮收据被接受",
+          "ok": true,
+          "detail": "{\"status\":200,\"state\":\"done\"}"
+        },
+        {
+          "name": "运行结果单独呈现",
+          "ok": true,
+          "detail": "{\"state\":\"done\",\"summary\":\"T3-RUN-OK-ZG6YH\"}"
+        },
+        {
+          "name": "卡片结论落在卡片上",
+          "ok": true,
+          "detail": "{\"state\":\"done\",\"closedReason\":\"T3-RUN-OK-ZG6YH\"}"
+        },
+        {
+          "name": "卡片保留原问题不吞运行正文",
+          "ok": true,
+          "detail": "{\"text\":\"T3 目标卡片\\n后续已完成\\n\\n验收用问题\\n\\n我的回答：确认\\n处理结果：T3-RUN-OK-ZG6YH\\n#1 · 意见 · 创建 11/06 21:47:46 · 回答 11/06 21:47:51 · 结案 11/06 21:47:52\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T3-2026-11-06T13-47-45-684Z"
+    },
+    {
+      "id": "T4",
+      "name": "重复提交不重复落库",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "重复提交被拒",
+          "ok": true,
+          "detail": "{\"status\":200,\"payload\":{\"changed\":false,\"state\":\"decided\"}}"
+        },
+        {
+          "name": "卡片只结一次",
+          "ok": true,
+          "detail": "{\"state\":\"decided\",\"version\":2}"
+        },
+        {
+          "name": "只派一条后续轮",
+          "ok": true,
+          "detail": "{\"runs\":[2]}"
+        },
+        {
+          "name": "页面上这张卡只出现一次",
+          "ok": true,
+          "detail": "{\"shown\":1}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T4-2026-11-06T13-47-56-520Z"
+    },
+    {
+      "id": "T5",
+      "name": "取消必须先过确认表单再等执行端确认",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "详情里有取消入口",
+          "ok": true,
+          "detail": "{\"stopButton\":true}"
+        },
+        {
+          "name": "取消先弹确认表单",
+          "ok": true,
+          "detail": "{\"formShown\":true,\"formId\":\"cancel-form\"}"
+        },
+        {
+          "name": "提交前中台没有取消请求",
+          "ok": true,
+          "detail": "{\"state\":\"claimed\",\"stopping\":false}"
+        },
+        {
+          "name": "提交后只记待确认",
+          "ok": true,
+          "detail": "{\"state\":\"claimed\",\"stopping\":true}"
+        },
+        {
+          "name": "界面显示等待确认",
+          "ok": true,
+          "detail": "{\"badge\":\"等待停止确认\"}"
+        },
+        {
+          "name": "执行端确认后才显示已取消",
+          "ok": true,
+          "detail": "{\"status\":200,\"state\":\"cancelled\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T5-2026-11-06T13-48-06-142Z"
+    },
+    {
+      "id": "T6",
+      "name": "时间线按事实 ID 对账，不靠全文关键词",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "能打开时间线",
+          "ok": true,
+          "detail": "{\"facts\":[\"config:rules\",\"card:1\",\"event:2\",\"card:1\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"card:1\",\"run:2\"]}"
+        },
+        {
+          "name": "命中回答事件 ID",
+          "ok": true,
+          "detail": "{\"answerEventId\":2,\"facts\":[\"config:rules\",\"card:1\",\"event:2\",\"card:1\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"run:2\",\"card:1\"]}"
+        },
+        {
+          "name": "命中目标卡片 ID",
+          "ok": true,
+          "detail": "{\"card\":1}"
+        },
+        {
+          "name": "没有凭空事实",
+          "ok": true,
+          "detail": "{\"fabricated\":[],\"allowed\":[\"config:rules\",\"run:1\",\"card:1\",\"timer:\",\"event:2\",\"run:2\",\"timer:w1\"]}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T6-2026-11-06T13-48-15-256Z"
+    },
+    {
+      "id": "T7",
+      "name": "分页真换内容、活动轮、计划面与延后任务",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "有更早一页",
+          "ok": true,
+          "detail": "{\"clicked\":true,\"first\":60,\"second\":3}"
+        },
+        {
+          "name": "翻页真的换内容",
+          "ok": true,
+          "detail": "{\"overlap\":[],\"first\":[\"63\",\"62\",\"61\",\"60\"],\"second\":[\"3\",\"2\",\"1\"]}"
+        },
+        {
+          "name": "首页含最新活动轮",
+          "ok": true,
+          "detail": "{\"freshRun\":63}"
+        },
+        {
+          "name": "计划面在",
+          "ok": true,
+          "detail": "[\"中心定时规则 · 甲 · 每天 04:00\"]"
+        },
+        {
+          "name": "外部计划在",
+          "ok": true,
+          "detail": "[\"外部计划 · 甲 · 每天 09:00 · Claude 应用\"]"
+        },
+        {
+          "name": "延后任务在",
+          "ok": true,
+          "detail": "[\"等待重试 · 甲 · 已排队重试 1 次\",\"中心定时规则 · 甲 · 每天 04:00\",\"外部计划 · 甲 · 每天 09:00 · Claude 应用\"]"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T7-2026-11-06T13-48-25-237Z"
+    },
+    {
+      "id": "T8",
+      "name": "卡片自身操作可用性，不拿任意禁用按钮当证据",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "待处理卡片自身可操作",
+          "ok": true,
+          "detail": "{\"actionable\":1,\"button\":true}"
+        },
+        {
+          "name": "只读卡片自身无可操作",
+          "ok": true,
+          "detail": "{\"actionable\":0,\"button\":false}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T8-2026-11-06T13-48-32-875Z"
+    },
+    {
+      "id": "T9",
+      "name": "断线时提示、拒绝写入并按需重试",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "断线时提示并可重试",
+          "ok": true,
+          "detail": "{\"stale\":true,\"alert\":\"暂时无法更新。当前显示 11/06 21:48:37 的最后一次成功数据，请勿当作实时状态。\",\"retry\":1,\"attempts\":1}"
+        },
+        {
+          "name": "过期时点操作被拒",
+          "ok": true,
+          "detail": "{\"message\":\"当前数据已过期，请先刷新连接。\\n×\",\"dialogOpen\":false}"
+        },
+        {
+          "name": "被拒时不发写入请求",
+          "ok": true,
+          "detail": "{\"writes\":0}"
+        },
+        {
+          "name": "恢复后重新可操作",
+          "ok": true,
+          "detail": "{\"stale\":false,\"actionable\":1}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T9-2026-11-06T13-48-36-166Z"
+    },
+    {
+      "id": "T10",
+      "name": "页面与接口投影都不出现凭据或能力链接",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "没有能力链接",
+          "ok": true,
+          "detail": "[]"
+        },
+        {
+          "name": "页面不含钥匙",
+          "ok": true,
+          "detail": "{\"hits\":0}"
+        },
+        {
+          "name": "接口投影不含钥匙",
+          "ok": true,
+          "detail": "{\"hits\":0,\"bytes\":3219}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T10-2026-11-06T13-48-52-649Z"
+    },
+    {
+      "id": "T11",
+      "name": "排队中的活立即取消",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "排队可直接取消",
+          "ok": true,
+          "detail": "{\"state\":\"cancelled\"}"
+        },
+        {
+          "name": "界面显示已取消",
+          "ok": true,
+          "detail": "{\"badge\":\"已取消\"}"
+        },
+        {
+          "name": "提示语说清已取消",
+          "ok": true,
+          "detail": "{\"message\":\"中心已确认这轮已取消。是否曾经开始执行，请看这轮的执行时间线；面板不据此推断。\\n×\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T11-2026-11-06T13-49-02-747Z"
+    },
+    {
+      "id": "T12",
+      "name": "执行中的活要等执行端确认，不许提前报已取消",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "取消请求不直接改状态",
+          "ok": true,
+          "detail": "{\"state\":\"claimed\",\"stopping\":true}"
+        },
+        {
+          "name": "确认前只说等待停止",
+          "ok": true,
+          "detail": "{\"badge\":\"等待停止确认\"}"
+        },
+        {
+          "name": "执行端确认后才取消",
+          "ok": true,
+          "detail": "{\"status\":200,\"state\":\"cancelled\"}"
+        },
+        {
+          "name": "页面同步显示取消",
+          "ok": true,
+          "detail": "{\"state\":\"cancelled\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T12-2026-11-06T13-49-12-464Z"
+    },
+    {
+      "id": "T13",
+      "name": "终态不提供取消操作",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "已完成是终态、没有取消入口",
+          "ok": true,
+          "detail": "{\"stopButton\":false,\"badge\":\"已完成\"}"
+        },
+        {
+          "name": "已取消是终态、没有取消入口",
+          "ok": true,
+          "detail": "{\"stopButton\":false,\"badge\":\"已取消\"}"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T13-2026-11-06T13-49-26-384Z"
+    },
+    {
+      "id": "T14",
+      "name": "规则与泳道：空泳道续接、跨规则并行、并行泳道",
+      "required": true,
+      "status": "PASS",
+      "checks": [
+        {
+          "name": "空泳道只留一条续接轮",
+          "ok": true,
+          "detail": "{\"queued\":1,\"events\":[\"1\",\"2\"],\"resolved\":[[\"suite:1793972971974:1\",\"1\"],[\"suite:1793972971994:2\",\"2\"]]}"
+        },
+        {
+          "name": "跨规则互不阻塞",
+          "ok": true,
+          "detail": "{\"cross\":2,\"feedback\":[[1,\"queued\"]]}"
+        },
+        {
+          "name": "并行泳道各自领活",
+          "ok": true,
+          "detail": "{\"a\":3,\"b\":4}"
+        },
+        {
+          "name": "页面按泳道分组",
+          "ok": true,
+          "detail": "[\"#para-B\",\"#para-A\",\"复查\",\"意见\"]"
+        }
+      ],
+      "mutation": null,
+      "workDir": "evidence/real-canonical-T14-2026-11-06T13-49-31-168Z"
+    }
+  ]
+}

@@ -1,0 +1,61 @@
+{
+  "audited": {
+    "zip": "coordination/dashboard-workflow-review/incoming/dashboard-item-key-cancel-v2.zip",
+    "bytes": 58408,
+    "sha256": "c66a3c64db5f1a5c2270d0cf1130a5ac764d2dcee7eaffefd0d1808d0309a525",
+    "commit": "9fabbe9ae096418ea3e809be45518950af690b04",
+    "members": {
+      "total": 13,
+      "match": 13
+    }
+  },
+  "harness": {
+    "version": "dashboard-real-suite-v2.1.0",
+    "dir": "coordination/dashboard-workflow-review/real-board",
+    "files": {
+      "board.mjs": "cf4839bfb3f027b940791547a4a2bac43c6d3458c220e2bce80185aec97a957c",
+      "launcher.mjs": "b1c72d7de5a2b4c3917e9a8b0c8dd412a9b28a40fadbc4cc6158c480626cb139",
+      "page-real.mjs": "595280022120913da80e49e2a68a77079c8d4495ef367dd1f721aefee3a6e6ef",
+      "probe-snapshot.js.txt": "607fd5bfa76a412cc90e6b84f45cf53b4b004fd012c7c11a4ca869b97ca339ae",
+      "suite-real.mjs": "7fdfe0293382de4d1cb85a1f90cd5f45cd2473c3e3953537fe062328cebac71a",
+      "negatives-real.mjs": "d904c15a618ddbec5933ddbaccb328c62bd07be71f37676729ad3586ce78e55c"
+    }
+  },
+  "results": {
+    "positive": {
+      "path": "evidence/suite-real-canonical-2026-11-06T13-47-23-542Z/suite-real-result.json",
+      "sha256": "ae6dc4e84b9223bcbf45e8eadb1ea64492afa4cd072d48d5eee4477189d84a04",
+      "pass": 14,
+      "fail": 0,
+      "unverified": 0,
+      "skip": 0
+    },
+    "negatives": {
+      "path": "evidence/negatives-real-2026-11-06T13-46-51-013Z/negatives-real-result.json",
+      "sha256": "488c5c3f247ef24f7da3494fc30b613070170e75f7440fd686e7d7913f1f7aec",
+      "total": 15,
+      "caught": 15,
+      "missed": 0
+    },
+    "packageUnitTests": {
+      "tests": 34,
+      "pass": 34,
+      "fail": 0
+    }
+  },
+  "unverified": [
+    "production hub 3350 联调",
+    "包内 browser-qa.mjs 11/11 由 A 自报",
+    "真实链路 /c/ 与取消确认时序"
+  ],
+  "report": {
+    "path": "coordination/dashboard-workflow-review/B-review-v2.md",
+    "bytes": 6009,
+    "sha256": "1c847a7ecc359ed89d2bc709f4e052198f5f584d738136ca2ee876238e7487eb"
+  },
+  "env": {
+    "os": "Windows 11 26200",
+    "node": "v24.12.0",
+    "browser": "Chromium via CDP"
+  }
+}
