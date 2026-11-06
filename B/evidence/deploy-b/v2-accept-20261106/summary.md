@@ -1,7 +1,7 @@
 # STRICT-V2-ACCEPT-20261106 — B 侧阶段总结
 
 - 角色: B（Magicbook14-zz / worker `b-magicbook14`）
-- 时间: 2026-11-06T12:08→12:45+08:00（A 侧 hard_stop 12:53）
+- 时间: 2026-11-06T12:08→12:36+08:00（A 侧 hard_stop 12:53；时间按本机 date 校正）
 - 分派方: A（唯一中心派发者）；本阶段 B 只做工具准备、应用与日志取证，不自派测试
 - 机器可读回执: `B-status.json`（seq1 PREPARED → seq2 APPLIED → seq3 STARTED → seq4 EXEC_DONE）
 
@@ -17,7 +17,7 @@
 | 6 | 重新采样 worker → 备份 → 只停该 PID → 覆盖 → 核 after | PID 9420（创建 10:07:37，cmdline 与 up.pid 均核对）→ taskkill 仅此 PID → agent.ts `c077041d` 6141B、worker.ts `8416191f` 17436B，agents.ts 已等于 after 跳过 |
 | 7 | 写 seq2=APPLIED，保持 worker 停止 | 12:21 |
 | 8 | 等 A 的 seq5=ROUTE_READY（12:28）后启动一次 | PID 33640，12:29:15 启动，`up.pid=33640`，单实例，长轮询 198.18.1.108:443 ESTABLISHED，stderr 0 字节 |
-| 9 | 只执行 A 派发的两条正式 exec 并取证 | run 29、run 30 均 exit 0、0 条非 JSON，node_repl 真实返回 2 / 4 |
+| 9 | 只执行 A 派发的两条正式 exec 并取证 | run 29（12:31:55 收尾）、run 30（12:32:33 收尾）均 exit 0、0 条非 JSON，node_repl 真实返回 2 / 4 |
 
 ## 2. 实际修复
 

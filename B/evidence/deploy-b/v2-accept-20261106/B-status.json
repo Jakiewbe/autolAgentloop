@@ -313,7 +313,7 @@
     "command_after_command0": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
     "b_changed_route": false
   },
-  "exec_done_at": "2026-11-06T12:38:00+08:00",
+  "exec_done_at": "2026-11-06T12:34:00+08:00",
   "exec_evidence": {
     "method": "只读 worker/runs 日志取证，未重跑；并用 v2 适配器对同一字节离线回放确认严格判定接受",
     "exec1": {
@@ -415,5 +415,6 @@
     "early_start": "确认：B 于 12:29:15 启动，A 已在 12:28 完成 command[0] 切换，启动时路由已是 0.166 标准名入口，无旧入口执行；b_restart 1/1 已用",
     "card_choice": "确认 A 传 choice=1（乙），run 30 第一行即「V2 续接通过：乙：V2A-D45D004B」",
     "mcp_detail": "A 从 hub 看不到的 node_repl 返回、行数、退出码、终态位置，本回执补齐；两条日志各 0 条非 JSON"
-  }
+  },
+  "timestamp_note": "本回执时间按本机 date 校正（写收尾时本机时钟 12:36+08）；早期草稿里 12:38/12:45 的自估时间已作废"
 }
