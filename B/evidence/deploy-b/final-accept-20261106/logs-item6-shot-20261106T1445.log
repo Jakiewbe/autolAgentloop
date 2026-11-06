@@ -1,0 +1,13 @@
+WORKER_COUNT=1
+WORKER pid=28452 ppid=31892 created=2026-11-06T13:49:08.058+08:00
+WORKER_CMD "C:\Program Files\nodejs\node.exe"  "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\runtime\d504e4876d07\bin\agent-autoloop.ts" "up" 
+PARENT pid=31892 name=cmd.exe :: C:\WINDOWS\system32\cmd.exe /c ""C:\Users\19082\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup\agent-autoloop.cmd" "
+GRAND pid=22368 name=explorer.exe
+HUB443=13.158.194.126
+RSS_MB=65.9
+UP_PID_FILE=28452
+UP_LOG bytes=145 created=2026-11-06T13:49:08.055+08:00 last_write=2026-11-06T14:27:32.381+08:00
+UP_LOG_TAIL:
+  2026-11-06T05:49:10.334Z [worker] worker b-magicbook14 started
+  2026-11-06T06:27:32.381Z [worker] couldn't reach the hub: Error: 中台返回 503
+NOW=2026-11-06T14:44:22.387+08:00

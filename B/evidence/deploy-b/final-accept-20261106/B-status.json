@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 8,
-  "request_id": "B-FA-20261106-008",
+  "seq": 9,
+  "request_id": "B-FA-20261106-009",
   "reply_to": "A-FA-20261106-005",
-  "phase": "LOGON_VERIFIED",
+  "phase": "EVIDENCE_COMPLETE",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T14:47:00+08:00",
+  "observed_at": "2026-11-06T14:49:00+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -201,7 +201,7 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "等待 A 最终审核；B 保持 worker 28452 单实例健康运行与空闲队列",
+  "next_action": "等待 A 最终审核；B 保持 worker 28452 单实例健康运行与空闲队列，不再新增真实运行",
   "item4_verification": {
     "run": 32,
     "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
@@ -502,5 +502,28 @@
       ],
       "note": "三处无 exit 均有据可查：两条为 A 主动取消的 run，一条为空目录，无未完成派发"
     }
+  },
+  "summary_sha256": "7cfad7d44b348c4aa0d20e265ede9594b62f3b6b2de250a8694c6aff0aad627e",
+  "manifest_sha256": "c0b01a01bc9b8864edb00646494b8e781f14b0df186b77d92a13548e3f364dd1",
+  "manifest_file": "MANIFEST.sha256",
+  "summary_file": "summary.md",
+  "verdict": {
+    "self_reported_score": "5/6 有 A 派发 test_id 与实测证据；item6 有实测但触发登录事件性质如实标注，不自报 6/6",
+    "stage": "EVIDENCE_COMPLETE",
+    "awaiting": "A（统筹）最终审核；正式切换 0.166 路由由 A 统一控制"
+  },
+  "live_state": {
+    "worker_pid": 28452,
+    "single_instance": true,
+    "up_pid": "28452",
+    "hub": "13.158.194.126:443 Established",
+    "queue": "idle（21 个 run 目录，无待执行）",
+    "candidate": "codex-cli 0.166.0-alpha.5.1（未切换）",
+    "model": "deepseek-v4.1-flash-1017",
+    "cwd": "D:\\AutoAgentloop",
+    "mcp_retained": [
+      "cua_repl",
+      "node_repl"
+    ]
   }
 }

@@ -1,0 +1,11 @@
+{
+  "logoff_requested_at_local": "2026-11-06T13:48:10+08:00",
+  "worker_pid_pre_logoff": 30208,
+  "up_pid_pre_logoff": "30208",
+  "up_log_absent_pre_logoff": true,
+  "b_head_pre_logoff": "3ebe680",
+  "method": "shutdown /l (Windows PowerShell via bash)",
+  "authorized_by": "A-FA-20261106-005 LOGOFF_NOW + 用户会话内确认",
+  "logoff_attempt": 1,
+  "cap": 1
+}

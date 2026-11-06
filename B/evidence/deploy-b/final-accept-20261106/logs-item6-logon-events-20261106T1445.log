@@ -1,0 +1,14 @@
+== System log 7001/7002/1074 (last 24h) ==
+2026-11-06T13:48:30.179+08:00 id=7002 :: 客户体验改善计划的用户注销通知
+2026-11-06T13:48:44.509+08:00 id=7001 :: 客户体验改善计划的用户登录通知
+== Security 4624 (may deny) ==
+SEC_DENIED: 找不到任何与指定的选择条件匹配的事件。
+== startup cmd content ==
+@echo off
+rem Starts it at sign-in, and again after ten seconds if it stops. Delete this file to stop that.
+set "AGENT_AUTOLOOP_HOME=C:\Users\19082\.agent-autoloop"
+:agent-autoloop
+"C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\runtime\d504e4876d07\bin\agent-autoloop.ts" "up" >>"C:\Users\19082\.agent-autoloop\logs\up.log" 2>&1
+timeout /t 10 /nobreak >nul
+goto agent-autoloop
+
