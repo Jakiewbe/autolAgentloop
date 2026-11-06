@@ -1,0 +1,162 @@
+{
+  "task": "dashboard-workflow-review",
+  "night_id": null,
+  "seq": 8,
+  "phase": "DELIVERED",
+  "at": "2026-11-06T15:30:26.988Z",
+  "reply_to": "A-m03820-minimal-request",
+  "commit": "654b3d868ee6282cd8d67b68d92574212e15d005",
+  "commit_range": "fc9de0e..654b3d8",
+  "delivery_path": "B/evidence/deploy-b/dashboard-review-20261106/",
+  "readable_at": [
+    "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/b/B/evidence/deploy-b/dashboard-review-20261106/review-package-20261106/MANIFEST.json",
+    "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/b/B/evidence/deploy-b/dashboard-review-20261106/B-answer-q1-q8-20261106.md"
+  ],
+  "files": {
+    "review-package-20261106/MANIFEST.json": {
+      "bytes": 37813,
+      "sha256": "3814704ab4e0cf6a9d624a41626eaf432be5a1ffebcb43ec5da7097ecd5d9c7f",
+      "fileCount": 226
+    },
+    "B-answer-q1-q8-20261106.md": {
+      "bytes": 36742,
+      "sha256": "3728761eddd8c9f13f0348c39b8f2646d4767f9f1489c1a133419cca03d0d32d"
+    },
+    "review-package-20261106/real-board/build-lock.mjs": {
+      "bytes": 2805,
+      "sha256": "ca2dd475ae71788c2db1a26f978df037d2a799bc68fd9b0186c2cba0132798ac"
+    },
+    "review-package-20261106/real-board/q3-viewports.mjs": {
+      "bytes": 5211,
+      "sha256": "cca65d2dffe372bbcf78e42e4dbbcd6e23bf04e8e1871c599c11e3ba86f4ba68"
+    },
+    "review-package-20261106/real-board/q5-order.mjs": {
+      "bytes": 11361,
+      "sha256": "b619c0907025447693495e71e0bd492b3a08820e033bfe9c2ab147652d8ad417"
+    }
+  },
+  "answers": {
+    "q1": "提交副本是重写派生件（重打 at、workDir 相对化、逐轮标记与 T9 时刻重生成），与声明的本机原始 blob 不同源，不是篡改",
+    "q2": "原来只有目录名 extract-v2-c66a3c64 + 文档哈希，代码无断言；新增 build-lock.mjs 钉死 5 个页面文件 + 源 ZIP 的 sha256 与字节数，run.sh 前置执行，不匹配即 exit 1",
+    "q3": {
+      "evidence": "evidence/q3-viewports-2026-11-06T15-22-53-118Z/record.json sha256 6994f7b2d1ca7d90284be3f8980c551b2bc79e75a25e7ebc5ceb79f1df34b255",
+      "rows": [
+        {
+          "viewport": "1440x900",
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "horizontalScroll": false,
+          "dpr": 1,
+          "shot": "viewport-1440x900-dpr1.png 1440x900 62505B"
+        },
+        {
+          "viewport": "1440x900",
+          "innerWidth": 1440,
+          "innerHeight": 900,
+          "scrollWidth": 1440,
+          "clientWidth": 1440,
+          "horizontalScroll": false,
+          "dpr": 2,
+          "shot": "viewport-1440x900-dpr2.png 2880x1800 164345B"
+        },
+        {
+          "viewport": "390x844",
+          "innerWidth": 390,
+          "innerHeight": 844,
+          "scrollWidth": 390,
+          "clientWidth": 390,
+          "horizontalScroll": false,
+          "dpr": 3,
+          "shot": "viewport-390x844-dpr3.png 1170x2751 189474B"
+        }
+      ]
+    },
+    "q5": {
+      "hold": {
+        "evidence": "evidence/q5-order-2026-11-06T15-25-07-909Z/record.json sha256 eba797b364fdff58f2bc21b65a234db267048ebdecbc6c656c0c58f84fef616e",
+        "turn": [
+          {
+            "order": 1,
+            "method": "GET",
+            "path": "/api/state",
+            "injected": "hold",
+            "outcome": "提交时未返回，放行后 200 但结果被丢弃"
+          },
+          {
+            "order": 2,
+            "method": "POST",
+            "path": "/api/runs/1/cancel",
+            "injected": "pass",
+            "outcome": "200"
+          }
+        ],
+        "injectionOnReadIndex": 1,
+        "writes": 1,
+        "denominatorApiRequestsInTurn": 2
+      },
+      "history": {
+        "evidence": "evidence/q5-order-2026-11-06T15-25-48-959Z/record.json sha256 1b48be15110f5a953c675c46906380f8fe7c8e32d45df7454da4bf4b09668a13",
+        "turn": [
+          {
+            "order": 1,
+            "method": "POST",
+            "path": "/api/runs/1/cancel",
+            "outcome": "200"
+          },
+          {
+            "order": 2,
+            "method": "GET",
+            "path": "/api/state",
+            "injected": "fail",
+            "outcome": "failed net::ERR_FAILED"
+          },
+          {
+            "order": 3,
+            "method": "GET",
+            "path": "/api/state?before=4",
+            "outcome": "200"
+          },
+          {
+            "order": 4,
+            "method": "GET",
+            "path": "/api/state?before=4",
+            "outcome": "200"
+          }
+        ],
+        "injectionOnReadIndex": 1,
+        "writes": 1,
+        "denominatorApiRequestsInTurn": 4
+      }
+    }
+  },
+  "package_checks": {
+    "fresh_copy": "D:/AutoAgentloop/_pkgcheck4 (整包拷贝，独立目录)",
+    "verify_deps": "DEPS files=226 imports=10 outside=0 bad=0",
+    "build_lock": "ok=true 5/5 files + zip c66a3c64… EXIT=0",
+    "live_smoke": [
+      "run.sh q3 → 5/5 断言 true，截图 1440x900/2880x1800/1170x2751",
+      "run.sh q5-hold → writes=1 分母 2，held 读被扣住，提示逐字一致"
+    ]
+  },
+  "not_verified": [
+    "/c/ 过期行为（仅源码判断）",
+    "生产环境 /c/ 联调",
+    "上游迁移（候选方案）",
+    "token 不出仓（结构保证，无端到端用例）",
+    "A 自报 browser-qa 11/11"
+  ],
+  "untouched": [
+    "生产 hub 3350/3351",
+    "生产 ~/.agent-autoloop",
+    "worker 进程",
+    "ACL/Deny/身份",
+    "MCP 配置",
+    "登录项",
+    "系统时间",
+    "生产库"
+  ],
+  "models_called": 0,
+  "blockers": []
+}
