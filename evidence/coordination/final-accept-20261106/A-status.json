@@ -1,0 +1,64 @@
+{
+  "stage": "FINAL-ACCEPT-20261106",
+  "seq": 1,
+  "request_id": "A-FA-20261106-001",
+  "reply_to": null,
+  "phase": "STAGE_PUBLISHED",
+  "role": "A",
+  "observed_at": "2026-11-06T13:16:25+08:00",
+  "candidate_id": "final-20261106-baseline-0.166-strict-v2",
+  "build_identity": {
+    "entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "entry_bytes": 368970544,
+    "entry_sha256": "6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c",
+    "parse_package": "night-parse-strict-fulljson-v2.zip 14201B 5ff21499d4e0d98dddb2a9679e72fc8d907907454e139940d957101ee3bc4e23",
+    "adapter": {
+      "bytes": 6141,
+      "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74"
+    },
+    "worker": "b-magicbook14",
+    "agents": {
+      "bytes": 2328,
+      "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471"
+    },
+    "model": "deepseek-v4.1-flash-1017",
+    "cwd": "D:\\AutoAgentloop"
+  },
+  "fixed_heads": {
+    "main": "3ffbf34639c9a6570791cd3d83f1e9ecd73ec796",
+    "b": "e14c2441098ca546d711b5356e82cb263cec4570"
+  },
+  "hub_observed": {
+    "busy_runs": [],
+    "b_online": true,
+    "b_seen_at": "2026-11-06T05:16:10.984Z",
+    "now": "2026-11-06T05:16:25.197Z"
+  },
+  "reuse_evidence": {
+    "item1": "run 29 (session 01a1af1f-ba77-7451-9963-e14049e17b99, usage 1009471/2730/998144)",
+    "item3": "run 30 (same session, usage 1462654/3365/1431936)"
+  },
+  "order": [
+    "item2 temp dir under D:\\AutoAgentloop with unique marker",
+    "item4 cancel a genuinely running turn and verify tree death",
+    "item5 same-executor worker stop during a running turn + 1 offline harmless task + DSH recovery",
+    "item6 one real logoff by B with user re-login, then observe auto-start and one harmless turn"
+  ],
+  "budget": {
+    "a_new_hub_runs_cap": 12,
+    "a_new_hub_runs_used": 0,
+    "real_model_execs_cap": 10,
+    "real_model_execs_used": 0,
+    "planned_execs": {
+      "item2": 1,
+      "item4": 1,
+      "item5_interrupted": 1,
+      "item5_offline": 1,
+      "item6": 1
+    },
+    "b_maintenance_restarts_cap": 2,
+    "item5_recovery_restarts": 1,
+    "item6_login_triggers": 1
+  },
+  "next_action": "await B PREPARED on b branch B/evidence/deploy-b/final-accept-20261106/B-status.json replying A-FA-20261106-001"
+}
