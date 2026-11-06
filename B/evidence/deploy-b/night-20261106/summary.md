@@ -114,9 +114,11 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 
 ## 6. 清理与留档
 
-- 本机临时物：`aa-item5-restart.ps1` / `aa-item5-restart.log` / `b-ping.txt` / `resume-mark.txt` 保留为证据（后两者为联调产物）。
-- 待清理（保留至 A 决定 FIX-B）：`C:\Users\19082\.codex-nighttest-20261106\`（含 369 MB 的 codex-medium.exe 与库副本）、`D:\AutoAgentloop\_probe\codexhome-*`、`_probe\legacy-rt`。
-- 未改动项：config.toml、MCP 配置、登录启动项、ACL/完整性标签、身份、其他进程。
+- **已清理（10:16）**：`_probe/legacy-rt`（1.5 MB 旧适配器对照树）、`_probe/codexhome-20261106T0136`（3.1 MB）、`_probe/codexhome-copy-20261106T0140`（305 MB 库副本）、`_probe/codex-copy-medium.exe`（352 MB 重复 Medium 副本）——共回收约 662 MB。
+- **保留为证据**：`D:\AutoAgentloop\b-ping.txt`（21 B）、`resume-mark.txt`（54 B）、`aa-item5-restart.ps1`（1561 B）、`aa-item5-restart.log`（358 B）、`_probe/*.ts`、`_probe/*.ps1`（探针脚本，小体积）。
+- **暂留至 A 决定 FIX-B**：`C:\Users\19082\.codex-nighttest-20261106\`（657 MB，含 codex-medium.exe 与库副本）——FIX-B 切换验证可直接复用；A 若无需要可整目录删除。
+- **未改动项**：`C:\Users\19082\.codex\config.toml`、MCP 配置、登录启动项、ACL/完整性标签、身份、其他进程。
+- **当前服务状态**：worker PID 9420 在运行（up.pid=9420），日志 `worker.stdout.post-night-20261106T1020.log`；最后一个 run 为 26（exit 0，10:09:09）。
 - 原始 stdout/配置/环境/身份材料全部留在本机，仓库只放脱敏证据与哈希。
 
 ## 7. 时间线（上海时间）

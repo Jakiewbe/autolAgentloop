@@ -1,8 +1,8 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "generated_at": "2026-11-06T10:13:00+08:00",
-  "note": "最终清单，最后生成；覆盖 evidence/deploy-b/night-20261106 全树（不含本清单自身）。原始日志/配置/身份材料未纳入且不外发。",
+  "generated_at": "2026-11-06T10:17:00+08:00",
+  "note": "最终清单（清理后重新生成）；覆盖 evidence/deploy-b/night-20261106 全树，不含本清单自身。原始日志/配置/身份材料未纳入且不外发。",
   "root": "D:\\AutoAgentloop\\evidence\\deploy-b\\night-20261106",
   "file_count": 87,
   "files": [
@@ -423,8 +423,8 @@
     },
     {
       "path": "./summary.md",
-      "bytes": 13148,
-      "sha256": "0d568785a46645fdc2ef64831cc806cdbf1effbd3213125fa68a95ec0f81d9a6"
+      "bytes": 13718,
+      "sha256": "7041fa744f8ee605a240d723ea0b8c73f3c78a6c90b9844c19dec8046e969906"
     },
     {
       "path": "./worker-restart-20261106T0206/runtime-hashes-at-restart.txt",
@@ -441,6 +441,15 @@
       "bytes": 1129,
       "sha256": "62a1140dfd8ca9306dff042770dd9244e21b6af13d55909a13cb0c8230d7d7c7"
     }
+  ],
+  "cleanup_done": [
+    "_probe/legacy-rt",
+    "_probe/codexhome-20261106T0136",
+    "_probe/codexhome-copy-20261106T0140",
+    "_probe/codex-copy-medium.exe"
+  ],
+  "kept_pending_fix_b": [
+    "C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe"
   ],
   "external_artifacts": [
     {
@@ -472,11 +481,6 @@
       "path": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
       "bytes": 245812016,
       "sha256": "dd4adf302b112fdc30fce509a5e261a0a6f1118dc58ac2da636eb84e0a6b3e3e"
-    },
-    {
-      "path": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.post-night-20261106T1020.log",
-      "bytes": null,
-      "sha256": "runtime log, not hashed"
     }
   ],
   "live_state_at_seal": {
