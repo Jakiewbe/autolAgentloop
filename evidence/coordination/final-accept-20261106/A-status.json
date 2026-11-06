@@ -1,11 +1,11 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
-  "seq": 6,
-  "request_id": "A-FA-20261106-006",
+  "seq": 7,
+  "request_id": "A-FA-20261106-007",
   "reply_to": "B-FA-20261106-006",
-  "phase": "ITEM6_BLOCKED_ON_HUMAN_LOGIN",
+  "phase": "ITEM6_ACCEPTED_PENDING_B_RUN35_BYTES",
   "role": "A",
-  "observed_at": "2026-11-06T14:30:00+08:00",
+  "observed_at": "2026-11-06T14:50:00+08:00",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
   "build_identity": {
     "entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
@@ -26,7 +26,7 @@
   },
   "fixed_heads": {
     "main": "3ffbf34639c9a6570791cd3d83f1e9ecd73ec796",
-    "b": "3ebe6803881705d4a0585d01281bc67bb8623fbb",
+    "b": "8d3ed1c",
     "main_before_seq6": "04c0ef11cd261040dc8214c27db501cca6789c1f"
   },
   "hub_observed": {
@@ -122,19 +122,20 @@
     ]
   },
   "budget_used": {
-    "a_formal_model_execs": 4,
+    "a_formal_model_execs": 5,
     "a_runs": [
       31,
       32,
       33,
-      34
+      34,
+      35
     ],
     "a_cap_model_execs": 10,
     "a_cap_runs": 12,
     "b_maintenance_restarts": 1,
     "b_cap_maintenance_restarts": 2,
     "b_item5_recovery_starts": 2,
-    "b_logoffs": 0,
+    "b_logoffs": 1,
     "b_cap_logoffs": 1,
     "retries": 0,
     "internal_repairs": 0
@@ -266,7 +267,7 @@
     ],
     "a_next_after_login": "dispatch exactly one harmless turn A-FA-ITEM6-20261106-001 (rule FA-登录) expecting first line FA-6 登录后执行完成：ITEM6-20261106-1320 and second line login=ok",
     "failure_rule": "if no worker process appears inside the observation window, item6 is a failure and is not repaired by a manual start; only the existing user startup chain may be fixed with the original preserved, and there is no second logoff",
-    "status": "BLOCKED_ON_HUMAN_LOGIN",
+    "status": "ACCEPTED_WITH_HONESTY_CAVEAT",
     "b_state": "final seq7 LOGOFF_EXECUTING (b head 3ebe680), logoff_request_at 2026-11-06T13:47:30+08:00, logoff_executed false, logoff_count_cap 1",
     "b_preconditions": {
       "queue_idle_local": true,
@@ -289,12 +290,89 @@
       "logoff_observed": false,
       "meaning": "B published LOGOFF_EXECUTING but the machine was never logged off; the login-triggered autostart therefore has not been exercised"
     },
-    "verdict": "NOT_VERIFIED",
+    "verdict": "PASS_ON_AUTOSTART_WITH_UNPROVEN_LOGON_METHOD",
     "human_action_required": [
       "on MAGICBOOK14 log off the current session and log back in with your own credentials (B does not type credentials, does not auto-login, does not change the account)",
       "after login B observes >=120s without starting the worker by hand, then reports seq8 LOGIN_OBSERVED with real login time/account/session, worker create time later than login, parent chain reaching the startup cmd or up.log first line later than login, single instance, up.pid and heartbeat",
       "A then dispatches exactly one harmless task expecting first line FA-6 登录后执行完成：ITEM6-20261106-1320 and second line login=ok"
     ],
-    "if_autostart_absent": "record item 6 as failed, fix only the existing startup chain and keep the original, never do a second logoff, never claim a hand-started worker as login-triggered"
+    "if_autostart_absent": "record item 6 as failed, fix only the existing startup chain and keep the original, never do a second logoff, never claim a hand-started worker as login-triggered",
+    "b_seq8_verdict": "LOGON_TRIGGER_PASS",
+    "logoff": {
+      "executed": true,
+      "event_7002_at": "2026-11-06T13:48:30.179+08:00",
+      "winlogon_new_instance": "2026-11-06T13:48:30.996+08:00 (PID 20648)",
+      "command": "shutdown.exe /l via _probe/do-logoff.ps1 (two earlier attempts ineffective: MSYS path conversion, bash variable), third took effect",
+      "count": 1,
+      "cap": 1
+    },
+    "logon": {
+      "event_7001_at": "2026-11-06T13:48:44.509+08:00",
+      "gap_after_logoff_seconds": 14.3,
+      "means_of_authentication": "NOT_PROVEN",
+      "why_not_proven": "HKLM Winlogon AutoAdminLogon empty and DefaultUserName unset (AutoLogonSID present, untouched); security log 4624 read denied without privilege; 14.3 s is faster than the user's own return message at 14:37:09, so A does not claim the user typed credentials",
+      "a_does_not_claim": "that the logon was a manual credential entry"
+    },
+    "autostart_evidence_accepted": {
+      "worker_pid": 28452,
+      "worker_created": "2026-11-06T13:49:08.058+08:00",
+      "worker_cmdline": "node.exe --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
+      "parent": "cmd.exe 31892 running the Startup agent-autoloop.cmd",
+      "grandparent": "explorer.exe 22368 (login shell)",
+      "up_log_created": "2026-11-06T13:49:08.055+08:00",
+      "up_log_first_line": "2026-11-06T05:49:10.334Z [worker] worker b-magicbook14 started",
+      "up_pid_file": "28452",
+      "single_instance": true,
+      "hub_established": "13.158.194.126:443",
+      "startup_entry_unchanged": "430 bytes aa2cfb4207edb8e3e67a0268d82fa19dddd0a1397374742052d17b45a40f28a6",
+      "meaning": "the Startup entry launched the worker inside the fresh logon session; no hand start was used"
+    },
+    "caveats_recorded": [
+      "the logon 14.3 s after logoff is a real 7001 logon event in a fresh session, but its authentication method is unproven and 4624 is unreadable without privilege",
+      "B first ran the observer with a faulty filter (worker_count=0 in item6-observe.jsonl, 3 samples), then re-shot at 14:38:41-14:43:30 with worker_count 1",
+      "observation window started about 49 minutes after the logon, so the live sampling proves steady state, not the first seconds; the first-seconds proof rests on process create time plus parent chain plus up.log"
+    ],
+    "a_run": {
+      "event": 39,
+      "subject": "A-FA-ITEM6-20261106-001",
+      "type": "fa.item6.a",
+      "run": 35,
+      "state": "done",
+      "attempts": 0,
+      "session": "01a1af9b-6df5-7b51-8378-6a7b8c2b6492",
+      "created_at": "2026-11-06T06:46:01.750Z",
+      "claimed_at": "2026-11-06T06:46:01.757Z",
+      "finished_at": "2026-11-06T06:47:05.815Z",
+      "usage": {
+        "input": 136493,
+        "output": 196,
+        "cached": 2048
+      },
+      "summary_first_line": "FA-6 登录后执行完成：ITEM6-20261106-1320",
+      "expected_first_line": "FA-6 登录后执行完成：ITEM6-20261106-1320",
+      "first_line_matches": true,
+      "second_line_expected": "login=ok",
+      "second_line_note": "the hub stores only the first line as summary; login=ok must be read from B's raw stdout for run 35"
+    },
+    "human_action_remaining": "none for the logon trigger itself; only B's raw bytes for run 35 are outstanding"
+  },
+  "b_action_required": {
+    "seq": 9,
+    "phase": "RUN35_BYTES",
+    "must_write": "B/evidence/deploy-b/final-accept-20261106/B-status.json",
+    "reply_to": "A-FA-20261106-007",
+    "items": [
+      "run 35 raw stdout bytes, sha256, line count, turn.completed line index, non-JSON line count, native exit code",
+      "first two lines of the final answer verbatim, so login=ok is proven from B's side, not from A's expectation",
+      "worker pid that executed run 35 (expected 28452), up.pid content, single instance at that time",
+      "confirm no second worker instance was started and no hand start was used",
+      "confirm startup entry bytes unchanged after the logon and no login-item edit was made",
+      "state whether any model exec, maintenance restart or logoff happened beyond the recorded 1 logoff"
+    ],
+    "do_not": [
+      "do not run another model turn for this evidence; it is file reading only",
+      "do not log off or restart again",
+      "do not upload raw logs to git; only hashes and the two verbatim lines"
+    ]
   }
 }
