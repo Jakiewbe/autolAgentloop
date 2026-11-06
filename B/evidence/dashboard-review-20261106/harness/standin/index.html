@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="zh-CN"><meta charset="utf-8"><title>工作流总览（参照实现）</title>
+<style>
+ body{font:14px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif;margin:0;padding:24px;background:#fafafa;color:#111}
+ h1{font-size:18px;margin:0 0 16px} h2{font-size:15px;margin:20px 0 8px}
+ .banner{padding:8px 12px;border-radius:6px;margin-bottom:12px;display:none}
+ .banner.on{display:block}
+ .err{background:#fde8e8;color:#8a1c1c} .offline{background:#fff4d6;color:#6b4d00}
+ .card{background:#fff;border:1px solid #e3e3e3;border-radius:8px;padding:12px;margin:8px 0}
+ .card[data-state=closed]{opacity:.6}
+ .opt{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+ textarea{width:100%;min-height:44px;margin-top:8px;font:inherit}
+ button{font:inherit;padding:4px 12px;border:1px solid #ccc;background:#fff;border-radius:6px;cursor:pointer}
+ button[disabled]{opacity:.5;cursor:not-allowed}
+ .meta{color:#666;font-size:12px} ul{padding-left:18px}
+ .timeline li{margin:2px 0}
+</style>
+<h1>工作流总览（参照实现，仅用于验收测试台自检）</h1>
+<div id=banner class="banner"></div>
+<div id=root>载入中…</div>
+<nav style="margin-top:16px"><button id=older>更早</button></nav>
+<script src="/app.js"></script>
+</html>

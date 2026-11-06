@@ -1,0 +1,132 @@
+{
+  "url": "http://127.0.0.1:8792/",
+  "center": "http://127.0.0.1:3182",
+  "at": "2026-11-06T10:56:15.626Z",
+  "tag": "SUITEMW4UZ875",
+  "results": [
+    {
+      "id": "T1",
+      "name": "选择与文字回答",
+      "status": "PASS",
+      "detail": "选项回答=中心 decided 且选项匹配；文字回答=已落库",
+      "ms": 1314,
+      "choiceCard": 1,
+      "textCard": 2,
+      "decision": {
+        "id": 1,
+        "version": 2,
+        "ref": null,
+        "kind": "ask",
+        "state": "decided",
+        "title": "SUITEMW4UZ875 选择颜色",
+        "text": "验收用问题",
+        "options": [
+          "蓝色",
+          "绿色"
+        ],
+        "recommend": null,
+        "choice": 1,
+        "answer": null,
+        "by": "本人",
+        "result": null,
+        "link": null,
+        "rule": "意见",
+        "createdAt": "2026-11-06T10:55:43.273Z",
+        "decidedAt": "2026-11-06T10:55:43.631Z",
+        "closedAt": null
+      },
+      "shot": "..\\evidence\\suite-standin-canonical\\T1.png"
+    },
+    {
+      "id": "T2",
+      "name": "notice 结案与 fyi 只读",
+      "status": "PASS",
+      "detail": "中心 state=closed；通知区内可操作元素=false",
+      "ms": 435,
+      "shot": "..\\evidence\\suite-standin-canonical\\T2.png"
+    },
+    {
+      "id": "T3",
+      "name": "已回答与后续完成分开",
+      "status": "UNVERIFIED",
+      "detail": "页面出现「已回答」语义=false；运行结果区独立存在=false",
+      "ms": 3171,
+      "shot": "..\\evidence\\suite-standin-canonical\\T3.png"
+    },
+    {
+      "id": "T4",
+      "name": "重复提交不重复派发",
+      "status": "PASS",
+      "detail": "两次提交状态 200/200；卡片 decided；答复后 run 数 5->5",
+      "ms": 2494,
+      "double": {
+        "first": 200,
+        "firstBody": "{\"changed\":true,\"state\":\"decided\"}",
+        "second": 200,
+        "secondBody": "{\"changed\":false,\"state\":\"decided\"}",
+        "afterFirstCount": 5
+      },
+      "shot": "..\\evidence\\suite-standin-canonical\\T4.png"
+    },
+    {
+      "id": "T5",
+      "name": "取消等待执行端确认",
+      "status": "PASS",
+      "detail": "界面显示待确认=true；中心 run 状态=claimed",
+      "ms": 3662,
+      "shot": "..\\evidence\\suite-standin-canonical\\T5.png"
+    },
+    {
+      "id": "T6",
+      "name": "时间线关联",
+      "status": "PASS",
+      "detail": "时间线含该卡片与其回答动作=true",
+      "ms": 2158,
+      "shot": "..\\evidence\\suite-standin-canonical\\T6.png"
+    },
+    {
+      "id": "T7",
+      "name": "分页与计划面",
+      "status": "UNVERIFIED",
+      "detail": "翻页请求 0 条；计划面 lines=2 elsewhere=1；页面含「计划」=true",
+      "ms": 3439,
+      "shot": "..\\evidence\\suite-standin-canonical\\T7.png"
+    },
+    {
+      "id": "T8",
+      "name": "断线保留旧数据并禁用操作",
+      "status": "PASS",
+      "detail": "断线后旧数据仍在=true；disabled 按钮数=4",
+      "ms": 7524,
+      "shot": "..\\evidence\\suite-standin-canonical\\T8.png"
+    },
+    {
+      "id": "T9",
+      "name": "错误不自动重试",
+      "status": "PASS",
+      "detail": "6 秒内 answer 请求次数=1（期望 1 次，不自动重试）",
+      "ms": 6695,
+      "shot": "..\\evidence\\suite-standin-canonical\\T9.png"
+    },
+    {
+      "id": "T10",
+      "name": "凭据与能力链接不进网页",
+      "status": "PASS",
+      "detail": "页面/存储泄漏密钥 0 处；请求 URL 泄漏 0 处；能力链接出现 0 次",
+      "ms": 1486,
+      "shot": "..\\evidence\\suite-standin-canonical\\T10.png"
+    }
+  ],
+  "shots": [
+    "..\\evidence\\suite-standin-canonical\\T1.png",
+    "..\\evidence\\suite-standin-canonical\\T2.png",
+    "..\\evidence\\suite-standin-canonical\\T3.png",
+    "..\\evidence\\suite-standin-canonical\\T4.png",
+    "..\\evidence\\suite-standin-canonical\\T5.png",
+    "..\\evidence\\suite-standin-canonical\\T6.png",
+    "..\\evidence\\suite-standin-canonical\\T7.png",
+    "..\\evidence\\suite-standin-canonical\\T8.png",
+    "..\\evidence\\suite-standin-canonical\\T9.png",
+    "..\\evidence\\suite-standin-canonical\\T10.png"
+  ]
+}
