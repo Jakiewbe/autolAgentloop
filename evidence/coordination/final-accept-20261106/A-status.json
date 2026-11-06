@@ -1,11 +1,11 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
-  "seq": 4,
-  "request_id": "A-FA-20261106-004",
-  "reply_to": "B-FA-20261106-004",
-  "phase": "RECOVER_NOW",
+  "seq": 5,
+  "request_id": "A-FA-20261106-005",
+  "reply_to": "B-FA-20261106-006",
+  "phase": "LOGOFF_NOW",
   "role": "A",
-  "observed_at": "2026-11-06T13:36:18+08:00",
+  "observed_at": "2026-11-06T13:45:03+08:00",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
   "build_identity": {
     "entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
@@ -60,7 +60,7 @@
     "item5_recovery_restarts": 1,
     "item6_login_triggers": 1
   },
-  "next_action": "B: RECOVER_NOW with the prepared script, then publish seq5 RECOVERED with the facts above. A: verify run 34 executed exactly once and item5 acceptance, then move to item6 LOGIN_READY.",
+  "next_action": "B: log off once now, user logs in in person, then publish seq7 LOGIN_OBSERVED; A: keep the queue empty and dispatch the single harmless item6 turn only after that receipt.",
   "b_prepared_review": {
     "accepted": true,
     "b_request_id": "B-FA-20261106-001",
@@ -124,11 +124,16 @@
     ]
   },
   "budget_used": {
-    "real_model_execs": 3,
+    "real_model_execs": 4,
     "a_new_hub_runs": 4,
-    "note": "run31 item2, run32 item4 (cancelled), run33 item5 interrupted (cancelled), run34 offline task queued",
-    "b_maintenance_restarts": 0,
-    "item5_recovery_restarts": 0,
+    "runs": [
+      31,
+      32,
+      33,
+      34
+    ],
+    "b_maintenance_restarts": 1,
+    "item5_recovery_restarts": 2,
     "item6_login_triggers": 0
   },
   "b_seq2_review": {
@@ -200,5 +205,31 @@
     "verdict": "PASS",
     "b_evidence": "66 samples at 2s: last alive 13:29:54.116, first dead 13:29:56.811; runner 34056/cli 10872/shell 16828/3 MCP helpers all gone; no exit file; no turn.completed; sleep item never completed; b-ping.txt unchanged; worker 33640 healthy",
     "no_native_exit_claimed": true
+  },
+  "b_seq5_review": {
+    "accepted": true,
+    "item5": "PASS: offline task queued while worker stopped, executed exactly once after recovery (run 34, attempts 1, exit 0, usage 139404/805/137216), no duplicate run dir; single instance restored on pid 30208 with up.pid 30208 and hub Established; command/version/model/identity unchanged",
+    "orphan_behaviour": "recorded as a real defect observation: taskkill /F on the worker does not cascade to runner/codex/waiting children; they finished naturally at ~13:36 and wrote exit-1=0 plus turn.completed",
+    "correction_on_run33_terminal_state": "A cancel returned ok at 13:36:04 but no worker was alive to ack it; when the recovered worker saw the on-disk receipt it closed run 33 as done at 13:37:53.519Z with usage 1124643/2355/1117440. So the hub terminal state is done, not cancelled. It is one model turn, closed once from its own receipt, not a duplicate execution; it is not evidence of a successful receipt during the outage window",
+    "recovery_starts": "2 starts (10784 reaped by its launcher timeout, 30208 resident) counted in B budget; A records both"
+  },
+  "item6": {
+    "subject": "A-FA-ITEM6-20261106-001",
+    "mode": "one real logoff by B, user re-login in person",
+    "a_preconditions_confirmed": {
+      "hub_busy_runs": [],
+      "queue_empty": true,
+      "a_will_not_dispatch_until_login_observed": true,
+      "startup_entry": "existing user startup cmd 430B aa2cfb42...28a6 unchanged by A",
+      "up_log_absent_pre_logoff": true
+    },
+    "b_actions_authorized": [
+      "execute exactly one shutdown /l now",
+      "do not hand-start the worker after login; user may restart only the coordination agent itself, not the worker",
+      "observe at least 120 seconds, sampling every 15s: worker process with creation time later than the logon time, parent chain to agent-autoloop.cmd or up.log first line later than logon, up.pid, hub 443",
+      "publish seq7 LOGIN_OBSERVED with real logon time, account, session, worker pid/created time, startup chain proof, single instance, up.pid, heartbeat resumption"
+    ],
+    "a_next_after_login": "dispatch exactly one harmless turn A-FA-ITEM6-20261106-001 (rule FA-登录) expecting first line FA-6 登录后执行完成：ITEM6-20261106-1320 and second line login=ok",
+    "failure_rule": "if no worker process appears inside the observation window, item6 is a failure and is not repaired by a manual start; only the existing user startup chain may be fixed with the original preserved, and there is no second logoff"
   }
 }
