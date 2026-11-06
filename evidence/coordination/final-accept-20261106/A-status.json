@@ -1,11 +1,11 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
-  "seq": 2,
-  "request_id": "A-FA-20261106-002",
-  "reply_to": "B-FA-20261106-001",
-  "phase": "ITEM2_DONE_ITEM4_RUNNING_SAMPLE_REQUESTED",
+  "seq": 3,
+  "request_id": "A-FA-20261106-003",
+  "reply_to": "B-FA-20261106-002",
+  "phase": "ITEM4_CANCELLED_ITEM5_STOP_REQUESTED",
   "role": "A",
-  "observed_at": "2026-11-06T13:23:25+08:00",
+  "observed_at": "2026-11-06T13:30:15+08:00",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
   "build_identity": {
     "entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
@@ -60,7 +60,7 @@
     "item5_recovery_restarts": 1,
     "item6_login_triggers": 1
   },
-  "next_action": "B: sample item4 running identities and publish seq2 RUNNING_SAMPLED; A: cancel as soon as that receipt lands.",
+  "next_action": "B: verify item4 cancellation (publish seq3 CANCELLED_VERIFIED) and stop worker 33640 while the FA-断线 run is running (seq4 WORKER_STOPPED); A: then cancel, queue one harmless task, allow recovery.",
   "b_prepared_review": {
     "accepted": true,
     "b_request_id": "B-FA-20261106-001",
@@ -105,26 +105,56 @@
     ]
   },
   "item4": {
+    "run": 32,
     "subject": "A-FA-ITEM4-20261106-001",
-    "rule": "FA-取消",
-    "mode": "A cancels a genuinely running turn",
-    "b_steps_now": [
-      "watch hub for the run whose events[].subject is A-FA-ITEM4-20261106-001 (rule FA-取消)",
-      "while it is claimed/running sample: worker pid 33640, the codex CLI pid, its parent, child processes, cmdline, creation time",
-      "publish B-status seq2 phase RUNNING_SAMPLED with run id, session, those identities, observed_at; do not stop or kill anything yourself",
-      "then wait for A-status seq3 cancellation evidence and immediately verify the whole tree is gone, no successful side effect, worker 33640 still healthy"
-    ],
-    "a_steps_next": [
-      "cancel that exact run id via /v1/runs/<id>/cancel",
-      "record cancellation latency and the run's terminal state",
-      "cross-check B tree-death receipt, do not fabricate native exit 0 when no exit file exists"
+    "cancel_issued_at": "2026-11-06T13:29:52+08:00",
+    "terminal_state": "cancelled",
+    "terminal_at": "2026-11-06T05:29:56.461Z",
+    "cancel_latency_seconds": 4.0,
+    "run_lifetime_seconds": 385,
+    "planned_wait_seconds": 480,
+    "usage": null,
+    "summary": "已停止",
+    "attempts": 0,
+    "a_verdict": "the run was genuinely mid-wait when cancelled; no final message, no usage, no exit file -> no native exit code exists and none is claimed",
+    "b_must_verify": [
+      "runner 34056, cli 10872, powershell 16828 and MCP helpers are all gone",
+      "no successful side effect: no elapsed= line, no exit-1 file created for this turn",
+      "worker 33640 alive, single instance, heartbeats resume"
     ]
   },
   "budget_used": {
-    "real_model_execs": 1,
-    "a_new_hub_runs": 1,
+    "real_model_execs": 2,
+    "a_new_hub_runs": 2,
     "b_maintenance_restarts": 0,
     "item5_recovery_restarts": 0,
     "item6_login_triggers": 0
+  },
+  "b_seq2_review": {
+    "accepted": true,
+    "item2": "PASS both sides: 7 command exits all 0, marker verbatim, independent ls shows NO_ITEM2_DIR, stdout 37 lines terminal 37, 0 non-JSON, native exit file content 0, usage equals A run 31",
+    "item4_sampled": "identities captured while running: worker 33640, runner 34056, cli 10872 (0.166 standard name), waiting powershell 16828 (Start-Sleep 480), MCP helpers 34564/12316/20248"
+  },
+  "item5": {
+    "subject": "A-FA-ITEM5-20261106-001",
+    "rule": "FA-断线",
+    "same_executor": "b-magicbook14 worker 33640",
+    "b_steps_now": [
+      "when the FA-断线 run shows claimed/running with the same cli+child shape, stop only this worker (33640) while the synthetic wait is still running",
+      "do not stop anything else, do not use the model to stop itself",
+      "publish B-status seq4 phase WORKER_STOPPED with: stop time, run id/session, whether runner/cli/child survived the stop, recovery script path+sha256 and the independent log path",
+      "then use D:\\AutoAgentloop\\_probe\\final-item5-recover.ps1 only when A-status seq4 says RECOVER_NOW"
+    ],
+    "a_steps_after_stop": [
+      "confirm b-magicbook14 offline in hub",
+      "cancel the interrupted run id so no automatic retry duplicates it",
+      "dispatch exactly one harmless queued task (fa.item5off.*)",
+      "publish seq4 with RECOVER_NOW"
+    ],
+    "acceptance": [
+      "offline queued task executed exactly once after recovery",
+      "interrupted task explained (cancelled by A after worker stop, no duplicate side effect)",
+      "single instance, new worker pid, up.pid consistent, heartbeat restored"
+    ]
   }
 }
