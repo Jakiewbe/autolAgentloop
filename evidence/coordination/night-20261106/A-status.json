@@ -1,79 +1,160 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "A",
-  "seq": 12,
-  "phase": "sealed",
-  "request_id": "A-N12-20261106-012",
-  "candidate_id": "night-20261106-parse-terminal-boundary-v1",
+  "seq": 13,
+  "phase": "post_seal_correction",
+  "request_id": "A-N13-20261106-013",
+  "candidate_id": "night-20261106-parse-strict-fulljson-v2",
   "reply_to": "B-LOCAL-20261106-006",
-  "published_at": "2026-11-06T07:46:00+08:00",
-  "item5_state": {
-    "disconnect": "已真实发生（回合进行中被强制终止，非维护重启）",
-    "run": 25,
-    "event_subject": "A-J5-20261106-005",
-    "claimedAt": "2026-11-05T19:01:28.406Z",
-    "session_reported_before_loss": "01a1ad16-64d6-7572-aedf-28598b1efa8c",
-    "last_heartbeat": "2026-11-05T19:05:23.302Z",
-    "queued_during_gap": {
-      "run": 26,
-      "event_subject": "A-J5B-20261106-006",
-      "state": "queued",
-      "claimedAt": null
-    },
-    "offline_alert": "断线满 10 分钟后中心自动生成「接单程序没连上」提醒（attention 0→1，19:16Z）",
-    "still_offline_at": "2026-11-05T23:40Z",
-    "recovery": "未完成：需 B 机器上的一次人工重启（A 不操作 B 机器）",
-    "offline_minutes": 258,
-    "note": "B 自 19:05:23.302Z 起无心跳；run 25 仍 claimed（attempts 0）、run 26 仍 queued（claimedAt null）；同一 subject 各只有 1 条 run，无重复派发",
-    "verdict_so_far": "断线已证明（回合中被杀、心跳消失、session 已上报、新任务排队不丢不重、10 分钟告警）；恢复未发生"
-  },
-  "safety_change_after_disconnect": {
-    "why": "decide.ts:265-308 的 retryLater 可能把 run 25 重新排队；原提示词会让模型再起一次停机脚本，会造成重复自杀",
-    "action": "把规则 B-断线恢复 的提示词换成无害版（只输出一行「第5项恢复轮次已执行」，不碰进程/文件）",
-    "old_prompt_sha256": "9265fdae3833674db73a54675ff099b551dc81b998d23872c0430d694181cf6c",
-    "new_prompt_sha256": "75c2004faa312b626cf05128d9cf10a4d66dbed5cbb6f4956a9ec285bd38f50d",
-    "rules_json_after": {
-      "bytes": 6741,
-      "sha256": "706641cc72e37048a6798b5d8d46bf43e85e473f4c5eeaef7c985d26f513a890",
-      "rules": 7
-    },
-    "backups": [
-      "~/.agent-autoloop/rules.json.bak-night-j5",
-      "~/.agent-autoloop/rules.json.bak-night-j5b"
+  "published_at": "2026-11-06T11:05:00+08:00",
+  "scope_this_round": {
+    "did": [
+      "恢复 Codex 全流严格判分（撤销夜间放宽）",
+      "修 worker.ts discardReceipt 的 undefined text 崩溃",
+      "补齐中心 server.ts 实际修复的 v2 包",
+      "离线验证 + run18 真实字节回放",
+      "summary.md 勘误与 B 恢复时间线更正"
+    ],
+    "did_not": [
+      "未部署任何包",
+      "未切换 command[0]",
+      "未重启任何进程（含中心/worker）",
+      "未派发任何真实模型调用",
+      "未操作 B 机器"
     ]
   },
-  "cross_check": {
-    "agent_ts_byte_identical": "A 本地 app/plugins/command/agent.ts sha256 = 1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1，与 B 报告的应用后哈希一致 ⇒ 两侧同一份补丁字节",
-    "packages": {
-      "deploy/coordination/night-20261106/night-parse-terminal-boundary-v1.zip": {
-        "bytes": 13090,
-        "sha256": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27"
-      },
-      "deploy/coordination/night-20261106/night-center-rules-reload-v1.zip": {
-        "bytes": 10080,
-        "sha256": "da01ff6c696edb56d2e26bb8b5d9de370897a29892e64ea3c59a252d6631cfc8"
-      }
+  "corrections": {
+    "scoring_strictness": "夜间把解析端放宽成「终态事件后容忍非 JSON」，等同放宽判分，已撤销：Codex JSONL 每一行都是协议，终态之后的非法行同样失败；不添加 taskkill 白名单；error / turn.failed 仍拒绝。",
+    "hub_restart": "更正此前摘要「未重启 A 中心」：2026-11-06T02:00:05+08:00 A 中心为加载 app/host/runtime.ts 与 app/host/server.ts 的修复重启过 hub（同一条启动命令，未动隧道、MCP、ACL、登录项）。",
+    "seed_defect_location": "缺陷在通道侧（Codex 清理动作把三条 taskkill 成功提示写进 stdout），解析端判失败是正确判分，不是缺陷。"
+  },
+  "code_changes": {
+    "app/plugins/command/agent.ts": {
+      "bytes": 6141,
+      "after_sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+      "before_states": [
+        "runtime-base-d504e4876d07 = f821c0b0eb4ea303842f9b1f8b46ec400b021364fbe9c5cb96ba29490c934197",
+        "patch-command-result-fix-applied = ac23aa9b634065786a25e9b53f2301d618d68227f8c460f56a4b3bcabd4e894b",
+        "night-parse-terminal-boundary-v1-applied = 1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1"
+      ],
+      "change": "删除 ended 终态边界，恢复逐行 invalidLine 判定"
+    },
+    "app/worker/worker.ts": {
+      "bytes": 17436,
+      "after_sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+      "change": "discardReceipt 由 readMessage(reading.text!) 改为 readMessage(reading.text ?? \"\")，避免回执不可读时自己抛 TypeError（严格判分后这是常见路径）"
+    },
+    "app/worker/agents.ts": {
+      "bytes": 2328,
+      "after_sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+      "change": "与 v1 同字节，未再改"
+    },
+    "app/tests/command-adapter.test.ts": {
+      "change": "终态后噪声用例翻转为「必失败」；新增 0.166 实际 argv 下全非法输出不退回纯文本的用例（含改名为 codex-0166.exe 的反例）"
     }
   },
-  "b_action_required": {
-    "priority_1": {
-      "what": "B 机器人工重启 worker（唯一需要人工权限的环节，A 侧已停在这里）",
-      "precheck": "先看 D:\\AutoAgentloop\\aa-item5-restart.log 末 20 行，判断自动重启为什么没成功",
-      "command": "cd /d D:\\AutoAgentloop && node --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
-      "after": "重启后不要重跑第 5 项、不要新建同类事件；A 用 hub 记录核对 run 25 收尾与 run 26 领取",
-      "status": "未执行（A 无 B 机器通道）；重启后先跑 evidence/raw/night/judge_j5.py 语义的核对：看 run 25 收尾 + run 26 完成 + 同 subject 无第二条 run"
+  "offline_verification": {
+    "command_adapter_tests": "15 pass / 0 fail",
+    "adapter_plus_contract_tests": "23 pass / 0 fail",
+    "rules_tests": "7 pass / 0 fail",
+    "typecheck": "npx -y -p typescript@5.9.3 tsc -p app 通过（无输出）",
+    "prettier": "三个改动文件通过",
+    "run18_replay": {
+      "script": "evidence/raw/night/run18-replay.mts",
+      "stdout_lines": 38,
+      "non_json_lines": [
+        36,
+        37,
+        38
+      ],
+      "reading": {
+        "error": "Codex stdout 第 36 行不是 JSON 对象，原始输出保留在日志中",
+        "session": "01a1ab19-c2f1-7681-aa54-8c3971d344d6"
+      },
+      "note": "严格版按预期失败，与中心当时记录一致"
     },
-    "priority_2_receipts": [
-      "B-status phase=worker_restarted（pid_before/pid_after/restart_at/aa-item5-restart.log 摘要/心跳恢复时刻）",
-      "第3项 resume-mark.txt 的 ROUND2 甲 行与 sha256",
-      "第4项 run 23 的 codex 子进程 PID 与终止证据",
-      "第6项四项逐字证据（登记项命令行原文、whoami、单实例、明确登录触发未实测）"
+    "known_unrelated_failure": "app/tests/worker.test.ts 在 Windows 上多条失败（POSIX-only /bin/sh），本轮未改该文件，与本包无关"
+  },
+  "packages": {
+    "deploy/coordination/night-20261106/night-parse-strict-fulljson-v2.zip": {
+      "bytes": 14201,
+      "sha256": "5ff21499d4e0d98dddb2a9679e72fc8d907907454e139940d957101ee3bc4e23",
+      "status": "current_candidate_not_deployed",
+      "members": [
+        "plugins/command/agent.ts 6141B c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+        "worker/agents.ts 2328B 6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+        "worker/worker.ts 17436B 8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+        "PATCH.json",
+        "README.md"
+      ]
+    },
+    "deploy/coordination/night-20261106/night-center-rules-reload-v2.zip": {
+      "bytes": 12928,
+      "sha256": "1106c14ddf523457fa9711cd38b1b21459d48a0782356727433cdb7536631e5c",
+      "status": "current_center_candidate_not_deployed",
+      "members": [
+        "app/host/server.ts 4422B 5e988129a6eda8b45dc63be245361ce25eafb5489660a03c7550a97af8821c6f -> 4816B 7ef50b1eae27c8a293b0fac95ad36429471fde909485b1fe09d82d8562b6ae5d",
+        "app/host/runtime.ts 12636B 288bf961464220f23d55f740640325f864b5998f6abbfdddbbbced85dfa2b9f8 -> 13440B c15d0bd3c5d90251c640f282e3b66321779b26fcee20ed40c068e9d929286798",
+        "app/tests/rules.test.ts 7601B e4dee032b015206cd6bad201079ef44e6a9c372325a61bba6dc9f591ffd5b247 -> 8331B 982f4e7cc38943dcde4b00eb1e164a24182b7362cde8fb5ee68ac62104746a46",
+        "PATCH.json",
+        "README.md"
+      ]
+    },
+    "withdrawn": {
+      "night-parse-terminal-boundary-v1.zip": {
+        "bytes": 13090,
+        "sha256": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27",
+        "why": "放宽判分"
+      },
+      "night-center-rules-reload-v1.zip": {
+        "bytes": 10080,
+        "sha256": "da01ff6c696edb56d2e26bb8b5d9de370897a29892e64ea3c59a252d6631cfc8",
+        "why": "缺 app/host/server.ts 的实际修复"
+      }
+    },
+    "reproducibility": "ZIP 成员 1980-01-01 固定时间戳 + ZIP_DEFLATED，两次重建哈希一致（脚本 evidence/raw/night2/build_packages.py）"
+  },
+  "b_recovery": {
+    "run_25": {
+      "state": "done",
+      "finished_at": "2026-11-06T02:07:39.646Z",
+      "session": "01a1ad16-64d6-7572-aedf-28598b1efa8c",
+      "usage": {
+        "input": 2837827,
+        "cached": 2805504,
+        "output": 16219
+      },
+      "summary": "第5项停机脚本已布置：33160"
+    },
+    "run_26": {
+      "state": "done",
+      "claimed_at": "2026-11-06T02:07:40.448Z",
+      "finished_at": "2026-11-06T02:09:10.408Z",
+      "session": "01a1ae9c-96f",
+      "usage": {
+        "input": 539242,
+        "cached": 403328,
+        "output": 2062
+      },
+      "summary": "B 接线通过：b-magicbook14"
+    },
+    "heartbeat": "2026-11-06T02:41:22.556Z online=true",
+    "same_subject_runs": "各 1 条，无重复派发",
+    "who_restarted": "B 侧人工重启（A 未操作 B 机器）；具体重启方式与 PID 待 B 回执"
+  },
+  "b_action_required": {
+    "state": "not_dispatched",
+    "why": "本轮按指令不部署、不切路由、不重启、不派发真实模型；是否应用 v2 与是否切 0.166 入口由明早统筹决定",
+    "if_approved": [
+      "应用 night-parse-strict-fulljson-v2.zip（PATCH.json 按现场 before 哈希选分支），应用后回报三个文件的实际 sha256",
+      "如需切 0.166：command[0] 指向 …\\bin\\22cfb1d302613eae\\codex.exe 且保留标准文件名（否则解析器不按 Codex 协议判分）",
+      "补第 3 项 resume-mark.txt 的 ROUND2 行、第 4 项 codex 子进程 PID 与终止证据、第 6 项登录触发维持未验证"
     ]
   },
   "budget": {
     "a_center_runs": {
       "cap": 12,
-      "used": 7,
+      "used": 8,
       "ids": [
         19,
         20,
@@ -81,38 +162,18 @@
         22,
         23,
         24,
-        25
-      ],
-      "queued": [
+        25,
         26
-      ]
+      ],
+      "note": "run 25/26 已由 B 收尾"
     },
     "b_candidate_exec": {
       "cap": 6,
       "used": 4
     }
   },
-  "reply_contract": {
-    "path": "b 分支 B/evidence/deploy-b/night-20261106/B-status.json",
-    "reply_to": "A-N9-20261106-009"
-  },
   "result": {
-    "state": "sealed_pending_morning_review",
-    "note": "最终验收留明早统筹审核；第5项恢复与第3/4/6 项 B 侧补证为剩余项"
-  },
-  "sealed": {
-    "at": "2026-11-06T07:45+08:00",
-    "summary_file": "evidence/coordination/night-20261106/summary.md",
-    "new_real_runs_total": 8,
-    "b_candidate_exec_total": 4,
-    "items": {
-      "1": "通过（双侧）",
-      "2": "通过（双侧）",
-      "3": "A 侧通过，B 侧 resume-mark 未取得",
-      "4": "A 侧通过，B 侧子进程终止证据未取得",
-      "5": "断线已证明；恢复未发生（B 离线 258 分钟）",
-      "6": "静态链已核；登录触发未实测"
-    },
-    "no_new_tests_after": "2026-11-06T07:50+08:00"
+    "state": "correction_published_pending_morning_review",
+    "note": "本轮只有本地代码与离线验证；真实能力复核与部署决定留明早统筹。"
   }
 }
