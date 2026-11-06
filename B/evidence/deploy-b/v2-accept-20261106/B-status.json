@@ -3,7 +3,7 @@
   "role": "B",
   "stage": "STRICT-V2-ACCEPT-20261106",
   "request_id": "B-V2-20261106-001",
-  "reply_to": "A-V2A-20261106-001",
+  "reply_to": "A-V2A-20261106-005",
   "prepared_at": "2026-11-06T12:11:00+08:00",
   "route_not_switched": true,
   "v2_not_applied_yet": false,
@@ -148,7 +148,7 @@
     "raw_logs_kept_local": true,
     "old_experiment_dirs_kept": true
   },
-  "phase": "APPLIED",
+  "phase": "STARTED",
   "stage_window": {
     "hard_stop_at": "2026-11-06T12:53:00+08:00"
   },
@@ -167,8 +167,8 @@
     },
     "b_restart": {
       "cap": 1,
-      "used": 0,
-      "note": "本步只执行停止；启动未做，待 ROUTE_READY 后一次启动计 1/1"
+      "used": 1,
+      "note": "停止(12:21) + 启动(12:29) 构成一次维护级重启"
     }
   },
   "hub_context_from_a": {
@@ -176,9 +176,9 @@
     "inflight_runs": 0,
     "latest_run": 26
   },
-  "seq": 2,
+  "seq": 3,
   "applied_at": "2026-11-06T12:21:30+08:00",
-  "worker_state": "stopped（按 A 顺序：重新采样 PID → 备份 → 只停本 worker → 覆盖 → 核 after；此步不启动）",
+  "worker_state": "running（本阶段唯一一次启动，b_restart 1/1）",
   "package_verify_at_apply": {
     "method": "Expand-Archive 到本机 apply 目录后逐成员 sha256 比对 PATCH after",
     "members": {
@@ -255,16 +255,61 @@
     "verified": "工作树除该文件外无其它改动；runtime 字节由本机脚本覆盖并逐个核哈希"
   },
   "waiting_for": {
-    "a_seq": 5,
-    "cond": "ROUTE_READY（A 把 command[0] 指向标准名 codex.exe）",
-    "then": "用已证方式启动 worker 一次（b_restart 1/1），核对单实例/up.pid/心跳，写 seq3=STARTED"
+    "a_step": "派发本阶段两条正式执行（a_formal_execs 0/2）",
+    "b_side": "只执行 A 派发的两轮测试，不额外跑独立模型；失败即如实上报"
   },
   "compliance_this_step": {
     "route_changed_by_b": false,
-    "worker_started": false,
-    "model_calls": 0,
-    "extra_runs": 0,
-    "v1_restored": false,
-    "identity_acl_label_unchanged": true
+    "exec_run_by_b": 0,
+    "extra_model_runs": 0,
+    "config_model_cwd_mcp_unchanged": true,
+    "identity_acl_label_unchanged": true,
+    "v1_restored": false
+  },
+  "started_at": "2026-11-06T12:29:15+08:00",
+  "start_record": {
+    "entry_path": "D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts",
+    "node": "C:\\Program Files\\nodejs\\node.exe v24.12.0",
+    "cmdline": "\"C:\\Program Files\\nodejs\\node.exe\" --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up",
+    "cwd": "D:\\AutoAgentloop",
+    "launched_pid": 33640,
+    "created": "2026-11-06T12:29:15.815+08:00",
+    "up_pid_file": "33640（与实际进程一致）",
+    "started_log_line": "2026-11-06T04:29:16.065Z [worker] worker b-magicbook14 started",
+    "worker_count": 1,
+    "stdout_log": "evidence/deploy-b/v2-accept-20261106/worker.stdout.v2-20261106T122915.log",
+    "stderr_log": "evidence/deploy-b/v2-accept-20261106/worker.stderr.v2-20261106T122915.log（0 字节）",
+    "start_method": "Start-Process（-PassThru -RedirectStandardOutput/Error，与 10:07 已验证驻留的方式相同），未改任何配置"
+  },
+  "heartbeat": {
+    "observed_at": "2026-11-06T12:30:11+08:00",
+    "tcp": "198.18.0.1:7978 → 198.18.1.108:443 ESTABLISHED（PID 33640）",
+    "stderr_bytes": 0,
+    "note": "hub 侧 seenAt 由 A 观测；B 侧证据为长轮询连接建立且无错误输出"
+  },
+  "runtime_after_recheck": {
+    "checked_at": "2026-11-06T12:30:11+08:00",
+    "plugins/command/agent.ts": {
+      "bytes": 6141,
+      "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+      "match": true
+    },
+    "worker/worker.ts": {
+      "bytes": 17436,
+      "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+      "match": true
+    },
+    "worker/agents.ts": {
+      "bytes": 2328,
+      "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+      "match": true,
+      "untouched": true
+    }
+  },
+  "route_observed": {
+    "a_route_change_file": "C:\\Users\\chs\\.agent-autoloop\\rules.json（A 中心机，rules 13283B sha256 3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f）",
+    "b_local_rules_file": "本机不存在 rules.json；B worker 的规则由 hub 按 run 下发（command-1.json 携带 command 数组），故 B 侧无需本地改路由",
+    "command_after_command0": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "b_changed_route": false
   }
 }
