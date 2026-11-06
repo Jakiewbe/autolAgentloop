@@ -1,11 +1,11 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
-  "seq": 7,
-  "request_id": "A-FA-20261106-007",
+  "seq": 8,
+  "request_id": "A-FA-20261106-008",
   "reply_to": "B-FA-20261106-006",
-  "phase": "ITEM6_ACCEPTED_PENDING_B_RUN35_BYTES",
+  "phase": "READY_FOR_FINAL_AUDIT",
   "role": "A",
-  "observed_at": "2026-11-06T14:50:00+08:00",
+  "observed_at": "2026-11-06T15:05:00+08:00",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
   "build_identity": {
     "entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
@@ -26,7 +26,7 @@
   },
   "fixed_heads": {
     "main": "3ffbf34639c9a6570791cd3d83f1e9ecd73ec796",
-    "b": "8d3ed1c",
+    "b": "20e3632b4b7bee36dd4c665429d544fa32e758f8",
     "main_before_seq6": "04c0ef11cd261040dc8214c27db501cca6789c1f"
   },
   "hub_observed": {
@@ -138,7 +138,8 @@
     "b_logoffs": 1,
     "b_cap_logoffs": 1,
     "retries": 0,
-    "internal_repairs": 0
+    "internal_repairs": 0,
+    "b_self_counted_execs": 4
   },
   "b_seq2_review": {
     "accepted": true,
@@ -354,7 +355,35 @@
       "second_line_expected": "login=ok",
       "second_line_note": "the hub stores only the first line as summary; login=ok must be read from B's raw stdout for run 35"
     },
-    "human_action_remaining": "none for the logon trigger itself; only B's raw bytes for run 35 are outstanding"
+    "human_action_remaining": "none for the logon trigger itself; only B's raw bytes for run 35 are outstanding",
+    "b_seq10_verdict": "PASS_ON_AUTOSTART_WITH_UNPROVEN_LOGON_METHOD",
+    "b_run35_evidence": {
+      "executed_by": "worker 28452 launched by the logon Startup entry, not a hand start",
+      "run_dir": "runs/35-1",
+      "native_exit": "exit-1 = 0 (content sha 5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9)",
+      "answer_verbatim": "FA-6 登录后执行完成：ITEM6-20261106-1320\nlogin=ok",
+      "answer_matches_required": true,
+      "usage_b_side": {
+        "input": 136493,
+        "cached": 2048,
+        "output": 196,
+        "reasoning_output": 173
+      },
+      "usage_hub_side": {
+        "input": 136493,
+        "output": 196,
+        "cached": 2048
+      },
+      "b_reported_hashes": {
+        "stdout-1.log": "39934e7276e7d98d7a3dfd00dd4057de2c20093cdba4948c54f517759826e582",
+        "stderr-1.log": "c2d843385c6f2e876a93553e94325e21bb78e214e508cf9b4f8c04b1c4885b9a",
+        "command-1.json": "4b199d198f9985da3196ba2c5b252826008b87ab9b5ffc8a4d9186687041bee5",
+        "context.json": "29941eb874deee62327e495e10073e1de60056e023ae282835318ca1d51c6fd0"
+      },
+      "hash_caveat": "these hashes are reported by B; A did not receive the raw bytes and therefore does not claim independent recomputation"
+    },
+    "a_final_note": "the second line login=ok is now proven from B raw stdout, not from A's expectation",
+    "a_verdict": "PASS (autostart on logon) with the logon authentication method recorded as unproven"
   },
   "b_action_required": {
     "seq": 9,
@@ -374,5 +403,60 @@
       "do not log off or restart again",
       "do not upload raw logs to git; only hashes and the two verbatim lines"
     ]
+  },
+  "closeout": {
+    "stage_rules_removed": [
+      "FA-临时目录",
+      "FA-取消",
+      "FA-断线",
+      "FA-离线",
+      "FA-登录"
+    ],
+    "rules_before": {
+      "bytes": 10460,
+      "sha256": "75f3d6225bee956ae4acffd83d5d45a7fc0f11352c6aeb693cedcde9b1fe69c3",
+      "count": 12
+    },
+    "rules_after": {
+      "bytes": 6650,
+      "sha256": "639bf9b3dbfef400b7b2ae676239a3ddc707b97ad0a7ac63367484c06b3fee54",
+      "count": 7,
+      "names": [
+        "试一下",
+        "演练断电",
+        "A-Claude只读验收",
+        "B-接线验证",
+        "B-临时目录",
+        "B-接续验证",
+        "B-断线恢复"
+      ]
+    },
+    "rules_backup": "~/.agent-autoloop/rules.json.bak-final-cleanup",
+    "hub_reload_verified": "facts seq 8675 carries 7 rules and command[0] is still the 0.166 standard-name entry",
+    "queue_and_cards": "no queued, claimed or running runs; no open test cards",
+    "route_unchanged": "0.166 standard-name entry, model deepseek-v4.1-flash-1017, cwd D:\\AutoAgentloop, worker b-magicbook14, access edit, timeout 30"
+  },
+  "deviations_and_open_items": [
+    "logon 7001 came 14.3 s after the logoff, AutoAdminLogon empty, 4624 unreadable without privilege: authentication method unproven, recorded as such",
+    "taskkill /F on the worker does not cascade to runner/codex/children (item5 evidence); recovery relies on the on-disk receipt",
+    "run 33 ended as done, not cancelled, because the orphan turn finished and the recovered worker concluded it; one turn, one conclusion",
+    "B observer script first ran with a faulty filter (worker_count=0, 3 samples) and was re-shot at 14:38:41-14:43:30",
+    "model metadata warning 'deepseek-v4.1-flash-1017 not found, defaulting to fallback metadata' appeared in run 35 stdout, non-fatal, grading unchanged",
+    "stderr rmcp lines point at the unreachable remote ps/mcp endpoint; stdio cua_repl/node_repl unaffected",
+    "worker.test.ts is POSIX-only and fails on Windows; not part of this stage, unchanged"
+  ],
+  "final_verdict": {
+    "self_declared_total_acceptance": false,
+    "items_with_a_dispatched_real_test": [
+      2,
+      4,
+      5,
+      6
+    ],
+    "items_reused_from_previous_stage": [
+      1,
+      3
+    ],
+    "note": "A hands this to the morning coordinator; A does not declare the overall acceptance"
   }
 }
