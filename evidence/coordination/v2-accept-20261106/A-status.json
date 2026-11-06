@@ -1,0 +1,97 @@
+{
+  "stage": "STRICT-V2-ACCEPT-20261106",
+  "role": "A",
+  "seq": 1,
+  "phase": "stage_published",
+  "request_id": "A-V2A-20261106-001",
+  "candidate_id": "night-20261106-parse-strict-fulljson-v2",
+  "reply_to": null,
+  "published_at": "2026-11-06T12:10:00+08:00",
+  "stage_window": {
+    "started_at": "2026-11-06T12:08:00+08:00",
+    "hard_stop_at": "2026-11-06T12:53:00+08:00",
+    "minutes": 45
+  },
+  "fixed_main": "73781d830d983c7cf8e8966cc8fdbeca012d7848",
+  "package": {
+    "path": "deploy/coordination/night-20261106/night-parse-strict-fulljson-v2.zip",
+    "bytes": 14201,
+    "sha256": "5ff21499d4e0d98dddb2a9679e72fc8d907907454e139940d957101ee3bc4e23",
+    "after": {
+      "plugins/command/agent.ts": {
+        "bytes": 6141,
+        "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74"
+      },
+      "worker/agents.ts": {
+        "bytes": 2328,
+        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471"
+      },
+      "worker/worker.ts": {
+        "bytes": 17436,
+        "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82"
+      }
+    }
+  },
+  "center_package": {
+    "path": "deploy/coordination/night-20261106/night-center-rules-reload-v2.zip",
+    "bytes": 12928,
+    "sha256": "1106c14ddf523457fa9711cd38b1b21459d48a0782356727433cdb7536631e5c",
+    "policy": "只核对 A 当前 after；已匹配则 already applied，不覆盖不重启"
+  },
+  "route_before": {
+    "command": [
+      "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+      "exec",
+      "{resumeArgs}",
+      "--skip-git-repo-check",
+      "{cwdArgs}",
+      "--json",
+      "-m",
+      "{model}",
+      "{prompt}"
+    ],
+    "model": "deepseek-v4.1-flash-1017",
+    "cwd_rule": "D:\\AutoAgentloop",
+    "note": "本阶段只改 command[0]，其余原样"
+  },
+  "b_target_entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+  "hub_observed": {
+    "probed_at": "2026-11-06T04:07:31Z",
+    "b_online": true,
+    "b_seen_at": "2026-11-06T04:07:03.380Z",
+    "inflight_runs": 0,
+    "latest_run": 26
+  },
+  "b_action_required": {
+    "step": "PREPARED",
+    "must": [
+      "只并列复制官方 npm 完整 package 到目标目录，不改源/目标标签或 ACL，不运行安装器，不下载别的版本，不改 PATH 与原 0.130",
+      "主程序 368970544B / 6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c 必须对上",
+      "最多一次 CREATE_SUSPENDED 查初始完整性 Medium 后立即终止；最多一次 --version 确认 codex-cli 0.166.0-alpha.5.1 原生 0；不调用 exec/MCP",
+      "回 PREPARED 到 b 分支 B/evidence/deploy-b/v2-accept-20261106/B-status.json，reply_to = A-V2A-20261106-001",
+      "不自行切路由、不自行重启 worker"
+    ]
+  },
+  "budget": {
+    "a_formal_execs": {
+      "cap": 2,
+      "used": 0
+    },
+    "b_restart": {
+      "cap": 1,
+      "used": 0
+    },
+    "b_cli_probe": {
+      "version_cap": 1,
+      "suspended_token_cap": 1
+    }
+  },
+  "version_boundaries": [
+    "第 6 项真实登录触发仍未验证",
+    "取消/断线仅在旧 0.130 + 夜间字节测过，对新组合未重测",
+    "改名 CLI 纯文本回退分支仍存在且不被批准为正式形态"
+  ],
+  "result": {
+    "state": "awaiting_b_prepared"
+  }
+}
