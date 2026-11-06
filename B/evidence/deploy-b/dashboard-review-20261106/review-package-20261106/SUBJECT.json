@@ -1,0 +1,95 @@
+{
+  "subject": "dashboard-item-key-cancel-v2",
+  "note": "受审 ZIP 本体不随审核包分发；本文件登记它的身份（字节数 + sha256）与 15 个成员哈希。build-lock 默认按本文件断言受审构建，拿到实际 ZIP 时用 REVIEW_ZIP=<path> 复核真实字节。",
+  "zip": {
+    "file": "incoming/dashboard-item-key-cancel-v2.zip",
+    "bytes": 58408,
+    "sha256": "c66a3c64db5f1a5c2270d0cf1130a5ac764d2dcee7eaffefd0d1808d0309a525"
+  },
+  "servedFiles": [
+    "dashboard/server.mjs",
+    "dashboard/public/app.js",
+    "dashboard/public/workflow.mjs",
+    "dashboard/public/index.html",
+    "dashboard/public/styles.css"
+  ],
+  "members": [
+    {
+      "path": "PATCH.json",
+      "bytes": 5576,
+      "sha256": "c68264b63da6cf1916b6d30ed3cf4ff7f3717741c5e7561601d5576b6fd0aa034"
+    },
+    {
+      "path": "README.md",
+      "bytes": 2648,
+      "sha256": "7d180ff5fbc03fe73b4de9d756d7021ac14c47509d11586d2ab4a87ec3672a52"
+    },
+    {
+      "path": "dashboard/README.md",
+      "bytes": 5992,
+      "sha256": "32d79b408d2e94a4eadb10f862f17a8a224693cafa092875e8438bcf2bf05c0f"
+    },
+    {
+      "path": "dashboard/app-text.test.mjs",
+      "bytes": 1659,
+      "sha256": "435a3de5558b69e0d29376dbf5438c76fc26b6b6308fa153a06ac81ff9cb87b5"
+    },
+    {
+      "path": "dashboard/public/app.js",
+      "bytes": 40117,
+      "sha256": "fc7c6ba3947d956fe05b65af2423ab30259bdfdc5dd8855c480c7b7ff0ed2926"
+    },
+    {
+      "path": "dashboard/public/index.html",
+      "bytes": 4472,
+      "sha256": "ba59799d3567bfd64ffe9d9f242c88883d671e62e9d26053edaba527cace4070"
+    },
+    {
+      "path": "dashboard/public/styles.css",
+      "bytes": 31148,
+      "sha256": "8b7ece17c4b94a08376a1613574fb1dd640bdf8fabf8d42ca4b0886b0ca6bb0f"
+    },
+    {
+      "path": "dashboard/public/workflow.mjs",
+      "bytes": 5843,
+      "sha256": "11babc0eacbc109f46c891a44941b1a58de52fa97dc2fabd0cdf2b532db8af4a"
+    },
+    {
+      "path": "dashboard/server.mjs",
+      "bytes": 16373,
+      "sha256": "744c7b9d168fc3bccb067bfd1a0e621597637fb1336b00f7eee1634611db34b8"
+    },
+    {
+      "path": "dashboard/server.test.mjs",
+      "bytes": 25963,
+      "sha256": "eeac71cc54398240531ed75d67d83798ae601f6227c6ce4c8af63231184ea6f2"
+    },
+    {
+      "path": "evidence/dashboard-workflow/browser-qa.mjs",
+      "bytes": 12797,
+      "sha256": "8d85ef45d0b5ba078d66343785dacf51f3ed27191e441d76dee96736e535a40e"
+    },
+    {
+      "path": "evidence/dashboard-workflow/fix-report.md",
+      "bytes": 9463,
+      "sha256": "c008f0bb5631acccd1da5f91ec4ed28657b468faf7b2c598aed5c11ae34eb77d"
+    },
+    {
+      "path": "evidence/dashboard-workflow/fixture-v2.mjs",
+      "bytes": 7762,
+      "sha256": "bc8cc0a9e40571dd4f039304641f8e6cfa30774d19129a1a0766bb9c23dc15ce"
+    },
+    {
+      "path": "evidence/dashboard-workflow/probe-live.mjs",
+      "bytes": 955,
+      "sha256": "79a758da91ec122f2792d54f18ba9263e6e720fbe3366a4aa8b18323a6577a02"
+    },
+    {
+      "path": "evidence/dashboard-workflow/probe-live2.mjs",
+      "bytes": 1064,
+      "sha256": "24b886ef635e43796705a8034e700a055ce8bb1d1e99c8e496d2f7a30a484806"
+    }
+  ],
+  "generatedFrom": "incoming/dashboard-item-key-cancel-v2.zip（本机解析中央目录 + inflateRaw，逐个成员重算 sha256）",
+  "at": "2026-11-06T15:47:07.792Z"
+}

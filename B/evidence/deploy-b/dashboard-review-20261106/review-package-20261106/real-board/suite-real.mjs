@@ -6,8 +6,9 @@ import { setTimeout as sleep } from "node:timers/promises";
 import { bootBoard } from "./board.mjs";
 import { openRealPage } from "./page-real.mjs";
 import { hub2 } from "../selftest-v2/lib2.mjs";
+import { writeGuard } from "./write-guard.mjs";
 
-export const SUITE_VERSION = "dashboard-real-suite-v2.1.0";
+export const SUITE_VERSION = "dashboard-real-suite-v2.2.0";
 const HERE = import.meta.dirname;
 const OUT_ROOT = path.join(HERE, "..", "evidence");
 
@@ -386,7 +387,7 @@ const CASES = [
       await page.clickOptional('[data-open-card="' + asked.card.id + '"]');
       await wait(600);
       const offlineMsg = await page.raw.eval("(() => { const el = document.querySelector('#action-message'); return el && !el.hidden ? (el.innerText || '').trim() : ''; })()");
-      const writes = (await page.requests()).filter((url) => String(url).indexOf("/api/cards/") >= 0).length;
+      const guard = writeGuard(await page.requests());
       const dialogOpen = await page.raw.eval("!!document.querySelector('#action-dialog[open]')");
       await gate.stop();
       await page.setOffline(false);
@@ -396,7 +397,7 @@ const CASES = [
       const checks = [
         { name: "断线时提示并可重试", ok: Boolean(offline.stale === true && /暂时/.test(offline.alert) && offline.retry >= 1 && attempts >= 1), detail: JSON.stringify({ stale: offline.stale, alert: offline.alert, retry: offline.retry, attempts: attempts }) },
         { name: "过期时点操作被拒", ok: Boolean(offlineMsg.indexOf("已过期") >= 0 && dialogOpen === false), detail: JSON.stringify({ message: offlineMsg, dialogOpen: dialogOpen }) },
-        { name: "被拒时不发写入请求", ok: writes === 0, detail: JSON.stringify({ writes: writes }) },
+        { name: "被拒时不发写入请求（分母=本回合 /api/* 总数）", ok: guard.ok, detail: JSON.stringify({ writes: guard.writes, total: guard.total }) },
         { name: "恢复后重新可操作", ok: Boolean(back.stale === false && target && target.actionable > 0), detail: JSON.stringify({ stale: back.stale, actionable: target && target.actionable }) },
       ];
       return verdict(checks);

@@ -5,11 +5,13 @@ import { spawn } from "node:child_process";
 import { createHmac } from "node:crypto";
 import { existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import path from "node:path";
+import os from "node:os";
 
 const REVIEW = path.join(import.meta.dirname, "..");
 const APP = process.env.REVIEW_APP_DIR
   ?? (existsSync(path.join(REVIEW, "app")) ? path.join(REVIEW, "app") : path.join(REVIEW, "review-package-20261106", "app"));
-const HOME = process.env.REVIEW_Q4_HOME ?? path.join(REVIEW, "incoming", "q4-home");
+// 默认落在系统临时目录：包里不留库/主密钥/case token（这类材料不出包）。
+const HOME = process.env.REVIEW_Q4_HOME ?? path.join(os.tmpdir(), "q4-home-" + Date.now().toString(36));
 const PORT = Number(process.env.REVIEW_Q4_PORT ?? 34521);
 const BASE = "http://127.0.0.1:" + PORT;
 const OUT = path.join(REVIEW, "evidence", "q4-centry-" + new Date().toISOString().replace(/[:.]/g, "-"));
@@ -29,7 +31,8 @@ writeFileSync(path.join(HOME, "rules.json"), JSON.stringify(RULES, null, 2));
 
 const stamp = () => "q4-" + Date.now() + "-" + Math.random().toString(36).slice(2, 6);
 const results = [];
-const note = (name, ok, detail) => results.push({ name, ok, detail });
+// ok: true=运行通过；false=运行失败；null=仅源码断言（未运行验证，不计入通过数）
+const note = (name, ok, detail, flags = {}) => results.push({ name, ok, ...flags, detail });
 
 function startKernel() {
   const child = spawn(process.execPath, [path.join(import.meta.dirname, "kernel-host.mjs"), String(PORT), APP], {
@@ -111,28 +114,41 @@ try {
 
   note(
     "GET 不校验有效期（源码 http.ts:103 直接返回页面，无创建时间判断）",
-    true,
-    JSON.stringify({ source: "app/kernel/http.ts:103", linkLifetime: "7 * 86400_000 @ app/kernel/http.ts:24" }),
+    null,
+    JSON.stringify({ source: "app/kernel/http.ts:103", linkLifetime: "7 * 86400_000 @ app/kernel/http.ts:24", verified: false }),
+    { sourceOnly: true, runtimeVerified: false, runtimeProbe: "real-board/q4-expiry.mjs" },
   );
   note(
-    "POST 过期即拒（源码 http.ts:104-106，本轮未构造过期样本，未验证）",
-    true,
-    JSON.stringify({ verified: false, reason: "未改系统时间、未改数据库，过期分支仅源码判断" }),
+    "POST 过期即拒（源码 http.ts:104-106；运行期证据见 real-board/q4-expiry.mjs）",
+    null,
+    JSON.stringify({ source: "app/kernel/http.ts:104-106", verified: false, reason: "未改系统时间、未改数据库，过期分支仅源码判断" }),
+    { sourceOnly: true, runtimeVerified: false, runtimeProbe: "real-board/q4-expiry.mjs" },
   );
 
   const stillOpen = findCard(await state(), card.id);
   note("签收后卡片仍是同一张、状态可读", Boolean(stillOpen), JSON.stringify({ state: stillOpen?.state, by: stillOpen?.by, answer: stillOpen?.answer }));
 } finally {
   await stopKernel(kernel);
+  // 跑完即清：临时 HOME 里有内核自建的库与主密钥，不留在任何目录里。
+  if (!process.env.REVIEW_Q4_HOME) rmSync(HOME, { recursive: true, force: true });
 }
 
 const record = {
   at: new Date().toISOString(),
-  kernel: { app: APP, home: HOME, port: PORT, note: "临时 HOME 由本探针自建（fixture rules.json + 内核自建库/主密钥），随后可删；生产 HOME 与生产库未触碰" },
+  kernel: { app: APP, home: HOME, homeRemoved: !process.env.REVIEW_Q4_HOME, port: PORT, note: "临时 HOME 在系统临时目录自建（fixture rules.json + 内核自建库/主密钥），跑完即删；生产 HOME 与生产库未触碰" },
   results,
 };
 writeFileSync(path.join(OUT, "record.json"), JSON.stringify(record, null, 2));
 console.log("OUT " + OUT);
-console.log("Q4CENTRY " + JSON.stringify(results.map((row) => [row.name, row.ok])));
-console.log("FAILED " + JSON.stringify(results.filter((row) => !row.ok)));
-process.exitCode = results.some((row) => !row.ok) ? 1 : 0;
+const passed = results.filter((row) => row.ok === true);
+const failed = results.filter((row) => row.ok === false);
+const sourceOnly = results.filter((row) => row.ok === null);
+console.log("Q4CENTRY " + JSON.stringify({
+  checks: results.map((row) => [row.name, row.ok]),
+  passed: passed.length,
+  failed: failed.length,
+  sourceOnly: sourceOnly.length,
+  total: results.length,
+}));
+console.log("FAILED " + JSON.stringify(failed));
+process.exitCode = failed.length ? 1 : 0;
