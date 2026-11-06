@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 9,
-  "request_id": "B-FA-20261106-009",
-  "reply_to": "A-FA-20261106-005",
-  "phase": "EVIDENCE_COMPLETE",
+  "seq": 10,
+  "request_id": "B-FA-20261106-010",
+  "reply_to": "A-FA-20261106-006",
+  "phase": "ITEM6_COMPLETED_PENDING_AUDIT",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T14:49:00+08:00",
+  "observed_at": "2026-11-06T14:52:00+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -201,7 +201,7 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "等待 A 最终审核；B 保持 worker 28452 单实例健康运行与空闲队列，不再新增真实运行",
+  "next_action": "等 A（统筹）最终审核 item6 定性；B 保持 worker 28452 单实例健康、队列空闲，不再新增真实运行",
   "item4_verification": {
     "run": 32,
     "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
@@ -380,7 +380,7 @@
   "item4_verdict": "PASS（A 侧 4 秒取消延迟 + B 侧 2.3 秒树死确认 + 无终态/无 exit 文件/无副作用）",
   "item6": {
     "subject": "A-FA-ITEM6-20261106-001",
-    "state": "PASS（登录启动项在真实登录会话中自动拉起单实例 worker，路径与登记一致）；附一条如实说明：注销后系统在 14 秒内出现新的登录通知，不是用户本人凭据登录事件",
+    "state": "PASS（登录触发已实测：注销→登录事件→启动项拉起单实例 worker→执行 A 派发任务 exit 0 → 回复逐字正确）；仍保留 §6 如实说明：触发登录事件出现在注销后 14.3 秒，不能断言为用户亲手输入凭据",
     "pre_checks": {
       "queue_idle_local": true,
       "runs_without_exit": 0,
@@ -501,7 +501,32 @@
         "9001-1（空探针目录）"
       ],
       "note": "三处无 exit 均有据可查：两条为 A 主动取消的 run，一条为空目录，无未完成派发"
-    }
+    },
+    "a_dispatched_test_id": "A-FA-ITEM6-20261106-001（A seq6 之后派发的 fa.item6.a）",
+    "dispatched_received": "2026-11-06T06:46:01.750Z（= 14:46:01+08）",
+    "executed_by": "登录启动项拉起的 worker 28452（非 B 手工启动）",
+    "run": 35,
+    "run_dir": "runs/35-1",
+    "session": "01a1af9b-6df5-7b51-8378-6a7b8c2b6492",
+    "native_exit": "exit-1 = 0",
+    "usage": {
+      "input": 136493,
+      "cached": 2048,
+      "cache_write": 0,
+      "output": 196,
+      "reasoning_output": 173
+    },
+    "answer_verbatim": "FA-6 登录后执行完成：ITEM6-20261106-1320\nlogin=ok",
+    "answer_matches_required": true,
+    "hashes": {
+      "command-1.json": "4b199d198f9985da3196ba2c5b252826008b87ab9b5ffc8a4d9186687041bee5",
+      "context.json": "29941eb874deee62327e495e10073e1de60056e023ae282835318ca1d51c6fd0",
+      "stdout-1.log": "39934e7276e7d98d7a3dfd00dd4057de2c20093cdba4948c54f517759826e582",
+      "stderr-1.log": "c2d843385c6f2e876a93553e94325e21bb78e214e508cf9b4f8c04b1c4885b9a",
+      "exit-1": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9"
+    },
+    "note_model_meta_warning": "stdout 首事件提示 `Model metadata for deepseek-v4.1-flash-1017 not found. Defaulting to fallback metadata`（与夜间段同签名，非致命，未改判分）",
+    "note_mcp_stderr": "stderr 两条 rmcp 致命行仅指向远程 ps/mcp（https://chatgpt.com/backend-api/ps/mcp）不可达，stdio 的 cua_repl/node_repl 不受影响；本任务未使用 MCP"
   },
   "summary_sha256": "7cfad7d44b348c4aa0d20e265ede9594b62f3b6b2de250a8694c6aff0aad627e",
   "manifest_sha256": "c0b01a01bc9b8864edb00646494b8e781f14b0df186b77d92a13548e3f364dd1",
@@ -517,7 +542,7 @@
     "single_instance": true,
     "up_pid": "28452",
     "hub": "13.158.194.126:443 Established",
-    "queue": "idle（21 个 run 目录，无待执行）",
+    "queue": "idle（22 个 run 目录，run 35 已 exit 0，无待执行）",
     "candidate": "codex-cli 0.166.0-alpha.5.1（未切换）",
     "model": "deepseek-v4.1-flash-1017",
     "cwd": "D:\\AutoAgentloop",
