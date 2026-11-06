@@ -2,120 +2,122 @@
   "night_id": "STRICT-V2-ACCEPT-20261106",
   "role": "A",
   "stage": "STRICT-V2-ACCEPT-20261106",
-  "seq": 5,
-  "phase": "ROUTE_READY",
-  "request_id": "A-V2A-20261106-005",
-  "reply_to": "B-V2-20261106-001",
-  "published_at": "2026-11-06T12:29:00+08:00",
-  "b_applied_verified": {
-    "branch": "b",
-    "commit": "b2bab74",
-    "commit_subject": "B v2-accept seq2 APPLIED: resample worker PID 9420 -> taskkill that PID only -> backup 2 files -> overwrite agent.ts(c077041d,6141B)+worker.ts(8416191f,17436B), agents.ts already after -> all after hashes hit; worker stays stopped awaiting ROUTE_READY",
-    "runtime_after": {
-      "plugins/command/agent.ts": {
-        "bytes": 6141,
-        "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
-        "match": true
+  "seq": 6,
+  "phase": "EXEC_DONE_AWAITING_B_SIDE_LOG",
+  "request_id": "A-V2A-20261106-006",
+  "reply_to": "B-V2-20261106-002",
+  "published_at": "2026-11-06T12:41:00+08:00",
+  "effective_route_confirmed": {
+    "method": "GET /v1/runs/29/why 返回 hub 当前已加载的 config.rules 行（不是本地文件读回）",
+    "agent": "b-magicbook14",
+    "command_0": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+    "argv_tail": [
+      "exec",
+      "{resumeArgs}",
+      "--skip-git-repo-check",
+      "{cwdArgs}",
+      "--json",
+      "-m",
+      "{model}",
+      "{prompt}"
+    ],
+    "model": "deepseek-v4.1-flash-1017",
+    "interpretation": "hub 端已加载 0.166 标准名入口；未改模型/cwd 参数/worker/MCP"
+  },
+  "formal_execs": {
+    "budget": "2/2 已用（自动重试 0 次；两条 run 均 attempts=0）",
+    "exec1": {
+      "event": "33",
+      "subject": "A-V2EXEC1-20261106-001",
+      "type": "v2.accept.item1",
+      "routed": [
+        "V2-验收"
+      ],
+      "run": 29,
+      "state": "done",
+      "attempts": 0,
+      "createdAt": "2026-11-06T04:30:54.567Z",
+      "claimedAt": "2026-11-06T04:30:54.570Z",
+      "finishedAt": "2026-11-06T04:32:02.337Z",
+      "summary_exact": "V2 初轮通过：V2A-D45D004B",
+      "error": null,
+      "session": "01a1af1f-ba77-7451-9963-e14049e17b99",
+      "usage": {
+        "input": 1009471,
+        "output": 2730,
+        "cached": 998144
       },
-      "worker/worker.ts": {
-        "bytes": 17436,
-        "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
-        "match": true
-      },
-      "worker/agents.ts": {
-        "bytes": 2328,
-        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
-        "match": true,
-        "untouched": true
+      "card": {
+        "id": 10,
+        "title": "V2 验收初轮：选甲或乙",
+        "options": [
+          "甲",
+          "乙"
+        ],
+        "state_at_creation": "open",
+        "token_in_text": true
       }
     },
-    "a_side_identical": true,
-    "worker_state": "stopped",
-    "compliance_all_true": true,
-    "note": "A 独立按包内 after 值核对，两侧同一份字节；B 未切路由、未跑 exec、未改身份/ACL/标签/路径。"
-  },
-  "route_change": {
-    "file": "C:\\Users\\chs\\.agent-autoloop\\rules.json",
-    "backup": "C:\\Users\\chs\\.agent-autoloop\\rules.json.bak-v2accept-route",
-    "agent": "b-magicbook14",
-    "changed_fields": [
-      "command[0]"
-    ],
-    "command_before": [
-      "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
-      "exec",
-      "{resumeArgs}",
-      "--skip-git-repo-check",
-      "{cwdArgs}",
-      "--json",
-      "-m",
-      "{model}",
-      "{prompt}"
-    ],
-    "command_after": [
-      "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
-      "exec",
-      "{resumeArgs}",
-      "--skip-git-repo-check",
-      "{cwdArgs}",
-      "--json",
-      "-m",
-      "{model}",
-      "{prompt}"
-    ],
-    "unchanged": {
-      "model": "deepseek-v4.1-flash-1017",
-      "worker": "b-magicbook14",
-      "access": "edit",
-      "timeout": 30,
-      "name": "B / MagicBook14",
-      "use": "command",
-      "cwdArgs": "首轮 -C D:\\AutoAgentloop / 续接为空"
-    },
-    "rules_json": {
-      "bytes": 13283,
-      "sha256": "3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f",
-      "rules": 10
-    },
-    "strict_recognition": "basename=codex.exe 且 argv 含 --json ⇒ codexCommand 成立，全流严格 JSON 判定生效"
-  },
-  "hub_reload": {
-    "read_only_rule_views": "/v1/rules /v1/config /v1/agents /v1/status /v1/why 全 404，无只读规则视图可直接回读",
-    "hot_reload_mechanism_proven_before": "event 29 ack routed ['B-断线恢复'] 证明 rules.json 改动即被 watcher 加载",
-    "center_code_untouched": true,
-    "center_restarted": false
-  },
-  "runs_this_stage": {
-    "27": {
-      "rule": "V2-准备",
-      "state": "cancelled",
-      "attempts": 1,
-      "note": "模型已发布回执后主动上报远端提交取消；回执实际存在，按事实记录"
-    },
-    "28": {
-      "rule": "V2-应用",
-      "state": "cancelled",
+    "exec2": {
+      "trigger": "/v1/cards/10/answer choice=1 → 自动入队同 session",
+      "run": 30,
+      "state": "done",
       "attempts": 0,
-      "note": "B 自行完成维护且 worker 已停止，该派发无人领取，按阶段清理取消"
-    },
-    "busy_now": []
+      "createdAt": "2026-11-06T04:32:16.657Z",
+      "claimedAt": "2026-11-06T04:32:16.669Z",
+      "finishedAt": "2026-11-06T04:32:41.631Z",
+      "summary_exact": "V2 续接通过：乙：V2A-D45D004B",
+      "same_session_as_exec1": true,
+      "session": "01a1af1f-ba77-7451-9963-e14049e17b99",
+      "usage": {
+        "input": 1462654,
+        "output": 3365,
+        "cached": 1431936
+      },
+      "card10_final": {
+        "state": "done",
+        "choice": 1,
+        "result": "V2 续接通过：乙：V2A-D45D004B",
+        "decidedAt": "2026-11-06T04:32:16.657Z",
+        "closedAt": "2026-11-06T04:32:41.631Z"
+      }
+    }
   },
-  "b_next": {
-    "step": "START_NOW",
-    "order": [
-      "仅在 B 机器启动 worker 一次（用你惯用且不改变配置的方式），保持单实例",
-      "核对 up.pid 与实际进程、确认在线心跳（hub 侧 seenAt 在 120 秒内刷新）",
-      "不改 command/model/cwd/MCP/身份/标签/ACL/登录项",
-      "不跑任何 exec（正式执行由 A 派发）",
-      "写 b 分支 B/evidence/deploy-b/v2-accept-20261106/B-status.json：seq 3、phase STARTED、pid、进程创建时间、entry_path、runtime 三文件哈希复核、在线心跳观测时间、exec_used=0"
-    ],
-    "reply_to": "A-V2A-20261106-005"
+  "what_a_can_verify": [
+    "hub 侧两条 run 均 done、attempts 0、无 error、无重试，时间上连续不重叠",
+    "两条 summary 与 A 侧 prompt 规定格式逐字相符（含 token V2A-D45D004B）",
+    "两轮同一 session 01a1af1f-… ⇒ 0.166 resume 路径与适配器续接成立",
+    "usage 为真实数字且两轮不同（含 cached），不是占位",
+    "卡片 10 出卡、被回答、随第二轮关单，result 与 run 30 summary 一致",
+    "hub 已加载的 rules 里 command[0] 为 0.166 标准名 exe、模型未变"
+  ],
+  "what_a_cannot_verify_from_hub": [
+    "node_repl MCP 实际返回 2（hub 的 run.summary 只存第一行；工具调用明细在 B 端 worker 日志）",
+    "原生退出码、stdout 总行数与终态行号、终态后非 JSON 行数、严格判定是否真的拦/放",
+    "同一字节的 stdout 是否含 0.166 的 taskkill 尾部噪声"
+  ],
+  "b_side_request_now": {
+    "step": "REPORT_EXEC_EVIDENCE_ONLY",
+    "do_not_run_again": "预算 2/2 已用，禁止再跑 exec；只从本地日志取证",
+    "fields": "写 b 分支 B/evidence/deploy-b/v2-accept-20261106/B-status.json：seq 4、phase EXEC_DONE、exec1/exec2 的 { run 对应 subject、worker 本地 out 目录、stdout 总行数、终态行号、终态后非 JSON 行数、native exit code、模型最终消息前两行（第一行为指定回复、第二行为 node_repl 返回）、node_repl 单次调用的返回是否为 2、usage 数字}；脱敏，不上传原始 stdout/stderr/rollout/argv/env",
+    "reply_to": "A-V2A-20261106-006"
   },
   "budget": {
-    "a_formal_execs": "0/2",
-    "b_restart": "1/1 已用（本阶段唯一一次维护级停止/启动）",
+    "a_formal_execs": "2/2 已用",
+    "a_hub_runs_this_stage": [
+      27,
+      28,
+      29,
+      30
+    ],
+    "b_restart": "1/1 已用",
     "hard_stop_at": "2026-11-06T12:53:00+08:00"
   },
+  "deviations": [
+    "B 侧在 A 发布 seq5 ROUTE_READY 之前（12:29:15+08）就启动了 worker；因 A 已于 12:28 先完成 command[0] 切换，启动时路由已是 0.166，未产生错误路径执行",
+    "A 回答卡片时传 choice=1（即选项乙），与阶段文字示例“选甲”不同；续接验证目的（同 session 续接）不受影响，按事实记录",
+    "A 未把 B 的 APPLIED 与两条 exec 的 MCP/退出码/行数视为已独立验证：那部分只能由 B 端日志证明"
+  ],
   "constraints_in_force": [
     "不改判分",
     "不过滤非 JSON",
@@ -123,6 +125,7 @@
     "不重装",
     "不改身份/标签/权限",
     "不重启 A 中心",
-    "只发布本阶段材料"
+    "不重做六项",
+    "不宣布总验收"
   ]
 }
