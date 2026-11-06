@@ -1,7 +1,7 @@
 {
   "night_id": "STRICT-V2-ACCEPT-20261106",
   "role": "B",
-  "generated_at": "2026-11-06T05:10:00.000Z",
+  "generated_at": "2026-11-06T05:14:00.000Z",
   "local_root": "D:\\AutoAgentloop\\evidence\\deploy-b\\v2-accept-20261106",
   "policy": "原始 stdout/stderr/rollout/argv/env 与身份登录材料只留本机；发布侧仅脱敏回执、回放脚本与解析结果",
   "local_files": [
@@ -119,8 +119,8 @@
   "published_subset": [
     {
       "path": "B-status.json",
-      "bytes": 26824,
-      "sha256": "645427f094cfedeeb556ced92b378e1f83aef31b5cbef44ebc955e19df4666f2"
+      "bytes": 28778,
+      "sha256": "6875a1d8134de6f4a772f2fa23ef60ede9f9941adc877d59c938261cd56b9a3b"
     },
     {
       "path": "PREPARED.md",
@@ -139,8 +139,8 @@
     },
     {
       "path": "summary.md",
-      "bytes": 9035,
-      "sha256": "8895154274c25202f03cb5a5b90d29f0da352483c03f1ce8b2761f5b178d0e60"
+      "bytes": 10056,
+      "sha256": "1c6d6426cd42aee6a5a8c3a96cd45fda66ecd5be6d1add21e7d26e6c9b3698b8"
     }
   ],
   "counts": {

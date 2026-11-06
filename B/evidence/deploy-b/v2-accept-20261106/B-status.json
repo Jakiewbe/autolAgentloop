@@ -5,11 +5,11 @@
   "request_id": "B-V2-20261106-001",
   "reply_to": "A-V2A-20261106-006",
   "prepared_at": "2026-11-06T12:11:00+08:00",
-  "seq": 5,
+  "seq": 6,
   "phase": "EXEC_DONE",
   "phase_label": "正式两轮均已完成（A 派发 run 29/run 30，2/2 通过）；阶段目标达成，等统筹复核；worker 与正式入口保持运行，B 未再执行任何模型调用",
   "receipt_type": "audit_and_state_normalization",
-  "audited_at": "2026-11-06T13:06:00+08:00",
+  "audited_at": "2026-11-06T13:14:00+08:00",
   "historical_states": [
     {
       "at": "2026-11-06T12:11:00+08:00",
@@ -619,11 +619,44 @@
       "读取 run27 目录与 worker 日志核对原生执行次数",
       "确认冲突状态文件已恢复到 HEAD 且工作树干净",
       "确认 run27 相关进程无残留",
-      "把准备期旧字段归入 historical_states 并标注当前状态为正式两轮完成"
+      "把准备期旧字段归入 historical_states 并标注当前状态为正式两轮完成",
+      "抓取 main 3ffbf34（A seq8）并与 A 的 run27 台账交叉核对（usage 逐数字相等、session 来自 A、run28 本机无目录）"
     ],
     "preserved": [
       "旧实验目录未清理",
       "_night/b-repo 未整仓 add（只提交单个文件）"
     ]
+  },
+  "cross_check_with_a_closeout": {
+    "main_tip": "3ffbf34639c9a6570791cd3d83f1e9ecd73ec796（A-V2A-20261106-008，STATIC_CLOSEOUT_PUBLISHED，2026-11-06T13:05+08:00）",
+    "a_status_source": "evidence/coordination/v2-accept-20261106/A-status.json（main）",
+    "a_side_request_now": "REPORT_EXEC_EVIDENCE_ONLY（预算 2/2 已用，禁止再跑 exec）→ 已由本文件 seq4 满足，本轮未新增执行",
+    "run27_ledger": {
+      "a_ledger": {
+        "state": "cancelled",
+        "attempts": 1,
+        "session": "01a1af0b-7d8f-7ec0-9552-f3ec198390e0",
+        "usage": {
+          "input": 7951169,
+          "output": 45430,
+          "cached": 7772544
+        }
+      },
+      "b_local": {
+        "native_execs": 1,
+        "native_exit_code": 0,
+        "turn_completed": true,
+        "usage": {
+          "input_tokens": 7951169,
+          "output_tokens": 45430,
+          "cached_input_tokens": 7772544,
+          "reasoning_output_tokens": 19284
+        }
+      },
+      "usage_equal": true,
+      "reconciliation": "两口径不冲突：A 的 state=cancelled/attempts=1 指中心在回执远端提交被取消后排队的重试（未执行即被取消）；B 本地只看到 1 次原生执行、模型 turn 以 turn.completed 正常结束、worker 在提交阶段判 failed。因此 run 27 计入真实模型调用 1 次、不计入正式验收 exec。"
+    },
+    "run28": "A 记 claimed=false；本机 worker/runs 下无 28-* 目录，与 A 一致（未领取即取消，无执行）",
+    "read_method_note": "本 clone 为单分支 refspec（remote.origin.fetch 仅 b），origin/main 曾停在 96bc760；本轮用 git fetch origin '+refs/heads/main:refs/remotes/origin/main' 才取到 3ffbf34。此前「main 无新提交」的旧断言属同一原因，已作废。"
   }
 }

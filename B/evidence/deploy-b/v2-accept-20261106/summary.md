@@ -100,3 +100,11 @@
 
 审计产物（本机）：`evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1306/run27-execution-audit.json` 3424B `57373d8328ec34581f628441133082c8b8da2e383356451ea88e5b5ae3d7e508`。
 本轮零模型调用、零新 run、未重启 worker、未改 runtime/配置/路由/身份/权限，未清理旧实验目录。
+
+## 10. 与 A seq8 收口的交叉核对（main `3ffbf34`，13:05+08）
+
+- A 的 `ledger_correction.run27` 记 usage 7951169 / 7772544 / 45430、session `01a1af0b-7d8f-7ec0-9552-f3ec198390e0`、state=cancelled、attempts=1 —— 与本机 run 27 的 `turn.completed` 数字**逐项相等**。
+- 两口径不冲突：A 的 cancelled/attempts=1 指中心在回执提交失败后排队的重试（未执行即被取消）；B 本地只有 1 次原生执行、退出码 0、turn 正常结束、worker 在提交阶段判 failed。故 run 27 = 真实模型调用 1 次，不属正式验收 exec。
+- `run28`：A 记 claimed=false，本机 `worker/runs` 无 `28-*` 目录，一致。
+- A 的 `b_side_request_now` 仍是 REPORT_EXEC_EVIDENCE_ONLY，已由本文件 seq4 满足；本轮未新增任何执行。
+- 读取口径修正：本 clone 为单分支 refspec（`remote.origin.fetch` 仅 b），`origin/main` 曾停在 `96bc760`；须用 `git fetch origin '+refs/heads/main:refs/remotes/origin/main'` 才取到真实 tip。
