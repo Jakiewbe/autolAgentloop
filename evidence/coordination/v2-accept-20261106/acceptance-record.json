@@ -102,5 +102,91 @@
     "真实模型执行（正式两条尚未派发）",
     "B 侧应用结果（待 PREPARED 与 after 哈希）",
     "六项总验收"
-  ]
+  ],
+  "technical_baseline": {
+    "accepted_by_review": true,
+    "entry": "0.166 standard-name codex.exe (368970544B, sha256 6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c)",
+    "parser": "strict v2 full-stream JSON (agent.ts 6141B c077041d…, worker.ts 17436B 8416191f…, agents.ts 2328B 6c150fc0…)",
+    "model": "deepseek-v4.1-flash-1017",
+    "six_item_acceptance": "not declared"
+  },
+  "stage_ledger": {
+    "formal_execs": {
+      "passed": 2,
+      "failed": 0,
+      "retries": 0,
+      "runs": [
+        29,
+        30
+      ]
+    },
+    "real_model_calls_at_least": 3,
+    "real_model_call_runs": [
+      27,
+      29,
+      30
+    ],
+    "run27": {
+      "role": "prep turn",
+      "state": "cancelled",
+      "attempts": 1,
+      "usage": {
+        "input": 7951169,
+        "output": 45430,
+        "cached": 7772544
+      },
+      "counts_as_real_call": true,
+      "counts_as_formal_exec": false
+    },
+    "run28": {
+      "state": "cancelled",
+      "attempts": 0,
+      "claimed": false,
+      "counts_as_execution": false
+    },
+    "b_maintenance_restart": {
+      "used": 1,
+      "cap": 1
+    }
+  },
+  "temp_rules_cleanup": {
+    "removed": [
+      "V2-准备",
+      "V2-验收",
+      "V2-应用"
+    ],
+    "kept": [
+      "试一下",
+      "演练断电",
+      "A-Claude只读验收",
+      "B-接线验证",
+      "B-临时目录",
+      "B-接续验证",
+      "B-断线恢复"
+    ],
+    "rules_json_before": {
+      "bytes": 13283,
+      "sha256": "3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f",
+      "count": 10
+    },
+    "rules_json_after": {
+      "bytes": 6650,
+      "sha256": "639bf9b3dbfef400b7b2ae676239a3ddc707b97ad0a7ac63367484c06b3fee54",
+      "count": 7
+    },
+    "backup": "C:\\Users\\chs\\.agent-autoloop\\rules.json.bak-v2accept-cleanup",
+    "agents_block_unchanged": true,
+    "hot_reload_evidence": {
+      "source": "hub facts table (read-only sqlite)",
+      "latest_rules_seq": 8095,
+      "at": "2026-11-06T04:55:58Z",
+      "rules_count": 7,
+      "command_0_is_0_166": true
+    },
+    "pending_runs": []
+  },
+  "scheduling_policy": {
+    "rule": "prep/maintenance/publish are done by B-side DSH, never dispatched to the model under test",
+    "reason": "run27 prep turn cost one real model call and produced a stray B-status write (966e7634/blocked=true) alongside B DSH's authoritative write"
+  }
 }

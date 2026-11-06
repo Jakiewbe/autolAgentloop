@@ -2,11 +2,11 @@
   "night_id": "STRICT-V2-ACCEPT-20261106",
   "role": "A",
   "stage": "STRICT-V2-ACCEPT-20261106",
-  "seq": 7,
-  "phase": "STAGE_CLOSED_WITH_B_EVIDENCE",
-  "request_id": "A-V2A-20261106-007",
-  "reply_to": "B-V2-20261106-002",
-  "published_at": "2026-11-06T12:52:00+08:00",
+  "seq": 8,
+  "phase": "STATIC_CLOSEOUT_PUBLISHED",
+  "request_id": "A-V2A-20261106-008",
+  "reply_to": "A-V2A-20261106-007",
+  "published_at": "2026-11-06T13:05:00+08:00",
   "effective_route_confirmed": {
     "method": "GET /v1/runs/29/why 返回 hub 当前已加载的 config.rules 行（不是本地文件读回）",
     "agent": "b-magicbook14",
@@ -239,5 +239,119 @@
       "未部署中心包、未重启中心"
     ],
     "remaining_manual": "统筹复核 A seq6/seq7 与 B seq4 后决定是否把 0.166+严格 v2 定为正式通道；若要在该组合下重验六项，需另行授权"
-  }
+  },
+  "ledger_correction": {
+    "formal_execs": {
+      "passed": 2,
+      "failed": 0,
+      "retries": 0,
+      "runs": [
+        29,
+        30
+      ],
+      "cap": 2,
+      "used": 2
+    },
+    "real_model_calls_at_least": 3,
+    "real_model_call_runs": [
+      27,
+      29,
+      30
+    ],
+    "run27": {
+      "note": "V2-准备 回合确有真实模型调用与真实 usage，不是 0；但不计为正式验收 exec",
+      "state": "cancelled",
+      "attempts": 1,
+      "session": "01a1af0b-7d8f-7ec0-9552-f3ec198390e0",
+      "usage": {
+        "input": 7951169,
+        "output": 45430,
+        "cached": 7772544
+      }
+    },
+    "run28": {
+      "note": "从未被任何 worker 领取，取消，不算执行",
+      "state": "cancelled",
+      "attempts": 0,
+      "claimed": false
+    },
+    "b_maintenance_restart": {
+      "used": 1,
+      "cap": 1
+    }
+  },
+  "scheduling_reason_record": {
+    "what_happened": "A 把「准备+核对+发回执」这类 B 侧准备任务派给了被测模型（A-V2PREP-20261106-001 / v2.prep.item1 → run 27），理由是 B 协调端只在 hub 有活时才醒",
+    "cost": [
+      "多花一次真实模型调用（run 27）",
+      "模型与 B 端 DSH 同时写 B/evidence/deploy-b/v2-accept-20261106/B-status.json，产生 stray 回执 966e7634 / blocked=true，A 只采用 DSH 权威版"
+    ],
+    "policy_going_forward": "准备、维护、发布一律由 B 端 DSH 完成，不派给被测模型；hub 事件只用于需要被测模型真实执行的验收回合"
+  },
+  "temp_rules_cleanup": {
+    "removed": [
+      "V2-准备",
+      "V2-验收",
+      "V2-应用"
+    ],
+    "kept": [
+      "试一下",
+      "演练断电",
+      "A-Claude只读验收",
+      "B-接线验证",
+      "B-临时目录",
+      "B-接续验证",
+      "B-断线恢复"
+    ],
+    "rules_json_before": {
+      "bytes": 13283,
+      "sha256": "3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f",
+      "count": 10
+    },
+    "rules_json_after": {
+      "bytes": 6650,
+      "sha256": "639bf9b3dbfef400b7b2ae676239a3ddc707b97ad0a7ac63367484c06b3fee54",
+      "count": 7
+    },
+    "backup": "C:\\Users\\chs\\.agent-autoloop\\rules.json.bak-v2accept-cleanup",
+    "untouched_verified": {
+      "agents_block_byte_equal": true,
+      "other_top_level_keys_equal": true,
+      "command_0": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+      "model": "deepseek-v4.1-flash-1017"
+    },
+    "hot_reload_confirmed": {
+      "source": "hub facts table read-only sqlite (不靠读本地文件推断)",
+      "latest_rules_seq": 8095,
+      "observed_at": "2026-11-06T04:55:58Z",
+      "rules_count": 7,
+      "v2_rules_present": false,
+      "command_0_is_0_166": true
+    },
+    "pending_runs": [],
+    "no_new_model_runs": true
+  },
+  "technical_baseline": {
+    "accepted_by_review": true,
+    "composition": [
+      "0.166 标准名入口 codex.exe 368970544B sha256 6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c",
+      "严格 v2 全流 JSON 判定 agent.ts 6141B c077041d… / worker.ts 17436B 8416191f… / agents.ts 2328B 6c150fc0…"
+    ],
+    "model": "deepseek-v4.1-flash-1017",
+    "six_item_acceptance": "未宣布（本阶段不重做六项）"
+  },
+  "this_turn_constraints_honored": {
+    "new_model_runs": 0,
+    "new_dispatches": 0,
+    "restarts": 0,
+    "center_untouched": true,
+    "history_preserved": true
+  },
+  "published_now": [
+    "evidence/coordination/v2-accept-20261106/A-status.json",
+    "evidence/coordination/v2-accept-20261106/stage-summary.md",
+    "evidence/coordination/v2-accept-20261106/acceptance-record.md",
+    "evidence/coordination/v2-accept-20261106/acceptance-record.json"
+  ],
+  "remaining_manual": "统筹复核本轮收口（总账 2/2 + run27 真实调用、调度规则、三条临时规则移除与热加载、基线认可）；六项跨机联调若需在 0.166 组合下重验另行授权"
 }

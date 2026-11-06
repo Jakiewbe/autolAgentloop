@@ -32,9 +32,33 @@ A 侧能证明的（run 状态、原样回复、token、usage、卡片闭环、h
 | 3 | 同 session 续接 | 通过 | run 30 done attempts 0，同 session 01a1af1f-…，summary 逐字「V2 续接通过：乙：V2A-D45D004B」，usage 1462654/3365/1431936 |
 | 4 | 严格 JSON 判分未放宽 | 通过（离线+现网） | 现网 0.166 输出被判分器接受且回复原样；离线 30/30 测试、13 条反例（终态后噪声必失败、0.166 实际 argv 全非法流必报错） |
 | 5 | 路由真实切换 | 通过 | GET /v1/runs/29/why 回读 hub 已加载 config：command[0]=0.166 exe、model=deepseek-v4.1-flash-1017 |
-| 6 | B 端取值（MCP 返回 2 / 原生退出码 / 行数） | 未由 A 证明 | 待 B seq 4；A 不从 hub 推断 |
+| 6 | B 端取值（MCP 返回 2 / 原生退出码 / 行数） | 通过（B 日志，已回收） | B seq 4（b 分支 1b79099）：exec1 stdout 29 行/终态第 29 行/0 非 JSON/native exit 0/26633B cb5d2368…；exec2 14 行/终态第 14 行/0 非 JSON/native exit 0/8475B a70bcde2…；node_repl 返回 2 与 4；usage 与 hub 逐数字相同；B 另用 v2 适配器离线回放同字节被接受 |
 
-真实执行预算：A 中心本阶段 run 27(cancelled)、28(cancelled 多余派发)、29(done)、30(done)；正式 exec **2/2**；B 维护重启 **1/1**。
+## 阶段总账（更正版，2026-11-06 13:00 静态收口）
+
+- run 29、run 30：**正式验收执行 2/2 通过**（attempts 0，无自动重试），计入 2 次正式 exec 上限。
+- run 27：**另有一次真实模型调用**（V2-准备回合）。模型确实执行过并产生真实 usage（input 7951169 / output 45430 / cached 7772544，session 01a1af0b-7d8f-7ec0-9552-f3ec198390e0）。它不算“正式验收 exec”，但**是本阶段真实模型调用，不能记成 0**。⇒ 本阶段真实模型调用 **≥3 次**（27 / 29 / 30）。
+- run 28：从未被任何 worker 领取（claimedAt null、attempts 0），04:27:43Z 取消 ⇒ **不算一次执行**，不进入真实调用计数。
+- B 维护重启 **1/1**（12:21 停止 → 12:29 启动，一次维护级重启）。
+
+## 调度原因记录（run 27 与 B 端双写）
+
+- run 27 的内容是“准备 + 包核对 + 发回执”，本该由 B 端 DSH 直接做。当时 A 用中心事件（A-V2PREP-20261106-001 / v2.prep.item1）把它派给了被测模型，理由只是“B 的协调端只在 hub 有活时才醒”。代价很直接：多花一次真实模型调用；而且模型与 B 端 DSH 同时写同一路径 B/evidence/deploy-b/v2-accept-20261106/B-status.json，产生 stray 回执（966e7634 / blocked=true）。A 只采用 DSH 的权威版，stray 版不采用。
+- 固定做法（后续）：**准备、维护、发布由 B 端 DSH 完成，不派给被测模型**；hub 事件只用于“需要被测模型真实执行”的验收回合。
+
+## 规则收尾（只移除本阶段三条临时规则）
+
+- 移除：V2-准备、V2-验收、V2-应用（本阶段为调度临时加的）。保留：试一下、演练断电、A-Claude只读验收、B-接线验证、B-临时目录、B-接续验证、B-断线恢复。
+- rules.json：13283B 3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f（10 条）→ 6650B 639bf9b3dbfef400b7b2ae676239a3ddc707b97ad0a7ac63367484c06b3fee54（7 条）；备份 rules.json.bak-v2accept-cleanup（13283B）。
+- 除 rules 数组外，其余顶层键与 agents.b-magicbook14 逐字未变（脚本比对 True）：正式入口仍是 0.166 标准名 codex.exe，模型仍是 deepseek-v4.1-flash-1017。
+- 热加载已确认（读 hub 事实库，不是读文件推断）：最新 rules 行 seq 8095 / 04:55:58Z，规则 7 条，command[0] 仍指向 0.166 的 codex.exe。
+- 无待执行任务：/v1/state 中 queued/claimed/running 为空（27 cancelled、28 cancelled、29 done、30 done）。
+
+## 当前技术基线
+
+- 统筹本轮认可：**0.166 标准名入口 + 严格 v2 全流 JSON 判定**为当前正式技术基线。
+- 仍未宣布六项跨机联调总验收；六项不在本阶段重做。
+
 
 ## 偏差（按事实记录）
 
@@ -44,9 +68,9 @@ A 侧能证明的（run 状态、原样回复、token、usage、卡片闭环、h
 
 ## 剩余最小人工动作
 
-1. B 写 B-status seq 4（只取证不重跑）：exec1/exec2 的 stdout 行数、终态行号、终态后非 JSON 行数、native exit code、最终消息两行、node_repl 是否返回 2、usage；脱敏。
-2. 统筹复核 A seq6 与 B seq4 后决定是否把 0.166 + 严格 v2 定为正式通道；A 不自行宣布总验收。
-3. 六项跨机联调未在本阶段重做；如需在 0.166 组合下重验，另行授权。
+1. 统筹复核本轮收口材料（A seq6/seq7/seq8 + B seq4）：总账（正式 2/2、真实模型调用 ≥3）、调度规则、三条临时规则移除与热加载确认、基线认可。
+2. 六项跨机联调未在本阶段重做；若要在 0.166 + 严格 v2 组合下重验，需另行授权并给新的 run 预算。
+3. 中心包 night-center-rules-reload-v2.zip（1106c14d…）仍只核对未部署未重启，需要部署时由统筹点头。
 
 ## 不做的事
 
