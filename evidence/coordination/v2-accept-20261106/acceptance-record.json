@@ -1,0 +1,106 @@
+{
+  "stage": "STRICT-V2-ACCEPT-20261106",
+  "request_id": "A-V2A-20261106-001",
+  "recorded_at": "2026-11-06T12:16:00+08:00",
+  "method": "executed commands on A; numbers taken from command output; raw logs kept local (paths + sha256 only)",
+  "packages": {
+    "parse_v2": {
+      "path": "deploy/coordination/night-20261106/night-parse-strict-fulljson-v2.zip",
+      "bytes": 14201,
+      "sha256": "5ff21499d4e0d98dddb2a9679e72fc8d907907454e139940d957101ee3bc4e23",
+      "testzip": null
+    },
+    "center_v2": {
+      "path": "deploy/coordination/night-20261106/night-center-rules-reload-v2.zip",
+      "bytes": 12928,
+      "sha256": "1106c14ddf523457fa9711cd38b1b21459d48a0782356727433cdb7536631e5c",
+      "testzip": null
+    },
+    "parse_v1_retained": {
+      "path": "deploy/coordination/night-20261106/night-parse-terminal-boundary-v1.zip",
+      "bytes": 13090,
+      "sha256": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27",
+      "revoked": true
+    },
+    "center_v1_retained": {
+      "path": "deploy/coordination/night-20261106/night-center-rules-reload-v1.zip",
+      "bytes": 10080,
+      "sha256": "da01ff6c696edb56d2e26bb8b5d9de370897a29892e64ea3c59a252d6631cfc8",
+      "revoked": true,
+      "note": "缺少 app/host/server.ts 的真实修复"
+    }
+  },
+  "after_match": {
+    "app/plugins/command/agent.ts": true,
+    "app/worker/agents.ts": true,
+    "app/worker/worker.ts": true,
+    "app/host/server.ts": true,
+    "app/host/runtime.ts": true,
+    "app/tests/rules.test.ts": true
+  },
+  "center_status": "already applied on A — 本阶段不覆盖、不重启中心",
+  "commands": [
+    {
+      "cmd": "node --test app/tests/command-adapter.test.ts app/tests/contract.test.ts app/tests/rules.test.ts",
+      "exit": 0,
+      "tests": 30,
+      "pass": 30,
+      "fail": 0
+    },
+    {
+      "cmd": "npx -y -p typescript@5.9.3 tsc -p app",
+      "exit": 0,
+      "stdout_bytes": 0
+    },
+    {
+      "cmd": "node --experimental-strip-types evidence/raw/night/run18-replay.mts",
+      "exit": 0,
+      "stdout_lines": 38,
+      "non_json_lines": [
+        36,
+        37,
+        38
+      ],
+      "reading_error": "Codex stdout 第 36 行不是 JSON 对象，原始输出保留在日志中",
+      "reading_session": "01a1ab19-c2f1-7681-aa54-8c3971d344d6"
+    },
+    {
+      "cmd": "npx prettier --check <6 package files + command-adapter.test.ts>",
+      "exit": 1,
+      "detail": "agents.ts/server.ts/runtime.ts 既有格式漂移（HEAD 版本同样不符）；本轮 A 改写的三文件通过；不改已审字节"
+    }
+  ],
+  "local_logs": {
+    "tests.log": {
+      "bytes": 2808,
+      "sha256": "230a4711b86e0cdc8f1db3cc2d65a22f43d186f2daeb81540f757e031962335f"
+    },
+    "tsc.log": {
+      "bytes": 0,
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    "replay.log": {
+      "bytes": 315,
+      "sha256": "555568f468ce3f47bb1ba1d2a4b1b9db05b8c176ae90101763377683a910dbf2"
+    },
+    "prettier.log": {
+      "bytes": 181,
+      "sha256": "19931a20201831249c69e4267fe6681dcfd687e4f209851487e029a6e436c0f8"
+    },
+    "prettier-head.log": {
+      "bytes": 415,
+      "sha256": "bc7daf992f9a59457914a3f5b0e7e10fa63a36b1a059c28a580a3193880f1de1"
+    }
+  },
+  "boundaries": [
+    "app/tests/worker.test.ts 为 POSIX-only（/bin/sh），Windows 上多条失败；本轮未改该文件，未计入通过数",
+    "第 6 项真实登录触发仍未验证",
+    "取消/断线仅在旧 0.130 + 夜间字节上测过，对标称 0.166 + v2 组合未重测",
+    "改名 CLI 的纯文本回退分支仍存在，未被批准为正式形态"
+  ],
+  "not_covered": [
+    "真实模型执行（正式两条尚未派发）",
+    "B 侧应用结果（待 PREPARED 与 after 哈希）",
+    "六项总验收"
+  ]
+}

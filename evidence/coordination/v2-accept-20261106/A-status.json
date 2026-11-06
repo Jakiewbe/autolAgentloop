@@ -1,12 +1,12 @@
 {
   "stage": "STRICT-V2-ACCEPT-20261106",
   "role": "A",
-  "seq": 1,
-  "phase": "stage_published",
+  "seq": 2,
+  "phase": "acceptance_record_published_awaiting_b_prepared",
   "request_id": "A-V2A-20261106-001",
   "candidate_id": "night-20261106-parse-strict-fulljson-v2",
   "reply_to": null,
-  "published_at": "2026-11-06T12:10:00+08:00",
+  "published_at": "2026-11-06T12:17:00+08:00",
   "stage_window": {
     "started_at": "2026-11-06T12:08:00+08:00",
     "hard_stop_at": "2026-11-06T12:53:00+08:00",
@@ -93,5 +93,25 @@
   ],
   "result": {
     "state": "awaiting_b_prepared"
+  },
+  "acceptance_record": {
+    "md": "evidence/coordination/v2-accept-20261106/acceptance-record.md",
+    "json": "evidence/coordination/v2-accept-20261106/acceptance-record.json",
+    "summary": "包完整（4 包 testzip null）；工作树六文件均等于包 after ⇒ 中心 already applied，不覆盖不重启；node --test adapter+contract+rules 30 pass/0 fail；tsc 0；run18 真实字节回放严格失败（第 36 行非 JSON）；prettier 3 文件为 HEAD 既有漂移，不改已审字节"
+  },
+  "center_status": "already applied on A; 本阶段不覆盖、不重启中心",
+  "a_progress": {
+    "steps_done": [
+      1,
+      2
+    ],
+    "steps_pending": [
+      3,
+      4,
+      5,
+      6,
+      7
+    ],
+    "note": "步骤 3 起依赖 B PREPARED"
   }
 }
