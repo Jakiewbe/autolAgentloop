@@ -10,6 +10,7 @@
 #       ./run.sh lock            # 只校验受审构建字节（build-lock）
 #       ./run.sh guard           # T9 分母判据单元正负例（空录制必须 false）
 #       ./run.sh q4-expiry       # Q4：/c/ 合法/无效/回跳/CSP/过期（可控时钟，不改系统时间）
+#       ./run.sh q4-texts        # Q4：三处文案 + 心跳折叠 + 现场 unknown（约 7 分钟，含真实租约等待）
 #       ./run.sh q4-centry       # Q4：真实内核 /c/ 的 CSP/安全头/伪造链接（自建临时 HOME）
 #       ./run.sh q4-fold         # Q4：心跳折叠判据（合成输入，秒级）
 set -euo pipefail
@@ -18,6 +19,10 @@ export REVIEW_APP_DIR="$HERE/app"
 export REVIEW_EXTRACT="$HERE/extract-v2-c66a3c64"
 export REVIEW_RULES="$HERE/selftest-v2/rules-v2.json"
 export SUITE_LABEL="${SUITE_LABEL:-pkgcheck}"
+# 受审 ZIP 随包分发（incoming/ 下），默认让 build-lock 核实际 ZIP 字节，而不是只看来源登记。
+if [ -z "${REVIEW_ZIP:-}" ] && [ -f "$HERE/incoming/dashboard-item-key-cancel-v2.zip" ]; then
+  export REVIEW_ZIP="$HERE/incoming/dashboard-item-key-cancel-v2.zip"
+fi
 NODE="${NODE_BIN:-node}"
 # 先钉死受审构建：任何一处字节不符直接退出，避免「跑的不是受审构建」。
 if [ "${1:-all}" != "lock" ]; then
@@ -34,6 +39,7 @@ case "${1:-all}" in
   q5-hold)    exec "$NODE" "$HERE/real-board/q5-order.mjs" hold ;;
   q5-history) exec "$NODE" "$HERE/real-board/q5-order.mjs" history ;;
   q4-expiry)  exec "$NODE" "$HERE/real-board/q4-expiry.mjs" ;;
+  q4-texts)   exec "$NODE" "$HERE/real-board/q4-texts.mjs" ;;
   all)        exec "$NODE" "$HERE/real-board/suite-real.mjs" ;;
   T[0-9]*)    exec "$NODE" "$HERE/real-board/suite-real.mjs" "$@" ;;
   *)          echo "未知用例：$1（可用：all、T1..T14、negatives、supplement、q3、q5-hold、q5-history、q4-centry、q4-expiry、q4-fold、guard、lock）" >&2; exit 2 ;;

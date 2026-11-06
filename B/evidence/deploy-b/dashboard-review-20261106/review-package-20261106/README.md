@@ -26,7 +26,8 @@ cd dashboard-review-package-20261106
 node verify-deps.mjs        # 依赖与哈希自检，应输出 DEPS ... bad=0
 node real-board/build-lock.mjs  # 受审构建字节锁，应输出 BUILD_LOCK {ok:true,provenance:{ok:true,members:15}} 且退出码 0（./run.sh 会自动先跑一次）
 ./run.sh guard              # T9 分母判据的 4 条单元正负例（秒级，空录制必须 false）
-REVIEW_ZIP=/path/to/dashboard-item-key-cancel-v2.zip node real-board/build-lock.mjs  # 有源 ZIP 时额外核真实字节
+REVIEW_ZIP=/path/to/dashboard-item-key-cancel-v2.zip node real-board/build-lock.mjs  # 逐项核对真实 ZIP 的全部 15 个成员（路径/字节数/哈希）+ ZIP 本体身份
+node real-board/build-lock-directed.mjs  # 定向自检 5 项：默认登记模式、真实 ZIP 模式、65 位哈希、64 位改一位、指定不存在的 ZIP
 ./run.sh                    # 全部 14 条正向用例（约 3-5 分钟）
 ./run.sh T8 T9              # 只跑指定用例
 ./run.sh negatives          # 15 条负例
@@ -58,5 +59,6 @@ node real-board/q4-expiry.mjs   # Q4：/c/ 合法访问、无效访问、303 回
 - q4-texts.mjs 的 unknown 段落靠真实租约（RUN_LEASE=5 分钟）现场生成，期间只发心跳保活、不改时钟、不改数据库，因此整轮约 7 分钟。
 - centry-real.mjs 是早期版本，需要外部预置的 home（`incoming/center-home-link`）；只作历史对照，新环境请用 q4-centry.mjs。
 - **行尾口径**：本包 `app/` 是从 Windows 工作区导出的 CRLF 副本（例如 `app/host/server.ts` 4564B `0e87488f…`），仓库 blob 是 LF（4422B `5e988129…`）。跨机比对请先 LF 归一（`\r\n`→`\n`）再比 sha256，两边同时给原始与归一后的字节数/哈希。
-- **受审 ZIP 本体不随包分发**：身份登记在包根 `SUBJECT.json`（58408B `c66a3c64…` + 15 个成员逐个哈希）。build-lock 默认按它断言；拿到真实 ZIP 时用 `REVIEW_ZIP` 复核。
+- **受审 ZIP 身份**：登记在包根 `SUBJECT.json`（58408B `c66a3c64…` + 15 个成员逐个哈希，全部 64 位小写十六进制，由 build-lock 强制校验）。
+- **build-lock 两种模式与退出码**：不给 `REVIEW_ZIP` 时走 `provenance-only`，输出里明确写「仅核来源登记，未核实际ZIP」；给了 `REVIEW_ZIP` 时走 `actual`，逐项核 15 个成员的路径/字节数/哈希并核 ZIP 本体。退出码 0=通过，1=不匹配（含 64 位但改一位、65 位这类登记错误），2=用法/输入错误（`REVIEW_ZIP` 指定了但不存在的文件、SUBJECT 缺失）。**`REVIEW_ZIP` 指向不存在的文件绝不降级为只核登记**。
 - `q4-centry.mjs` 的两条过期分支保留为**仅源码断言**（`ok:null, sourceOnly:true`），不计入通过数；过期的运行证据改由 `q4-expiry.mjs` 提供（它直接构造内核 Services 的 `now()`，不动系统时间与数据库）。

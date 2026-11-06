@@ -13,19 +13,22 @@ const stamp = () => new Date().toISOString().replace(/[:.]/g, "-");
 const out = path.join(EVID, "q4-texts-" + stamp());
 mkdirSync(out, { recursive: true });
 
+const LOGFILE = path.join(out, "progress.log");
+const log = (line) => { try { writeFileSync(LOGFILE, line + "\n", { flag: "a" }); } catch {} };
 const checks = [];
 const note = (name, ok, detail = "") => { checks.push({ name, ok: !!ok, detail }); };
 
 const text = (page, selector) =>
   page.raw.eval("(() => { const el = document.querySelector(" + JSON.stringify(selector) + "); return el ? (el.textContent || '') : null; })()");
 const allText = (page, selector) =>
-  page.raw.eval("(() => Array.from(document.querySelectorAll(" + JSON.stringify(selector) + ")).map((el) => (el.textContent || '').trim()))()");
+  page.raw.eval("(() => Array.from(document.querySelectorAll(" + JSON.stringify(selector) + ")).map((el) => (el.innerText || el.textContent || '').replace(/\\s+$/,'').replace(/^\\s+/,'')))()");
 const html = (page, selector) =>
   page.raw.eval("(() => { const el = document.querySelector(" + JSON.stringify(selector) + "); return el ? el.outerHTML : null; })()");
 
 const beat = (hub, ids, tag) =>
   hub.call("GET", "/v1/work?claim=" + encodeURIComponent(tag) + "&running=" + ids.join(",") + "&capacity=0&wait=0", hub.keys.worker);
 
+log("BOOT");
 const live = await bootBoard();
 const hub = hub2({ publicUrl: live.hub.publicUrl, keys: live.hub.keys, home: live.hub.home });
 const session = await openBrowser({ width: 1440, height: 900 });
@@ -57,13 +60,16 @@ try {
   }
   record.texts.beat = { run: jobB.run };
 
+  log("STEP_TEXTS");
   // ── 4. 页面读三处文案
   await page.view("items");
   const itemNotes = await allText(page, ".item-group p.soft-note");
   const laneNote = itemNotes.find((entry) => entry.indexOf("对象标识为空") >= 0) ?? null;
   record.texts.items = { notes: itemNotes, laneNote };
   writeFileSync(path.join(out, "items.html"), (await html(page, "#view-content")) || "");
-  note("空 lane 文案出现在事项页且逐字命中", laneNote === "规则「意见」下这些轮次的对象标识为空；这里只按中心给出的规则 + 对象归组，不推断这条规则是否配过 parallel，也不倒推历史规则。", laneNote || "未出现");
+  const laneWanted = "规则「意见」下这些轮次的对象标识为空；这里只按中心给出的规则 + 对象归组，不推断这条规则是否配过 parallel，也不倒推历史规则。";
+  const laneHit = itemNotes.some((entry) => entry.trim() === laneWanted);
+  note("空 lane 文案出现在事项页且逐字命中", laneHit && !!laneNote, JSON.stringify(itemNotes));
 
   await page.view("attention");
   const answers = await allText(page, ".attention-card .decision-answer");
@@ -72,13 +78,14 @@ try {
   writeFileSync(path.join(out, "attention.html"), (await html(page, "#view-content")) || "");
   note("closed 无 result 文案逐字命中", closedLine === "我的回答：未记录\n处理结果：已关闭（仅告知或已结案），没有处理结果记录；面板不补写未发生过的处理。", closedLine || "未出现");
 
+  log("STEP_TIMELINE");
   // ── 5. 执行时间线：纯心跳折叠 + 每个事实保留 seq
   await page.view("runs");
   await page.clickOptional('button[data-run="' + jobB.run + '"]');
   await page.waitFor("#run-detail[open]", 8000);
   await page.waitFor("#run-timeline .timeline-fact, #run-timeline details", 12000);
   const folded = await page.raw.eval("(() => Array.from(document.querySelectorAll('#run-timeline details')).map((el) => ({ summary: (el.querySelector('summary') || {}).textContent || '', facts: Array.from(el.querySelectorAll('li')).map((li) => (li.textContent || '').trim()) })))()");
-  const openFacts = await page.raw.eval("(() => Array.from(document.querySelectorAll('#run-timeline > .timeline-fact, #run-timeline > li, #run-timeline > *')).filter((el) => el.tagName !== 'DETAILS').map((el) => (el.textContent || '').trim()).slice(0, 40))()");
+  const openFacts = await page.raw.eval("(() => Array.from(document.querySelectorAll('#run-timeline ol > li')).filter((el) => !el.closest('details')).map((el) => (el.innerText || el.textContent || '').trim()).slice(0, 40))()");
   record.timeline = { folded, openFacts, timelineHtml: await html(page, "#run-timeline") };
   const foldedBeats = folded.find((node) => node.summary.indexOf("连续") >= 0) ?? null;
   note("4 条连续心跳折叠成 1 个可展开节点", !!foldedBeats && foldedBeats.facts.length === 4, JSON.stringify(foldedBeats));
@@ -91,8 +98,13 @@ try {
   const startedAt = Date.now();
   const leaseMs = 5 * 60 * 1000;
   const waitMs = leaseMs + 30 * 1000;
-  process.stderr.write("WAIT_LEASE " + waitMs + "ms\n");
-  await sleep(waitMs);
+  log("WAIT_LEASE " + waitMs + "ms");
+  const until = Date.now() + waitMs;
+  while (Date.now() < until) {
+    await sleep(20000);
+    log("PING " + Math.round((until - Date.now()) / 1000));
+    try { await page.raw.eval("1"); } catch (error) { log("PING_ERR " + String(error).slice(0, 120)); }
+  }
   await beat(hub, [], "q4-hb-nofresh-" + Date.now());      // worker 保持新鲜
   await hub.call("GET", "/v1/work?claim=" + encodeURIComponent("q4-tick-" + Date.now()) + "&running=&capacity=0&wait=1", hub.keys.worker);
   await sleep(1500);
@@ -101,16 +113,26 @@ try {
   const runB = (stateB.data.runs || []).find((entry) => entry.id === jobB.run) ?? null;
   record.unknown = { run: jobB.run, waitedMs: Date.now() - startedAt, state: runB && runB.state, stopping: runB && runB.stopping, tickStatus: afterBeat.status };
 
+  log("STEP_DETAIL");
+  await page.view("items");
   await page.view("runs");
-  await page.clickOptional('button[data-run="' + jobB.run + '"]');
+  const wasOpen = await page.raw.eval("!!document.querySelector('#run-detail[open]')");
+  if (wasOpen) { await page.raw.click('button[data-run="' + jobB.run + '"]'); await sleep(400); }
+  await page.raw.click('button[data-run="' + jobB.run + '"]');
   await page.waitFor("#run-detail[open]", 8000);
-  await sleep(700);
+  for (let index = 0; index < 20; index++) {
+    const seen = await page.raw.eval("(() => !!document.querySelector('#run-detail .detail-body p.soft-note'))()");
+    if (seen) break;
+    await sleep(400);
+  }
+  await sleep(500);
   const unknownNote = await page.raw.eval("(() => { const nodes = Array.from(document.querySelectorAll('#run-detail .detail-body p.soft-note')); const hit = nodes.find((el) => (el.textContent || '').indexOf('状态待确认') >= 0); return hit ? hit.textContent : null; })()");
   const stopButtons = await page.raw.eval("(() => document.querySelectorAll('#run-detail [data-stop-run]').length)()");
   record.unknown.note = unknownNote;
   record.unknown.stopButtons = stopButtons;
   writeFileSync(path.join(out, "detail.html"), (await html(page, "#run-detail")) || "");
-  note("unknown 文案逐字命中", unknownNote === "状态待确认：中心还没有确认这轮的结束状态（例如运行中超过租约仍未回报），面板不猜原因；中心不接受取消，也不提供伪造的停止入口，需要处理请在中心侧核实。", unknownNote || "未出现");
+  const unknownWanted = "状态待确认：中心还没有确认这轮的结束状态（例如运行中超过租约仍未回报），面板不猜原因；中心不接受取消，也不提供伪造的停止入口，需要处理请在中心侧核实。";
+  note("unknown 文案逐字命中", String(unknownNote || '').trim() === unknownWanted, String(unknownNote || '未出现'));
   note("unknown 轮没有停止入口", stopButtons === 0, String(stopButtons));
 } catch (error) {
   record.error = String(error && error.stack || error).slice(0, 2000);

@@ -1,6 +1,6 @@
 {
   "package": "dashboard-review-package-20261106",
-  "createdAt": "2026-11-06T15:56:30.257Z",
+  "createdAt": "2026-11-06T16:33:15.447Z",
   "suiteVersion": "dashboard-real-suite-v2.2.0",
   "subject": {
     "zip": "incoming/dashboard-item-key-cancel-v2.zip",
@@ -20,17 +20,17 @@
     "subtree": "app",
     "export": "git archive 9fabbe9 app | tar -x"
   },
-  "fileCount": 230,
+  "fileCount": 232,
   "files": [
     {
       "path": "README.md",
-      "bytes": 6494,
-      "sha256": "4b08092830d5125d43aec7256f10a4ff3617d2ae2b45bce13d709ef848db901d"
+      "bytes": 7189,
+      "sha256": "664c8a7d219aad1d98567f9ce1f1eb638898014bfea154dc4db79426775082f3"
     },
     {
       "path": "SUBJECT.json",
-      "bytes": 3301,
-      "sha256": "702c3bdb66950dccfad8e6237ef92eb18f3890baedce5dc381fe9b42d60bf3d6"
+      "bytes": 3300,
+      "sha256": "c12565acbae1f9bdaa6c2016e41e7fd24024db85d8098f942de5aa7b1a5f6ef7"
     },
     {
       "path": "app/.github/ISSUE_TEMPLATE/bug_report.yml",
@@ -1043,14 +1043,24 @@
       "sha256": "eeac71cc54398240531ed75d67d83798ae601f6227c6ce4c8af63231184ea6f2"
     },
     {
+      "path": "incoming/dashboard-item-key-cancel-v2.zip",
+      "bytes": 58408,
+      "sha256": "c66a3c64db5f1a5c2270d0cf1130a5ac764d2dcee7eaffefd0d1808d0309a525"
+    },
+    {
       "path": "real-board/board.mjs",
       "bytes": 2874,
       "sha256": "cf4839bfb3f027b940791547a4a2bac43c6d3458c220e2bce80185aec97a957c"
     },
     {
+      "path": "real-board/build-lock-directed.mjs",
+      "bytes": 4318,
+      "sha256": "3ad493c28b56b0c618929deb466677c29ac689b62b012335a696f898997c0488"
+    },
+    {
       "path": "real-board/build-lock.mjs",
-      "bytes": 4136,
-      "sha256": "1df4ac22c7ea71e1a50aac8ad11bf873468a3642ea8fcb14fc46794299a61e46"
+      "bytes": 9742,
+      "sha256": "63c7d9abd5ed4562bd19eee0d14d08e65a9ba69cb64b1fd057ee2c39c7f48595"
     },
     {
       "path": "real-board/centry-real.mjs",
@@ -1109,8 +1119,8 @@
     },
     {
       "path": "real-board/q4-texts.mjs",
-      "bytes": 9043,
-      "sha256": "8646d3ddd7edd98f233d6e29ec617367c9a1e1b84fd46c0817e5be96861f3aea"
+      "bytes": 10092,
+      "sha256": "c86713e669dbfb01f8d425d3a5fd7a49bed1cf7d3e783d9f29abee67e4a2d83f"
     },
     {
       "path": "real-board/q5-order.mjs",
@@ -1139,8 +1149,8 @@
     },
     {
       "path": "run.sh",
-      "bytes": 2538,
-      "sha256": "d9a076f576285163685b7b9481adc4d9a1bf28ff8716fcf722a4145faacf596b"
+      "bytes": 3016,
+      "sha256": "467f62b24ddd859622cc6e7eb33b3618bea0b3890c6e7a09fcb12ea1dd35df5a"
     },
     {
       "path": "selftest-v2/cdp.mjs",
