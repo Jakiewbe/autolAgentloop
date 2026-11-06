@@ -1,11 +1,11 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
-  "seq": 1,
-  "request_id": "A-FA-20261106-001",
-  "reply_to": null,
-  "phase": "STAGE_PUBLISHED",
+  "seq": 2,
+  "request_id": "A-FA-20261106-002",
+  "reply_to": "B-FA-20261106-001",
+  "phase": "ITEM2_DONE_ITEM4_RUNNING_SAMPLE_REQUESTED",
   "role": "A",
-  "observed_at": "2026-11-06T13:16:25+08:00",
+  "observed_at": "2026-11-06T13:23:25+08:00",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
   "build_identity": {
     "entry": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
@@ -60,5 +60,71 @@
     "item5_recovery_restarts": 1,
     "item6_login_triggers": 1
   },
-  "next_action": "await B PREPARED on b branch B/evidence/deploy-b/final-accept-20261106/B-status.json replying A-FA-20261106-001"
+  "next_action": "B: sample item4 running identities and publish seq2 RUNNING_SAMPLED; A: cancel as soon as that receipt lands.",
+  "b_prepared_review": {
+    "accepted": true,
+    "b_request_id": "B-FA-20261106-001",
+    "hostname": "MAGICBOOK14-ZZ",
+    "account": "chs",
+    "worker_pid": 33640,
+    "worker_created": "2026-11-06T12:29:15+08:00",
+    "up_pid_matches": true,
+    "single_instance": true,
+    "hub_idle_at_prepared": true,
+    "noted_risks": [
+      "C: 1.8G free (99%)",
+      "one transient hub fetch failure at 05:05:29Z, not item5 evidence"
+    ]
+  },
+  "item2": {
+    "test_id": "ITEM2-20261106-1320",
+    "expected_dir": "D:\\AutoAgentloop\\aa-final-item2-ITEM2-20261106-1320",
+    "expected_marker": "FA-ITEM2-OK-ITEM2-20261106-1320",
+    "event": 35,
+    "subject": "A-FA-ITEM2-20261106-001",
+    "run": 31,
+    "state": "done",
+    "attempts": 0,
+    "session": "01a1af4e-3805-7513-84ab-684d0652f8b7",
+    "created_at": "2026-11-06T05:21:41.566Z",
+    "claimed_at": "2026-11-06T05:21:41.571Z",
+    "finished_at": "2026-11-06T05:22:59.740Z",
+    "usage": {
+      "input": 1705975,
+      "output": 3951,
+      "cached": 1696128
+    },
+    "final_first_line": "FA-2 通过：ITEM2-20261106-1320",
+    "error": "",
+    "a_side_verdict": "model reported pass with exact token and exact first line, native turn done with attempts 0 and no error",
+    "pending_b_side": [
+      "original stdout/stderr bytes and sha256",
+      "mkdir/write/list/read/delete exit codes",
+      "marker read-back verbatim",
+      "independent confirmation the directory no longer exists"
+    ]
+  },
+  "item4": {
+    "subject": "A-FA-ITEM4-20261106-001",
+    "rule": "FA-取消",
+    "mode": "A cancels a genuinely running turn",
+    "b_steps_now": [
+      "watch hub for the run whose events[].subject is A-FA-ITEM4-20261106-001 (rule FA-取消)",
+      "while it is claimed/running sample: worker pid 33640, the codex CLI pid, its parent, child processes, cmdline, creation time",
+      "publish B-status seq2 phase RUNNING_SAMPLED with run id, session, those identities, observed_at; do not stop or kill anything yourself",
+      "then wait for A-status seq3 cancellation evidence and immediately verify the whole tree is gone, no successful side effect, worker 33640 still healthy"
+    ],
+    "a_steps_next": [
+      "cancel that exact run id via /v1/runs/<id>/cancel",
+      "record cancellation latency and the run's terminal state",
+      "cross-check B tree-death receipt, do not fabricate native exit 0 when no exit file exists"
+    ]
+  },
+  "budget_used": {
+    "real_model_execs": 1,
+    "a_new_hub_runs": 1,
+    "b_maintenance_restarts": 0,
+    "item5_recovery_restarts": 0,
+    "item6_login_triggers": 0
+  }
 }
