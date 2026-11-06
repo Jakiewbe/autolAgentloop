@@ -1,0 +1,92 @@
+{
+  "timezone": "Asia/Shanghai",
+  "sources": {
+    "app": {
+      "name": "应用"
+    },
+    "claude": {
+      "name": "Claude 应用"
+    }
+  },
+  "agents": {
+    "a1": {
+      "name": "甲",
+      "worker": "w1",
+      "use": "claude",
+      "model": "m1",
+      "access": "edit"
+    },
+    "a2": {
+      "name": "乙",
+      "worker": "w2",
+      "use": "claude",
+      "model": "m1",
+      "access": "edit"
+    }
+  },
+  "channels": {
+    "chat": {
+      "name": "聊天",
+      "answerers": [
+        "me"
+      ]
+    }
+  },
+  "rules": [
+    {
+      "name": "意见",
+      "when": {
+        "source": "app",
+        "types": [
+          "feedback.*"
+        ]
+      },
+      "to": "a1",
+      "cwd": "~/x",
+      "prompt": "按手册做。"
+    },
+    {
+      "name": "复查",
+      "when": {
+        "source": "app",
+        "types": [
+          "recheck.*"
+        ]
+      },
+      "to": "a1",
+      "cwd": "~/x",
+      "prompt": "复查一遍。"
+    },
+    {
+      "name": "并行",
+      "parallel": 2,
+      "when": {
+        "source": "app",
+        "types": [
+          "parallel.*"
+        ]
+      },
+      "to": "a2",
+      "cwd": "~/x",
+      "prompt": "并行处理。"
+    },
+    {
+      "name": "早报",
+      "when": {
+        "cron": "0 4 * * *"
+      },
+      "to": "a1",
+      "cwd": "~/x",
+      "prompt": "写早报。"
+    }
+  ],
+  "elsewhere": [
+    {
+      "name": "例会",
+      "source": "claude",
+      "to": "a1",
+      "cron": "0 9 * * *",
+      "where": "Claude 应用"
+    }
+  ]
+}

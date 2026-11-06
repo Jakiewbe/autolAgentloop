@@ -1,0 +1,120 @@
+(() => {
+  const txt = (el) => (el ? (el.innerText || el.textContent || "").trim() : "");
+  const blockText = (el) => {
+    if (!el) return "";
+    let out = "";
+    for (const node of el.childNodes) {
+      if (node.nodeType === 3) out += node.nodeValue;
+      else if (node.nodeName === "BR") out += "\n";
+      else out += (node.innerText || node.textContent || "");
+    }
+    return out.replace(/[ \t]+\n/g, "\n").trim();
+  };
+  const visible = (el) => !!(el && (el.offsetParent !== null || el.getClientRects().length));
+  const actionable = (root) =>
+    [...root.querySelectorAll("button:not([disabled]), input[type=submit]:not([disabled]), [role=button]")].filter(visible).length;
+  const stale = document.body.classList.contains("stale");
+  const STATE = {
+    "等待回答": "open",
+    "等待处理": "open",
+    "已回答 · 等待后续": "decided",
+    "后续已完成": "done",
+    "已结案": "closed",
+  };
+  const cards = [...document.querySelectorAll("#view-content article.attention-card")].map((el) => {
+    const tagText = txt(el.querySelector(".section-heading .tag"));
+    const meta = txt(el.querySelector(".attention-meta"));
+    const btn = el.querySelector("[data-open-card]");
+    const idMatch = meta.match(/#([0-9]+)/);
+    const id = btn ? String(btn.getAttribute("data-open-card")) : idMatch ? idMatch[1] : "";
+    const ans = blockText(el.querySelector(".decision-answer"));
+    const answerLine = (ans.match(/我的回答：([^\n]*)/) || [])[1] || "";
+    const reasonLine = (ans.match(/处理结果：([\s\S]*)$/) || [])[1] || "";
+    const btnText = btn ? txt(btn) : "";
+    return {
+      id: id,
+      state: STATE[tagText] || "",
+      tagText: tagText,
+      kind: btn ? (btnText.indexOf("回答") >= 0 ? "ask" : "notice") : answerLine ? "history" : "",
+      actionable: stale ? 0 : actionable(el),
+      answer: answerLine,
+      closedReason: reasonLine,
+      options: [...el.querySelectorAll(".options .tag")].map(txt),
+      text: txt(el).slice(0, 400),
+    };
+  });
+  const runs = [...document.querySelectorAll("#view-content tr.task-row")].map((row) => {
+    const btn = row.querySelector("button[data-run]");
+    const badgeEl = row.querySelector(".badge");
+    const cells = [...row.querySelectorAll("td")];
+    const badgeText = txt(badgeEl);
+    const cls = badgeEl ? [...badgeEl.classList].filter((c) => c !== "badge") : [];
+    const state = cls[0] || "";
+    return {
+      id: btn ? String(btn.getAttribute("data-run")) : "",
+      state: state,
+      badgeText: badgeText,
+      cancelMark: badgeText === "等待停止确认" ? "pending" : state === "cancelled" ? "cancelled" : "",
+      summary: txt(row.querySelector(".task-name")),
+      rule: txt(row.querySelector(".task-id")),
+      usage: txt(cells[4]),
+      text: txt(row).slice(0, 300),
+    };
+  });
+  const planRows = [...document.querySelectorAll("#view-content .plan-row")].map((el) => {
+    const b = el.querySelector("button[data-run]");
+    return {
+      name: txt(el.querySelector("strong")),
+      meta: txt(el.querySelector("small")),
+      at: txt(el.querySelector(".plan-time")),
+      run: b ? String(b.getAttribute("data-run")) : "",
+    };
+  });
+  const items = [...document.querySelectorAll("#view-content article.item-group")].map((el) => ({
+    title: txt(el.querySelector("h2")),
+    note: txt(el.querySelector(".soft-note")),
+    tag: txt(el.querySelector(".tag")),
+    runs: [...el.querySelectorAll("button[data-run]")].map((b) => String(b.getAttribute("data-run"))),
+  }));
+  const messageEl = document.querySelector("#action-message");
+  const alertEl = document.querySelector("#connection-alert");
+  const dialogEl = document.querySelector("#run-detail");
+  const actionEl = document.querySelector("#action-dialog");
+  const refreshEl = document.querySelector("#refresh");
+  const pageEl = document.querySelector("#page-title");
+  return {
+    stale: stale,
+    hash: location.hash,
+    pageTitle: txt(pageEl),
+    connection: txt(document.querySelector("#connection-status")),
+    alert: alertEl && !alertEl.hidden ? txt(alertEl) : "",
+    message: messageEl && !messageEl.hidden ? txt(messageEl) : "",
+    retry: refreshEl && !refreshEl.disabled ? 1 : 0,
+    updatedAt: txt(document.querySelector("#updated-at")),
+    cards: cards,
+    runs: runs,
+    plan: {
+      rows: planRows,
+      lines: planRows.filter((r) => r.meta.indexOf("中心定时规则") === 0),
+      elsewhere: planRows.filter((r) => r.meta.indexOf("外部计划") === 0),
+      delayed: planRows.filter((r) => r.meta.indexOf("等待重试") === 0),
+    },
+    items: items,
+    filteredCount: txt(document.querySelector(".filter-count")),
+    hasOlder: !!document.querySelector("#older-page"),
+    hasLatest: !!document.querySelector("#latest-page"),
+    dialog: {
+      detailOpen: !!(dialogEl && dialogEl.open),
+      stopButton: !!(dialogEl && dialogEl.open && dialogEl.querySelector("[data-stop-run]")),
+      detailText: dialogEl && dialogEl.open ? txt(dialogEl).slice(0, 1200) : "",
+      actionOpen: !!(actionEl && actionEl.open),
+      actionText: actionEl && actionEl.open ? txt(actionEl).slice(0, 600) : "",
+      formId: actionEl && actionEl.open && actionEl.querySelector("form") ? actionEl.querySelector("form").id : "",
+    },
+    links: [...document.querySelectorAll("a[href], [data-capability]")].map((el) => ({
+      href: el.getAttribute("href") || "",
+      text: txt(el).slice(0, 80),
+    })),
+    text: (document.body.innerText || "").slice(0, 6000),
+  };
+})()

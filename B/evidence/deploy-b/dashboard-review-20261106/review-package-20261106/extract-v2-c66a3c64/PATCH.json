@@ -1,0 +1,132 @@
+{
+  "stage": "DASHBOARD-FIX-20261106",
+  "package": "dashboard-item-key-cancel-v2",
+  "kind": "full-file supplement for dashboard/ (no binary, no config, no identity, no keys, no run logs)",
+  "supersedes": "dashboard-item-key-cancel-v1.zip (frozen, kept unchanged for rollback)",
+  "v1": {
+    "bytes": 52640,
+    "sha256": "b9cb373f8ddf863a67e23240290b36795b4c074b9b6bcfd9c3d49422dfd76d7c"
+  },
+  "baseline": {
+    "note": "dashboard/ and evidence/dashboard-workflow/ are untracked in git (??), so there is no committed before-hash for the pre-fix tree; v1 member hashes are recorded per file. Back up the current dashboard/ directory before applying.",
+    "appliesTo": "any dashboard/ tree at v1 or older; index.html unchanged since v1"
+  },
+  "files": [
+    {
+      "path": "dashboard/server.mjs",
+      "bytes": 16373,
+      "sha256": "744c7b9d168fc3bccb067bfd1a0e621597637fb1336b00f7eee1634611db34b8",
+      "v1_bytes": 16373,
+      "v1_sha256": "744c7b9d168fc3bccb067bfd1a0e621597637fb1336b00f7eee1634611db34b8",
+      "changed_from_v1": false
+    },
+    {
+      "path": "dashboard/public/app.js",
+      "bytes": 40117,
+      "sha256": "fc7c6ba3947d956fe05b65af2423ab30259bdfdc5dd8855c480c7b7ff0ed2926",
+      "v1_bytes": 39719,
+      "v1_sha256": "19a5174858e04f36fdbdaa737aa2b2fcf5f49f51fefc982f52973547d1be57de",
+      "changed_from_v1": true
+    },
+    {
+      "path": "dashboard/public/workflow.mjs",
+      "bytes": 5843,
+      "sha256": "11babc0eacbc109f46c891a44941b1a58de52fa97dc2fabd0cdf2b532db8af4a",
+      "v1_bytes": 4625,
+      "v1_sha256": "e0f0fc76feff48d3f180ac0af962adbef47ebea32491b9ed2aef3e61f808d30b",
+      "changed_from_v1": true
+    },
+    {
+      "path": "dashboard/public/styles.css",
+      "bytes": 31148,
+      "sha256": "8b7ece17c4b94a08376a1613574fb1dd640bdf8fabf8d42ca4b0886b0ca6bb0f",
+      "v1_bytes": 31148,
+      "v1_sha256": "8b7ece17c4b94a08376a1613574fb1dd640bdf8fabf8d42ca4b0886b0ca6bb0f",
+      "changed_from_v1": false
+    },
+    {
+      "path": "dashboard/public/index.html",
+      "bytes": 4472,
+      "sha256": "ba59799d3567bfd64ffe9d9f242c88883d671e62e9d26053edaba527cace4070",
+      "v1_bytes": 4472,
+      "v1_sha256": "ba59799d3567bfd64ffe9d9f242c88883d671e62e9d26053edaba527cace4070",
+      "changed_from_v1": false
+    },
+    {
+      "path": "dashboard/server.test.mjs",
+      "bytes": 25963,
+      "sha256": "eeac71cc54398240531ed75d67d83798ae601f6227c6ce4c8af63231184ea6f2",
+      "v1_bytes": 21404,
+      "v1_sha256": "6e76163707c8a90905f6d637f4f55f74c67a61ebfe3945640960303d85e80e55",
+      "changed_from_v1": true
+    },
+    {
+      "path": "dashboard/app-text.test.mjs",
+      "bytes": 1659,
+      "sha256": "435a3de5558b69e0d29376dbf5438c76fc26b6b6308fa153a06ac81ff9cb87b5",
+      "v1_bytes": null,
+      "v1_sha256": null,
+      "changed_from_v1": true
+    },
+    {
+      "path": "dashboard/README.md",
+      "bytes": 5992,
+      "sha256": "32d79b408d2e94a4eadb10f862f17a8a224693cafa092875e8438bcf2bf05c0f",
+      "v1_bytes": 4933,
+      "v1_sha256": "eef5e70a6deab677ca23a0d42026e59e02a113cd255ed9a6208eba58ab91742f",
+      "changed_from_v1": true
+    },
+    {
+      "path": "evidence/dashboard-workflow/fixture-v2.mjs",
+      "bytes": 7762,
+      "sha256": "bc8cc0a9e40571dd4f039304641f8e6cfa30774d19129a1a0766bb9c23dc15ce",
+      "v1_bytes": 7762,
+      "v1_sha256": "bc8cc0a9e40571dd4f039304641f8e6cfa30774d19129a1a0766bb9c23dc15ce",
+      "changed_from_v1": false
+    },
+    {
+      "path": "evidence/dashboard-workflow/browser-qa.mjs",
+      "bytes": 12797,
+      "sha256": "8d85ef45d0b5ba078d66343785dacf51f3ed27191e441d76dee96736e535a40e",
+      "v1_bytes": 12727,
+      "v1_sha256": "42743934f4607075b68f326e29c20bd0cb7a12cedb0cdddb099c2bd308d49b37",
+      "changed_from_v1": true
+    },
+    {
+      "path": "evidence/dashboard-workflow/probe-live.mjs",
+      "bytes": 955,
+      "sha256": "79a758da91ec122f2792d54f18ba9263e6e720fbe3366a4aa8b18323a6577a02",
+      "v1_bytes": 955,
+      "v1_sha256": "79a758da91ec122f2792d54f18ba9263e6e720fbe3366a4aa8b18323a6577a02",
+      "changed_from_v1": false
+    },
+    {
+      "path": "evidence/dashboard-workflow/probe-live2.mjs",
+      "bytes": 1064,
+      "sha256": "24b886ef635e43796705a8034e700a055ce8bb1d1e99c8e496d2f7a30a484806",
+      "v1_bytes": 1064,
+      "v1_sha256": "24b886ef635e43796705a8034e700a055ce8bb1d1e99c8e496d2f7a30a484806",
+      "changed_from_v1": false
+    },
+    {
+      "path": "evidence/dashboard-workflow/fix-report.md",
+      "bytes": 9463,
+      "sha256": "c008f0bb5631acccd1da5f91ec4ed28657b468faf7b2c598aed5c11ae34eb77d",
+      "v1_bytes": 5062,
+      "v1_sha256": "0b0576bd8a296358d4aaf93318d3b70ccad2aa0b4ae05bba08a5a5e738217f07",
+      "changed_from_v1": true
+    }
+  ],
+  "verification": {
+    "unitTests": "cd dashboard && node --test server.test.mjs app-text.test.mjs -> tests 34 / pass 34 / fail 0",
+    "browserQa": "node evidence/dashboard-workflow/browser-qa.mjs (fixture restarted) -> 11 checks / 11 pass / 0 fail",
+    "format": "npx prettier --check workflow.mjs app.js server.test.mjs app-text.test.mjs browser-qa.mjs -> all pass",
+    "notRerun": "live read-only probe not rerun: server.mjs and lane logic unchanged this round"
+  },
+  "exclusions": [
+    ".agent-autoloop/config.json, owner/source keys, any credential",
+    "evidence/dashboard-workflow/fixture-v2.log, browser-qa-result.json, screenshots",
+    "any app/, .agent/, B/ file, rules.json or hub database"
+  ],
+  "rollback": "Restore the backed-up dashboard/ directory, or re-apply the frozen v1 package, then restart the dashboard process only."
+}
