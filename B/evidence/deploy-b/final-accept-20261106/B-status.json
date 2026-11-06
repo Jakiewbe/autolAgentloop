@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 7,
-  "request_id": "B-FA-20261106-007",
+  "seq": 8,
+  "request_id": "B-FA-20261106-008",
   "reply_to": "A-FA-20261106-005",
-  "phase": "LOGOFF_EXECUTING",
+  "phase": "LOGON_VERIFIED",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T13:47:30+08:00",
+  "observed_at": "2026-11-06T14:47:00+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -201,7 +201,7 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "执行 shutdown /l 一次；用户登录后 B 运行观察脚本采集自动启动证据并发布 seq8",
+  "next_action": "等待 A 最终审核；B 保持 worker 28452 单实例健康运行与空闲队列",
   "item4_verification": {
     "run": 32,
     "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
@@ -380,7 +380,7 @@
   "item4_verdict": "PASS（A 侧 4 秒取消延迟 + B 侧 2.3 秒树死确认 + 无终态/无 exit 文件/无副作用）",
   "item6": {
     "subject": "A-FA-ITEM6-20261106-001",
-    "state": "LOGOFF_EXECUTING（A seq5 LOGOFF_NOW + 用户当场确认「现在注销，我马上重新登录」）",
+    "state": "PASS（登录启动项在真实登录会话中自动拉起单实例 worker，路径与登记一致）；附一条如实说明：注销后系统在 14 秒内出现新的登录通知，不是用户本人凭据登录事件",
     "pre_checks": {
       "queue_idle_local": true,
       "runs_without_exit": 0,
@@ -413,9 +413,9 @@
       "判失败：观察窗口内无 worker 进程 → 如实记第 6 项失败，只修既有启动链并留原件，不第二次注销"
     ],
     "caveat": "本机观察脚本事后落盘；登录触发证据以进程创建时间/父进程链/up.log 第一行为准，不用手工启动冒充",
-    "logoff_authorized_by": "A-FA-20261106-005（LOGOFF_NOW）+ 用户在会话内明确确认",
+    "logoff_authorized_by": "A-FA-20261106-005（LOGOFF_NOW）+ 用户会话内确认",
     "logoff_count_cap": 1,
-    "logoff_executed": false,
+    "logoff_executed": true,
     "observer_script": {
       "path": "D:\\AutoAgentloop\\_probe\\final-item6-observe.ps1",
       "note": "登录后由 B 运行：每 15 秒采样 worker 进程/父链/up.pid/up.log/hub 连接，≥120 秒"
@@ -425,6 +425,82 @@
       "up_pid": "30208",
       "up_log_absent": true,
       "logoff_request_at": "2026-11-06T13:47:30+08:00"
+    },
+    "logoff_count": 1,
+    "logoff_command": "C:\\Windows\\System32\\shutdown.exe /l（经 _probe/do-logoff.ps1 Start-Process -Wait 调用；前两次尝试一次被 MSYS 路径转换、一次被 bash 变量吞掉，均未生效，第三次生效）",
+    "timeline": {
+      "logoff_event_7002": "2026-11-06T13:48:30.179+08:00",
+      "winlogon_new_instance_created": "2026-11-06T13:48:30.996+08:00（PID 20648）",
+      "logon_event_7001": "2026-11-06T13:48:44.509+08:00（注销后 14.3 秒）",
+      "startup_cmd_still_running": "cmd.exe 31892 ppid=explorer.exe 22368",
+      "worker_created": "2026-11-06T13:49:08.058+08:00（PID 28452）",
+      "up_log_created": "2026-11-06T13:49:08.055+08:00",
+      "user_reported_return": "2026-11-06T14:37:09+08:00（会话内消息）",
+      "b_observation_window": "2026-11-06T14:38:41–14:43:30+08:00（多次采样）",
+      "last_boot": "2026-11-04T10:31:48+08:00（未重启，排除重启触发）"
+    },
+    "startup_entry": {
+      "path": "C:\\Users\\19082\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd",
+      "bytes": 430,
+      "sha256": "aa2cfb4207edb8e3e67a0268d82fa19dddd0a1397374742052d17b45a40f28a6",
+      "unchanged": true,
+      "content_summary": "set AGENT_AUTOLOOP_HOME=C:\\Users\\19082\\.agent-autoloop；循环调用 node \"D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts\" \"up\" 追加到 logs\\up.log，随后 timeout /t 10 重试"
+    },
+    "login_trigger_evidence": {
+      "worker_pid": 28452,
+      "worker_cmdline": "\"C:\\Program Files\\nodejs\\node.exe\" \"--disable-warning=ExperimentalWarning\" \"D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts\" \"up\"",
+      "worker_created": "2026-11-06T13:49:08.058+08:00",
+      "parent": "cmd.exe 31892 :: C:\\WINDOWS\\system32\\cmd.exe /c \"\"C:\\Users\\19082\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd\" \"",
+      "grandparent": "explorer.exe 22368",
+      "chain_proves": "worker 由登录会话（explorer 外壳）拉起的 Startup 批处理创建，不是 B 手工启动",
+      "single_instance": true,
+      "up_pid_file": "28452（与运行者 PID 一致）",
+      "up_log": {
+        "bytes": 145,
+        "created": "2026-11-06T13:49:08.055+08:00",
+        "lines": [
+          "2026-11-06T05:49:10.334Z [worker] worker b-magicbook14 started",
+          "2026-11-06T06:27:32.381Z [worker] couldn't reach the hub: Error: 中台返回 503"
+        ]
+      },
+      "hub_443_established": "13.158.194.126:443",
+      "no_duplicate_instance": "观察窗内 worker_count 恒为 1，无第二实例、无手工启动"
+    },
+    "honesty_notes": [
+      "注销后 14.3 秒即出现新的 7001 登录通知，早于用户本人回话（14:37:09）约 48 分钟；因此本次自动启动的触发点是一个系统/会话层面的重新登录事件，不能断言是用户亲手输入凭据触发的登录。",
+      "HKLM Winlogon 键读取结果：AutoAdminLogon 为空、DefaultUserName 未设置（键内存在 AutoLogonSID 值），未做任何修改；B 未使用任何自动登录工具。原因未定论，如实记录。",
+      "安全日志 4624 查询被拒（无权读取），因此无法用登录类型进一步区分。",
+      "B 未手工启动 worker 冒充登录触发；恒为单实例；启动项字节数与注销前一致。"
+    ],
+    "evidence_files": {
+      "item6-observe.jsonl": {
+        "bytes_note": "3 样本，过滤串缺陷导致 worker_count=0，仅作历史样本",
+        "sha256": "a84cb4a1ff80eaa533d294de4f3906146922351474a94c0332a60ab411e4488b"
+      },
+      "item6-shot-20261106T1445.log": {
+        "sha256": "412ada9397b206020f14253279254a6cd9f26ab6023077f0a9af789aec3ecebb0"
+      },
+      "item6-logon-events-20261106T1445.log": {
+        "sha256": "ccca57a066bc0c299d75e2ef859a6c2cf7af5e10319814acd7ed013d9b328c24"
+      },
+      "item6-winlogon-read-20261106T1445.log": {
+        "sha256": "811d23d78d9d71c9fd76b3ee33744a243ab67178e2cb2a8bd116e74e413709a9"
+      },
+      "item6-logoff-marker.json": {
+        "sha256": "28e3deb886e81fd1a10842dc2a0a356ff3247945afbb7486e96701a7b1d4be4e"
+      }
+    },
+    "post_logon_health": {
+      "worker_pid": 28452,
+      "single_instance": true,
+      "queue_idle": true,
+      "runs_total": 21,
+      "runs_without_exit": [
+        "23-1（A-J4 取消）",
+        "32-1（A 取消 item4）",
+        "9001-1（空探针目录）"
+      ],
+      "note": "三处无 exit 均有据可查：两条为 A 主动取消的 run，一条为空目录，无未完成派发"
     }
   }
 }
