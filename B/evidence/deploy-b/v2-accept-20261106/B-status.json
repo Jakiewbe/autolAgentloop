@@ -5,9 +5,144 @@
   "request_id": "B-V2-20261106-001",
   "reply_to": "A-V2A-20261106-006",
   "prepared_at": "2026-11-06T12:11:00+08:00",
-  "route_not_switched": true,
-  "v2_not_applied_yet": false,
-  "note": "v2 已应用且 after 哈希全部命中断值；worker 保持停止，等 A 的 seq5=ROUTE_READY 后再启动一次。",
+  "seq": 5,
+  "phase": "EXEC_DONE",
+  "phase_label": "正式两轮均已完成（A 派发 run 29/run 30，2/2 通过）；阶段目标达成，等统筹复核；worker 与正式入口保持运行，B 未再执行任何模型调用",
+  "receipt_type": "audit_and_state_normalization",
+  "audited_at": "2026-11-06T13:06:00+08:00",
+  "historical_states": [
+    {
+      "at": "2026-11-06T12:11:00+08:00",
+      "phase": "PREPARED",
+      "status_when_recorded": {
+        "route_not_switched": true,
+        "v2_applied": false,
+        "waiting_for": {
+          "a_step": "派发本阶段两条正式执行（a_formal_execs 0/2）",
+          "b_side": "只执行 A 派发的两轮测试，不额外跑独立模型；失败即如实上报"
+        },
+        "plan_on_go": {
+          "step_0": "A 确认空闲后，先重新采样当前 worker 真实 PID（不沿用本回执里的 9420，也不照历史值盲杀）",
+          "step_1": "备份将被覆盖的 2 个文件到本机 apply-v2-<ts>/backup（含 sha256 记录），不删旧实验目录",
+          "step_2": "按 applyOrder 覆盖：plugins/command/agent.ts → worker/worker.ts（agents.ts 已等于 after，跳过）",
+          "step_3": "逐个核 after sha256 与本回执期望值一致；不一致即停并回滚该文件",
+          "step_4": "回报 after 哈希，等 A 确认路由生效（command[0] 指向标准文件名 codex.exe 且 --json）后，才启动 worker 一次",
+          "step_5": "启动后检查单实例（仅 1 个 agent-autoloop.ts up）、up.pid、心跳与 hub 连接",
+          "step_6": "只执行 A 派发的两轮测试，不额外跑独立模型；严格判分，失败就报失败，不用 v1 宽松版冒充可用"
+        },
+        "note": "v2 已应用且 after 哈希全部命中断值；worker 保持停止，等 A 的 seq5=ROUTE_READY 后再启动一次。"
+      },
+      "why_historical": "该状态描述的是 12:11 时点：v2 已核对未应用、路由未切、worker 停止、等 A 的 GO/ROUTE_READY。三项条件随后依次被 GO_maintenance(12:19)、APPLIED(12:21)、ROUTE_READY(12:28)、STARTED(12:29) 取代，不再是当前状态。",
+      "superseded_by": "APPLIED 2026-11-06T12:21:30+08:00 / STARTED 2026-11-06T12:29:15+08:00 / EXEC_DONE 2026-11-06T12:34:00+08:00"
+    },
+    {
+      "at": "2026-11-06T12:21:30+08:00",
+      "phase": "APPLIED",
+      "status_when_recorded": {
+        "worker": "stopped（PID 9420 由 taskkill /F 停止，仅此 PID）",
+        "route_not_switched": true,
+        "runtime_after": {
+          "plugins/command/agent.ts": {
+            "bytes": 6141,
+            "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+            "match": true
+          },
+          "worker/worker.ts": {
+            "bytes": 17436,
+            "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+            "match": true
+          },
+          "worker/agents.ts": {
+            "bytes": 2328,
+            "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+            "match": true,
+            "untouched": true
+          }
+        }
+      },
+      "superseded_by": "STARTED 2026-11-06T12:29:15+08:00"
+    },
+    {
+      "at": "2026-11-06T12:29:15+08:00",
+      "phase": "STARTED",
+      "status_when_recorded": {
+        "worker": {
+          "pid": 33640,
+          "single_instance": true
+        },
+        "route": {
+          "a_route_change_file": "C:\\Users\\chs\\.agent-autoloop\\rules.json（A 中心机，rules 13283B sha256 3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f）",
+          "b_local_rules_file": "本机不存在 rules.json；B worker 的规则由 hub 按 run 下发（command-1.json 携带 command 数组），故 B 侧无需本地改路由",
+          "command_after_command0": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+          "b_changed_route": false
+        }
+      },
+      "superseded_by": "EXEC_DONE 2026-11-06T12:34:00+08:00"
+    }
+  ],
+  "current_state": {
+    "as_of": "2026-11-06T13:06:00+08:00",
+    "route_switched": true,
+    "route_switched_by": "A（main seq5 = ROUTE_READY，2026-11-06T12:28+08:00，改 rules.json command[0] 指向 0.166 标准名路径；B 未改任何路由/配置）",
+    "route_observed": {
+      "a_route_change_file": "C:\\Users\\chs\\.agent-autoloop\\rules.json（A 中心机，rules 13283B sha256 3af89c9f57ebdd06b10c73f4c0eb211eae35f304f5fdf56bc5de69cc01a0340f）",
+      "b_local_rules_file": "本机不存在 rules.json；B worker 的规则由 hub 按 run 下发（command-1.json 携带 command 数组），故 B 侧无需本地改路由",
+      "command_after_command0": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+      "b_changed_route": false
+    },
+    "v2_applied": true,
+    "v2_runtime_after": {
+      "plugins/command/agent.ts": {
+        "bytes": 6141,
+        "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+        "match": true
+      },
+      "worker/worker.ts": {
+        "bytes": 17436,
+        "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+        "match": true
+      },
+      "worker/agents.ts": {
+        "bytes": 2328,
+        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+        "match": true,
+        "untouched": true
+      }
+    },
+    "worker": {
+      "pid": 33640,
+      "single_instance": true,
+      "alive": true,
+      "started_at": "2026-11-06T12:29:15.815+08:00",
+      "heartbeat": {
+        "observed_at": "2026-11-06T12:30:11+08:00",
+        "tcp": "198.18.0.1:7978 → 198.18.1.108:443 ESTABLISHED（PID 33640）",
+        "stderr_bytes": 0,
+        "note": "hub 侧 seenAt 由 A 观测；B 侧证据为长轮询连接建立且无错误输出"
+      }
+    },
+    "formal_rounds_completed": 2,
+    "formal_rounds": [
+      {
+        "run": 29,
+        "test_id": "A-V2A-20261106-001 exec 1/2",
+        "result": "pass",
+        "session": "01a1af1f-ba77-7451-9963-e14049e17b99"
+      },
+      {
+        "run": 30,
+        "test_id": "A-V2A-20261106-001 exec 2/2（resume 同 session）",
+        "result": "pass",
+        "session": "01a1af1f-ba77-7451-9963-e14049e17b99"
+      }
+    ],
+    "waiting_for": null,
+    "waiting_note": "B 侧无待办执行项；等统筹复核结论。若需重测第 2/4/5 项或第 6 项，须由 A 另行派发并说明预算。",
+    "still_unverified": [
+      "第 6 项真机登录触发（未验证，不凑 6/6）",
+      "第 2/4/5 项在 0.166+v2 组合下的重测（现仅有旧 0.130 证据）"
+    ]
+  },
   "tool_preparation": {
     "purpose": "标准名 0.166 官方包并列安装（不动 codex-medium.exe、不动 0.130、不改 PATH/标签/ACL）",
     "source": "D:\\AutoAgentloop\\tools\\codex\\0.166.0-alpha.5.1\\package",
@@ -121,15 +256,6 @@
       "action": "skipped_already_after"
     }
   },
-  "plan_on_go": {
-    "step_0": "A 确认空闲后，先重新采样当前 worker 真实 PID（不沿用本回执里的 9420，也不照历史值盲杀）",
-    "step_1": "备份将被覆盖的 2 个文件到本机 apply-v2-<ts>/backup（含 sha256 记录），不删旧实验目录",
-    "step_2": "按 applyOrder 覆盖：plugins/command/agent.ts → worker/worker.ts（agents.ts 已等于 after，跳过）",
-    "step_3": "逐个核 after sha256 与本回执期望值一致；不一致即停并回滚该文件",
-    "step_4": "回报 after 哈希，等 A 确认路由生效（command[0] 指向标准文件名 codex.exe 且 --json）后，才启动 worker 一次",
-    "step_5": "启动后检查单实例（仅 1 个 agent-autoloop.ts up）、up.pid、心跳与 hub 连接",
-    "step_6": "只执行 A 派发的两轮测试，不额外跑独立模型；严格判分，失败就报失败，不用 v1 宽松版冒充可用"
-  },
   "current_worker_snapshot_at_prepared": {
     "pid": 9420,
     "parent_pid": 11060,
@@ -148,7 +274,6 @@
     "raw_logs_kept_local": true,
     "old_experiment_dirs_kept": true
   },
-  "phase": "EXEC_DONE",
   "stage_window": {
     "hard_stop_at": "2026-11-06T12:53:00+08:00"
   },
@@ -177,7 +302,6 @@
     "inflight_runs": 0,
     "latest_run": 26
   },
-  "seq": 4,
   "applied_at": "2026-11-06T12:21:30+08:00",
   "worker_state": "running（PID 33640，未再重启）",
   "package_verify_at_apply": {
@@ -254,10 +378,6 @@
     "stray_claims": "phase=PREPARED、blocked=true、blocked_reason='Remote single-file commit was cancelled'、publication.published=false",
     "disposition": "不采用、不发布该内容；已 checkout 恢复权威回执并以本 seq2 覆盖；stray 原文留本机取证 incident-20261106T1217-run27stray/",
     "verified": "工作树除该文件外无其它改动；runtime 字节由本机脚本覆盖并逐个核哈希"
-  },
-  "waiting_for": {
-    "a_step": "派发本阶段两条正式执行（a_formal_execs 0/2）",
-    "b_side": "只执行 A 派发的两轮测试，不额外跑独立模型；失败即如实上报"
   },
   "compliance_this_step": {
     "extra_exec_by_b": 0,
@@ -416,5 +536,94 @@
     "card_choice": "确认 A 传 choice=1（乙），run 30 第一行即「V2 续接通过：乙：V2A-D45D004B」",
     "mcp_detail": "A 从 hub 看不到的 node_repl 返回、行数、退出码、终态位置，本回执补齐；两条日志各 0 条非 JSON"
   },
-  "timestamp_note": "本回执时间按本机 date 校正（写收尾时本机时钟 12:36+08）；早期草稿里 12:38/12:45 的自估时间已作废"
+  "timestamp_note": "本回执时间按本机 date 校正（写收尾时本机时钟 12:36+08）；早期草稿里 12:38/12:45 的自估时间已作废",
+  "run27_execution_audit": {
+    "question": "run 27 实际原生执行了几次？attempts=1 是否等于第二次执行？",
+    "answer": "原生执行 1 次；attempts=1 是中心排队重试计数，未执行即被 A 取消，不构成第二次执行。",
+    "evidence": {
+      "dirs_matching_27": [
+        "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\27-1"
+      ],
+      "command_files": 1,
+      "stdout_files": 1,
+      "stderr_files": 1,
+      "exit_files": 1,
+      "exit_1_content": "0",
+      "worker_log_start_lines": 1,
+      "worker_log": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.post-night-20261106T1020.log（451B sha256 227b6ea775bd311c85dc0a736de793cac425134d36b4fdb7e4d49d645d927a5a）",
+      "worker_log_lines": [
+        "2026-11-06T04:08:47.309Z [worker] run 27 (V2-准备) turn 1 started, pid 28596",
+        "2026-11-06T04:17:49.391Z [worker] run 27: failed"
+      ],
+      "events": {
+        "thread_started": 1,
+        "turn_started": 1,
+        "turn_completed": 1,
+        "json_lines": 218,
+        "non_json_lines": 3,
+        "command_execution": 73,
+        "nested_codex_invocations": 0
+      },
+      "turn_usage": {
+        "input_tokens": 7951169,
+        "cached_input_tokens": 7772544,
+        "output_tokens": 45430,
+        "reasoning_output_tokens": 19284
+      },
+      "failure_stage": "回执远端提交环节（worker 判定 failed），模型 turn 本身以 turn.completed 正常结束"
+    },
+    "local_artifact": {
+      "path": "evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1306/run27-execution-audit.json",
+      "bytes": 3424,
+      "sha256": "57373d8328ec34581f628441133082c8b8da2e383356451ea88e5b5ae3d7e508"
+    }
+  },
+  "conflict_resolution_check": {
+    "authoritative_status_restored": true,
+    "working_tree_clean": true,
+    "working_copy_sha256": "725b34b376c6e3666f834968b1600b0652043f3e763794db844fa47c0b645d21",
+    "head_copy_sha256": "725b34b376c6e3666f834968b1600b0652043f3e763794db844fa47c0b645d21",
+    "restored_by": "git checkout -- B/evidence/deploy-b/v2-accept-20261106/B-status.json（原 conflict 副本未删）",
+    "conflict_copies_retained": [
+      {
+        "path": "D:\\AutoAgentloop\\evidence\\deploy-b\\v2-accept-20261106\\incident-20261106T1217-run27stray\\stray-B-status.json",
+        "bytes": 10140,
+        "sha256": "966e7634bb5063d716afbb8252086529e892f29704390a4793fb75f3ac02bf44",
+        "what": "模型 Copy-Item 后又被自身改写（blocked=true）的版本"
+      },
+      {
+        "path": "D:\\AutoAgentloop\\_verify\\v2-accept-20261106-B-status.json",
+        "bytes": 9906,
+        "sha256": "225c20fd7e647f09332a6453490ca6d132652a62897c250f1cda4ed61dfcaf5c",
+        "what": "模型最初写入 _verify 的中间稿（改写前）"
+      }
+    ],
+    "residual_processes": {
+      "sampled_at": "2026-11-06T13:06:00+08:00",
+      "run27_codex_pid": 28596,
+      "result": "gone",
+      "child_pids_14480_31376_32488_4004": "gone",
+      "other_codex_or_node_touched_by_b": "none",
+      "worker_pid_33640": "alive（唯一 agent-autoloop.ts up 实例）"
+    }
+  },
+  "this_round": {
+    "model_calls": 0,
+    "real_runs_created": 0,
+    "worker_restarts": 0,
+    "runtime_writes": 0,
+    "config_writes": 0,
+    "route_changes": 0,
+    "acl_identity_changes": 0,
+    "actions": [
+      "读取 run27 目录与 worker 日志核对原生执行次数",
+      "确认冲突状态文件已恢复到 HEAD 且工作树干净",
+      "确认 run27 相关进程无残留",
+      "把准备期旧字段归入 historical_states 并标注当前状态为正式两轮完成"
+    ],
+    "preserved": [
+      "旧实验目录未清理",
+      "_night/b-repo 未整仓 add（只提交单个文件）"
+    ]
+  }
 }

@@ -3,7 +3,7 @@
 - 角色: B（Magicbook14-zz / worker `b-magicbook14`）
 - 时间: 2026-11-06T12:08→12:36+08:00（A 侧 hard_stop 12:53；时间按本机 date 校正）
 - 分派方: A（唯一中心派发者）；本阶段 B 只做工具准备、应用与日志取证，不自派测试
-- 机器可读回执: `B-status.json`（seq1 PREPARED → seq2 APPLIED → seq3 STARTED → seq4 EXEC_DONE）
+- 机器可读回执: `B-status.json`（seq1 PREPARED → seq2 APPLIED → seq3 STARTED → seq4 EXEC_DONE → seq5 状态归一与 run27 审计）
 
 ## 1. 本阶段实际做了什么
 
@@ -77,3 +77,26 @@
 ## 8. 合规声明
 
 本阶段未改判分逻辑以外的任何规则内容、未过滤非 JSON、未关 MCP、未重装、未改身份/标签/权限/PATH/ACL/登录项、未重启 A 中心、未推送原始日志或环境。发布侧只含脱敏哈希、计数与脚本。
+
+## 9. 状态归一与 run27 执行次数审计（seq5，2026-11-06T13:06+08:00）
+
+准备期字段（`route_not_switched=true`、`waiting_for=等 A 派发两条正式执行`、`plan_on_go`）描述的是 12:11 时点，已被 GO_maintenance(12:19) → APPLIED(12:21) → ROUTE_READY(12:28) → STARTED(12:29) → EXEC_DONE(12:34) 依次取代。本轮把这些字段整体移入 `B-status.json.historical_states`（每项带 `at` 时间与 `superseded_by`），顶层改为 `current_state`：路由已由 A 切换（`route_switched=true`）、v2 已应用、worker PID 33640 单实例存活、正式两轮 2/2 完成、`waiting_for=null`。
+
+**run 27 原生执行次数 = 1**（只读核对，未重跑）：
+
+| 核对项 | 结果 |
+| --- | --- |
+| 匹配 `27*` 的 run 目录 | 仅 `C:\Users\19082\.agent-autoloop\worker\runs\27-1` |
+| command / stdout / stderr / exit 文件数 | 1 / 1 / 1 / 1（`exit-1` = `0`） |
+| worker 日志 started 行 | 1 条：`04:08:47.309Z run 27 (V2-准备) turn 1 started, pid 28596`；`04:17:49.391Z run 27: failed`（542 s） |
+| 事件计数 | thread.started 1 / turn.started 1 / turn.completed 1 / 218 JSON 行 + 3 条非 JSON |
+| 73 条 command_execution 中的嵌套 codex 调用 | 0 |
+| 模型 turn 结果 | turn.completed，usage 7951169 / 7772544 / 45430 / reasoning 19284 |
+| 失败阶段 | 回执**远端提交**环节（worker 判 failed），非模型 turn 失败 |
+
+`attempts=1` 是中心在提交被取消后排队重试的计数，**没有落到本机执行**（被 A 取消），因此不构成第二次原生执行。3 条非 JSON 是该轮模型自己 `taskkill` 其子进程（PID 32488/31376/4004）的 SUCCESS 行，处于终态之后。
+
+**冲突文件处置复核**：工作树干净，`git status` 无改动；当前 `B-status.json` 的 sha256 与 HEAD 版本一致（`725b34b3…`，seq4 版），两份原始冲突副本都保留——仓库外 `incident-20261106T1217-run27stray/stray-B-status.json`（10140B `966e7634…`）与模型中间稿 `_verify/v2-accept-20261106-B-status.json`（9906B `225c20fd…`）。相关进程 PID 28596/14480/31376/32488/4004 均已消失，worker 33640 存活。
+
+审计产物（本机）：`evidence/deploy-b/v2-accept-20261106/audit-run27-20261106T1306/run27-execution-audit.json` 3424B `57373d8328ec34581f628441133082c8b8da2e383356451ea88e5b5ae3d7e508`。
+本轮零模型调用、零新 run、未重启 worker、未改 runtime/配置/路由/身份/权限，未清理旧实验目录。
