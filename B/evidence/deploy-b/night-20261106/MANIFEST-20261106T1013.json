@@ -1,8 +1,8 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "generated_at": "2026-11-06T10:18:00+08:00",
-  "note": "清单最后生成，覆盖 evidence/deploy-b/night-20261106 全树；原始日志/配置/身份材料未纳入且不外发",
+  "generated_at": "2026-11-06T10:13:00+08:00",
+  "note": "最终清单，最后生成；覆盖 evidence/deploy-b/night-20261106 全树（不含本清单自身）。原始日志/配置/身份材料未纳入且不外发。",
   "root": "D:\\AutoAgentloop\\evidence\\deploy-b\\night-20261106",
   "file_count": 87,
   "files": [
@@ -183,8 +183,8 @@
     },
     {
       "path": "./final-runs-20261106T1012.json",
-      "bytes": 8424,
-      "sha256": "4bd6f720134c50536435e5d08204842a9fadab2b2d0268383390ac716905dcf8"
+      "bytes": 9605,
+      "sha256": "a67b368137a22beff5304f8472ad94635761b5389c045f51e3ba12a6ceca7ef7"
     },
     {
       "path": "./main-watch.log",
@@ -418,13 +418,13 @@
     },
     {
       "path": "./run-watch.log",
-      "bytes": 1330,
-      "sha256": "1bff9ad6f75ff4fe50fb31888d4776967ca0d2dd4daf36eb227c81fbb46c7d04"
+      "bytes": 1436,
+      "sha256": "f72b930c42f8a50729c4c9cd9627c21307706287137a0d54d1cc85755e9d96ba"
     },
     {
       "path": "./summary.md",
-      "bytes": 12401,
-      "sha256": "074d3efaf5cd25d6b5c856ec57b15658a487d41ba5eefe359664e363cbac24b3"
+      "bytes": 13148,
+      "sha256": "0d568785a46645fdc2ef64831cc806cdbf1effbd3213125fa68a95ec0f81d9a6"
     },
     {
       "path": "./worker-restart-20261106T0206/runtime-hashes-at-restart.txt",
@@ -440,16 +440,6 @@
       "path": "./worker-restart-20261106T0206/worker.stdout.before-restart.log",
       "bytes": 1129,
       "sha256": "62a1140dfd8ca9306dff042770dd9244e21b6af13d55909a13cb0c8230d7d7c7"
-    },
-    {
-      "path": "./summary.md",
-      "bytes": 12401,
-      "sha256": "pending"
-    },
-    {
-      "path": "./final-runs-20261106T1012.json",
-      "bytes": 0,
-      "sha256": "see-file"
     }
   ],
   "external_artifacts": [
@@ -482,6 +472,17 @@
       "path": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
       "bytes": 245812016,
       "sha256": "dd4adf302b112fdc30fce509a5e261a0a6f1118dc58ac2da636eb84e0a6b3e3e"
+    },
+    {
+      "path": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.post-night-20261106T1020.log",
+      "bytes": null,
+      "sha256": "runtime log, not hashed"
     }
-  ]
+  ],
+  "live_state_at_seal": {
+    "worker_pid": 9420,
+    "up_pid_file": 9420,
+    "worker_log": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.post-night-20261106T1020.log",
+    "last_run": "26 (exit 0, 10:09:09)"
+  }
 }

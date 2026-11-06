@@ -1,13 +1,13 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "seq": 7,
-  "phase": "final_sealed_after_deadline",
-  "request_id": "B-LOCAL-20261106-007",
+  "seq": 8,
+  "phase": "final_sealed",
+  "request_id": "B-LOCAL-20261106-008",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "A-N4-20261106-004",
-  "published_at": "2026-11-06T10:20:00+08:00",
-  "deadline_note": "夜间窗口 08:00 到期时点已过；本次为过期后补封存，生成期间未新增任何真实运行（最后一次真实运行是 03:06 的 run 25）",
+  "published_at": "2026-11-06T10:14:00+08:00",
+  "deadline_note": "夜间窗口 08:00 到期时为 worker 不在运行状态（08:00–10:06 无真实运行）；10:07:37 显式维护重启恢复服务，10:07:39 A 派发 A-J5B-20261106-006，run 26 于 10:09:09 通过，第 5 项恢复段由此闭环；本回执为最终封存版。",
   "results": {
     "item1": {
       "test_id": "A-J1-20261106-001",
@@ -74,9 +74,28 @@
         "cached": 2805504,
         "output": 16219
       },
-      "restart_log": "STOP succeeded 33160 @03:05:22.909；START succeeded workerPid=3600 @03:07:23.069",
-      "post_state": "10:04 复查无任何 node.exe，up.pid 仍 33160，无 3600 日志，03:06 后无新 run",
-      "verdict": "partial"
+      "restart_log": "STOP succeeded 33160 @03:05:22.909；START succeeded workerPid=3600 @03:07:23.069（该进程未存活）",
+      "segment2": {
+        "test_id": "A-J5B-20261106-006",
+        "run": 26,
+        "worker_pid": 9420,
+        "started": "2026-11-06T10:07:37+08:00",
+        "dispatch_at": "10:07:39",
+        "done": "10:09:09",
+        "native_exit": 0,
+        "session": "01a1ae9c-96f3-7bf1-afea-8026e0684aef",
+        "usage": {
+          "input": 539242,
+          "cached": 403328,
+          "output": 2062
+        },
+        "first_line_verbatim": true,
+        "strict_protocol": true,
+        "non_json_after_terminal": 3,
+        "non_json_before_terminal": 0,
+        "caveat": "stderr 有一次 git 命令 fatal: not a git repository（exit 1），非致命，无 error 事件"
+      },
+      "verdict": "pass"
     },
     "item6": {
       "test_id": null,
@@ -101,11 +120,21 @@
       "detail": "run-01 exit11 / diag-02 exit1 / run-02 exit0 / run-03 exit11"
     },
     "formal_0_130_runs": {
-      "count": 7,
-      "pass": 6,
-      "cancelled_by_design": 1
+      "count": 8,
+      "pass": 7,
+      "cancelled_by_design": 1,
+      "runs": [
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26
+      ]
     },
-    "total_real_model_runs_by_B": 11
+    "total_real_model_runs_by_B": 12
   },
   "root_cause": {
     "statement": "D:\\AutoAgentloop 整棵树带 Low 完整性标签（S-1-16-4096），从其中启动的 codex 子进程一律为 Low，无法写入 Medium 的 C:\\Users\\19082\\.codex（arg0 tmp + sqlite state runtime）→ exec 在模型开始前 os error 5 退出",
@@ -123,16 +152,15 @@
     "worker 维护重启 11968→33160；第 5 项中 33160 被脚本停止并由脚本拉起 3600（未存活）"
   ],
   "unresolved": [
-    "钉值路径候选的永久修复口径待 A 选定（FIX-A 需提权 / FIX-B 中心 rules.json 指向 Medium 副本 / FIX-C 去标签）",
-    "worker 当前不在运行，需带监督重启并做重启后接活验证（第 5 项恢复段未闭环）",
-    "第 6 项真机重登未验证",
-    "A 侧 main 自 96bc760 起无新提交，J2–J5 判定未落 git"
+    "钉值路径候选的永久修复口径待 A 选定（FIX-A 需提权 / FIX-B 中心 rules.json 指向 Medium 副本 / FIX-C 去标签）；B 已完成 4/6 预算，余 2 次仅留作切换验证",
+    "第 6 项真机重登未验证（A 未派发 test_id，B 只做了启动项与链路静态核对，不凑 6/6）",
+    "A 侧 main 自 96bc760（seq4）后无新提交，J2–J6 判定未落 git；B 侧 seq5–seq8 为单向发布",
+    "D:\\AutoAgentloop 树上的 Low 完整性标签仍在（B 不越权改标签/ACL）"
   ],
   "published_artifacts": [
-    "B/evidence/deploy-b/night-20261106/summary.md",
-    "B/evidence/deploy-b/night-20261106/MANIFEST-20261106T1018.json",
-    "B/evidence/deploy-b/night-20261106/final-runs-20261106T1012.json",
     "B/evidence/deploy-b/night-20261106/B-status.json",
+    "B/evidence/deploy-b/night-20261106/summary.md",
+    "B/evidence/deploy-b/night-20261106/MANIFEST-20261106T1013.json",
     "B/evidence/deploy-b/night-20261106/final-runs-20261106T1012.json"
   ],
   "declarations": {
@@ -145,5 +173,15 @@
     "other_processes_touched": false,
     "raw_logs_uploaded": false
   },
-  "summary_sha256": "074d3efaf5cd25d6b5c856ec57b15658a487d41ba5eefe359664e363cbac24b3"
+  "summary_sha256": "0d568785a46645fdc2ef64831cc806cdbf1effbd3213125fa68a95ec0f81d9a6",
+  "live_state": {
+    "worker_pid": 9420,
+    "up_pid_file": 9420,
+    "worker_log": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.post-night-20261106T1020.log",
+    "started_via": "D:\\AutoAgentloop\\_probe\\restart-worker-post-night.ps1（授权范围内维护重启，带 stdout/stderr 重定向）",
+    "last_run": "26 exit 0 @10:09:09",
+    "note": "worker 于 03:07 的 3600 已消失；10:07:37 重启为 9420 并成功接活"
+  },
+  "manifest_sha256": "73892de50e14cd132a359be8a3c8c7c1ab0cc615c48809676cb897cd1c79e655",
+  "inventory_sha256": "a67b368137a22beff5304f8472ad94635761b5389c045f51e3ba12a6ceca7ef7"
 }

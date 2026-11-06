@@ -235,8 +235,38 @@
           "2026-11-06T03:07:23.0787174+08:00 END"
         ]
       },
-      "post_state": "10:04 复查：无任何 node.exe；up.pid 仍写作 33160；未出现 3600 的日志文件；03:06 之后无新 run → 重启成功拉起但该进程未存活，重启后接活未验证",
+      "post_state": "10:04 复查无 node.exe（夜间窗口内未再拉起）；10:07:37 B 显式维护重启 worker=9420",
       "verdict": "partial(stop+restart executed, post-restart serving unverified)"
+    },
+    {
+      "run": 26,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\26-1",
+      "rule": "B-接线验证",
+      "test_id": "A-J5B-20261106-006",
+      "item": "5B",
+      "dispatch_event": "b.ping.item1 A-J5B-20261106-006（重启后接活验证）",
+      "native_exit": 0,
+      "started": "2026-11-06T10:07:39+08:00",
+      "done": "2026-11-06T10:09:09+08:00",
+      "stdout_bytes": 20087,
+      "stdout_lines": 26,
+      "terminal_line": 22,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ae9c-96f3-7bf1-afea-8026e0684aef",
+      "usage": {
+        "input": 539242,
+        "cached": 403328,
+        "output": 2062,
+        "reasoning": 815
+      },
+      "final_first_line": "B 接线通过：b-magicbook14",
+      "artifact": "b-ping.txt 21B sha256 fcd7cde2…（mtime 未变，内容一致）",
+      "caveat": "stderr 有 codex_core::tools::router error（模型跑 git 命令报 fatal: not a git repository，exit 1），非致命",
+      "verdict": "pass",
+      "significance": "worker 9420 于 10:07:37 启动、10:07:39 即接到 A 派发并完成整轮 → 重启后接活（第 5 项恢复段）已闭环"
     }
   ]
 }

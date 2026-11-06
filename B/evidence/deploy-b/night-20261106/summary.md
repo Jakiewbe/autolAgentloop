@@ -2,11 +2,11 @@
 
 - night_id: NIGHT-20261106
 - 角色: B（本机 Magicbook14-zz / worker b-magicbook14）
-- 封存时间: 2026-11-06T10:15+08:00（夜间窗口 08:00 到期后补封存，期间未新增任何真实运行）
+- 封存时间: 2026-11-06T10:12+08:00（夜间窗口 08:00 到期后补封存；08:00–10:06 无真实运行，10:07 恢复服务后由 A 派发 1 次，见第 3.2 节 run 26）
 - 模型: deepseek-v4.1-flash-1017（固定未改）
 - cwd: D:\AutoAgentloop（固定）
 - MCP: 保持，未改 C:\Users\19082\.codex\config.toml
-- 结论: 启动阻塞根因已定位并有决定性证据；正式 0.130 通道六项联调中 1/2/3/4 通过、5 部分通过、6 未验证。
+- 结论: 启动阻塞根因已定位并有决定性证据；正式 0.130 通道六项联调中 1/2/3/4/5 通过（第 5 项经 run 26 闭环）、6 未验证（未派发、未重登）。
 
 ## 1. 实际修复了什么
 
@@ -86,9 +86,10 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 22 | 3 接续第 2 轮 | A-J3-20261106-003 | 0 | 通过（resume 同会话，ROUND2 甲） |
 | 23 | 4 运行中取消 | A-J4-20261106-004 | 无 exit 文件（取消） | 通过（21.7 s 后被真实取消） |
 | 24 | 唤醒探测 | A-WAKE-20261106-001 | 0 | 通过 |
+| 26 | 重启后接活 | A-J5B-20261106-006 | 0 | 通过（worker 9420 启动 2 s 后接到派发并完成整轮） |
 | 25 | 5 断线恢复 | A-J5-20261106-005 | 0 | 部分通过（停机+重启执行成功，重启后接活未验证） |
 
-合计本夜真实模型运行 11 次（候选 4 + 正式 7），机械解析明细见 `final-runs-20261106T1012.json`。
+合计真实模型运行 12 次（候选 4 + 正式 8：19/20/21/22/23/24/25/26），机械解析明细见 `final-runs-20261106T1012.json`。
 
 ## 4. 六项配合证据
 
@@ -98,14 +99,14 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 2 合成临时目录增删列清 | **通过** | run 20：exit 0，建 `D:\AutoAgentloop\aa-tmp-item2-20261106020807`，写 a.txt(ITEM2-A)/b.txt(ITEM2-B)，列 a.txt、b.txt，删除并确认不存在；B 侧复查 `none_remaining`；过程中一次多行 PowerShell 脚本被审批策略 declined，改单行完成，B 未改任何策略 |
 | 3 同会话 回执→卡片→回答→resume | **通过** | run 21 发卡片（key `b-resume-item3`，选项 甲/乙）；run 22 argv 为 `exec resume 01a1ace6-40d4-72c3-8d63-306059611b9e …`，session 与第 1 轮相同，回答 choice=0(甲)，`resume-mark.txt` 追加 `ROUND2 甲`（54 B，sha256 `c73b859b…`），首行「第3项第2轮完成：你选了 甲，接续成功」 |
 | 4 运行中取消（非排队重试） | **通过** | run 23：18:14:34.243Z 启动 → 18:14:55.943Z `run 23: stopping (cancel)` → 18:14:56.386Z `run 23: cancelled`，历时 21.7 s；无 exit-1；stdout 仅 101 B（thread.started + turn.started）；b-ping.txt mtime 未变（仍为 02:06）证明模型侧未写入 |
-| 5 断线/重启/恢复 | **部分通过** | run 25 自身执行：脚本 `aa-item5-restart.ps1` 1561 B 布置成功，`aa-item5-restart.log` 记录 STOP succeeded(33160) 03:05:22.909、START succeeded workerPid=3600 03:07:23.069；但 10:04 复查本机已无任何 node.exe，`up.pid` 仍写 33160、无 3600 日志、03:06 后无新 run → 重启后接活未验证 |
+| 5 断线/重启/恢复 | **通过（分两段取证）** | 段一 run 25：脚本 `aa-item5-restart.ps1` 1561 B 布置成功，`aa-item5-restart.log` 记录 STOP succeeded(33160) 03:05:22.909、START succeeded workerPid=3600 03:07:23.069；但该进程未存活（10:04 复查无 node.exe）。段二：B 于 10:07:37 显式维护重启 worker=9420（up.pid=9420，日志 `worker.stdout.post-night-20261106T1020.log` 见 `worker b-magicbook14 started`），10:07:39 即接到 A 派发的 A-J5B-20261106-006，10:09:09 完成整轮 exit 0（session `01a1ae9c-96f3-7bf1-afea-8026e0684aef`，usage 539242/2062/403328）→ 重启后接活已闭环 |
 | 6 登录启动项登记与路径核对 | **未验证** | 离线核对：`%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup\agent-autoloop.cmd` 430 B sha256 `aa2cfb42…`，指向 `C:\Program Files\nodejs\node.exe`(v24.12.0) + `runtime\d504e4876d07\bin\agent-autoloop.ts`，重定向目标 `~/.agent-autoloop/logs/up.log` 不存在；真机重登录未做，故按约定报未验证，不凑 6/6 |
 
 ## 5. 未解决事项 / 移交 A
 
 1. **永久修复口径未定**：钉值路径候选仍因 Low 标签无法真实运行（run-03 可复现），需 A 在 FIX-A / FIX-B / FIX-C 中选定；B 已备好 run-02 的 Medium 字节一致副本可立即复测。
-2. **worker 当前不在运行**：03:07 拉起的 PID 3600 未存活，10:04 复查无 node.exe。夜间窗口 07:50 后不再新增真实运行，故 B 未擅自再拉起来（避免窗口外新派发）。需白班带监督重启并做重启后接活验证。
-3. **第 5 项恢复段未闭环**：停机与重启动作有日志证据，但「重启后能重新接活」缺一次实跑；第 4→第 5 项的紧接顺序已满足（run 23 → run 25）。
+2. ~~worker 当前不在运行~~ **已恢复**：03:07 拉起的 PID 3600 未存活；B 于 10:07:37 显式维护重启为 PID 9420（授权范围内、带日志重定向），10:07:39 即接到 A 派发并完成 run 26 → 服务已恢复且接活已验证。
+3. ~~第 5 项恢复段未闭环~~ **已闭环**：run 26（A-J5B-20261106-006）在重启后 2 s 内被接活并完成整轮；第 4→第 5 项紧接顺序亦满足（run 23 → run 25）。
 4. **第 6 项真机重登未做**：只完成启动项与链路静态核对，未做真实登录/重登复现。
 5. **A 侧 main 自 96bc760（seq4）后无新提交**：J2–J5 的判定与补充派发未落到 git，B 的 seq5/seq6 与本封存回执只能单向发布。
 6. **第 2 项审批策略噪声**：多行 PowerShell 脚本被 declined（未触发 ask 升级），属中心策略口径，B 未改。
@@ -134,5 +135,8 @@ run-02 关键证据：protocol.pass=true，final text="2"，session `01a1acc9-bd
 | 02:14:34–02:14:56 | run 23 第 4 项真实取消通过 |
 | 02:58–02:59 | run 24 唤醒探测通过 |
 | 03:01–03:07 | run 25 第 5 项停机/重启执行 |
-| 03:06 之后 | 无新 run；worker 已不在 |
-| 10:04–10:15 | 过期补封存：机械核对全部 run 原始产物，生成 summary 与清单，未新增真实运行 |
+| 03:06–10:06 | 无新 run；worker 不在运行（夜间窗口已止，未擅自拉起） |
+| 10:04–10:06 | 过期补封存：机械核对 19–25 号 run 原始产物 |
+| 10:07:37 | B 显式维护重启 worker=9420，服务恢复 |
+| 10:07:39–10:09:09 | run 26（A-J5B-20261106-006）重启后接活通过 |
+| 10:12 | 二次封存：把 run 26 并入 summary/清单/回执，生成最终清单 |
