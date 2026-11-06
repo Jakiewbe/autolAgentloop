@@ -1,152 +1,205 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 1,
-  "request_id": "B-FA-20261106-001",
-  "reply_to": "A-FA-20261106-001",
-  "phase": "PREPARED",
+  "seq": 2,
+  "request_id": "B-FA-20261106-002",
+  "reply_to": "A-FA-20261106-002",
+  "phase": "ITEM2_VERIFIED_ITEM4_RUNNING_SAMPLED",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T13:19:20+08:00",
-  "coordination_read": {
-    "method": "git fetch origin '+refs/heads/main:refs/remotes/origin/main' + '+refs/heads/b:refs/remotes/origin/b'（单分支 refspec 的 clone，显式抓取）",
-    "main_true_tip": "090999d76564fb1b9f34e89442a000b080720987（A final-accept seq1，2026-11-06T13:16:28+08:00）",
-    "main_previous": "3ffbf34639c9a6570791cd3d83f1e9ecd73ec796",
-    "b_tip": "e14c2441098ca546d711b5356e82cb263cec4570",
-    "files_read": [
-      "evidence/coordination/final-accept-20261106/B-prompt.md 4876B",
-      "evidence/coordination/final-accept-20261106/contract.md 7755B",
-      "evidence/coordination/final-accept-20261106/A-status.json 2387B",
-      "evidence/coordination/final-accept-20261106/A-prompt.md（存在，未读，A 侧指令）"
-    ]
-  },
-  "host_checks": {
-    "hostname": "MAGICBOOK14-ZZ",
-    "account": "chs",
-    "userprofile": "C:\\Users\\19082",
-    "cwd": "D:\\AutoAgentloop",
-    "is_git_repo": false,
-    "worker_processes": [
-      {
-        "created": "2026-11-06T12:29:15+08:00",
-        "pid": 33640,
-        "ppid": 18296,
-        "cmdline": "\"C:\\Program Files\\nodejs\\node.exe\" --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up "
-      }
-    ],
-    "worker_count": 1,
-    "up_pid_file": "33640",
-    "single_instance": true,
-    "worker_created": "2026-11-06T12:29:15+08:00",
-    "hub_connection": "198.18.1.108:443 Established（PID 33640）",
-    "idle_since": "2026-11-06T04:32:40Z（run 30: done）",
-    "busy_runs": [],
-    "disk": {
-      "C": {
-        "size": "120G",
-        "avail": "1.8G",
-        "use": "99%"
+  "observed_at": "2026-11-06T13:27:40+08:00",
+  "item2": {
+    "test_id": "ITEM2-20261106-1320",
+    "run": 31,
+    "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\31-1",
+    "subject": "A-FA-ITEM2-20261106-001",
+    "session": "01a1af4e-3805-7513-84ab-684d0652f8b7",
+    "native_exit_file": {
+      "file": "exit-1",
+      "bytes": 1,
+      "sha256": "5feceb66ffc86f38d952786c6d696c79c2dbc239dd4e91b46729d73a27fb57e9",
+      "content": "0"
+    },
+    "raw_bytes": {
+      "command-1.json": {
+        "bytes": 4461,
+        "sha256": "f2a8d7f4e5a31d2f7d3d1629d04d72c8765e554eddd577b972d276b549c5188a"
       },
-      "D": {
-        "size": "344G",
-        "avail": "92G",
-        "use": "74%"
+      "context.json": {
+        "bytes": 592,
+        "sha256": "725d4bb8381a493954a5c0c840fb6bfb3d9e5a3c1efbb1be7e96f7054910788b"
+      },
+      "stderr-1.log": {
+        "bytes": 2752,
+        "sha256": "232e388f864a050c06c87cb36a54cf5d5014372faab1545c5d5dee00699c2c20"
+      },
+      "stdout-1.log": {
+        "bytes": 13065,
+        "sha256": "a88deec91ee3d1b019691f0bc09419ecce970e264de37ce058d9f4db511d0e01"
       }
-    }
-  },
-  "build_identity_verified": {
-    "entry": {
-      "bytes": 368970544,
-      "sha256": "6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c"
     },
-    "entry_path": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
-    "entry_matches_a": true,
-    "adapter": {
-      "bytes": 6141,
-      "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74"
+    "stdout_lines": 37,
+    "terminal_type": "turn.completed",
+    "terminal_line_index": 37,
+    "non_json_lines_after_terminal": 0,
+    "non_json_lines_total": 0,
+    "usage": {
+      "input": 1705975,
+      "output": 3951,
+      "cached": 1696128
     },
-    "worker_ts": {
-      "bytes": 17436,
-      "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82"
-    },
-    "agents": {
-      "bytes": 2328,
-      "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471"
-    },
-    "runtime_package_json_sha256": "f6dbdb6e3058f445902dce7311926c3fd427931f016b451af98571fac08757b3",
-    "codex_0130_untouched": {
-      "bytes": 245812016,
-      "sha256": "dd4adf302b112fdc30fce509a5e261a0a6f1118dc58ac2da636eb84e0a6b3e3e"
-    },
-    "mcp_config": {
-      "path": "C:\\Users\\19082\\.codex\\config.toml",
-      "sha256": "4b76035688a5edf7a1aa9ccf757de2096f2a14c133ac8167edfbeafbe9762393",
-      "bytes": 6089
-    },
-    "mcp_config_unchanged_since_v2_apply": true,
-    "startup_entry": {
-      "path": "C:\\Users\\19082\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd",
-      "bytes": 430,
-      "sha256": "aa2cfb4207edb8e3e67a0268d82fa19dddd0a1397374742052d17b45a40f28a6"
-    },
-    "model": "deepseek-v4.1-flash-1017"
-  },
-  "reuse_evidence": {
-    "item1": "run 29（session 01a1af1f-ba77-7451-9963-e14049e17b99，usage 1009471/2730/998144，terminal 第 29/29 行，非 JSON 0，native exit 0）",
-    "item3": "run 30（同 session，usage 1462654/3365/1431936，terminal 第 14/14 行，非 JSON 0，native exit 0）",
-    "reuse_condition": "构建未变（entry/adapter/worker/agents 哈希与 A 固定值一致），故不重测第 1、3 项"
-  },
-  "plan": {
-    "order": [
-      "item2",
-      "item4",
-      "item5",
-      "item6"
+    "first_line_verbatim": "FA-2 通过：ITEM2-20261106-1320",
+    "final_message_verbatim": "FA-2 通过：ITEM2-20261106-1320\ndir=none marker=FA-ITEM2-OK-ITEM2-20261106-1320 exit=0,0,0,0,0",
+    "command_exits": [
+      {
+        "step": "resolve/parent check",
+        "exit": 0
+      },
+      {
+        "step": "New-Item -ItemType Directory",
+        "exit": 0
+      },
+      {
+        "step": "Set-Content marker.txt",
+        "exit": 0
+      },
+      {
+        "step": "marker read-back/size",
+        "exit": 0
+      },
+      {
+        "step": "File.Delete marker.txt",
+        "exit": 0
+      },
+      {
+        "step": "Get-ChildItem remaining items",
+        "exit": 0
+      },
+      {
+        "step": "Directory.Delete(dir,false) + exists check",
+        "exit": 0
+      }
     ],
-    "item2": "在 D:\\AutoAgentloop 新建本阶段唯一合成目录，唯一标记 FINAL-ITEM2-<token>，建/写/列/删 + 独立确认无残留",
-    "item4": "先采正在执行 run 的 CLI 与子进程身份（PID/父进程/命令行/创建时间），再等 A 取消，核对进程树消失、无成功副作用、worker 健康",
-    "item5": "紧接 item4，同一 worker：B 预置独立恢复脚本与日志（不依赖被停进程），任务运行中仅停本 worker，A 离线排 1 条无害任务，B 用恢复脚本拉起并核对只执行一次/单实例/心跳",
-    "item6": "一次性注销：先确认队列空、工作已保存、恢复说明就绪 → 发 LOGIN_READY → 用户亲自重新登录 → 观察≥120 秒自动启动，不手工起 worker → 采样并配合 A 的无害任务"
+    "marker_read_back_verbatim": "FA-ITEM2-OK-ITEM2-20261106-1320",
+    "b_independent_dir_check": {
+      "at": "2026-11-06T13:26:10+08:00",
+      "command": "ls -d /d/AutoAgentloop/aa-final-item2-* (git-bash)",
+      "result": "NO_ITEM2_DIR",
+      "meaning": "B 独立确认合成目录最终不存在，与模型自述 dir=none 一致"
+    },
+    "b_verdict": "PASS（唯一合成目录、建/写/读/列/删全部 exit 0、标记逐字回读、目录最终不存在；仅 D:\\AutoAgentloop 内，未新建 ACL、未动真实数据）"
   },
-  "prepared_assets": {
-    "item5_recovery_script": {
-      "path": "D:\\AutoAgentloop\\_probe\\final-item5-recover.ps1",
-      "bytes": 1374,
-      "sha256": "2dca01a87cc14d0c2e6bd84fe69af5b320deee578a95d9643ce06013194108a3"
+  "item4": {
+    "test_id": "ITEM4-20261106-1320",
+    "subject": "A-FA-ITEM4-20261106-001",
+    "rule": "FA-取消",
+    "run": 32,
+    "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
+    "session": "01a1af4f-e564-73d2-909b-7396f4f4e35c",
+    "state_at_sample": "running（无 exit-1 文件；stdout 仅到 13:24:16Z 的 4452B，turn 未终态）",
+    "sample_times": [
+      "2026-11-06T13:26:26.105+08:00",
+      "2026-11-06T13:26:39.324+08:00",
+      "2026-11-06T13:26:54.364+08:00",
+      "2026-11-06T13:27:23.617+08:00"
+    ],
+    "identities": {
+      "worker": {
+        "pid": 33640,
+        "created": "2026-11-06T12:29:15.815+08:00",
+        "cmdline": "\"C:\\Program Files\\nodejs\\node.exe\" --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\bin\\agent-autoloop.ts up"
+      },
+      "runner": {
+        "pid": 34056,
+        "ppid": 33640,
+        "created": "2026-11-06T13:23:30.686+08:00",
+        "cmdline": "\"C:\\Program Files\\nodejs\\node.exe\" --disable-warning=ExperimentalWarning D:\\AutoAgentloop\\runtime\\d504e4876d07\\worker\\runner.ts C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1\\command-1.json ...\\stdout-1.log ...\\stderr-1.log ...\\exit-1 agent-autoloop-run:32:1:1"
+      },
+      "cli": {
+        "pid": 10872,
+        "ppid": 34056,
+        "created": "2026-11-06T13:23:30.786+08:00",
+        "cmdline_head": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe exec --skip-git-repo-check -C D:\\AutoAgentloop --json -m deepseek-v4.1-flash-1017 <prompt>"
+      },
+      "running_tool_child": {
+        "pid": 16828,
+        "ppid": 10872,
+        "created": "2026-11-06T13:23:43.887+08:00",
+        "cmdline_verbatim": "C:\\Windows\\System32\\WindowsPowerShell\\v1.0\\powershell.exe -Command \"try { [Console]::OutputEncoding=[System.Text.Encoding]::UTF8 } catch {}\\n$sw=[System.Diagnostics.Stopwatch]::StartNew(); Start-Sleep -Seconds 480; $sw.Stop(); \\\"elapsed=\\\" + [math]::Round($sw.Elapsed.TotalSeconds,1)\"",
+        "note": "这就是第 4 项的可控等待命令本体，采样时仍在运行（约 8 分钟窗口，预计 13:31:43 自然结束）"
+      },
+      "mcp_helpers": [
+        {
+          "pid": 34564,
+          "name": "node_repl.exe",
+          "created": "2026-11-06T13:23:31.507+08:00"
+        },
+        {
+          "pid": 12316,
+          "name": "node.exe",
+          "created": "2026-11-06T13:23:31.515+08:00"
+        },
+        {
+          "pid": 20248,
+          "name": "node_repl.exe",
+          "created": "2026-11-06T13:23:31.671+08:00"
+        }
+      ],
+      "conhost": [
+        13016,
+        34096
+      ]
     },
-    "item5_recovery_note": {
-      "path": "B/evidence/deploy-b/final-accept-20261106/item5-local-recovery.md",
-      "bytes": 781,
-      "sha256": "4dd0b498cf1bd5419d7feb6b2f33b0c5fb7581300070d0485072ce8561f4181a"
+    "raw_bytes_at_sample": {
+      "command-1.json": {
+        "bytes": 4183,
+        "sha256": "815bfe6f7d1dcce25a7e4c155424a58d2c4f928d1fa357f2950064f9df4306ed"
+      },
+      "context.json": {
+        "bytes": 539,
+        "sha256": "9313fc8b70aaeefe1758309986aa8535aacbb692e105d556033bc70e19d24c0d"
+      },
+      "entry.json": {
+        "bytes": 5805,
+        "sha256": "33708677709b5a07a9e148e1b660cdb9e5a2e888c084c0f86fc103de9d3b5b1b"
+      },
+      "stderr-1.log": {
+        "bytes": 39,
+        "sha256": "1aa26269eb1cc57f86b235a03cda53c004edb5b1e9fc99d4da4f00843293d721"
+      },
+      "stdout-1.log": {
+        "bytes": 4452,
+        "sha256": "14bda09a7aa16ab4cf26de99d77d79fc1cc1e079c64a15da01e5f2aed5d189c1",
+        "sampled_at": "13:27:23+08:00"
+      }
     },
-    "item5_recovery_log_path": "C:\\Users\\19082\\.agent-autoloop\\logs\\worker.stdout.final-item5-recover.log（新建，独立于旧日志）"
+    "samples_local": [
+      "evidence/deploy-b/final-accept-20261106/treefull-item4-t1.json",
+      "treefull-item4-t2.json",
+      "treefull-item4-t3.json",
+      "tree-item4-t0.json",
+      "tree-smoke1326.json"
+    ],
+    "b_actions": [
+      "只做只读采样（Get-CimInstance / Select-String 读日志）",
+      "未停止、未终止、未修改任何进程或文件",
+      "未在同一 run 上做任何写操作"
+    ],
+    "awaiting": "A 用 /v1/runs/32/cancel 取消该 run；取消落地后 B 立即核对整棵进程树消失、无成功副作用、worker 33640 健康"
   },
-  "risks": [
-    {
-      "id": "RISK-C-DISK",
-      "detail": "C: 仅剩 1.8G（99% 使用）。codex 运行期写 C:\\Users\\19082\\.codex\\tmp 与 sqlite；余量偏低但 run 29/30 在同一余量下正常，暂作观察项，不清理旧证据/657MB 目录（合同禁止）。"
-    },
-    {
-      "id": "RISK-C-HUB-BLIP",
-      "detail": "worker 日志 2026-11-06T05:05:29Z 有一次 fetch failed，随后连接重建（当前 Established）；断线窗口不计为第 5 项证据。"
-    }
-  ],
   "budget_used": {
-    "real_model_execs": 0,
+    "real_model_execs": 2,
     "cap": 10,
-    "a_new_hub_runs": 0,
+    "a_new_hub_runs": 2,
     "b_maintenance_restarts": 0,
-    "cap_restarts": 2,
     "item5_recovery_restarts": 0,
-    "cap_item5": 1,
     "item6_login_triggers": 0,
-    "cap_item6": 1
+    "note": "run31（item2）=1、run32（item4，进行中）=1，均在 cap 内"
   },
   "compliance": [
     "未改 runtime/配置/路由/MCP/身份/权限/标签/ACL",
-    "未重启 worker（保持 33640）",
-    "未调用模型",
-    "未清理旧证据与 657MB 目录",
-    "未初始化 D:\\AutoAgentloop 为 git"
+    "未重启 worker（33640 保持）",
+    "第 4 项只采样不干预",
+    "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "等 A 派发 item2（唯一 test_id）；B 收到后在同一 worker 33640 上执行，使用唯一标记并在本地留原始 stdout/stderr/native 退出码与哈希"
+  "next_action": "等 A 取消 run 32 → B 做取消后核对并发布 seq3 CANCELLED_VERIFIED"
 }
