@@ -1,0 +1,164 @@
+{
+  "night_id": "STRICT-V2-ACCEPT-20261106",
+  "role": "B",
+  "stage": "prepared",
+  "request_id": "B-V2-20261106-001",
+  "reply_to": "A-N13-20261106-013",
+  "prepared_at": "2026-11-06T12:11:00+08:00",
+  "route_not_switched": true,
+  "v2_not_applied_yet": true,
+  "note": "工具准备与 v2 包核对已完成，等待 A 确认空闲（并核对当前 worker 真实 PID）后再做一次维护；不自行切路由、不自行派发测试。",
+  "tool_preparation": {
+    "purpose": "标准名 0.166 官方包并列安装（不动 codex-medium.exe、不动 0.130、不改 PATH/标签/ACL）",
+    "source": "D:\\AutoAgentloop\\tools\\codex\\0.166.0-alpha.5.1\\package",
+    "target": "C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package",
+    "target_preexisting_content": "无（C:\\Users\\19082\\AppData\\Local\\agent-autoloop 整棵树此前不存在）⇒ 不存在“目标已有不同内容”的情况",
+    "method": "robocopy /E（仅复制 package 目录内容；未复制 CODEX_HOME、数据库、登录或身份材料）",
+    "robocopy_exit": 1,
+    "file_count": {
+      "source": 47,
+      "target": 47
+    },
+    "per_file_hash_diff": "clean（逐文件 sha256 全等，零 MISMATCH）",
+    "main_program": {
+      "path": "vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe",
+      "bytes": 368970544,
+      "sha256": "6ca87057d80648f18f8cba0db224ae3e885b25326c07dcc798d38caef22c302c",
+      "matches_required_pin": true
+    },
+    "integrity_probe": {
+      "method": "CreateProcessW + CREATE_SUSPENDED(0x4) 后仅查询 token 完整性，随即 TerminateProcess；未 ResumeThread、未执行任何代码",
+      "queries_used": 1,
+      "pid": 16864,
+      "il": "S-1-16-8192 (Medium)",
+      "self_il": "S-1-16-8192 (Medium)",
+      "terminated": true,
+      "resumed": false,
+      "post_check": "Get-Process -Id 16864 → 不存在"
+    },
+    "version_preflight": {
+      "invocations_used": 1,
+      "command": "\"C:\\Users\\19082\\AppData\\Local\\agent-autoloop\\tools\\codex\\0.166.0-alpha.5.1\\package\\vendor\\x86_64-pc-windows-msvc\\bin\\codex.exe\" --version",
+      "exit_code": 0,
+      "stdout": "codex-cli 0.166.0-alpha.5.1"
+    },
+    "untouched": {
+      "original_0_130": {
+        "path": "C:\\Users\\19082\\AppData\\Local\\OpenAI\\Codex\\bin\\codex.exe",
+        "bytes": 245812016,
+        "sha256": "dd4adf302b112fdc30fce509a5e261a0a6f1118dc58ac2da636eb84e0a6b3e3e",
+        "changed": false
+      },
+      "codex_medium_exe": {
+        "path": "C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe",
+        "promoted": false,
+        "note": "未提升、未作为入口使用"
+      },
+      "path_env": "未改",
+      "integrity_labels": "未改",
+      "acl": "未改"
+    }
+  },
+  "v2_package": {
+    "source_commit": "73781d830d983c7cf8e8966cc8fdbeca012d7848",
+    "commit_date": "2026-11-06T02:56:41Z",
+    "zip": {
+      "path": "deploy/coordination/night-20261106/night-parse-strict-fulljson-v2.zip",
+      "bytes": 14201,
+      "sha256": "5ff21499d4e0d98dddb2a9679e72fc8d907907454e139940d957101ee3bc4e23"
+    },
+    "whole_package_ok": true,
+    "members": [
+      {
+        "path": "plugins/command/agent.ts",
+        "bytes": 6141,
+        "sha256": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+        "equals_patch_after": true
+      },
+      {
+        "path": "worker/agents.ts",
+        "bytes": 2328,
+        "sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+        "equals_patch_after": true
+      },
+      {
+        "path": "worker/worker.ts",
+        "bytes": 17436,
+        "sha256": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+        "equals_patch_after": true
+      },
+      {
+        "path": "PATCH.json",
+        "bytes": 3491,
+        "sha256": "0f82e5a8e8cfb19985d820e19ddc8f9a6efd7f9697d757322d25ed82f106fda6"
+      },
+      {
+        "path": "README.md",
+        "bytes": 4411,
+        "sha256": "809a9eea7730a1e259067ed4fdc3f74e1cd5662b37c5132a9dfa001195ab25cc"
+      }
+    ],
+    "patch_id": "night-20261106-parse-strict-fulljson-v2",
+    "supersedes": {
+      "package": "night-parse-terminal-boundary-v1.zip",
+      "sha256": "254b44b106c6711f41a56d1083d14d0bc0f72aa75337066af9a24c175e502b27",
+      "policy": "v1 已撤销；不恢复、不以 v1 冒充可用"
+    },
+    "base_runtime_sha256": "d504e4876d07501e0a5288242a4575ae60dea685c1191c0598949bd9f9c99ebc"
+  },
+  "runtime_before": {
+    "runtime_root": "D:\\AutoAgentloop\\runtime\\d504e4876d07",
+    "matched_branch": "night-parse-terminal-boundary-v1-applied",
+    "files": [
+      {
+        "path": "plugins/command/agent.ts",
+        "bytes": 5691,
+        "current_sha256": "1b8933c0d1f8976b5afe7cc9fbdcd9021549a1057e68ae96f35ed85fd0bcd4f1",
+        "expected_after": "c077041d0f2ac21b774ba546d203c16a81e2954b44770b27dedc7d5b831c4f74",
+        "action": "overwrite"
+      },
+      {
+        "path": "worker/agents.ts",
+        "bytes": 2328,
+        "current_sha256": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+        "expected_after": "6c150fc07d6ec255df6aadc6cc73192d829333dda7b18d276ce8574d0e23b471",
+        "action": "skip (already after)"
+      },
+      {
+        "path": "worker/worker.ts",
+        "bytes": 17335,
+        "current_sha256": "9899c23219722532f4d42b13106cde224ec890287d66027910106150dcac6cbb",
+        "expected_after": "8416191f470f6320c7ad058af61ea13232b1662b2768a234d4fc9a295baeef82",
+        "action": "overwrite"
+      }
+    ],
+    "all_before_match_patch_alternatives": true
+  },
+  "plan_on_go": {
+    "step_0": "A 确认空闲后，先重新采样当前 worker 真实 PID（不沿用本回执里的 9420，也不照历史值盲杀）",
+    "step_1": "备份将被覆盖的 2 个文件到本机 apply-v2-<ts>/backup（含 sha256 记录），不删旧实验目录",
+    "step_2": "按 applyOrder 覆盖：plugins/command/agent.ts → worker/worker.ts（agents.ts 已等于 after，跳过）",
+    "step_3": "逐个核 after sha256 与本回执期望值一致；不一致即停并回滚该文件",
+    "step_4": "回报 after 哈希，等 A 确认路由生效（command[0] 指向标准文件名 codex.exe 且 --json）后，才启动 worker 一次",
+    "step_5": "启动后检查单实例（仅 1 个 agent-autoloop.ts up）、up.pid、心跳与 hub 连接",
+    "step_6": "只执行 A 派发的两轮测试，不额外跑独立模型；严格判分，失败就报失败，不用 v1 宽松版冒充可用"
+  },
+  "current_worker_snapshot_at_prepared": {
+    "pid": 9420,
+    "parent_pid": 11060,
+    "created": "2026-11-06T10:07:37+08:00",
+    "up_pid_file": 9420,
+    "alive": true,
+    "worker_like_count": 1,
+    "caveat": "此为 PREPARED 时刻快照；实际维护前必须重新核对，不视为维护时仍相同"
+  },
+  "compliance": {
+    "route_not_switched": true,
+    "no_extra_model_runs": true,
+    "no_privilege_escalation": true,
+    "no_acl_label_path_change": true,
+    "no_identity_or_login_change": true,
+    "raw_logs_kept_local": true,
+    "old_experiment_dirs_kept": true
+  }
+}
