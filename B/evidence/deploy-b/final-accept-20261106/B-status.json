@@ -1,12 +1,12 @@
 {
   "stage": "FINAL-ACCEPT-20261106",
   "role": "B",
-  "seq": 5,
-  "request_id": "B-FA-20261106-005",
+  "seq": 6,
+  "request_id": "B-FA-20261106-006",
   "reply_to": "A-FA-20261106-004",
-  "phase": "RECOVERED",
+  "phase": "LOGIN_READY",
   "candidate_id": "final-20261106-baseline-0.166-strict-v2",
-  "observed_at": "2026-11-06T13:43:00+08:00",
+  "observed_at": "2026-11-06T13:44:10+08:00",
   "item2": {
     "test_id": "ITEM2-20261106-1320",
     "run": 31,
@@ -201,7 +201,7 @@
     "第 4 项只采样不干预",
     "原始日志留本机，仅发布脱敏字段与哈希"
   ],
-  "next_action": "第 6 项：先做注销前检查（队列空/工作已保存/恢复说明就绪），发 LOGIN_READY 并等用户确认可在本机重新登录后，B 只注销一次，用户亲自登录，登录后先观察 ≥120 秒自动启动",
+  "next_action": "等 A 确认中心队列空闲；B 收到用户就绪确认后执行一次 shutdown /l，用户亲自登录，登录后按上面的观察计划采集并发布 seq7",
   "item4_verification": {
     "run": 32,
     "run_dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\32-1",
@@ -377,5 +377,41 @@
     },
     "b_verdict": "PASS（同执行端断线恢复：停机后中心任务只执行一次、单实例与新 PID/up.pid/心跳一致；worker 停止不级联结束 CLI 子进程属实测缺陷，已列入未解决事项）"
   },
-  "item4_verdict": "PASS（A 侧 4 秒取消延迟 + B 侧 2.3 秒树死确认 + 无终态/无 exit 文件/无副作用）"
+  "item4_verdict": "PASS（A 侧 4 秒取消延迟 + B 侧 2.3 秒树死确认 + 无终态/无 exit 文件/无副作用）",
+  "item6": {
+    "subject": "A-FA-ITEM6-20261106-001",
+    "state": "READY_TO_LOGOFF（等用户确认可在本机重新登录后执行，只注销一次）",
+    "pre_checks": {
+      "queue_idle_local": true,
+      "runs_without_exit": 0,
+      "all_runs": 21,
+      "git_clean": true,
+      "b_head": "8ef195db91a55dad34b2863763ce9f7e7bc8b906",
+      "b_remote": "8ef195db91a55dad34b2863763ce9f7e7bc8b906（已推送，一致）",
+      "worker": {
+        "pid": 30208,
+        "single_instance": true,
+        "up_pid": "30208",
+        "hub": "Established"
+      },
+      "startup_entry": {
+        "path": "C:\\Users\\19082\\AppData\\Roaming\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\\agent-autoloop.cmd",
+        "bytes": 430,
+        "sha256": "aa2cfb4207edb8e3e67a0268d82fa19dddd0a1397374742052d17b45a40f28a6",
+        "unchanged": true
+      },
+      "up_log_absent_pre_logoff": true,
+      "up_log_path": "C:\\Users\\19082\\.agent-autoloop\\logs\\up.log（不存在，仅在启动项拉起时才会写）",
+      "recovery_doc": "B/evidence/deploy-b/final-accept-20261106/item5-local-recovery.md（不含凭据）",
+      "recovery_script_sha256": "2dca01a87cc14d0c2e6bd84fe69af5b320deee578a95d9643ce06013194108a3",
+      "user_presence_required": "注销后必须由用户本人输入凭据重新登录；B 不代填、不自动登录、不改账户"
+    },
+    "observation_plan_after_login": [
+      "先只观察 ≥120 秒，不手工起 worker",
+      "每 15 秒采样一次进程表（node ... agent-autoloop.ts up）、父进程链（是否 cmd.exe 跑 agent-autoloop.cmd）、up.pid、up.log 首行时间、hub 443 状态",
+      "判成功：进程创建时间晚于登录时间，且父链可追到启动项 cmd 或 up.log 首行晚于登录",
+      "判失败：观察窗口内无 worker 进程 → 如实记第 6 项失败，只修既有启动链并留原件，不第二次注销"
+    ],
+    "caveat": "本机观察脚本事后落盘；登录触发证据以进程创建时间/父进程链/up.log 第一行为准，不用手工启动冒充"
+  }
 }
