@@ -1,6 +1,6 @@
 {
   "package": "dashboard-review-package-20261106",
-  "createdAt": "2026-11-06T16:33:15.447Z",
+  "createdAt": "2026-11-06T16:36:55.837Z",
   "suiteVersion": "dashboard-real-suite-v2.2.0",
   "subject": {
     "zip": "incoming/dashboard-item-key-cancel-v2.zip",
@@ -1119,8 +1119,8 @@
     },
     {
       "path": "real-board/q4-texts.mjs",
-      "bytes": 10092,
-      "sha256": "c86713e669dbfb01f8d425d3a5fd7a49bed1cf7d3e783d9f29abee67e4a2d83f"
+      "bytes": 9043,
+      "sha256": "8646d3ddd7edd98f233d6e29ec617367c9a1e1b84fd46c0817e5be96861f3aea"
     },
     {
       "path": "real-board/q5-order.mjs",
@@ -1149,8 +1149,8 @@
     },
     {
       "path": "run.sh",
-      "bytes": 3016,
-      "sha256": "467f62b24ddd859622cc6e7eb33b3618bea0b3890c6e7a09fcb12ea1dd35df5a"
+      "bytes": 2538,
+      "sha256": "d9a076f576285163685b7b9481adc4d9a1bf28ff8716fcf722a4145faacf596b"
     },
     {
       "path": "selftest-v2/cdp.mjs",
