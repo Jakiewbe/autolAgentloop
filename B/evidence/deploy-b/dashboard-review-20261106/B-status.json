@@ -1,162 +1,193 @@
 {
   "task": "dashboard-workflow-review",
   "night_id": null,
-  "seq": 8,
-  "phase": "DELIVERED",
-  "at": "2026-11-06T15:30:26.988Z",
-  "reply_to": "A-m03820-minimal-request",
-  "commit": "654b3d868ee6282cd8d67b68d92574212e15d005",
-  "commit_range": "fc9de0e..654b3d8",
+  "seq": 9,
+  "phase": "R3_REMEDIATION_DELIVERED",
+  "at": "2026-11-06T15:59:07.235Z",
+  "reply_to": "A-crossreview-r3",
+  "commit": "45331d8a623ac10d5ca4c1baa8d930c21d924e66",
+  "commit_range": "654b3d8..45331d8",
   "delivery_path": "B/evidence/deploy-b/dashboard-review-20261106/",
-  "readable_at": [
-    "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/b/B/evidence/deploy-b/dashboard-review-20261106/review-package-20261106/MANIFEST.json",
-    "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/b/B/evidence/deploy-b/dashboard-review-20261106/B-answer-q1-q8-20261106.md"
-  ],
+  "rebuild_note": "按已发布提交 654b3d8 的包基线 + 本轮改动重建整包（git archive 后叠加），丢弃整改期间出现在包内的非本会话产物（_dbg2.png、_smoke.png、_links-off.mjs、_probe-requests*.mjs、debug-*.mjs、*.log）；包内 evidence/ 已删、incoming/ 为空。",
   "files": {
     "review-package-20261106/MANIFEST.json": {
-      "bytes": 37813,
-      "sha256": "3814704ab4e0cf6a9d624a41626eaf432be5a1ffebcb43ec5da7097ecd5d9c7f",
-      "fileCount": 226
+      "bytes": 38442,
+      "sha256": "0e7e70db81b546d96507454ff43315abbd41b6d5563f8668dc554e9d84626b2d",
+      "fileCount": 230,
+      "suiteVersion": "dashboard-real-suite-v2.2.0"
     },
     "B-answer-q1-q8-20261106.md": {
-      "bytes": 36742,
-      "sha256": "3728761eddd8c9f13f0348c39b8f2646d4767f9f1489c1a133419cca03d0d32d"
+      "bytes": 44603,
+      "sha256": "00f85d1b862d5fa6ca3beaa7263a83e1ea72f076fb4c1f76869fe577f17b5fc5"
+    },
+    "review-package-20261106/SUBJECT.json": {
+      "bytes": 3301,
+      "sha256": "702c3bdb66950dccfad8e6237ef92eb18f3890baedce5dc381fe9b42d60bf3d6"
+    },
+    "review-package-20261106/run.sh": {
+      "bytes": 2538,
+      "sha256": "d9a076f576285163685b7b9481adc4d9a1bf28ff8716fcf722a4145faacf596b"
+    },
+    "review-package-20261106/README.md": {
+      "bytes": 6494,
+      "sha256": "4b08092830d5125d43aec7256f10a4ff3617d2ae2b45bce13d709ef848db901d"
     },
     "review-package-20261106/real-board/build-lock.mjs": {
-      "bytes": 2805,
-      "sha256": "ca2dd475ae71788c2db1a26f978df037d2a799bc68fd9b0186c2cba0132798ac"
+      "bytes": 4136,
+      "sha256": "1df4ac22c7ea71e1a50aac8ad11bf873468a3642ea8fcb14fc46794299a61e46"
     },
-    "review-package-20261106/real-board/q3-viewports.mjs": {
-      "bytes": 5211,
-      "sha256": "cca65d2dffe372bbcf78e42e4dbbcd6e23bf04e8e1871c599c11e3ba86f4ba68"
+    "review-package-20261106/real-board/suite-real.mjs": {
+      "sha256": "decab706009621f53a584ee68ec5d9f52bbe41e1384820f4204b9dbcb42cf74d"
     },
-    "review-package-20261106/real-board/q5-order.mjs": {
-      "bytes": 11361,
-      "sha256": "b619c0907025447693495e71e0bd492b3a08820e033bfe9c2ab147652d8ad417"
+    "review-package-20261106/real-board/q4-centry.mjs": {
+      "sha256": "d97c4f2331a522f6c0566d699ce8daee66f0b36c845edede2dd5d8fbe2ea9619"
+    },
+    "review-package-20261106/real-board/q4-expiry.mjs": {
+      "bytes": 11057,
+      "sha256": "6019bbd321596788e4c567320a2304d95306801ba766c7f14af9061309de4860"
+    },
+    "review-package-20261106/real-board/write-guard.mjs": {
+      "bytes": 473,
+      "sha256": "91180830e238feaf158aaa0a3f04f4dde6fb98373dc273fbf84d28982e7e3a63"
+    },
+    "review-package-20261106/real-board/t9-guard-unit.mjs": {
+      "bytes": 933,
+      "sha256": "541c477fe82ee131af0ff24cc350aec93232fd83b91610bbfbae122ed475ab39"
     }
   },
-  "answers": {
-    "q1": "提交副本是重写派生件（重打 at、workDir 相对化、逐轮标记与 T9 时刻重生成），与声明的本机原始 blob 不同源，不是篡改",
-    "q2": "原来只有目录名 extract-v2-c66a3c64 + 文档哈希，代码无断言；新增 build-lock.mjs 钉死 5 个页面文件 + 源 ZIP 的 sha256 与字节数，run.sh 前置执行，不匹配即 exit 1",
-    "q3": {
-      "evidence": "evidence/q3-viewports-2026-11-06T15-22-53-118Z/record.json sha256 6994f7b2d1ca7d90284be3f8980c551b2bc79e75a25e7ebc5ceb79f1df34b255",
-      "rows": [
-        {
-          "viewport": "1440x900",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "clientWidth": 1440,
-          "horizontalScroll": false,
-          "dpr": 1,
-          "shot": "viewport-1440x900-dpr1.png 1440x900 62505B"
-        },
-        {
-          "viewport": "1440x900",
-          "innerWidth": 1440,
-          "innerHeight": 900,
-          "scrollWidth": 1440,
-          "clientWidth": 1440,
-          "horizontalScroll": false,
-          "dpr": 2,
-          "shot": "viewport-1440x900-dpr2.png 2880x1800 164345B"
-        },
-        {
-          "viewport": "390x844",
-          "innerWidth": 390,
-          "innerHeight": 844,
-          "scrollWidth": 390,
-          "clientWidth": 390,
-          "horizontalScroll": false,
-          "dpr": 3,
-          "shot": "viewport-390x844-dpr3.png 1170x2751 189474B"
-        }
+  "remediations": {
+    "R1_t9_denominator": {
+      "what": "T9 第三项 detail 原本只有 writes:0 一个数，录制器整体为空时仍成立（空真）。改为 detail 并记分母，判据改 writes===0 && total>0。",
+      "impl": [
+        "real-board/write-guard.mjs：export function writeGuard(urls) → {writes,total,ok}，过滤 /api/ 得 total、/api/cards/ 计 writes",
+        "real-board/suite-real.mjs：import writeGuard，第三项 name 为「被拒时不发写入请求（分母=本回合 /api/* 总数）」，detail 为 {writes,total}",
+        "real-board/t9-guard-unit.mjs：4 例单元（空录制 false、只有读 true、一次写 false、非 /api/ 不计入分母 true）"
+      ],
+      "verified": {
+        "unit": "T9_GUARD cases=4 bad=0",
+        "suite_T9": "PASS 4/4，第三项 detail {writes:0,total:3}"
+      },
+      "evidence": [
+        "evidence/suite-real-fix-t9-2026-11-06T15-45-53-686Z/suite-real-result.json",
+        "_pkgcheck7/evidence/suite-real-pkgcheck7-2026-11-06T15-55-25-727Z/suite-real-result.json"
       ]
     },
-    "q5": {
-      "hold": {
-        "evidence": "evidence/q5-order-2026-11-06T15-25-07-909Z/record.json sha256 eba797b364fdff58f2bc21b65a234db267048ebdecbc6c656c0c58f84fef616e",
-        "turn": [
-          {
-            "order": 1,
-            "method": "GET",
-            "path": "/api/state",
-            "injected": "hold",
-            "outcome": "提交时未返回，放行后 200 但结果被丢弃"
-          },
-          {
-            "order": 2,
-            "method": "POST",
-            "path": "/api/runs/1/cancel",
-            "injected": "pass",
-            "outcome": "200"
-          }
-        ],
-        "injectionOnReadIndex": 1,
-        "writes": 1,
-        "denominatorApiRequestsInTurn": 2
+    "R2_crlf_normalization": {
+      "what": "跨机哈希比对必须先声明行尾归一，否则双方各自正确却永远不等。",
+      "server_ts": {
+        "path": "app/host/server.ts",
+        "raw": {
+          "bytes": 4564,
+          "sha256": "0e87488f5cbffa759ba8ecc9df443556ac18469eb2a9c8e8bbde7b9eaec34304",
+          "crlf": 142
+        },
+        "lf_normalized": {
+          "bytes": 4422,
+          "sha256": "5e988129a6eda8b45dc63be245361ce25eafb5489660a03c7550a97af8821c6f"
+        },
+        "repo_blob_9fabbe9": {
+          "bytes": 4422,
+          "sha256": "5e988129a6eda8b45dc63be245361ce25eafb5489660a03c7550a97af8821c6f",
+          "identical_after_normalization": true
+        }
       },
-      "history": {
-        "evidence": "evidence/q5-order-2026-11-06T15-25-48-959Z/record.json sha256 1b48be15110f5a953c675c46906380f8fe7c8e32d45df7454da4bf4b09668a13",
-        "turn": [
-          {
-            "order": 1,
-            "method": "POST",
-            "path": "/api/runs/1/cancel",
-            "outcome": "200"
-          },
-          {
-            "order": 2,
-            "method": "GET",
-            "path": "/api/state",
-            "injected": "fail",
-            "outcome": "failed net::ERR_FAILED"
-          },
-          {
-            "order": 3,
-            "method": "GET",
-            "path": "/api/state?before=4",
-            "outcome": "200"
-          },
-          {
-            "order": 4,
-            "method": "GET",
-            "path": "/api/state?before=4",
-            "outcome": "200"
-          }
-        ],
-        "injectionOnReadIndex": 1,
-        "writes": 1,
-        "denominatorApiRequestsInTurn": 4
+      "runtime_ts": {
+        "raw": {
+          "bytes": 12895,
+          "sha256_prefix": "a94bfbb4"
+        },
+        "lf_normalized": {
+          "bytes": 12636,
+          "sha256_prefix": "288bf961"
+        }
+      },
+      "rule": "报告同时给原始与 LF 归一后的字节数与 sha256；只有归一后仍不等才算内容差异。"
+    },
+    "R3_zip_identity": {
+      "what": "build-lock 的 zip 断言默认不生效（包内无 incoming/*.zip，默认 zip:null）。新增 SUBJECT.json 登记 zip 身份与 15 个成员，build-lock 默认据此断言；给 REVIEW_ZIP 时再核实际字节。",
+      "impl": "real-board/build-lock.mjs 增加来源模式：读 SUBJECT.json（REVIEW_SUBJECT 可覆盖）→ 断言 zip bytes/sha256、5 个 served 文件成员哈希、成员数=15；REVIEW_ZIP=<path> 时额外记 mode=actual",
+      "verified": {
+        "default": "BUILD_LOCK ok=true, zip=null, provenance{ok:true,zip:true,served:true,members:15}, EXIT=0",
+        "with_zip": "actual=c66a3c64… ok=true"
+      }
+    },
+    "R4_q4centry_tristate": {
+      "what": "q4-centry 第 8 项自标「未构造过期样本」却 ok:true。改为三态语义，并把过期交给真正的运行期探针。",
+      "impl": [
+        "note(name, ok, detail, flags)：true=运行通过 / false=失败 / null=仅源码断言",
+        "两条过期分支 → ok:null + sourceOnly:true, runtimeVerified:false, runtimeProbe:real-board/q4-expiry.mjs",
+        "尾部输出 {checks,passed,failed,sourceOnly,total}，exitCode 只看 failed",
+        "默认 HOME 改到 os.tmpdir()/q4-home-<ts> 并 finally 删除，库与 master.key 不进包"
+      ],
+      "verified": {
+        "q4_centry": "passed 7 / failed 0 / sourceOnly 2 / total 9"
       }
     }
   },
-  "package_checks": {
-    "fresh_copy": "D:/AutoAgentloop/_pkgcheck4 (整包拷贝，独立目录)",
-    "verify_deps": "DEPS files=226 imports=10 outside=0 bad=0",
-    "build_lock": "ok=true 5/5 files + zip c66a3c64… EXIT=0",
-    "live_smoke": [
-      "run.sh q3 → 5/5 断言 true，截图 1440x900/2880x1800/1170x2751",
-      "run.sh q5-hold → writes=1 分母 2，held 读被扣住，提示逐字一致"
+  "q4_expiry_runtime": {
+    "probe": "real-board/q4-expiry.mjs（11057B 6019bbd3…）",
+    "mechanism": "进程内装配 kernel/http.ts 的 createHandler(services)，services.now=()=>clock；T0=2026-10-18T02:00:00.000Z（与 app 自带 tests/helpers at(0) 同口径），LINK_LIFETIME=7*86400_000（app/kernel/http.ts:24）；隔离临时 AGENT_AUTOLOOP_HOME，跑完删除；不改系统时钟、不改生产库。",
+    "result": {
+      "pass": 13,
+      "fail": 0,
+      "total": 13
+    },
+    "key_rows": {
+      "expired_post_status": 401,
+      "expired_post_text": "这个链接过期了。在装它的电脑上运行 agent-autoloop answer 2 回答",
+      "boundary_exact_7d": "303（判据为严格大于）",
+      "expired_get": "200 且仍渲染表单（GET 不判期限，app/kernel/http.ts:103）",
+      "expired_submit_side_effects": "state 仍 open、version 1→1、facts 6→6",
+      "links_off": {
+        "get": 404,
+        "post": 404
+      }
+    },
+    "evidence": [
+      "_pkgcheck7/evidence/q4-expiry-2026-11-06T15-55-25-190Z/record.json",
+      "_pkgcheck6/evidence/q4-expiry-2026-11-06T15-53-51-469Z/record.json"
     ]
   },
-  "not_verified": [
-    "/c/ 过期行为（仅源码判断）",
-    "生产环境 /c/ 联调",
-    "上游迁移（候选方案）",
-    "token 不出仓（结构保证，无端到端用例）",
-    "A 自报 browser-qa 11/11"
+  "fresh_copy_verification": {
+    "dir": "D:\\AutoAgentloop\\_pkgcheck7",
+    "verify_deps": "DEPS files=230 imports=11 outside=0 bad=0",
+    "run_lock": "ok=true",
+    "run_guard": "T9_GUARD cases=4 bad=0",
+    "run_q4_centry": "passed 7 / failed 0 / sourceOnly 2 / total 9",
+    "run_q4_expiry": "pass 13 / fail 0",
+    "run_T9": "PASS 1 / FAIL 0 / UNVERIFIED 0 / SKIP 0，第三项 detail {writes:0,total:3}"
+  },
+  "published_readable_at_commit": [
+    {
+      "url": "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/45331d8a623ac10d5ca4c1baa8d930c21d924e66/B/evidence/deploy-b/dashboard-review-20261106/review-package-20261106/MANIFEST.json",
+      "http": 200,
+      "bytes": 38442,
+      "sha256": "0e7e70db81b546d96507454ff43315abbd41b6d5563f8668dc554e9d84626b2d"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/45331d8a623ac10d5ca4c1baa8d930c21d924e66/B/evidence/deploy-b/dashboard-review-20261106/review-package-20261106/SUBJECT.json",
+      "http": 200,
+      "bytes": 3301,
+      "sha256": "702c3bdb66950dccfad8e6237ef92eb18f3890baedce5dc381fe9b42d60bf3d6"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/45331d8a623ac10d5ca4c1baa8d930c21d924e66/B/evidence/deploy-b/dashboard-review-20261106/review-package-20261106/real-board/q4-expiry.mjs",
+      "http": 200,
+      "bytes": 11057,
+      "sha256": "6019bbd321596788e4c567320a2304d95306801ba766c7f14af9061309de4860"
+    },
+    {
+      "url": "https://raw.githubusercontent.com/Jakiewbe/autolAgentloop/45331d8a623ac10d5ca4c1baa8d930c21d924e66/B/evidence/deploy-b/dashboard-review-20261106/B-answer-q1-q8-20261106.md",
+      "http": 200,
+      "bytes": 44603,
+      "sha256": "00f85d1b862d5fa6ca3beaa7263a83e1ea72f076fb4c1f76869fe577f17b5fc5"
+    }
   ],
-  "untouched": [
-    "生产 hub 3350/3351",
-    "生产 ~/.agent-autoloop",
-    "worker 进程",
-    "ACL/Deny/身份",
-    "MCP 配置",
-    "登录项",
-    "系统时间",
-    "生产库"
+  "still_open": [
+    "生产 /c/ 联调与 token 不出仓：本轮全部在隔离内核上，生产 /c/ 未联调",
+    "上游迁移四项：仍是候选方案，待隔离验证，不宣称永久运行问题已解决",
+    "A 自报 browser-qa 11/11：B 未重跑，不作 B 的通过证据",
+    "build-lock 的 zip 断言依赖包内 SUBJECT.json；审核者若用手头真实 zip 复核需显式 REVIEW_ZIP=<path>"
   ],
-  "models_called": 0,
-  "blockers": []
+  "cross_workspace_note": "整改期间同一工作区出现并行写入者（包内出现非本会话产生的 q4-expiry.mjs、v2.2.0 版号与若干调试产物）。处置：逐行审读 + 源码对撞 + 独立目录复跑 13/13 才采纳 q4-expiry；整包按已发布基线 654b3d8 重建，丢弃全部调试产物，逐字节复核 MANIFEST bad=0 missing=0。若另有并行会话在写同一路径，请以本提交 45331d8 的树为唯一基线。"
 }
