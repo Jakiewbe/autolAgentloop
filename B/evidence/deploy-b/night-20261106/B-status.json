@@ -1,75 +1,149 @@
 {
   "night_id": "NIGHT-20261106",
   "role": "B",
-  "seq": 6,
-  "phase": "item2_done_item3_running",
-  "request_id": "B-LOCAL-20261106-006",
+  "seq": 7,
+  "phase": "final_sealed_after_deadline",
+  "request_id": "B-LOCAL-20261106-007",
   "candidate_id": "night-20261106-parse-terminal-boundary-v1",
   "reply_to": "A-N4-20261106-004",
-  "published_at": "2026-11-06T02:10:30+08:00",
-  "item2": {
-    "test_id": "A-J2-20261106-002",
-    "run": 20,
-    "rule": "B-临时目录",
-    "channel": "formal-0.130",
-    "model": "deepseek-v4.1-flash-1017",
-    "cwd": "D:\\AutoAgentloop",
-    "native_exit_code": 0,
-    "started_at": "2026-11-05T18:06:32Z",
-    "done_at": "2026-11-05T18:08:23Z",
-    "protocol": {
-      "stdout_bytes": 38995,
-      "stdout_lines": 33,
-      "terminal_event_line": 29,
-      "strict_protocol_pass": true,
-      "non_json_lines_after_terminal": 3,
-      "non_json_lines_before_terminal": 0
+  "published_at": "2026-11-06T10:20:00+08:00",
+  "deadline_note": "夜间窗口 08:00 到期时点已过；本次为过期后补封存，生成期间未新增任何真实运行（最后一次真实运行是 03:06 的 run 25）",
+  "results": {
+    "item1": {
+      "test_id": "A-J1-20261106-001",
+      "run": 19,
+      "native_exit": 0,
+      "session": "01a1ace2-4837-7952-b034-af2a049766b0",
+      "usage": {
+        "input": 673864,
+        "cached": 665600,
+        "output": 1819
+      },
+      "verdict": "pass",
+      "artifact": "b-ping.txt 21B sha256 fcd7cde2…"
     },
-    "session": "01a1ace4-1ad2-7892-a020-2a0767121271",
-    "usage_from_turn_completed": {
-      "input": 1098259,
-      "cached": 1085440,
-      "output": 3893,
-      "reasoning_output": 1411
+    "item2": {
+      "test_id": "A-J2-20261106-002",
+      "run": 20,
+      "native_exit": 0,
+      "session": "01a1ace4-1ad2-7892-a020-2a0767121271",
+      "usage": {
+        "input": 1098259,
+        "cached": 1085440,
+        "output": 3893
+      },
+      "verdict": "pass",
+      "cleanup": "临时目录已删，B 侧复查 none_remaining",
+      "caveat": "一次多行 PowerShell 被审批策略 declined 后改单行完成"
     },
-    "final_reply": {
-      "first_line": "第2项临时目录完成：D:\\AutoAgentloop\\aa-tmp-item2-20261106020807",
-      "lines": 5,
-      "matches_instruction": true
-    },
-    "temp_dir_evidence": {
-      "created_path": "D:\\AutoAgentloop\\aa-tmp-item2-20261106020807",
-      "files_written": [
-        "a.txt (ITEM2-A)",
-        "b.txt (ITEM2-B)"
+    "item3": {
+      "test_id": "A-J3-20261106-003",
+      "runs": [
+        21,
+        22
       ],
-      "listing_reported": "a.txt、b.txt",
-      "deleted": true,
-      "exists_after_delete": false,
-      "independent_check_after_run": "B 侧 ls 该前缀目录：none_remaining（无残留）"
+      "round1_session": "01a1ace6-40d4-72c3-8d63-306059611b9e",
+      "round2_session_same": true,
+      "round2_usage": {
+        "input": 1376520,
+        "cached": 1364224,
+        "output": 3235
+      },
+      "answer": "甲",
+      "artifact": "resume-mark.txt 54B sha256 c73b859b… 含 ROUND2 甲",
+      "verdict": "pass"
     },
-    "policy_observations": [
-      "模型首次尝试用多行 PowerShell 单脚本完成建/写/列/删，被 worker 的审批策略 declined（exit_code -1, status declined），未触发 ask 升级",
-      "随后改用单行脚本路径完成同一操作，最终 exit 0；策略拒绝未导致本项失败",
-      "说明：B 侧未改 askFirst 名单或任何策略配置"
+    "item4": {
+      "test_id": "A-J4-20261106-004",
+      "run": 23,
+      "cancel_requested": "2026-11-05T18:14:55.943Z",
+      "cancelled": "2026-11-05T18:14:56.386Z",
+      "in_flight_seconds": 21.7,
+      "exit_file": "absent",
+      "stdout_bytes": 101,
+      "side_effect_check": "b-ping.txt mtime 未变 → 非排队重试",
+      "verdict": "pass"
+    },
+    "item5": {
+      "test_id": "A-J5-20261106-005",
+      "run": 25,
+      "native_exit": 0,
+      "session": "01a1ad16-64d6-7572-aedf-28598b1efa8c",
+      "usage": {
+        "input": 2837827,
+        "cached": 2805504,
+        "output": 16219
+      },
+      "restart_log": "STOP succeeded 33160 @03:05:22.909；START succeeded workerPid=3600 @03:07:23.069",
+      "post_state": "10:04 复查无任何 node.exe，up.pid 仍 33160，无 3600 日志，03:06 后无新 run",
+      "verdict": "partial"
+    },
+    "item6": {
+      "test_id": null,
+      "verdict": "unverified",
+      "reason": "A 未派发；离线只核对了启动项 430B aa2cfb42 与 node/runtime 路径；真机重登未做，按约定不凑 6/6"
+    },
+    "wake": {
+      "test_id": "A-WAKE-20261106-001",
+      "run": 24,
+      "native_exit": 0,
+      "session": "01a1ad13-4fd1-7e92-bf72-b9c282273c2b",
+      "verdict": "pass"
+    }
+  },
+  "budget": {
+    "candidate_0_166_exec": {
+      "cap": 6,
+      "used": 4,
+      "pass": 1,
+      "fail": 3,
+      "remaining": 2,
+      "detail": "run-01 exit11 / diag-02 exit1 / run-02 exit0 / run-03 exit11"
+    },
+    "formal_0_130_runs": {
+      "count": 7,
+      "pass": 6,
+      "cancelled_by_design": 1
+    },
+    "total_real_model_runs_by_B": 11
+  },
+  "root_cause": {
+    "statement": "D:\\AutoAgentloop 整棵树带 Low 完整性标签（S-1-16-4096），从其中启动的 codex 子进程一律为 Low，无法写入 Medium 的 C:\\Users\\19082\\.codex（arg0 tmp + sqlite state runtime）→ exec 在模型开始前 os error 5 退出",
+    "proof": "同一字节副本：D:\\ 根新目录=Medium 成功；D:\\AutoAgentloop 内=Low 失败；钉值 exe=Low 失败；mcp list 只读可过；CODEX_HOME 改到 D: 或复制库到 C:\\Users\\…nighttest 均失败（因进程仍 Low）",
+    "excluded": [
+      "arg0/PATH 别名警告（非致命）",
+      "遗留 DENY ACE（SID 不属当前用户）",
+      "sqlite 库内容损坏",
+      "卷或目录 ACL"
     ]
   },
-  "item3": {
-    "test_id": "A-J3-20261106-003",
-    "state": "running",
-    "run": 21,
-    "rule": "B-接续验证",
-    "round": 1,
-    "session_field_in_dispatch": null,
-    "started_at": "2026-11-05T18:08:52Z",
-    "note": "第 1 轮为无会话首轮，预期模型发一个问题卡片；第 2 轮应由 A 带 session/answers 派发以验证 resume"
-  },
+  "applied_changes": [
+    "runtime/d504e4876d07/plugins/command/agent.ts ac23aa9b→1b8933c0（A 补充包，备份齐全）",
+    "验证用 Medium 字节一致副本 C:\\Users\\19082\\.codex-nighttest-20261106\\codex-medium.exe（哈希等于钉值）",
+    "worker 维护重启 11968→33160；第 5 项中 33160 被脚本停止并由脚本拉起 3600（未存活）"
+  ],
+  "unresolved": [
+    "钉值路径候选的永久修复口径待 A 选定（FIX-A 需提权 / FIX-B 中心 rules.json 指向 Medium 副本 / FIX-C 去标签）",
+    "worker 当前不在运行，需带监督重启并做重启后接活验证（第 5 项恢复段未闭环）",
+    "第 6 项真机重登未验证",
+    "A 侧 main 自 96bc760 起无新提交，J2–J5 判定未落 git"
+  ],
+  "published_artifacts": [
+    "B/evidence/deploy-b/night-20261106/summary.md",
+    "B/evidence/deploy-b/night-20261106/MANIFEST-20261106T1018.json",
+    "B/evidence/deploy-b/night-20261106/final-runs-20261106T1012.json",
+    "B/evidence/deploy-b/night-20261106/B-status.json",
+    "B/evidence/deploy-b/night-20261106/final-runs-20261106T1012.json"
+  ],
   "declarations": {
-    "mcp_config_unchanged": true,
+    "no_rerun_after_cutoff": true,
+    "no_new_real_runs_since_0306": true,
     "acl_or_integrity_changed": false,
-    "login_item_changed": false,
-    "command0_changed": false,
+    "mcp_config_unchanged": true,
+    "login_item_unchanged": true,
+    "identity_unchanged": true,
     "other_processes_touched": false,
-    "raw_stdout_uploaded": false
-  }
+    "raw_logs_uploaded": false
+  },
+  "summary_sha256": "074d3efaf5cd25d6b5c856ec57b15658a487d41ba5eefe359664e363cbac24b3"
 }

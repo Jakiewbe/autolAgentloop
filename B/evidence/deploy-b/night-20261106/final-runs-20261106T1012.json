@@ -1,0 +1,242 @@
+{
+  "night_id": "NIGHT-20261106",
+  "generated_at": "2026-11-06T10:12:00+08:00",
+  "note": "B 侧 19–25 号真实运行的机械解析结果（全部来自本机 worker/runs 原始目录，未重跑、未改写）",
+  "channel": "formal-0.130",
+  "runs": [
+    {
+      "run": 19,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\19-1",
+      "rule": "B-接线验证",
+      "test_id": "A-J1-20261106-001",
+      "item": 1,
+      "native_exit": 0,
+      "started": "2026-11-05T18:04:32Z",
+      "done": "2026-11-05T18:06:08Z",
+      "stdout_bytes": 18156,
+      "stdout_lines": 25,
+      "terminal_line": 21,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ace2-4837-7952-b034-af2a049766b0",
+      "usage": {
+        "input": 673864,
+        "cached": 665600,
+        "output": 1819,
+        "reasoning": 531
+      },
+      "final_first_line": "B 接线通过：b-magicbook14",
+      "verdict": "pass"
+    },
+    {
+      "run": 20,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\20-1",
+      "rule": "B-临时目录",
+      "test_id": "A-J2-20261106-002",
+      "item": 2,
+      "native_exit": 0,
+      "started": "2026-11-05T18:06:32Z",
+      "done": "2026-11-05T18:08:23Z",
+      "stdout_bytes": 38995,
+      "stdout_lines": 33,
+      "terminal_line": 29,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ace4-1ad2-7892-a020-2a0767121271",
+      "usage": {
+        "input": 1098259,
+        "cached": 1085440,
+        "output": 3893,
+        "reasoning": 1411
+      },
+      "final_first_line": "第2项临时目录完成：D:\\AutoAgentloop\\aa-tmp-item2-20261106020807",
+      "side_effects": "aa-tmp-item2-20261106020807 建于 02:08:07，写 a.txt/b.txt，列目录，删除并确认为不存在；B 侧复查无残留",
+      "caveat": "模型首次多行 PowerShell 单脚本被审批策略 declined(exit -1)，改单行后成功；B 未改策略",
+      "verdict": "pass"
+    },
+    {
+      "run": 21,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\21-1",
+      "rule": "B-接续验证",
+      "test_id": "A-J3-20261106-003",
+      "item": 3,
+      "round": 1,
+      "native_exit": 0,
+      "started": "2026-11-05T18:08:52Z",
+      "done": "2026-11-05T18:10:09Z",
+      "stdout_bytes": 15569,
+      "stdout_lines": 21,
+      "terminal_line": 17,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ace6-40d4-72c3-8d63-306059611b9e",
+      "usage": {
+        "input": 536438,
+        "cached": 529536,
+        "output": 1334,
+        "reasoning": 465
+      },
+      "final_first_line": "第3项第1轮完成：问了一个问题",
+      "card": {
+        "key": "b-resume-item3",
+        "title": "第3项接续验证：选一个序号",
+        "options": [
+          "甲",
+          "乙"
+        ]
+      },
+      "verdict": "pass"
+    },
+    {
+      "run": 22,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\22-1",
+      "rule": "B-接续验证",
+      "test_id": "A-J3-20261106-003",
+      "item": 3,
+      "round": 2,
+      "dispatch_event": "card.answered card:8 choice=0(甲) at 2026-11-05T18:11:36.660Z",
+      "argv": [
+        "exec",
+        "resume",
+        "01a1ace6-40d4-72c3-8d63-306059611b9e",
+        "--skip-git-repo-check",
+        "--json",
+        "-m",
+        "deepseek-v4.1-flash-1017",
+        "<prompt>"
+      ],
+      "native_exit": 0,
+      "started": "2026-11-05T18:11:36Z",
+      "done": "2026-11-05T18:12:58Z",
+      "stdout_bytes": 14257,
+      "stdout_lines": 25,
+      "terminal_line": 21,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ace6-40d4-72c3-8d63-306059611b9e",
+      "session_equals_round1": true,
+      "usage": {
+        "input": 1376520,
+        "cached": 1364224,
+        "output": 3235,
+        "reasoning": 1265
+      },
+      "final_first_line": "第3项第2轮完成：你选了 甲，接续成功",
+      "artifact": {
+        "path": "D:\\AutoAgentloop\\resume-mark.txt",
+        "bytes": 54,
+        "sha256": "c73b859bba30a6bc06649874b17da3656128349328ca4bcb0888edc40111230e",
+        "content": [
+          "ROUND1 2026-11-05T16:56:35.4992468+08:00",
+          "ROUND2 甲"
+        ]
+      },
+      "verdict": "pass"
+    },
+    {
+      "run": 23,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\23-1",
+      "rule": "B-接线验证",
+      "test_id": "A-J4-20261106-004",
+      "item": 4,
+      "dispatch_event": "b.ping.item1 A-J4-20261106-004 at 2026-11-05T18:14:34.811Z",
+      "native_exit": null,
+      "exit_file": "absent（取消后无 exit-1，属预期）",
+      "started": "2026-11-05T18:14:34Z",
+      "cancel_requested": "2026-11-05T18:14:55.943Z",
+      "cancelled": "2026-11-05T18:14:56.386Z",
+      "in_flight_seconds": 21.7,
+      "stdout_bytes": 101,
+      "stdout_lines": 3,
+      "events_observed": [
+        "thread.started",
+        "turn.started"
+      ],
+      "terminal": "none（取消发生在首个 item 之前）",
+      "session": "01a1aceb-766f-7f43-886e-e5e6a5d812b3",
+      "usage": null,
+      "final_first_line": null,
+      "side_effects": "b-ping.txt mtime 仍为 02:06（19 号运行产物），本 run 未写入 → 取消真实发生在模型侧，不是排队重试",
+      "verdict": "pass(cancel)"
+    },
+    {
+      "run": 24,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\24-1",
+      "rule": "B-接线验证",
+      "test_id": "A-WAKE-20261106-001",
+      "item": "wake",
+      "native_exit": 0,
+      "started": "2026-11-05T18:58:05Z",
+      "done": "2026-11-05T18:59:40Z",
+      "stdout_bytes": 19153,
+      "stdout_lines": 27,
+      "terminal_line": 23,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ad13-4fd1-7e92-bf72-b9c282273c2b",
+      "usage": {
+        "input": 947688,
+        "cached": 939008,
+        "output": 1885,
+        "reasoning": 679
+      },
+      "final_first_line": "B 接线通过：b-magicbook14",
+      "caveat": "stderr 有 codex_core::tools::router error（kit.py status 参数错，exit 1），非致命，未影响终态",
+      "verdict": "pass"
+    },
+    {
+      "run": 25,
+      "dir": "C:\\Users\\19082\\.agent-autoloop\\worker\\runs\\25-1",
+      "rule": "B-断线恢复",
+      "test_id": "A-J5-20261106-005",
+      "item": 5,
+      "dispatch_event": "b.disconnect.item5 A-J5-20261106-005 at 2026-11-05T19:01:41Z",
+      "native_exit": 0,
+      "started": "2026-11-05T19:01:27Z",
+      "done": "2026-11-06T03:06+08:00",
+      "stdout_bytes": 112927,
+      "stdout_lines": 94,
+      "terminal_line": 90,
+      "terminal_type": "turn.completed",
+      "non_json_after_terminal": 3,
+      "non_json_before_terminal": 0,
+      "strict_protocol": true,
+      "session": "01a1ad16-64d6-7572-aedf-28598b1efa8c",
+      "usage": {
+        "input": 2837827,
+        "cached": 2805504,
+        "output": 16219,
+        "reasoning": 7558
+      },
+      "final_first_line": "第5项停机脚本已布置：33160",
+      "script": {
+        "path": "D:\\AutoAgentloop\\aa-item5-restart.ps1",
+        "bytes": 1561
+      },
+      "restart_log": {
+        "path": "D:\\AutoAgentloop\\aa-item5-restart.log",
+        "bytes": 358,
+        "lines": [
+          "2026-11-06T03:04:52.7594603+08:00 START targetPid=33160",
+          "2026-11-06T03:05:22.8483224+08:00 STOP requested targetPid=33160",
+          "2026-11-06T03:05:22.9092442+08:00 STOP succeeded targetPid=33160",
+          "2026-11-06T03:07:22.9402474+08:00 START attempt=1",
+          "2026-11-06T03:07:23.0692053+08:00 START succeeded attempt=1 workerPid=3600",
+          "2026-11-06T03:07:23.0787174+08:00 END"
+        ]
+      },
+      "post_state": "10:04 复查：无任何 node.exe；up.pid 仍写作 33160；未出现 3600 的日志文件；03:06 之后无新 run → 重启成功拉起但该进程未存活，重启后接活未验证",
+      "verdict": "partial(stop+restart executed, post-restart serving unverified)"
+    }
+  ]
+}
