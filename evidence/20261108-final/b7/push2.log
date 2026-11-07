@@ -1,0 +1,12 @@
+commit2: 9cad434 fix(deliver): 证据包内 4 个 .log 被根 .gitignore(*.log) 忽略，-f 补入，使 INDEX 46 条在 clone 后可校验
+pkg files now: 47
+To https://github.com/Jakiewbe/autolAgentloop.git
+   c9d9d06..9cad434  b-final-20261108 -> b-final-20261108
+push2 OK
+9cad4346fdde240348626e3061025c746438a37f	refs/heads/b-final-20261108
+Cloning into 'D:/AutoAgentloop/_night/b7-clone'...
+clone OK
+clone elapsed_s=2
+fresh clone verify rc=0 ok=46 bad=0
+HEAD=9cad4346fdde240348626e3061025c746438a37f
+INDEX sha256=51011be84cd45322759fc3d8e020f90302c9286907997c62f432d819218e9853
