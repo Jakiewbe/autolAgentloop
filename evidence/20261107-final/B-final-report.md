@@ -178,7 +178,7 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Remove-Item -Rec
 | 项 | 结果 |
 |---|---|
 | 目标 | `https://github.com/Jakiewbe/autolAgentloop.git`（B 私库，与 origin=KKKKhazix 无关） |
-| 分支 | `refs/heads/b-final-20261107`，提交 `8995778fbdafdfbcbfc90b812fc9b5f32487e5df` |
+| 分支 | `refs/heads/b-final-20261107`；提交链 `8995778`（主体）→ `4fb6d94`（补录 9.1/9.2）→ 收尾提交（本行更正）。报告自身哈希随 INDEX 变化，**以远端该分支 HEAD 为准** |
 | 首推失败与处置 | 按要求先试 `b/final-20261107` → `remote rejected: cannot lock ref 'refs/heads/b/final-20261107': 'refs/heads/b' exists`。远端已有分支 `b`，Git 的 ref 命名空间不允许同时存在 `b` 与 `b/…`。删/改远端 `b` 属禁止项，故改用不冲突的 `b-final-20261107`。 |
 | 未动项 | origin 未改；远端 `b`（0ce8008）与 `main`（9fabbe9）SHA 推送前后一致；无重写、无删分支；work copy 的 HEAD 与工作区未变（`c067fdb`，porcelain 0 行） |
 | 打包方式 | 用 `git clone --no-hardlinks` 复制到 `_night\b-final-20261107` 再提交推送，避免在生产工作副本切分支；`evidence/**/*.log` 被仓库 `.gitignore` 的 `*.log` 命中，用 `git add -f` 显式纳入 |
