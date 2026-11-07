@@ -1,0 +1,6 @@
+
+> format:check
+> prettier --check "**/*.{ts,json,yml}"
+
+Checking formatting...
+All matched files use Prettier code style!
