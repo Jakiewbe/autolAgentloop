@@ -110,8 +110,8 @@ pkill -f "node ip-proxy.js"
 | 私库分支 | `b-final-20261108`（`https://github.com/Jakiewbe/autolAgentloop.git`，未碰上游、未改 origin、未重写历史） |
 | 包路径 | `evidence/20261108-final/` |
 | INDEX | `evidence/20261108-final/INDEX.sha256`（路径相对 `evidence/`，`<64hex> *20261108-final/<相对路径>`） |
-| INDEX 条数 | **56**（= 包内全部文件 57 个，不含 INDEX.sha256 自身） |
-| 校验 | `cd evidence && sha256sum -c 20261108-final/INDEX.sha256` → 新 clone 内 **56/56 OK，rc=0**（`--depth 1`，HEAD 见包外日志） |
+| INDEX 条数 | **57**（= 包内全部 57 个文件；INDEX.sha256 自身不入清单） |
+| 校验 | `cd evidence && sha256sum -c 20261108-final/INDEX.sha256` → 新 clone 内 **57/57 OK，rc=0**（`--depth 1`，HEAD 见包外日志） |
 | INDEX 自身 sha256 与 clone 复验全文 | 包外日志 `evidence/20261108-final-INDEX-verify.txt`（刻意放包外，避免自指） |
 | 推送重试 | 每次 1 次即成功（4 s / 2 s / 2 s），走本机 CONNECT 代理（见 B4） |
 
