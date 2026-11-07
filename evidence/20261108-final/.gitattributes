@@ -1,0 +1,2 @@
+# 证据包按字节原样提交：不做 CRLF/LF 转换，保证 INDEX.sha256 在 clone 后可校验
+* -text

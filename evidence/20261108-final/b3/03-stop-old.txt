@@ -1,0 +1,5 @@
+## stop old service 2026-11-07T19:29:06Z
+exit=0
+### tasks after remove:
+### old up.pid file: C:/Users/19082/.agent-autoloop/up.pid
+### processes:

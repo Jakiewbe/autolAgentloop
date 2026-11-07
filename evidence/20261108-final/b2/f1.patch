@@ -1,0 +1,13 @@
+diff --git a/plugins/claude-go/agent.ts b/plugins/claude-go/agent.ts
+index 165d71e..90a6503 100644
+--- a/plugins/claude-go/agent.ts
++++ b/plugins/claude-go/agent.ts
+@@ -27,7 +27,7 @@ export default {
+   read(stdout, code, stderr) {
+     const result: Reading = claude.read(stdout, code, stderr);
+     // Claude's local price estimate is not the amount charged by OpenCode Go.
+-    if (result.usage) delete result.usage.cost;
++    delete result.sessionUsage;
+     return result;
+   },
+   link: claude.link,

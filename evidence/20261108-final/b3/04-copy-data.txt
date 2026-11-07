@@ -1,0 +1,21 @@
+## copy data old -> new 2026-11-07T19:29:33Z
+### new home tree:
+.
+./config.json
+./logs
+./logs/up.log
+./logs/worker.stderr.final-item5-recover.log
+./logs/worker.stderr.log
+./logs/worker.stderr.post-night-20261106T1020.log
+./logs/worker.stderr.restart-20261106T0206.log
+./logs/worker.stdout.final-item5-recover.log
+./logs/worker.stdout.log
+./logs/worker.stdout.log.before-20261105T2232
+./logs/worker.stdout.post-night-20261106T1020.log
+./logs/worker.stdout.restart-20261106T0206.log
+./worker
+./worker/runs
+### runs count new: 22
+### config.json sha256:
+68085fbe0ff07393464b024ddd356e88ba0039b05f9da4bbcd653bc32a67c8bf *C:/Users/19082/.agent-autoloop/config.json
+68085fbe0ff07393464b024ddd356e88ba0039b05f9da4bbcd653bc32a67c8bf *D:/AutoAgentloop/home/config.json

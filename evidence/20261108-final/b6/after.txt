@@ -1,0 +1,32 @@
+# snapshot after.txt 2026-11-07T19:34:07Z
+## scheduled tasks matching agent-autoloop*:
+agent-autoloop-09bbb91a | Running
+## listening ports 3350-3400 and 4347:
+## %TEMP% agent-autoloop-* dirs:
+count=24
+agent-autoloop-adapters-1rlOqq
+agent-autoloop-adapters-5hcSn2
+agent-autoloop-adapters-MYw9ws
+agent-autoloop-adapters-QtJEA5
+agent-autoloop-adapters-Quo4k5
+agent-autoloop-adapters-RVHK9r
+agent-autoloop-adapters-Zbk0cN
+agent-autoloop-conformance-qevflD
+agent-autoloop-desktop-TlSRBj
+agent-autoloop-desktop-ZE6Fnj
+agent-autoloop-http-AGzWpb
+agent-autoloop-login-shell-wYsTMw
+agent-autoloop-person-3avsOW
+agent-autoloop-state-timers-3WNCCl
+agent-autoloop-state-timers-NNcHaa
+agent-autoloop-state-timers-Q1fesU
+agent-autoloop-state-timers-pPxFQl
+agent-autoloop-try-97hMfb
+agent-autoloop-up-lock-xp0S12
+agent-autoloop-windows-0tyIMb
+agent-autoloop-windows-7rr93A
+agent-autoloop-windows-ZWl3y1
+agent-autoloop-windows-peK2gF
+agent-autoloop-worker-EDePiC
+## node processes with agent-autoloop in command line:
+22156 "C:\Program Files\nodejs\node.exe" --disable-warning=ExperimentalWarning D:\AutoAgentloop\

@@ -1,0 +1,13 @@
+## after migration 2026-11-07T19:30:18Z
+### new up.pid: 22156
+### old up.pid file (leftover, old home untouched): 16424
+### runs count new: 22
+### processes:
+22156 <- 3048 :: "C:\Program Files\nodejs\node.exe" --disable-warning=ExperimentalWarning D:\AutoAgentloop\release\b-c067fdb-20261107\bin\agent-autoloop.ts up
+### heartbeat probe (after) 2026-11-07T19:30:19Z
+http_code=200 time=0.630521
+{"job":null,"cancel":[]}
+### up.log since restart:
+2026-11-07T18:27:49.674Z [worker] couldn't reach the hub: Error: 中台返回 404
+2026-11-07T18:28:20.014Z [worker] couldn't reach the hub: Error: 中台返回 404
+2026-11-07T19:29:40.816Z [worker] worker b-magicbook14 started

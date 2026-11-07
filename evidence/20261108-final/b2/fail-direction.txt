@@ -1,0 +1,30 @@
+✖ B criterion: claude-go never hands a price estimate to the account (1.7985ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 115.5207
+
+✖ failing tests:
+
+test at b8-cost-criterion.test.ts:7:1
+✖ B criterion: claude-go never hands a price estimate to the account (1.7985ms)
+  AssertionError [ERR_ASSERTION]: sessionUsage/usage 里不得出现 cost
+  
+  true !== false
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/release/b-c067fdb-20261107/b8-cost-criterion.test.ts:19:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: true,
+    expected: false,
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

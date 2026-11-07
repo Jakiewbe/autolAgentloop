@@ -1,0 +1,23 @@
+# B5 环境探测 2026-11-07T19:39:36Z
+## which claude
+which: no claude in (/ucrt64/bin:/usr/bin:/c/Users/19082/bin:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0:/c/Windows/System32/OpenSSH:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Program Files/Bandizip:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0:/c/WINDOWS/System32/OpenSSH:/d/Git/cmd:/c/Program Files/nodejs:/c/ProgramData/chocolatey/bin:/c/Program Files (x86)/cloudflared:/c/Users/19082/.cargo/bin:/c/Users/19082/.local/bin:/c/Users/19082/AppData/Local/Programs/Python/Python312/Scripts:/c/Users/19082/AppData/Local/Programs/Python/Python312:/c/Users/19082/AppData/Local/Programs/Python/Launcher:/c/Users/19082/AppData/Local/Microsoft/WindowsApps:/c/Users/19082/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/19082/AppData/Local/Microsoft/WinGet/Links:/c/Users/19082/AppData/Roaming/npm:/c/Users/19082/.bun/bin:/d/Virtuals/Docker/app/resources/bin:/d/cursor/resources/app/bin)
+(not found)
+## claude.exe candidate
+ls: cannot access 'C:/Users/19082/.local/bin/claude.exe': No such file or directory
+(absent)
+## npm -g --depth=0
+  C:\Users\19082\AppData\Roaming\npm
+  +-- @openai/codex@0.167.0
+  +-- @playwright/mcp@0.0.73
+  +-- opencode-ai@1.17.13
+  `-- openskills@1.5.0
+  
+## node/npm
+v24.12.0
+11.6.2
+## fake settings used last round
+{
+ "env": {
+  "ANTHROPIC_BASE_URL": "http://127.0.0.1:9/stand-in"
+ }
+}
