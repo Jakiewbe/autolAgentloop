@@ -1,0 +1,33 @@
+### step1: fixed version -> expect PASS
+235e804ef23a2172e3b2a8a4156a7fffaa6fe6208e240faf3189cafafa8488a7 *release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+exit=0
+✔ B criterion: claude-go never hands a price estimate to the account (1.6451ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 127.2105
+
+### step2: restore upstream line -> expect FAIL
+ed0697add54b839c2c49b63ea2f24ac2b27bbc70bcce3bab49e28e47f7ab2837 *release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+exit=1
+  AssertionError [ERR_ASSERTION]: sessionUsage/usage 里不得出现 cost
+
+### step3: re-apply fix -> expect PASS again
+235e804ef23a2172e3b2a8a4156a7fffaa6fe6208e240faf3189cafafa8488a7 *release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+exit=0
+✔ B criterion: claude-go never hands a price estimate to the account (1.3125ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 111.8441
+temp criterion removed: OK
+235e804ef23a2172e3b2a8a4156a7fffaa6fe6208e240faf3189cafafa8488a7 *release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+235e804ef23a2172e3b2a8a4156a7fffaa6fe6208e240faf3189cafafa8488a7 *work/agent-autoloop/plugins/claude-go/agent.ts
