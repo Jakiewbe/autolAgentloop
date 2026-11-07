@@ -1,0 +1,3 @@
+2026-11-07T06:18:53.271Z [worker] worker b-gapwatch-probe started
+2026-11-07T06:18:53.297Z [worker] couldn't reach the hub: TypeError: fetch failed
+2026-11-07T06:19:23.310Z [worker] couldn't reach the hub: TypeError: fetch failed

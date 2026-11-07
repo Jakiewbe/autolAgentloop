@@ -1,0 +1,19 @@
+=== T1 synthetic 30s cadence 12min, now=05:05:00Z (4.5min, expect below threshold) ===
+trailing_block_start_utc=2026-11-07T05:00:30.100Z consecutive_lines=25 elapsed_minutes=4.5 threshold=10
+RESULT=below threshold, nothing recorded
+EXIT=0 records=0
+=== T2 now=05:13:00Z (12.5min, expect recorded once) ===
+trailing_block_start_utc=2026-11-07T05:00:30.100Z consecutive_lines=25 elapsed_minutes=12.5 threshold=10
+RESULT=recorded -> C:/Users/19082/AppData/Local/Temp/gap-out-t.txt
+LINE 2026-11-07T14:20:24.822+08:00 | gap_start_utc=2026-11-07T05:00:30.100Z | gap_minutes=12.5 | consecutive_failure_lines=25 | log=D:\AutoAgentloop\evidence\20261107-final\logs\hub-gap-synthetic.log | note=worker has not reached the hub for >= 10 min; tunnel is A-side (task agent-autoloop-tunnel, 5-min self-heal); no config change made here
+EXIT=0 records=1
+=== T3 now=05:40:00Z (expect no duplicate) ===
+trailing_block_start_utc=2026-11-07T05:00:30.100Z consecutive_lines=25 elapsed_minutes=39.5 threshold=10
+RESULT=already recorded for this outage (2026-11-07T05:00:30.100Z), no duplicate
+EXIT=0 records=1
+=== T4 production logs/up.log at real now (restart at 11:12 breaks the run; current outage started 14:16:02) ===
+trailing_block_start_utc=2026-11-07T06:13:48.549Z consecutive_lines=8 elapsed_minutes=6.7 threshold=10
+RESULT=below threshold, nothing recorded
+EXIT=0 records=1
+=== OUT ===
+﻿2026-11-07T14:20:24.822+08:00 | gap_start_utc=2026-11-07T05:00:30.100Z | gap_minutes=12.5 | consecutive_failure_lines=25 | log=D:\AutoAgentloop\evidence\20261107-final\logs\hub-gap-synthetic.log | note=worker has not reached the hub for >= 10 min; tunnel is A-side (task agent-autoloop-tunnel, 5-min self-heal); no config change made here

@@ -1,0 +1,1 @@
+﻿2026-11-07T14:18:31.607+08:00 | gap_start_utc=2026-11-07T05:00:30.100Z | gap_minutes=11.5 | consecutive_failure_lines=4 | log=D:\AutoAgentloop\evidence\20261107-final\logs\hub-gap-synthetic.log | note=worker has not reached the hub for >= 10 min; tunnel is A-side (task agent-autoloop-tunnel, 5-min self-heal); no config change made here

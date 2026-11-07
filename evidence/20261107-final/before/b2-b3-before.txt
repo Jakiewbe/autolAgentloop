@@ -1,0 +1,47 @@
+﻿=== TIMESTAMP (local) ===
+2026-11-07T14:15:24.280+08:00
+=== host/user ===
+host=MAGICBOOK14-ZZ user=chs
+=== SCHEDULED TASKS agent-autoloop* ===
+TASK name=agent-autoloop path=\ state=Running
+  LastRunTime=11/07/2026 03:11:17 LastTaskResult=267009 NextRunTime= MissedRuns=0
+  Action.Exec=C:\WINDOWS\system32\wscript.exe
+  Action.Args=//B //Nologo //E:JScript "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.js" "C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"
+  Action.WorkDir=C:\Users\19082\.agent-autoloop
+  Triggers=MSFT_TaskLogonTrigger@
+  Principal=chs LogonType=Interactive RunLevel=Limited
+  Settings.Hidden=False DisallowStartIfOnBatteries=False
+=== LISTENING 3300-3500 and 4347 ===
+(none)
+=== TEMP agent-autoloop-* ===
+TEMP=C:\Users\19082\AppData\Local\Temp
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-1rlOqq sizeBytes=36 files=1 mtime=2026-11-07T01:32:10
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-5hcSn2 sizeBytes=36 files=1 mtime=2026-11-07T01:26:13
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-MYw9ws sizeBytes=36 files=1 mtime=2026-11-07T01:26:20
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-QtJEA5 sizeBytes=36 files=1 mtime=2026-11-07T01:26:01
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-Quo4k5 sizeBytes=36 files=1 mtime=2026-11-07T01:26:10
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-RVHK9r sizeBytes=36 files=1 mtime=2026-11-07T01:30:04
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-adapters-Zbk0cN sizeBytes=36 files=1 mtime=2026-11-07T01:26:43
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-conformance-qevflD sizeBytes=312367 files=3 mtime=2026-11-07T01:21:06
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-desktop-TlSRBj sizeBytes=0 files=0 mtime=2026-11-07T01:30:04
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-desktop-ZE6Fnj sizeBytes=1223 files=10 mtime=2026-11-07T01:31:59
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-http-AGzWpb sizeBytes=250309 files=3 mtime=2026-11-07T01:21:05
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-login-shell-wYsTMw sizeBytes=129 files=1 mtime=2026-11-07T01:27:41
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-person-3avsOW sizeBytes=9 files=1 mtime=2026-11-07T01:27:16
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-state-timers-3WNCCl sizeBytes=180267 files=2 mtime=2026-11-07T01:21:04
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-state-timers-NNcHaa sizeBytes=180267 files=2 mtime=2026-11-07T01:19:54
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-state-timers-pPxFQl sizeBytes=176171 files=2 mtime=2026-11-07T01:19:18
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-state-timers-Q1fesU sizeBytes=180267 files=2 mtime=2026-11-07T01:19:59
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-try-97hMfb sizeBytes=6381 files=7 mtime=2026-11-07T01:28:04
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-up-lock-xp0S12 sizeBytes=161454 files=7 mtime=2026-11-07T01:27:47
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-windows-0tyIMb sizeBytes=28 files=1 mtime=2026-11-07T02:11:53
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-windows-7rr93A sizeBytes=97 files=2 mtime=2026-11-07T02:12:39
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-windows-peK2gF sizeBytes=28 files=1 mtime=2026-11-07T02:11:54
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-windows-ZWl3y1 sizeBytes=28 files=1 mtime=2026-11-07T02:11:53
+TEMP-DIR C:\Users\19082\AppData\Local\Temp\agent-autoloop-worker-EDePiC sizeBytes=144833 files=288 mtime=2026-11-07T01:35:14
+=== node processes ===
+NODE pid=20564 ppid=19724 start=11/06/2026 22:25:36 cmd="C:\Program Files\nodejs\node.exe" C:\Users\19082\.dsh\profiles\desktop\node_modules\billion-context\dist\index.js start --host 127.0.0.1 --port 18787
+NODE pid=1856 ppid=13404 start=11/07/2026 03:12:28 cmd="C:\Program Files\nodejs\node.exe"  "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"
+NODE pid=17168 ppid=1856 start=11/07/2026 03:12:28 cmd="C:\Program Files\nodejs\node.exe" --disable-warning=ExperimentalWarning D:\AutoAgentloop\release\b-c067fdb-20261107\bin\agent-autoloop.ts up
+=== up.pid ===
+up.pid=17168

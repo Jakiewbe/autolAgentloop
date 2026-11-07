@@ -1,0 +1,38 @@
+=== env ===
+AGENT_AUTOLOOP_HOME=<unset>
+USERPROFILE=C:\Users\19082
+=== case 1: current environment (expect PASS exit 0) ===
+OK home=C:\Users\19082\.agent-autoloop
+  source=default(homedir)
+  forbidden=D:\AutoAgentloop (not an ancestor)
+  exists=True
+RESULT=PASS
+EXIT=0
+=== case 2: fake path D:\AutoAgentloop\x (expect REFUSED exit 2) ===
+VIOLATION home lies inside the forbidden root: D:\AutoAgentloop\x
+  source=param:CandidateHome
+  forbidden=D:\AutoAgentloop
+  reason=host/files.ts:5-17 privateDirectory() drops inherited ACEs and rewrites the owner; on objects under this root chs has no WRITE_OWNER, so it throws UnauthorizedAccessException
+RESULT=REFUSED (no read, no write performed)
+EXIT=2
+=== case 3: work-copy .home (expect REFUSED exit 2) ===
+VIOLATION home lies inside the forbidden root: D:\AutoAgentloop\work\agent-autoloop\.home
+  source=param:CandidateHome
+  forbidden=D:\AutoAgentloop
+  reason=host/files.ts:5-17 privateDirectory() drops inherited ACEs and rewrites the owner; on objects under this root chs has no WRITE_OWNER, so it throws UnauthorizedAccessException
+RESULT=REFUSED (no read, no write performed)
+EXIT=2
+=== case 4: root itself (expect REFUSED exit 2) ===
+VIOLATION home lies inside the forbidden root: D:\AutoAgentloop
+  source=param:CandidateHome
+  forbidden=D:\AutoAgentloop
+  reason=host/files.ts:5-17 privateDirectory() drops inherited ACEs and rewrites the owner; on objects under this root chs has no WRITE_OWNER, so it throws UnauthorizedAccessException
+RESULT=REFUSED (no read, no write performed)
+EXIT=2
+=== case 5: LOCALAPPDATA candidate (expect PASS exit 0) ===
+OK home=C:\Users\19082\AppData\Local\agent-autoloop-home
+  source=param:CandidateHome
+  forbidden=D:\AutoAgentloop (not an ancestor)
+  exists=False
+RESULT=PASS
+EXIT=0

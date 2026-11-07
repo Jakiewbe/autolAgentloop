@@ -1,0 +1,1 @@
+2026-11-07T14:26:00.000+08:00 | status=observation active | records=0 | note=no >=10min continuous reach-failure run recorded yet; current production run started 2026-11-07T06:13:48.549Z and was 6.7 min old when checked at 14:20
