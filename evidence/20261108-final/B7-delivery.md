@@ -6,7 +6,7 @@
 | --- | --- |
 | 私库 | `https://github.com/Jakiewbe/autolAgentloop.git`（**只推这里**，未碰 KKKKhazix 上游、未改 origin） |
 | 分支 | **b-final-20261108**（从 b-final-20261107 / b12ec1c 拉出，线性追加，未重写历史） |
-| 提交 | `9cad4346fdde240348626e3061025c746438a37f`（+ 后续 INDEX 终版提交，见 §3） |
+| 提交 | 分支 tip（终版）；历史线性：b12ec1c → 交付包 → `*.log` 补入 → 终版，见 `git log b-final-20261108` |
 | 包内路径 | `evidence/20261108-final/` |
 | INDEX | `evidence/20261108-final/INDEX.sha256`，路径相对 `evidence/`，格式 `<64hex> *20261108-final/<相对路径>` |
 | 校验命令 | `cd evidence && sha256sum -c 20261108-final/INDEX.sha256` |
@@ -26,12 +26,11 @@
 ```
 git clone --branch b-final-20261108 --depth 1 https://github.com/Jakiewbe/autolAgentloop.git _night/b7-clone   # 2 s
 cd _night/b7-clone/evidence && sha256sum -c 20261108-final/INDEX.sha256
-→ rc=0，OK 46，bad 0
-→ HEAD 9cad4346fdde240348626e3061025c746438a37f
-→ INDEX sha256 51011be84cd45322759fc3d8e020f90302c9286907997c62f432d819218e9853
+→ rc=0，OK 55，bad 0
+→ HEAD 与 INDEX sha256 见包外日志 evidence/20261108-final-INDEX-verify.txt
 ```
 
-证据：b7/verify-fresh-clone.txt（46 行 OK 全文）、b7/push2.log、b7/package.log、b7/package2.log、b7/push.sh、b7/push2.sh、b7/package.sh。
+证据：b7/verify-fresh-clone.txt（中间一轮的 46 行 OK 全文，保留作过程记录）、b7/push2.log、b7/package.log、b7/package2.log、b7/final-pass.log、b7/final-pass2.log、b7/*.sh。
 
 INDEX 终版（含 B7 报告与本文件后重算）的条数、sha256 与 clone 复验结果见 `B-final-report.md` §7 与包外校验日志 `evidence/20261108-final-INDEX-verify.txt`（该日志刻意放在包外：它是「校验这个 INDEX」的产物，放进包内会形成自指）。
 
@@ -40,3 +39,7 @@ INDEX 终版（含 B7 报告与本文件后重算）的条数、sha256 与 clone
 - 推送与 clone **走的是本机 CONNECT 代理**（钉 IP），不是直连 github.com。A 侧若要求「直连闭环」，这条不成立。
 - `--depth 1` 的复验只证明该分支 tip 的包可校验，不证明历史完整性。
 - 包内 `b7/verify-fresh-clone.txt` 是对**上一个提交**的校验记录，终版提交的校验在包外日志里。
+## 5. 坑三（终版才暴露）
+
+终版把 `evidence/20261108-final` 整个 `rm -rf` 后 `cp -a` 重灌，再用 `git add -A` —— 结果那 4 个 `.log` **又被根 `.gitignore` 忽略**（`git add -A` 不会因为「之前被 -f 加过」而继续收录已删除重建的文件）。第一次复验就是 55 条 INDEX、51 OK、2 个文件读不到。
+处理：整包 `git add -f -A evidence/20261108-final`，然后重算 INDEX 再推。**教训：这个仓库里凡带 `*.log` 的证据必须 `-f` 加，且每次重灌包之后都要重新 `-f`。**
