@@ -1,1 +1,17 @@
 ip-proxy listening 127.0.0.1:18080 pin=github.com,codeload.github.com,objects.githubusercontent.com,api.github.com ips=20.27.177.113,140.82.121.3,140.82.112.3
+node:events:486
+      throw er; // Unhandled 'error' event
+      ^
+
+Error: read ECONNRESET
+    at TCP.onStreamRead (node:internal/stream_base_commons:216:20)
+Emitted 'error' event on Socket instance at:
+    at emitErrorNT (node:internal/streams/destroy:170:8)
+    at emitErrorCloseNT (node:internal/streams/destroy:129:3)
+    at process.processTicksAndRejections (node:internal/process/task_queues:89:21) {
+  errno: -4077,
+  code: 'ECONNRESET',
+  syscall: 'read'
+}
+
+Node.js v24.12.0

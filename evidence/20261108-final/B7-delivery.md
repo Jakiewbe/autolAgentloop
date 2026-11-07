@@ -19,7 +19,7 @@
 **坑二：根 `.gitignore` 的 `*.log` 把 4 个证据日志吞了。**
 `git check-ignore -v` 指向 `.gitignore:3:*.log`，被忽略的是：`b2/run-b8-criterion.log`、`b4/ip-proxy.log`、`b6/test-windows.log`、`b7/package.log`。INDEX 有 46 条而仓库里只有 43 个文件，clone 后必然缺文件。处理：`git add -f` 补入（**没有改 .gitignore**，避免影响仓库其他部分），单独一个提交说明原因。
 
-**推送**：`git -c http.proxy=http://127.0.0.1:18080 -c https.proxy=... push origin b-final-20261108`，两次推送各 **1 次尝试即成功**（4 s / 2 s）。直连 github.com 不通的原因与代理方案见 B4-network-and-clone.md；代理只在本机 127.0.0.1:18080 临时起，用完即停，未改 hosts、未改全局 git 配置。
+**推送**：前几轮走 `git -c http.proxy=http://127.0.0.1:18080 -c https.proxy=... push origin b-final-20261108`（各 1 次即成功，4 s / 2 s）；**19:50Z 直连恢复后，终版推送改回 `git push origin b-final-20261108`，1 次即成功**，新 clone 复验也是直连。直连 github.com 不通的原因与代理方案见 B4-network-and-clone.md；代理只在本机 127.0.0.1:18080 临时起，用完即停，未改 hosts、未改全局 git 配置。
 
 ## 3. 新 clone 复验（这才是闭环）
 

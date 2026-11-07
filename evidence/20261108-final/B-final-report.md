@@ -18,7 +18,7 @@ B1/B2/B3/B4/B5/B6 全部有交付物；**B2 的「done 计数继续增长」未�
 | B2 重启与心跳 | **完成** | b2/、b3/06-after-migration.txt | 新 up.pid 22156；19:30:19Z `/v1/work?claim=beat` HTTP 200 |
 | B2 done 计数增长 | **未验** | — | 中台 `job:null`，worker/runs 仍 22 个（最新 35-1，11-06 14:47） |
 | B3 ACL 方案乙 | **完成（含一处偏离）** | B3-acl-migration.md、b3/ | privateDirectory 从 ERR → OK；心跳 19:28:59Z / 19:30:19Z 均 200 |
-| B4 推送闭环 | **完成（走代理）** | B4-network-and-clone.md、b4/ | clone 1 次成功 3 s；HEAD b12ec1c；sha256sum -c **57/57 OK** |
+| B4 推送闭环 | **完成（clone 走代理；B7 终版推送已直连）** | B4-network-and-clone.md、b4/ | clone 1 次成功 3 s；HEAD b12ec1c；sha256sum -c **57/57 OK** |
 | B5 真实 Go 调用 | **未验（环境缺口）** | B5-real-go-prerequisites.md、b5/ | 无 claude CLI、无 Go 网关凭据 |
 | B6 test:windows | **完成** | B6-test-windows.md、b6/ | 484/484/0/0，94319 ms，EXIT=0；跑后无残留任务/监听/新临时家目录 |
 | B7 交付 | **完成** | 本报告、INDEX.sha256、b7/ | 分支 b-final-20261108 |
@@ -40,9 +40,9 @@ HOME 迁到 `D:\AutoAgentloop\home` 后，服务名由 HOME 派生（`host/servi
 
 处理：只在 `D:\AutoAgentloop\home` 这一个目录加一条可继承的 TakeOwnership（0x80000）ACE 给当前用户，随后产品块 OK，那条 ACE 被产品整块替换掉，不留残余。**没有** WRITE_DAC、没有在根目录动手、没有自我剥夺、没有向下传播（这与任务单禁掉的那条不是同一操作，但仍是一次 DACL 写入，请 A 判定）。
 
-### 2.3 github.com 直连断了，B4/B7 走本机 CONNECT 代理
+### 2.3 github.com 直连一度断了（B4 走本机 CONNECT 代理，B7 终版推送已恢复直连）
 
-DNS 给的是 20.205.243.166，该 IP 的 443 超时；换 140.82.121.3 / 20.27.177.113 立刻 200。非管理员改不了 hosts，所以用 `b4/ip-proxy.js`（127.0.0.1:18080，仅 CONNECT，钉 IP）配合一次性 `git -c http.proxy=…`，未改任何全局配置，TLS/SNI 仍是 github.com。用完即停。
+DNS 给的是 20.205.243.166，该 IP 的 443 超时；换 140.82.121.3 / 20.27.177.113 立刻 200。非管理员改不了 hosts，所以 B4 用 `b4/ip-proxy.js`（127.0.0.1:18080，仅 CONNECT，钉 IP）配合一次性 `git -c http.proxy=…`，未改任何全局配置，TLS/SNI 仍是 github.com。**19:50Z 起直连恢复（`curl https://github.com/` 200），B7 终版推送与新 clone 复验都改回直连，1 次即成功。** 代理已停。
 
 ## 3. 回滚命令（各自一条）
 
@@ -113,6 +113,6 @@ pkill -f "node ip-proxy.js"
 | INDEX 条数 | **57**（= 包内全部 57 个文件；INDEX.sha256 自身不入清单） |
 | 校验 | `cd evidence && sha256sum -c 20261108-final/INDEX.sha256` → 新 clone 内 **57/57 OK，rc=0**（`--depth 1`，HEAD 见包外日志） |
 | INDEX 自身 sha256 与 clone 复验全文 | 包外日志 `evidence/20261108-final-INDEX-verify.txt`（刻意放包外，避免自指） |
-| 推送重试 | 每次 1 次即成功（4 s / 2 s / 2 s），走本机 CONNECT 代理（见 B4） |
+| 推送重试 | 终版 **1 次即成功（直连）**；中间几轮曾走本机 CONNECT 代理（见 B4/B7） |
 
 细节与三个坑（CRLF 转换、`*.log` 被根 .gitignore 吞、`cp -a` 后 `git add -A` 会重新忽略日志）见 B7-delivery.md。
