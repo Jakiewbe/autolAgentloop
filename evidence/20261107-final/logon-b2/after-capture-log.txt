@@ -1,0 +1,5 @@
+﻿2026-11-08T01:57:41.990+08:00 | after-capture start pid=19980 user=chs session=
+2026-11-08T01:57:45.408+08:00 | self-unregistered OK
+2026-11-08T01:57:57.140+08:00 | capture: WROTE D:\AutoAgentloop\evidence\20261107-logon\after-b2-20261108-015748.txt lines=123
+2026-11-08T01:58:02.891+08:00 | snap: WROTE D:\AutoAgentloop\evidence\20261107-final\after\b2-b3-after-logon.txt entries=49
+2026-11-08T01:58:02.904+08:00 | after-capture done

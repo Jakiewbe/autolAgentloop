@@ -1,0 +1,124 @@
+﻿=== PHASE: before ===
+timestamp_local=2026-11-08T01:49:48.150+08:00
+timestamp_utc=2026-11-07T17:49:48.153Z
+host=MAGICBOOK14-ZZ user=chs session=Console
+
+=== SCHEDULED TASK \agent-autoloop (definition + state) ===
+TaskName=agent-autoloop TaskPath=\ State=Running
+LastRunTime=11/07/2026 03:11:17 LastTaskResult=267009 NextRunTime= MissedRuns=0
+Action[0].Execute=C:\WINDOWS\system32\wscript.exe
+Action[0].Arguments=//B //Nologo //E:JScript "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.js" "C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"
+Action[0].WorkingDirectory=C:\Users\19082\.agent-autoloop
+Trigger[0] class=MSFT_TaskLogonTrigger start= user=MAGICBOOK14-ZZ\chs
+Principal UserId=chs LogonType=Interactive RunLevel=Limited
+Settings ExecutionTimeLimit=PT0S RestartCount=999 MultipleInstances=IgnoreNew Hidden=False
+--- task XML ---
+<?xml version="1.0" encoding="UTF-16"?>
+<Task version="1.3" xmlns="http://schemas.microsoft.com/windows/2004/02/mit/task">
+  <RegistrationInfo>
+    <URI>\agent-autoloop</URI>
+  </RegistrationInfo>
+  <Principals>
+    <Principal id="Author">
+      <UserId>S-1-5-21-4020587617-1314364305-3965834536-1001</UserId>
+      <LogonType>InteractiveToken</LogonType>
+    </Principal>
+  </Principals>
+  <Settings>
+    <DisallowStartIfOnBatteries>false</DisallowStartIfOnBatteries>
+    <StopIfGoingOnBatteries>false</StopIfGoingOnBatteries>
+    <ExecutionTimeLimit>PT0S</ExecutionTimeLimit>
+    <MultipleInstancesPolicy>IgnoreNew</MultipleInstancesPolicy>
+    <RestartOnFailure>
+      <Count>999</Count>
+      <Interval>PT1M</Interval>
+    </RestartOnFailure>
+    <IdleSettings>
+      <Duration>PT10M</Duration>
+      <WaitTimeout>PT1H</WaitTimeout>
+      <StopOnIdleEnd>true</StopOnIdleEnd>
+      <RestartOnIdle>false</RestartOnIdle>
+    </IdleSettings>
+    <UseUnifiedSchedulingEngine>true</UseUnifiedSchedulingEngine>
+  </Settings>
+  <Triggers>
+    <LogonTrigger>
+      <UserId>MAGICBOOK14-ZZ\chs</UserId>
+    </LogonTrigger>
+  </Triggers>
+  <Actions Context="Author">
+    <Exec>
+      <Command>C:\WINDOWS\system32\wscript.exe</Command>
+      <Arguments>//B //Nologo //E:JScript "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.js" "C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"</Arguments>
+      <WorkingDirectory>C:\Users\19082\.agent-autoloop</WorkingDirectory>
+    </Exec>
+  </Actions>
+</Task>
+--- end task XML ---
+
+=== ALL TASKS agent-autoloop* ===
+TASK \agent-autoloop state=Running
+
+=== PROCESS TREE: agent-autoloop related ===
+PROC pid=13404 ppid=2400 name=wscript.exe start=11/07/2026 03:11:17
+     cmd="C:\WINDOWS\system32\wscript.exe" //B //Nologo //E:JScript "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.js" "C:\Program Files\nodejs\node.exe" "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"
+PROC pid=1856 ppid=13404 name=node.exe start=11/07/2026 03:12:28
+     cmd="C:\Program Files\nodejs\node.exe"  "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"
+PROC pid=17168 ppid=1856 name=node.exe start=11/07/2026 03:12:28
+     cmd="C:\Program Files\nodejs\node.exe" --disable-warning=ExperimentalWarning D:\AutoAgentloop\release\b-c067fdb-20261107\bin\agent-autoloop.ts up
+
+=== LISTENING PORTS ===
+(none: up pid 17168 listens on nothing; 3300-3500 and 4347 empty)
+
+=== up.pid ===
+up.pid=17168
+up.pid process alive: node start=11/07/2026 03:12:28
+
+=== STARTUP FOLDER + Run keys ===
+DIR C:\Users\19082\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup
+  desktop.ini 174B
+DIR C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup
+  desktop.ini 174B
+KEY HKCU:\Software\Microsoft\Windows\CurrentVersion\Run
+  OneDrive="C:\Users\19082\AppData\Local\Microsoft\OneDrive\OneDrive.exe" /background
+  IC Cloud Worker="C:\Users\19082\AppData\Local\Programs\iccloud.io\IC Cloud Worker.exe" --hidden
+  Steam="D:\Steam\steam.exe" -silent
+  GameViewer="D:\UU\GameViewer\GameViewer.exe" --auto-run
+  com.tencent.qclaw=D:\QClaw\v0.2.35.624\QClaw.exe --auto-launch
+  quark="D:\Quark\quark.exe" --launch-from=loginitem --brand-clouddrive
+  BaiduYunGuanjia="D:\BaiduNetdisk\BaiduNetdisk.exe" AutoRun
+  MicrosoftEdgeAutoLaunch_39577D4A034568E6B9B178CE967A6F22="C:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe" --no-startup-window --win-session-start
+KEY HKLM:\Software\Microsoft\Windows\CurrentVersion\Run
+  SecurityHealth=C:\WINDOWS\system32\SecurityHealthSystray.exe
+  RtkAudUService="C:\WINDOWS\System32\DriverStore\FileRepository\realtekservice.inf_amd64_78412285c6b2f525\RtkAudUService64.exe" -background
+  SunloginClient="D:\Software\Sunlogin\SunloginClient\SunloginClient.exe" --cmd=autorun
+  AweSun="D:\Software\Sunlogin\SunloginClient\AweSun.exe" --cmd=autorun
+
+=== up.log tail 20 (raw) ===
+total_lines=211
+2026-11-07T10:18:22.884Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T10:28:38.893Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T10:29:09.287Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T10:41:25.753Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T10:41:56.244Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T10:44:06.112Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T10:44:36.489Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T10:54:48.426Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T11:02:15.860Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T11:02:46.259Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T11:12:40.939Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T11:20:25.542Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T11:25:55.624Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T11:26:26.010Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T11:26:56.420Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 404
+2026-11-07T16:47:01.446Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T17:12:01.973Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T17:27:32.590Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T17:29:00.841Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+2026-11-07T17:30:16.171Z [worker] couldn't reach the hub: Error: 涓彴杩斿洖 503
+
+=== DESKTOP WINDOWS BY CLASS ConsoleWindowClass ===
+ConsoleWindowClass count=3
+HWND=4458962 class=ConsoleWindowClass visible=False pid=16836 title=C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\bin\bash.exe
+HWND=394880 class=ConsoleWindowClass visible=False pid=1856 title=C:\Program Files\nodejs\node.exe
+HWND=197974 class=ConsoleWindowClass visible=False pid=20152 title=D:\CLIProxyAPI\cli-proxy-api.exe

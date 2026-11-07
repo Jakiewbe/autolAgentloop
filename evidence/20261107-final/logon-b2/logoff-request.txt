@@ -1,0 +1,5 @@
+logoff_requested_local=2026-11-08T01:54:30+08:00
+requested_by=A-side instruction (session lead)
+before_snapshot=before-b2-0149.txt (124 lines, 2026-11-08T01:49:48.150+08:00)
+after_capture_task=\agent-autoloop-aftercap state=Ready trigger=AtLogOn chs Interactive Limited delay=60s
+note=this session (DSH) dies at logoff; after snapshot is produced by the scheduled task, not by the agent

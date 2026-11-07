@@ -230,3 +230,25 @@ A 侧给出的事实（`claude.exe` 2.1.153、settings 键名、F1 链路证据�
 - 编码：本轮 b4 系列日志原有 GBK（PowerShell 重定向默认码页），已就地转为 UTF-8 后再入包，避免 git 侧乱码；`b3-after-interrupt.txt`、`b4-icacls-before.txt` 同步转换。
 - 残留检查：探针建的 `D:\AutoAgentloop\labprobe-*`、`aclprobe-*` 与误建的 `work\agent-autoloop\.home`（空目录）全部清除，`git status --porcelain` 仍 0 行。 |
 
+## 14 · B2 已执行（11-08 01:54 注销 / 01:56 重登，四条断言全中）
+
+本单唯一需真人的项已闭合，明细见 [B2-report.md](B2-report.md) §13。摘要：
+
+| 断言 | 结果 | 关键值 |
+|---|---|---|
+| 任务表只有 `\agent-autoloop` 且 Running | 命中 | LastRunTime 更新为 11/08 01:56:37；aftercap 任务在采集前自我注销，未污染表 |
+| node 恰好一组（1 background 父 + 1 up 子） | 命中 | 8220 wscript → 24908 node(background.ts) → 16424 node(up) |
+| 桌面无新增控制台窗口 | 命中 | ConsoleWindowClass 3→2，全部 visible=False；少的是注销时被杀的旧会话 bash 窗口 |
+| up.pid 与实际一致 | 命中 | up.pid=16424，pid 存活、start 01:56:40 |
+
+- 时间线：01:54:47 注销（系统日志 7002）→ 01:56:36 登录（7001）→ 01:56:37 登录触发启动 → 01:56:43 `worker b-magicbook14 started`（up.log 第 212 行）→ 01:57:41 aftercap 执行 → 01:57:45 自我注销 → 01:57:50 after 快照 → 01:58:02 端口/任务快照。登录→after 74 秒。
+- 采集方式：注销会杀掉 DSH 会话，故 after 由**登录触发的一次性计划任务**采集（脚本第一步先 `Unregister-ScheduledTask` 自我注销，再做 capture + snap）。
+- 链路补充：01:59 `/healthz` → HTTP 200；up pid 16424 有 1 条 ESTABLISHED → 18.177.60.68:443；重启后 up.log 无 503/404。
+- 受限采集项（登记不推断）：任务上下文取不到 `SESSIONNAME`，after 快照 session= 为空；未测「注销后无人登录期间 up 是否继续跑」。
+- 仍待 A 侧：hub.db 中 `worker:b-magicbook14` 的 seen_at 是否落在 (2026-11-08T01:56:36+08:00, 01:59:36)。
+
+### 14.1 交付包口径更新（覆盖 10.7 的 29 文件口径）
+- 现在 **57 个文件（INDEX 56 行 + INDEX 自身）**：新增 `B2-report.md`、`logon-b2/`（9 件：PROCEDURE、after-capture-log、after-capture.ps1、before/after 快照、logoff-request、register-aftercap.ps1、capture.ps1）、`before/b2-b3-before.txt`、`after/b2-b3-after.txt`、`after/b2-b3-after-logon.txt`、`logs/ports-b2-*.txt`、`logs/b2-*`、`logs/b4-*`、`logs/temp-home-credential-scan.txt`、`logs/hub-gap-*`、`scripts/scan-temp-homes.ps1`、`scripts/hub-gap-watch.ps1`、`B4-root-cause.md` 等。
+- `INDEX.sha256` 重算为 56 行，格式沿用首推口径（`sha256sum -b`，路径前缀 `20261107-final/`，在 `evidence/` 下校验）：`cd evidence && sha256sum -c 20261107-final/INDEX.sha256` → **56/56 OK**。
+- 包内不含 `master.key`、`hub.db`、`config.json`；`sk-`/`ghp_`/`PRIVATE KEY` 模式扫描无命中（报告里提到这些文件名属正文，不是文件本身）。
+- 分支仍为 `b-final-20261107`（`b/final-20261107` 因远端已有 `b` 而 ref 冲突，见 9.2），只追加提交，不重写、不删分支、不动 origin 与远端 `b`/`main`。

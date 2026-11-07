@@ -159,9 +159,9 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 
 ## 8 未验清单（不推断）
 
-1. **B2 after 快照（四条断言的后半段）**：需要真人注销并重新登录。未做，因此「单实例已验证」这句话本轮不成立。
-2. 登录后第一次心跳的精确时刻：需 B 侧先登录，A 侧在 3 分钟内查 hub.db seen_at 落在 (登录时刻, +3 分钟)。未发生。
-3. 登录后桌面是否出现新增控制台窗口：窗口枚举只在登录会话内有效，未发生。
+1. ~~B2 after 快照（四条断言的后半段）~~：**已于 11-08 01:54:47 注销、01:56:36 重登，01:57:50 采到 after，四条断言全部命中，见 §13**。
+2. 登录后第一次心跳的精确时刻：B 侧已给出「登录 01:56:36、worker started 01:56:43」，hub.db 侧 seen_at 仍需 A 侧在 3 分钟内核对（B 侧无 hub.db，不推断）。
+3. ~~登录后桌面是否出现新增控制台窗口~~：**已验，见 §13 第 3 条（计数 3→2，无新增，两个都 invisible）**。
 4. 断链观测脚本未注册为计划任务（只交脚本与测试），因此「持续运行中的观测」未验；如需常驻，需批准后由 B 侧加一条计划任务。
 5. hub 侧 14:13 之后心跳是否中断：B 侧无 hub.db，未验，已请 A 侧核对。
 
@@ -174,7 +174,7 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 ## 10 收尾三行
 
 1. 本轮变更的进程与任务：无。生产进程仍是 13404 wscript → 1856 background → 17168 up，任务表仍只有 \agent-autoloop（Running）；假运行探针进程已退出，临时家目录已删。
-2. 仍未闭合的缺口：B2 after 快照与「单实例已验证」结论（等真人注销）；登录后心跳时刻与窗口枚举；断链观测未常驻。
+2. 仍未闭合的缺口：~~B2 after 快照与「单实例已验证」结论~~（11-08 01:54 注销 / 01:56 重登，01:57:50 采到 after，四条断言全中，见 §13）；仅剩 A 侧 hub.db 心跳核对；断链观测未常驻。
 3. 需要 A 侧配合：真人注销窗口的确认；登录后 3 分钟内查 hub.db 的 seen_at；核对 14:13 之后 hub 侧心跳是否与 B 侧 404/503 同步中断。
 
 ## 11 交付包口径（本轮补充）
@@ -204,3 +204,49 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 
 结论：B 侧隔夜无任何状态变化，B2 依旧阻塞在真人注销重登；中台在 11/08 01:30 仍返回 503，链路未恢复。
 
+## 13 B2 注销重登验收（已执行，11-08 01:54 → 01:58）
+
+### 13.1 时间线（本地时 +08:00）
+
+| 时刻 | 事件 | 来源 |
+|---|---|---|
+| 01:49:48 | before 快照 before-b2-0149.txt（124 行） | capture.ps1 -Phase before |
+| 01:49:50 | 注册一次性任务 \agent-autoloop-aftercap（AtLogOn / chs / Interactive / Limited，延迟 60 s，先自杀再采集） | register-aftercap.ps1 |
+| 01:54:30 | 记录 logoff-request.txt | — |
+| 01:54:47 | 注销（系统日志 7002） | System log |
+| 01:56:36 | 登录（系统日志 7001） | System log |
+| 01:56:37 | \agent-autoloop 在登录触发下启动（LastRunTime 01:56:37），wscript pid=8220 | 任务信息 / 进程 |
+| 01:56:40 | node background.ts pid=24908、up pid=16424 起来（父子关系正确） | 进程创建时间 |
+| 01:56:43 | up.log 写入 worker b-magicbook14 started | up.log 第 212 行 |
+| 01:57:41 | aftercap 任务执行（pid=19980） | after-capture-log.txt |
+| 01:57:45 | 任务自我注销成功 | after-capture-log.txt |
+| 01:57:50 | after 快照 after-b2-20261108-015748.txt（123 行） | capture.ps1 -Phase after |
+| 01:58:02 | 端口/任务快照 after/b2-b3-after-logon.txt（49 条） | snap.ps1 |
+| 01:58:02 | after-capture done | after-capture-log.txt |
+
+登录 → after 快照间隔 **74 秒**，远在 10 分钟窗口内；登录 → 任务启动 **1 秒**。
+
+### 13.2 四条断言
+
+| # | 断言 | before（01:49:48） | after（01:57:50） | 判定 |
+|---|---|---|---|---|
+| 1 | 任务表只有 \agent-autoloop 且 Running | 只有它，Running，LastRunTime 11/07 03:11:17 | 只有它，Running，LastRunTime **11/08 01:56:37**，LastTaskResult=267009 | **命中**（aftercap 在采集前已自我注销，未污染表） |
+| 2 | node 恰好一组（1 个 background 父 + 1 个 up 子），不是两组 | 13404 wscript → 1856 node → 17168 node | 8220 wscript → 24908 node(background.ts) → 16424 node(up)，各 1 个 | **命中**（无第二实例，无孤儿 up） |
+| 3 | 桌面无新增控制台窗口 | ConsoleWindowClass=3，全部 visible=False（16836 bash、1856 node、20152 cli-proxy-api） | ConsoleWindowClass=**2**，全部 visible=False（24908 node、24528 cli-proxy-api） | **命中**（无新增；少的那一个是注销时被杀掉的旧会话 bash 窗口，不是 agent-autoloop 的窗口） |
+| 4 | up.pid 与 after 实际 pid 一致 | up.pid=17168，实际 17168 | up.pid=**16424**，该 pid 存活且为 node，start 01:56:40 | **命中** |
+
+补充证据（同一时刻采集）：
+- 端口：after 快照「none: up pid 16424 listens on nothing; 3300-3500 and 4347 empty」——worker-only 形态不变。
+- 链路：01:59 探 /healthz → HTTP 200 {"ok":true,"commit":"dev"}；up pid 16424 有 1 条 ESTABLISHED → 18.177.60.68:443（长轮询在线）。
+- up.log：17:30:16Z 之后唯一新行是 17:56:43Z worker b-magicbook14 started，重启后无 503/404。
+
+### 13.3 方法与被系统限制的采集项
+
+- after 采集不是我在会话里跑的：注销会杀掉 DSH 会话，所以用一个**登录触发的一次性计划任务**在登录后 60 秒执行；脚本第一步先 Unregister-ScheduledTask 自我注销（01:57:45 成功），再做 capture + snap，全程写 after-capture-log.txt。因此 after 快照里的任务表是干净的。
+- 会话名采集为空：任务上下文里 env SESSIONNAME 取不到值（after 快照 host=MAGICBOOK14-ZZ user=chs session= 为空）。属采集项受上下文限制，登记不推断。
+- 任务已清理：\agent-autoloop-aftercap 现已不存在，当前任务表只剩 \agent-autoloop。
+- 本次未测：注销后 up 是否在无人登录期间继续跑（注销即停，属 Windows 会话行为，不在本单断言内）。
+
+### 13.4 仍需 A 侧核对
+
+登录时刻 2026-11-08T01:56:36+08:00（= 2026-11-07T17:56:36Z），worker 在 01:56:43 起来。请在 hub.db 里查 worker:b-magicbook14 的 seen_at 是否落在 (01:56:36, 01:59:36) 窗口内——这是四条断言之外唯一不由 B 侧掌握的一条。
