@@ -103,3 +103,16 @@ pkill -f "node ip-proxy.js"
 | b5/ | environment-probe.txt（where claude / npm -g / node 版本 / 替身 settings） |
 | b6/ | test-windows.log、before/after 快照、snapshot.sh |
 | before/ | 改动前两份 agent.ts 原件 + sha256.txt |
+## 7. 交付包与推送（B7）
+
+| 项 | 值 |
+| --- | --- |
+| 私库分支 | `b-final-20261108`（`https://github.com/Jakiewbe/autolAgentloop.git`，未碰上游、未改 origin、未重写历史） |
+| 包路径 | `evidence/20261108-final/` |
+| INDEX | `evidence/20261108-final/INDEX.sha256`（路径相对 `evidence/`，`<64hex> *20261108-final/<相对路径>`） |
+| INDEX 条数 | **50**（= 包内全部文件，不含 INDEX.sha256 自身） |
+| 校验 | `cd evidence && sha256sum -c 20261108-final/INDEX.sha256` → 新 clone 内 **50/50 OK，rc=0** |
+| INDEX 自身 sha256 与 clone 复验全文 | 包外日志 `evidence/20261108-final-INDEX-verify.txt`（刻意放包外，避免自指） |
+| 推送重试 | 各 1 次即成功（4 s / 2 s），走本机 CONNECT 代理（见 B4） |
+
+细节与两个坑（CRLF 转换、`*.log` 被 .gitignore 吞）见 B7-delivery.md。
