@@ -26,7 +26,7 @@
 ```
 git clone --branch b-final-20261108 --depth 1 https://github.com/Jakiewbe/autolAgentloop.git _night/b7-clone   # 2 s
 cd _night/b7-clone/evidence && sha256sum -c 20261108-final/INDEX.sha256
-→ rc=0，OK 55，bad 0
+→ rc=0，OK 56，bad 0（56 条 = 包内 57 个文件去掉 INDEX.sha256 自身）
 → HEAD 与 INDEX sha256 见包外日志 evidence/20261108-final-INDEX-verify.txt
 ```
 
@@ -43,3 +43,6 @@ INDEX 终版（含 B7 报告与本文件后重算）的条数、sha256 与 clone
 
 终版把 `evidence/20261108-final` 整个 `rm -rf` 后 `cp -a` 重灌，再用 `git add -A` —— 结果那 4 个 `.log` **又被根 `.gitignore` 忽略**（`git add -A` 不会因为「之前被 -f 加过」而继续收录已删除重建的文件）。第一次复验就是 55 条 INDEX、51 OK、2 个文件读不到。
 处理：整包 `git add -f -A evidence/20261108-final`，然后重算 INDEX 再推。**教训：这个仓库里凡带 `*.log` 的证据必须 `-f` 加，且每次重灌包之后都要重新 `-f`。**
+## 6. 条数为什么在报告里改过几次（说明，不是美化）
+
+每一轮打包都会在 `b7/` 里落一个新的过程日志（`package.log` → `package2.log` → `final-pass.log` → `final-pass2.log` → `final-pass3.log`），每落一个，包内文件数就 +1，INDEX 条数跟着 +1（46 → 50 → 53 → 55 → 56）。所以报告里的条数改过几次。**冻结后的口径：包内 57 个文件，INDEX 56 条，新 clone 复验 56/56 OK、rc=0**；INDEX 自身 sha256 与复验全文在包外 `evidence/20261108-final-INDEX-verify.txt`。
