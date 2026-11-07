@@ -1,0 +1,29 @@
+=== D:\AutoAgentloop ===
+  Owner=MAGICBOOK14-ZZ\chs
+  RulesProtected=False
+  SDDL=O:S-1-5-21-4020587617-1314364305-3965834536-1001G:S-1-5-21-4020587617-1314364305-3965834536-513D:AI(D;CI;DT;;;WD)(A;OICI;0x110156;;;S-1-4-468065576-1037340474)(A;OICI;0x1201bf;;;S-1-5-21-2917529869-3470359602-3510455969-2451035572)(A;OICI;0x1301bf;;;S-1-5-21-2996253060-2469643146-3984577970-3727747411)(A;OICI;0x1201bf;;;S-1-5-21-3060152114-79461432-2005981026-4082952930)(A;;0x180000;;;S-1-5-21-4020587617-1314364305-3965834536-1001)(A;OICI;0x1301bf;;;S-1-5-21-803409395-3282669851-3203730243-4031528268)(A;ID;FA;;;BA)(A;OICIIOID;GA;;;BA)(A;ID;FA;;;SY)(A;OICIIOID;GA;;;SY)(A;ID;0x1301bf;;;AU)(A;OICIIOID;SDGXGWGR;;;AU)(A;ID;0x1200a9;;;BU)(A;OICIIOID;GXGR;;;BU)
+  [EXPLICIT ] Everyone | Deny | DeleteSubdirectoriesAndFiles | inh=ContainerInherit prop=None
+  [EXPLICIT ] S-1-4-468065576-1037340474 | Allow | DeleteSubdirectoriesAndFiles, Write, Delete, Synchronize | inh=ContainerInherit, ObjectInherit prop=None
+  [EXPLICIT ] S-1-5-21-2917529869-3470359602-3510455969-2451035572 | Allow | Write, ReadAndExecute, Synchronize | inh=ContainerInherit, ObjectInherit prop=None
+  [EXPLICIT ] S-1-5-21-2996253060-2469643146-3984577970-3727747411 | Allow | Modify, Synchronize | inh=ContainerInherit, ObjectInherit prop=None
+  [EXPLICIT ] S-1-5-21-3060152114-79461432-2005981026-4082952930 | Allow | Write, ReadAndExecute, Synchronize | inh=ContainerInherit, ObjectInherit prop=None
+  [EXPLICIT ] MAGICBOOK14-ZZ\chs | Allow | TakeOwnership, Synchronize | inh=None prop=None
+  [EXPLICIT ] S-1-5-21-803409395-3282669851-3203730243-4031528268 | Allow | Modify, Synchronize | inh=ContainerInherit, ObjectInherit prop=None
+  [INHERITED] BUILTIN\Administrators | Allow | FullControl | inh=None prop=None
+  [INHERITED] BUILTIN\Administrators | Allow | 268435456 | inh=ContainerInherit, ObjectInherit prop=InheritOnly
+  [INHERITED] NT AUTHORITY\SYSTEM | Allow | FullControl | inh=None prop=None
+  [INHERITED] NT AUTHORITY\SYSTEM | Allow | 268435456 | inh=ContainerInherit, ObjectInherit prop=InheritOnly
+  [INHERITED] NT AUTHORITY\Authenticated Users | Allow | Modify, Synchronize | inh=None prop=None
+  [INHERITED] NT AUTHORITY\Authenticated Users | Allow | -536805376 | inh=ContainerInherit, ObjectInherit prop=InheritOnly
+  [INHERITED] BUILTIN\Users | Allow | ReadAndExecute, Synchronize | inh=None prop=None
+  [INHERITED] BUILTIN\Users | Allow | -1610612736 | inh=ContainerInherit, ObjectInherit prop=InheritOnly
+
+=== icacls tail (integrity label) ===
+                 Mandatory Label\Low Mandatory Level:(OI)(CI)(NW)
+
+已成功处理 1 个文件; 处理 0 个文件时失败
+--- TEMP ---
+                                  MAGICBOOK14-ZZ\chs:(I)(OI)(CI)(F)
+
+已成功处理 1 个文件; 处理 0 个文件时失败
+=== whoami integrity groups ===

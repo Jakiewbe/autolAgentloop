@@ -1,0 +1,13 @@
+=== A: D-tree child, label cleared to Medium first ===
+  label now: Mandatory Label\Low Mandatory Level:(I)(OI)(CI)(NW)
+  D-tree child after icacls Medium => FAIL 使用“2”个参数调用“SetAccessControl”时发生异常:“尝试执行未经授权的操作。”
+=== B: TEMP child, label forced to Low ===
+  label now: Mandatory Label\Low Mandatory Level:(NW)
+  TEMP child after icacls Low => OK
+=== C: D-tree child, DACL-only write (no SetOwner call) ===
+  DACL-only => OK
+=== D: TEMP child, with SetOwner call (control) ===
+  TEMP with owner call => OK
+=== leftover ===
+D tree labprobe: 0
+TEMP labprobe: 0

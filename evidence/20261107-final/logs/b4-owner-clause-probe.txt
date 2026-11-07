@@ -1,0 +1,14 @@
+target=D:\AutoAgentloop\labprobe-96fa4c
+icacls-head: D:\AutoAgentloop\labprobe-96fa4c Everyone:(I)(CI)(DENY)(DC) /                                  S-1-5-21-2996253060-2469643146-3984577970-3727747411:(I)(OI)(CI)(M) /                                  S-1-5-21-803409395-3282669851-3203730243-4031528268:(I)(OI)(CI)(M)
+=== T1: owner-only write on D-tree child ===
+  owner-only => FAIL 使用“2”个参数调用“SetAccessControl”时发生异常:“尝试执行未经授权的操作。”
+=== T2: DACL-only (protected, chs FullControl) ===
+  dacl-only => OK
+=== T3: owner write AFTER dacl now grants FullControl ===
+  owner-after-grant => OK
+=== T4: exact files.ts code on same dir ===
+  exact-files.ts => OK
+=== T5: fresh child under that dir ===
+  fresh-child-under-granted => OK
+removed=True
+leftover=0

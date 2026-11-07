@@ -1,0 +1,43 @@
+cleanup-leftover: D:\AutoAgentloop\work\agent-autoloop\aclprobe-dsub-8811c7
+cleanup-leftover: C:\Users\19082\AppData\Local\Temp\aclprobe-temp-c7511e
+=== D-sub-work :: D:\AutoAgentloop\work\agent-autoloop\aclprobe-ff9e57 ===
+  RESULT=FAIL System.Management.Automation.MethodInvocationException
+  MSG=使用“2”个参数调用“SetAccessControl”时发生异常:“尝试执行未经授权的操作。”
+  post: owner=MAGICBOOK14-ZZ\chs protected=False aces=14
+  icacls: 
+  icacls: 已成功处理 1 个文件; 处理 0 个文件时失败
+  removed=True
+
+=== D-root-child :: D:\AutoAgentloop\aclprobe-ff9e57 ===
+  RESULT=FAIL System.Management.Automation.MethodInvocationException
+  MSG=使用“2”个参数调用“SetAccessControl”时发生异常:“尝试执行未经授权的操作。”
+  post: owner=MAGICBOOK14-ZZ\chs protected=False aces=14
+  icacls: 
+  icacls: 已成功处理 1 个文件; 处理 0 个文件时失败
+  removed=True
+
+=== A-suggested-home :: D:\AutoAgentloop\work\agent-autoloop\.home\aclprobe-ff9e57 ===
+  RESULT=FAIL System.Management.Automation.MethodInvocationException
+  MSG=使用“2”个参数调用“SetAccessControl”时发生异常:“尝试执行未经授权的操作。”
+  post: owner=MAGICBOOK14-ZZ\chs protected=False aces=14
+  icacls: 
+  icacls: 已成功处理 1 个文件; 处理 0 个文件时失败
+  removed=True
+
+=== TEMP :: C:\Users\19082\AppData\Local\Temp\aclprobe-ff9e57 ===
+  RESULT=OK
+  post: owner=MAGICBOOK14-ZZ\chs protected=True aces=2
+  icacls: 
+  icacls: 已成功处理 1 个文件; 处理 0 个文件时失败
+  removed=True
+
+=== LOCALAPPDATA :: C:\Users\19082\AppData\Local\aclprobe-ff9e57 ===
+  RESULT=OK
+  post: owner=MAGICBOOK14-ZZ\chs protected=True aces=2
+  icacls: 
+  icacls: 已成功处理 1 个文件; 处理 0 个文件时失败
+  removed=True
+
+=== leftover check ===
+D tree aclprobe: 0
+TEMP aclprobe: 0

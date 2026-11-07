@@ -1,5 +1,7 @@
 # B4 · D:\AutoAgentloop ACL 处置方案（只交方案，未动 DACL）
 
+> **2026-11-07 13:22 更正**：本文件第 1.2/1.3 节的"失败点=丢弃全部继承 ACE"与第 4 节的推荐路径 `D:\AutoAgentloop\work\agent-autoloop\.home` **均已被后续实测推翻**。真实根因是 chs 在 D 树子对象上缺 **WRITE_OWNER**（不是 WRITE_DAC），且 D 树内**任何**新目录都会失败。以 [B4-root-cause.md](B4-root-cause.md) 为准；本文件保留为时间线存档。
+
 采集时间 2026-11-07 11:56 +08:00。原始 icacls 输出：`logs/b4-icacls-before.txt`。
 本轮**没有修改** D:\AutoAgentloop 的 DACL；下面所有写操作都是方案，等明确指令。
 
@@ -88,7 +90,7 @@ icacls 'D:\' /restore 'D:\AutoAgentloop\evidence\20261107-final\logs\b4-acl-back
 
 ## 4 推荐做法（替代甲/乙的二选一）
 
-需要"隔离运行/家目录在 D 盘"时，**不要把 HOME 指到 D:\AutoAgentloop 本身**，指到 chs 自己新建的子目录，例如 `D:\AutoAgentloop\work\agent-autoloop\.home`：
+~~需要"隔离运行/家目录在 D 盘"时，不要把 HOME 指到 D:\AutoAgentloop 本身，指到 chs 自己新建的子目录，例如 `D:\AutoAgentloop\work\agent-autoloop\.home`~~ **（本节结论作废，见 B4-root-cause.md 4.1）**：实测该路径下 `files.ts` 的写法同样抛 UnauthorizedAccessException，隔离目录必须落在 D:\AutoAgentloop **之外**，如 `%LOCALAPPDATA%\agent-autoloop-home`（实测 OK）。原文保留：
 - 该目录由 chs 创建，owner=chs，测得的 A 用例失败条件是"丢继承 + 该位置"，而 %TEMP% 下同脚本成功（1.2 D），说明 chs 自有新目录是可用路径；本轮 `test:windows` 里 "Windows init keeps its keys private even inside a shared directory" 用例通过（7.3 s）即为同机制在共享父目录下的实测旁证。
 - 不改任何既有 ACL，零回滚成本，出问题只需删该子目录。
 

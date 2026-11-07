@@ -152,7 +152,7 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Remove-Item -Rec
 | B1.3 | `curl /healthz`、`curl /v1/work`、`netstat -ano`、150 s 端口轮换采样 | 200 ok；401 鉴权；ESTABLISHED →443 | 404 静默 39 min 命中 | logs/b1-worker-poll-cadence.log | 心跳间隔/最后成功时间戳需 A 侧 hub.db |
 | B2 | 写 capture.ps1、-Phase before 自检运行 | 124 行快照，任务/进程/端口/Startup/日志/窗口全字段可取 | 未执行（需真人空窗） | 20261107-logon/before.txt | 四条判据全部待验 |
 | B3 | snap.ps1 前后各一次；comm 比对 | 24 vs 24 集合相同；任务唯一；端口空 | 命中 | before/b3-before.txt、after/b3-after.txt | 存量 24 目录未删（登记） |
-| B4 | icacls、读 host/files.ts:5-19 与调用图 | 见方案文档 | 只出方案 | B4-acl-options.md | 执行待批准 |
+| B4 | icacls、读 host/files.ts:5-19 与调用图、4 组 DACL 写探针、根因探针 T1–T5（5 个位置 × 5 项写法） | 根因=owner 段被拒（缺 WRITE_OWNER 继承），非 WRITE_DAC；失败边界=整棵 D 树 | 根因收敛；生产 DACL 未动 | B4-acl-options.md、B4-root-cause.md、logs/b4-*.txt | 4.2/4.3 补丁与放权未执行（等 A 侧决定） |
 | B5 | command -v / npm ls -g / opencode --help / 目录递归搜索 | 无 claude；opencode 缺 Claude 参数 | 结论：无法验证 | B5-claude-go-feasibility.md | 缺 CLI+settings+凭据 |
 | B6 | 三条 npm 门槛（后台跑，避 120 s 上限） | 484/484/0/0；typecheck 0；format 0 | 命中（仅本机） | logs/b6-*.log | 不覆盖其它 Windows 版本 |
 | B7 | 出包 + INDEX.sha256 + 推 b/final-20261107 | 见下节 | — | INDEX.sha256 | — |
@@ -162,8 +162,8 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Remove-Item -Rec
 ## 8 · 收尾三行
 
 1. **本轮变更的进程与任务**：计划任务 `\agent-autoloop` 未改动（仍 Running、Action 未变）；生产进程树未重启（13404 → 1856 → 17168，pid 未变）；仅清理了本轮自己 test:windows 中断留下的 2 个孤儿进程与 8 个临时目录。
-2. **仍未闭合的缺口**：B2 注销重登四条判据全部待验（需真人空窗）；B1 的心跳间隔与"最后成功心跳"只能由 A 侧 hub.db 给出；B4 未执行（等明确指令）；B5 真实 Go 调用本机不可验证。
-3. **需要 A 侧配合的动作**：① 核 hub.db 心跳间隔与最后成功心跳时间戳；② B2 空窗后 3 分钟内核登录后新心跳；③ 若要闭合 B5，给出可用的 Claude 协议 CLI 与私有 settings 路径（不含凭据传输）；④ 对 B4 推荐项（维持现状 + 家目录用自有子目录）给明确取舍。
+2. **仍未闭合的缺口**：B2 注销重登四条判据全部待验（需真人空窗）；B1 心跳数据已由 A 侧 hub.db 闭合（51 s 节奏），B 侧不再列；B4 根因已收敛，方案甲作废，等待对 4.1（D 树外隔离，已实测可用）/4.2（改 files.ts）/4.3（放权）的取舍；B5 记本环境不可验证（资源缺口，非缺陷）。
+3. **需要 A 侧配合的动作**：① B2 空窗后 10 分钟内提供登录时刻并在 3 分钟内核对新心跳；② 对 B4 三条处置给取舍（4.1 可立即用，4.2 属上游改动）；③ 若要闭合 B5，指定 CLI 安装来源与私有 settings 的落地位置（不含凭据传输）。
 
 ---
 
@@ -181,5 +181,46 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Remove-Item -Rec
 | 分支 | `refs/heads/b-final-20261107`；提交链 `8995778`（主体）→ `4fb6d94`（补录 9.1/9.2）→ 收尾提交（本行更正）。报告自身哈希随 INDEX 变化，**以远端该分支 HEAD 为准** |
 | 首推失败与处置 | 按要求先试 `b/final-20261107` → `remote rejected: cannot lock ref 'refs/heads/b/final-20261107': 'refs/heads/b' exists`。远端已有分支 `b`，Git 的 ref 命名空间不允许同时存在 `b` 与 `b/…`。删/改远端 `b` 属禁止项，故改用不冲突的 `b-final-20261107`。 |
 | 未动项 | origin 未改；远端 `b`（0ce8008）与 `main`（9fabbe9）SHA 推送前后一致；无重写、无删分支；work copy 的 HEAD 与工作区未变（`c067fdb`，porcelain 0 行） |
-| 打包方式 | 用 `git clone --no-hardlinks` 复制到 `_night\b-final-20261107` 再提交推送，避免在生产工作副本切分支；`evidence/**/*.log` 被仓库 `.gitignore` 的 `*.log` 命中，用 `git add -f` 显式纳入 |
+| 打包方式 | 用 `git clone --no-hardlinks` 复制到 `_night\b-final-20261107` 再提交推送，避免在生产工作副本切分支；`evidence/**/*.log` 被仓库 `.gitignore` 的 `*.log` 命中，用 `git add -f` 显式纳入
+
+---
+
+## 10 · A 侧裁决（2026-11-07 13:03）的回应与本轮更正
+
+采样时间 2026-11-07 13:06–13:25 +08:00。以下每一条都对应新的实测或新的口径改写。
+
+### 10.1 心跳节奏：B 写错一倍，已更正为约 51 s
+- A 侧 hub.db `facts` 表 `type=heartbeat` + `key='worker:b-magicbook14'` 共 2965 条，首条 `2026-11-04T16:34:09.751Z`；2964 个差值中位 **50.97 s**、p90 101.6 s，`<40 s` 763 / `40–60 s` 1857 / `60–80 s` 9 / `80–120 s` 322 / `>120 s` 13。
+- 最后成功心跳：`2026-11-07T04:56:23.552Z` = 本地 **12:56:23.552**（seq 12381），取数时落后 13 s。
+- 更正：本报告 1.3 节沿用工单"约 100 s"的说法是错的，真实节奏 **约 51 s**，与本机源码 `protocol/client.ts` 的 `WAIT=50` 一致。80–120 s 的 322 个不是变慢，是**丢一拍后两拍合并**，p90 落在 101.6 s 即此因。
+- 今日那段 3219 s 间断：`2026-11-07T02:15:27.755Z` → `2026-11-07T03:09:06.599Z`（本地 10:15:27.755 → 11:09:06.599），与 A 侧隧道 10:16:34 消失、11:08:36 重启对齐；B 侧 up.log 的最后一条 404 落在 11:08:32.509，正好在这段间断的尾部。
+- 口径：**1.3 节"心跳间隔/最后成功心跳"从此不为未验项，数据源为 A 侧 hub.db（外部证据，已由 A 确认）。**
+
+### 10.2 计划任务字段的口径更正
+`LastTaskResult=267009` 不是错误码；`0x00041301` 的语义是**任务正在运行中**。只有当任务不在运行时，该字段才用于判断上次运行成败。本报告此前把它列在状态行里而未加注释，此处更正。
+
+### 10.3 B4：根因收敛，A 的表述与 B 的旧建议各有一处被推翻
+详见 [B4-root-cause.md](B4-root-cause.md)。三条要点：
+1. 失败段是**安全描述符的 owner 段**，不是 DACL 段：D 树子目录上"只写 DACL"成功、"只写 owner"失败、"先给 chs FullControl 再写 owner"成功、"随后跑 `files.ts` 原样代码"成功（`logs/b4-owner-clause-probe.txt` T1–T5）。
+2. 缺的是 **WRITE_OWNER 继承**：根上 `chs:(WO,S)` 是显式且 `inh=None`，子对象只继承 `Authenticated Users:(I)(M)`，不含 WRITE_OWNER。补 WriteDAC（方案甲）无效——探针 C 在 D 树内写 DACL 本就成功。
+3. 失败边界是**整棵 D:\AutoAgentloop 子树**，不是根目录：根下新建子目录、work 副本下新建子目录、以及 A 建议的 `work\agent-autoloop\.home` 下新建子目录，三者均 FAIL（`logs/b4-exact-probe.txt`）。%TEMP% 与 %LOCALAPPDATA% 均 OK。
+- 因此推荐项改写为：**隔离目录必须落在 D:\AutoAgentloop 之外**（如 `%LOCALAPPDATA%\agent-autoloop-home`，实测 OK）；`.home` 放在工作副本内的方案作废。另有两条可选：丁（改 `files.ts`，owner 段仅在非 owner 时写，实测 DACL-only 足够）、戊（把 `chs:(WO,S)` 放成可继承，不推荐）。
+
+### 10.4 B5：记「本环境不可验证」，不计缺陷
+A 侧给出的事实（`claude.exe` 2.1.153、settings 键名、F1 链路证据）已录入 [B5-claude-go-feasibility.md](B5-claude-go-feasibility.md) 第 5 节，标注为 A 侧事实、非 B 侧证据。本机缺 CLI + 私有 settings + 凭据，属资源决定，不阻塞收尾。
+
+### 10.5 B7 归属（仓库 / 分支 / 提交 → 材料）
+| 仓库 | 分支 | 提交（按顺序） | 承载材料 |
+|---|---|---|---|
+| `https://github.com/Jakiewbe/autolAgentloop.git`（注意仓库名是 **autol**Agentloop，不是 `agent-autoloop-b-handoff-20261107`） | `b-final-20261107` | `8995778` | 报告 1–9 节主体、B4/B5 方案、PROCEDURE、快照、日志、INDEX.sha256 |
+| 同上 | 同上 | `4fb6d94` | 补录 9.1/9.2（打包与首推失败的处置） |
+| 同上 | 同上 | 本轮追加提交 | 10.1–10.6、B4-root-cause.md、B5 第 5 节、四个新探针脚本与其日志、INDEX 重算 |
+
+- 远端 `b`(`0ce8008`)、`main`(`9fabbe9`) 推送前后一致；origin（KKKKhazix）未推未动；无重写、无删分支；生产工作副本仍 `c067fdb`、`git status --porcelain` 0 行。
+- 精确 HEAD SHA 以远端该分支为准（报告自身哈希随 INDEX 变化，不可能自指）。
+
+### 10.6 B2 登录时刻的上报协议（就绪，待真人空窗）
+- B 侧职责：报出**登录落定的本地时刻**（精确到分钟，取桌面出现后的第一个整分），并当场跑 `capture.ps1 -Phase after`。
+- A 侧判据：登录后 3 分钟内执行 `facts` 查询，命中条件为存在 `seen_at ∈ (login, login+3min)` 的 `worker:b-magicbook14` 心跳。
+- 边界：这条只证明 worker 起来了并连上中心；"桌面无新增控制台窗口"只能由 B 侧 `capture.ps1` 的 ConsoleWindowClass 枚举给出，A 侧无法替代。 |
 

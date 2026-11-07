@@ -1,0 +1,49 @@
+=== BASE D:\AutoAgentloop\work\agent-autoloop CASE dsub ===
+  owner0=MAGICBOOK14-ZZ\chs protected0=False aces0=14
+  [OK  ] SetOwner(chs)
+  [OK  ] SetAccessRuleProtection(true,false)
+  after: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
+Set-Acl : 该进程不具有执行此操作所需的“SeSecurityPrivilege”特权。
+所在位置 D:\AutoAgentloop\evidence\20261107-final\scripts\b4-stepwise-probe.ps1:31 字符: 6
++      Set-Acl -LiteralPath $dir -AclObject $sec3
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (D:\AutoAgentloo...obe-dsub-8811c7:String) [Set-Acl], PrivilegeNotHeld 
+   Exception
+    + FullyQualifiedErrorId : System.Security.AccessControl.PrivilegeNotHeldException,Microsoft.PowerShell.Commands.Se 
+   tAclCommand
+ 
+  [OK  ] AddAccessRule(chs FullControl) + rule removal of inherited
+  final: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
+
+已成功处理 1 个文件; 处理 0 个文件时失败
+  cleaned=False
+
+=== BASE C:\Users\19082\AppData\Local\Temp CASE temp ===
+  owner0=MAGICBOOK14-ZZ\chs protected0=False aces0=13
+  [OK  ] SetOwner(chs)
+  [OK  ] SetAccessRuleProtection(true,false)
+  after: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
+Set-Acl : 该进程不具有执行此操作所需的“SeSecurityPrivilege”特权。
+所在位置 D:\AutoAgentloop\evidence\20261107-final\scripts\b4-stepwise-probe.ps1:31 字符: 6
++      Set-Acl -LiteralPath $dir -AclObject $sec3
++      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : PermissionDenied: (C:\Users\19082\...obe-temp-c7511e:String) [Set-Acl], PrivilegeNotHeld 
+   Exception
+    + FullyQualifiedErrorId : System.Security.AccessControl.PrivilegeNotHeldException,Microsoft.PowerShell.Commands.Se 
+   tAclCommand
+ 
+  [OK  ] AddAccessRule(chs FullControl) + rule removal of inherited
+  final: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
+C:\Users\19082\AppData\Local\Temp\aclprobe-temp-c7511e 
+已成功处理 1 个文件; 处理 0 个文件时失败
+  cleaned=False
+
+=== integrity of current process ===
+=== parent chain ===
+  10768 powershell.exe
+  23340 bash.exe
+  17472 bash.exe
+  23648 bash.exe
+  26160 DeepSeek Harness.exe
+  19724 DeepSeek Harness.exe
+  17532 DeepSeek Harness.exe

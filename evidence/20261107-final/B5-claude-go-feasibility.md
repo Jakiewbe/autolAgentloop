@@ -31,7 +31,7 @@ opencode 1.17.13 的非交互入口是 `opencode run [message..]`，`--help` 与
 
 ## 3 结论（二选一中的后者）
 
-**明确标注：本机无法验证真实 Go 调用。**
+**明确标注：本环境无法验证真实 Go 调用。**（2026-11-07 13:20 按 A 侧裁决口径修正：这是**资源缺口**，不是工程缺陷；链路有效性已由 A 侧真实 run 40 原件 + 返回体回放（F1）证明，B 侧不复核。）
 
 缺三样，缺一不可：
 1. 讲 Claude 协议的 CLI —— 例如 `npm i -g @anthropic-ai/claude-code` 之后的 `claude`（安装需网络与包管理权限，本机未装）；
@@ -41,9 +41,20 @@ opencode 1.17.13 的非交互入口是 `opencode run [message..]`，`--help` 与
 ## 4 三者齐备后的一次只读验证（届时执行，不是现在）
 
 ```powershell
-$env:AGENT_AUTOLOOP_HOME = 'D:\AutoAgentloop\work\agent-autoloop\.home'   # 自有子目录，见 B4 第 4 节
+$env:AGENT_AUTOLOOP_HOME = Join-Path $env:LOCALAPPDATA 'agent-autoloop-home'   # 必须在 D:\AutoAgentloop 之外，见 B4-root-cause.md 4.1
 claude -p "只回一句 ok" --output-format json --settings <SETTINGS_JSON> --strict-mcp-config --permission-mode plan --add-dir <FOLDER>
 ```
 判定：退出码 0、stdout 是可解析 JSON、且 `plugins/claude-go/agent.ts:read()` 能从中取到 `usage`（Go 侧再删掉 `cost`）→ 才算"能讲 Claude 协议"。任何一项缺失即记未验。
 
 **未做且不做**：用 .cmd 包装冒充、手写 usage.cost、把回放脚本当真实调用。
+
+## 5 A 侧提供的事实（不含凭据，仅作缺口对账，不是 B 侧证据）
+
+| 项 | A 侧给出 |
+|---|---|
+| 执行文件 | `...\@anthropic-ai\claude-code\bin\claude.exe`，`--version` = `2.1.153 (Claude Code)` |
+| 参数契约 | `plugins/claude-go/agent.ts:6-26`：`[program, settings]` 两项，拼 `-p <prompt> --output-format json --settings <settings> --strict-mcp-config (--resume|--session-id) [--model M] --permission-mode <plan|acceptEdits|bypassPermissions> --add-dir <folder> --disallowedTools=EnterWorktree,ExitWorktree` |
+| 私有 settings 键名 | 顶层 `disableAllHooks` / `env` / `permissions`；`env` 六键：`ANTHROPIC_BASE_URL`、`ANTHROPIC_MODEL`、`ANTHROPIC_DEFAULT_SONNET_MODEL`、`ANTHROPIC_DEFAULT_OPUS_MODEL`、`ANTHROPIC_DEFAULT_HAIKU_MODEL`、`ANTHROPIC_AUTH_TOKEN`；`permissions` 只有 `allow` |
+| 链路有效性 | A 侧真实 run 40 原件 + 返回体回放（F1）；B 侧未复核，也不作为 B 侧证据 |
+
+→ 因此 B 侧缺的正是三件：兼容 CLI、私有 settings、发到 B 的 token（后两者按规不跨机传）。B 侧本轮不安装、不索取，只登记。
