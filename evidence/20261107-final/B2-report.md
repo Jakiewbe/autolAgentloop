@@ -250,3 +250,23 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 ### 13.4 仍需 A 侧核对
 
 登录时刻 2026-11-08T01:56:36+08:00（= 2026-11-07T17:56:36Z），worker 在 01:56:43 起来。请在 hub.db 里查 worker:b-magicbook14 的 seen_at 是否落在 (01:56:36, 01:59:36) 窗口内——这是四条断言之外唯一不由 B 侧掌握的一条。
+
+### 13.5 A 侧 hub.db 痕迹 × B 侧进程时间戳（补证，02:18 采）
+
+A 侧给出的客观痕迹（hub.db，本地时 +08:00）：
+
+| from | to | 间隔 | seq |
+|---|---|---|---|
+| 01:52:57 | 01:56:48 | **231 s** | 13766 → 13771 |
+
+近 36 小时唯一一条异常间隔；其余为 50 s 正常节奏，101 s 是跳一拍。扣除基线，实际离线约 130–180 s。02:15:24 心跳 `b-magicbook14` online，done 17。
+
+B 侧三条补证（采集时刻 2026-11-08T02:18:07+08:00 / 18:18:07Z，原文见 `logs/b2-extra-procstart.txt`）：
+
+1. **node StartTime**：pid 24908 = `2026-11-07T17:56:40.556Z`（本地 01:56:40.556），pid 16424 = `17:56:40.959Z`。**不是 2026-11-06T19:12:28Z** —— 进程确实在本次登录后重启，231 s 的断口不是旧进程的故障。
+2. **进程树**：`8220 wscript.exe`（父 svchost 2400）→ `24908 node(background.ts)` → `16424 node(agent-autoloop.ts up)`，各恰好 1 个；旧一组 13404/1856/17168 已全部不存在，无遗留旧 node。另有一个 node 23968 是 DSH 自身的 billion-context（父 `DeepSeek Harness.exe` 3192），不属于本 worker。
+3. **计划任务 + Startup**：`\agent-autoloop` State=**Running**，LastRunTime=**2026/11/8 1:56:37**，LastTaskResult=267009（0x41301 运行中），NumberOfMissedRuns=0；两个 Startup 目录各 1 项，均为 `desktop.ini` 174 B。
+
+口径更正：本报告 §13.4 与 B1 回执中「心跳间隔约 100 秒」表述不准确 —— 基线是 **50 s**，101 s 为跳一拍，231 s 是本轮唯一异常。
+
+判据归属（A 侧指出的关键点，B 侧同意）：**心跳间隔本身区分不了「注销重登」与「worker 崩了被计划任务拉回」**。区分依据是 B 侧 `StartTime=17:56:40Z` 与系统日志 7002/7001（01:54:47 注销、01:56:36 登录）；两者合起来才构成 B2 的通过证据，单看 hub.db 只能证明「断了一次」。

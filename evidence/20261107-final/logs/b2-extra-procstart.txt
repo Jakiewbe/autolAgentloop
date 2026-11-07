@@ -1,0 +1,35 @@
+NOW_LOCAL=2026-11-08T02:18:25.540+08:00  NOW_UTC=2026-11-07T18:18:25.540Z
+--- 1) node processes ---
+pid=24908 ppid=8220 start_local=2026-11-08T01:56:40.556+08:00 start_utc=2026-11-07T17:56:40.556Z cmd="C:\Program Files\nodejs\node.exe"  "--disable-warning=ExperimentalWarning" "D:\AutoAgentloop\release\b-c067fdb-20261107\host\background.ts" "C:\Users\19082\.agent-autoloop"
+pid=16424 ppid=24908 start_local=2026-11-08T01:56:40.959+08:00 start_utc=2026-11-07T17:56:40.959Z cmd="C:\Program Files\nodejs\node.exe" --disable-warning=ExperimentalWarning D:\AutoAgentloop\release\b-c067fdb-20261107\bin\agent-autoloop.ts up
+pid=23968 ppid=3192 start_local=2026-11-08T01:57:25.425+08:00 start_utc=2026-11-07T17:57:25.425Z cmd="C:\Program Files\nodejs\node.exe" C:\Users\19082\.dsh\profiles\desktop\node_modules\billion-context\dist\index.js start --host 127.0.0.1 --port 18787
+--- 2) tree ---
+pid=8220 name=wscript.exe ppid=2400 parentName=svchost.exe
+pid=24908 name=node.exe ppid=8220 parentName=wscript.exe
+pid=16424 name=node.exe ppid=24908 parentName=node.exe
+pid=23968 name=node.exe ppid=3192 parentName=DeepSeek Harness.exe
+--- 3) task ---
+
+
+TaskName : agent-autoloop
+TaskPath : \
+State    : Running
+
+
+
+
+
+LastRunTime        : 2026/11/8 1:56:37
+LastTaskResult     : 267009
+NextRunTime        : 
+NumberOfMissedRuns : 0
+
+
+
+--- 4) startup ---
+dir=C:\Users\19082\AppData\Roaming\Microsoft\Windows\Start Menu\Programs\Startup count=1
+  desktop.ini 174B
+dir=C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup count=1
+  desktop.ini 174B
+--- 5) up.pid ---
+up.pid=16424
