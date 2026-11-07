@@ -164,3 +164,22 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Remove-Item -Rec
 1. **本轮变更的进程与任务**：计划任务 `\agent-autoloop` 未改动（仍 Running、Action 未变）；生产进程树未重启（13404 → 1856 → 17168，pid 未变）；仅清理了本轮自己 test:windows 中断留下的 2 个孤儿进程与 8 个临时目录。
 2. **仍未闭合的缺口**：B2 注销重登四条判据全部待验（需真人空窗）；B1 的心跳间隔与"最后成功心跳"只能由 A 侧 hub.db 给出；B4 未执行（等明确指令）；B5 真实 Go 调用本机不可验证。
 3. **需要 A 侧配合的动作**：① 核 hub.db 心跳间隔与最后成功心跳时间戳；② B2 空窗后 3 分钟内核登录后新心跳；③ 若要闭合 B5，给出可用的 Claude 协议 CLI 与私有 settings 路径（不含凭据传输）；④ 对 B4 推荐项（维持现状 + 家目录用自有子目录）给明确取舍。
+
+---
+
+## 9 · B7 打包与推送（实测）
+
+### 9.1 交付包
+- 目录：`D:\AutoAgentloop\evidence\20261107-final\`（报告 3 份 + before/after 快照 + 4 份日志 + 2 份探针脚本 + snap.ps1）、`D:\AutoAgentloop\evidence\20261107-logon\`（capture.ps1、before.txt、PROCEDURE.md）。共 18 个文件，154 KB。
+- 校验：`INDEX.sha256` 共 18 行；`sha256sum -c` → **18/18 OK**（无 FAILED）。
+- 密钥与数据库扫描：包内不含 `master.key`、`hub.db`、`config.json`；`grep -rE '"key"\s*:'` 无命中。config.json 只引用了主机名，未带路径与密钥。
+
+### 9.2 推送
+| 项 | 结果 |
+|---|---|
+| 目标 | `https://github.com/Jakiewbe/autolAgentloop.git`（B 私库，与 origin=KKKKhazix 无关） |
+| 分支 | `refs/heads/b-final-20261107`，提交 `8995778fbdafdfbcbfc90b812fc9b5f32487e5df` |
+| 首推失败与处置 | 按要求先试 `b/final-20261107` → `remote rejected: cannot lock ref 'refs/heads/b/final-20261107': 'refs/heads/b' exists`。远端已有分支 `b`，Git 的 ref 命名空间不允许同时存在 `b` 与 `b/…`。删/改远端 `b` 属禁止项，故改用不冲突的 `b-final-20261107`。 |
+| 未动项 | origin 未改；远端 `b`（0ce8008）与 `main`（9fabbe9）SHA 推送前后一致；无重写、无删分支；work copy 的 HEAD 与工作区未变（`c067fdb`，porcelain 0 行） |
+| 打包方式 | 用 `git clone --no-hardlinks` 复制到 `_night\b-final-20261107` 再提交推送，避免在生产工作副本切分支；`evidence/**/*.log` 被仓库 `.gitignore` 的 `*.log` 命中，用 `git add -f` 显式纳入 |
+
