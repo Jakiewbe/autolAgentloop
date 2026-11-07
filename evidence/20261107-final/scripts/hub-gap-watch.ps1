@@ -33,6 +33,11 @@ $lastIsFailure = $false
 foreach ($f in $fail) { if ($f[0] -eq $lastTs) { $lastIsFailure = $true } }
 if (-not $lastIsFailure) { Write-Output ('RESULT=no ongoing outage (last logged event ' + $lastTs + ' is not a reach failure)'); exit 0 }
 
+if ($Now) { $nowUtc0 = [datetime]::Parse($Now, $null, [Globalization.DateTimeStyles]::AdjustToUniversal) } else { $nowUtc0 = (Get-Date).ToUniversalTime() }
+$lastUtc = [datetime]::Parse($lastTs, $null, [Globalization.DateTimeStyles]::AdjustToUniversal)
+$silenceMin = [math]::Round(($nowUtc0 - $lastUtc).TotalMinutes, 1)
+if ($silenceMin -gt $MaxSilenceMinutes) { Write-Output ('RESULT=no ongoing outage (last failure ' + $lastTs + ' is ' + $silenceMin + ' min old, silent > ' + $MaxSilenceMinutes + ' min; a successful poll logs nothing, so silence means the worker got through or stopped)'); exit 0 }
+
 # Walk back over the trailing run of reach-failure lines. The run ends at either
 #  (a) the last logged event that is NOT a reach failure, or
 #  (b) a silence longer than MaxSilenceMinutes between two consecutive log lines
@@ -56,7 +61,12 @@ for ($i = $lines.Count - 1; $i -ge 0; $i--) {
 
 if ($Now) { $nowUtc = [datetime]::Parse($Now, $null, [Globalization.DateTimeStyles]::AdjustToUniversal) } else { $nowUtc = (Get-Date).ToUniversalTime() }
 $startUtc = [datetime]::Parse($blockStart, $null, [Globalization.DateTimeStyles]::AdjustToUniversal)
-$minutes = [math]::Round(($nowUtc - $startUtc).TotalMinutes, 1)
+# The measured span is how long the failures actually lasted, not how long ago they started:
+# end = the later of (last failure line, now). A worker that recovered and went quiet must not
+# keep accruing outage minutes.
+$endUtc = $nowUtc
+if ($lastUtc -lt $nowUtc) { $endUtc = $lastUtc }
+$minutes = [math]::Round(($endUtc - $startUtc).TotalMinutes, 1)
 
 Write-Output ('trailing_block_start_utc=' + $blockStart + ' consecutive_lines=' + $count + ' elapsed_minutes=' + $minutes + ' threshold=' + $ThresholdMinutes)
 

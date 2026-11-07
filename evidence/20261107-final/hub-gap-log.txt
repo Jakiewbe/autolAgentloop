@@ -1,1 +1,2 @@
 2026-11-07T14:26:00.000+08:00 | status=observation active | records=0 | note=no >=10min continuous reach-failure run recorded yet; current production run started 2026-11-07T06:13:48.549Z and was 6.7 min old when checked at 14:20
+2026-11-07T14:26:13.646+08:00 | gap_start_utc=2026-11-07T06:13:48.549Z | gap_minutes=12.3 | consecutive_failure_lines=10 | log=C:\Users\19082\.agent-autoloop\logs\up.log | note=worker has not reached the hub for >= 10 min; tunnel is A-side (task agent-autoloop-tunnel, 5-min self-heal); no config change made here

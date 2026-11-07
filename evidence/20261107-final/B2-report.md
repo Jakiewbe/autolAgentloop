@@ -93,7 +93,13 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 记录文件：evidence/20261107-final/hub-gap-log.txt（同一故障只记一行，故障键=连续失败段的起始时间戳，存 evidence/20261107-final/hub-gap-state.txt）
 默认读：C:\Users\19082\.agent-autoloop\logs\up.log
 
-规则：取日志尾部连续段——从最后一条带时间戳的日志往回走，只统计消息含 "couldn't reach the hub" 的行；遇到非失败行即停；两条相邻日志时间差 > 5 分钟也停（进程重启或停摆不算同一段故障）。当该段持续 ≥ 10 分钟且该段起始时间未被记录过，追加一行带本地时间戳的记录。
+规则（脚本内有注释，可按行核对）：
+
+1. 只看带 ISO 时间戳的行，失败判定为消息含 "couldn't reach the hub"。
+2. 从最后一条带时间戳的日志往回走，连续失败段在两种情况下断开：遇到非失败行；或相邻两条日志时间差 > 5 分钟（进程重启、停摆不算同一段故障）。
+3. 若最后一条日志距今已静默 > 5 分钟，判定该段已结束，不记（worker 成功轮询不写日志，静默通常意味着通了）。
+4. 跨度 = min(now, 最后一条失败时间) − 段起始时间，即**失败实际持续时长**，不是「距开始过了多久」；避免 worker 恢复静默后仍在累加分钟数。
+5. 跨度 ≥ 10 分钟且该段起始时间未记录过 → 追加一行；起始时间写进 state 文件，同一段只记一次。
 
 测试输出：evidence/20261107-final/logs/hub-gap-watch-test.txt
 
@@ -102,7 +108,10 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 | T1 | 合成日志（30 s 一条失败，共 25 条，12 分钟），-Now=首条+4.5 min | 不记 | below threshold，0 条 |
 | T2 | 同上，-Now=首条+12.5 min | 记 1 条 | recorded，1 条 |
 | T3 | 同上，-Now=首条+39.5 min | 不重复 | already recorded，仍 1 条 |
-| T4 | 生产 logs/up.log，真实 now | 当前段 6.7 分钟 < 10 分钟 → 不记 | below threshold，0 条 |
+| T4 | 生产 logs/up.log，真实 now（当时段长 6.7 分钟） | 不记 | below threshold，0 条 |
+| T4b | 同上，真实 now（段长 9.6 分钟） | 不记 | below threshold，0 条 |
+| T4c | 同上，真实 now（段长 12.3 分钟，14:13:48 → 14:26:08） | 记 1 条 | recorded，hub-gap-log.txt 出现 1 行；再跑一次不再记（state 命中） |
+| T4d | 同上，把 now 拨到段尾 +30 分钟（模拟恢复后静默） | 判定段已结束，不记 | no ongoing outage（静默 > 5 分钟） |
 | T5 | 假运行：node bin/agent-autoloop.ts up，AGENT_AUTOLOOP_HOME=%TEMP%\agent-autoloop-gapwatch-probe，config.url=http://127.0.0.1:1（不可达端口） | 产生真实失败行；+2 min 不记、+11 min 记 1 条、+30 min 不重复 | 日志原文见 logs/hub-gap-probe-unreachable.log：06:18:53.271Z worker b-gapwatch-probe started、06:18:53.297Z / 06:19:23.310Z couldn't reach the hub: TypeError: fetch failed；+2 min 不记、+11 min 记 1 条、+30 min 不重复 |
 
 假运行使用独立临时家目录，跑完已删除（探针家目录与临时 state/out 文件均已清理，目录存在性检查为 removed）。生产 config.json 未被改动，未起任何隧道。
@@ -121,7 +130,7 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 
 ## 6 本单期间的新现场事实：中台再次不可达
 
-14:13:48 起 worker 重新出现连续失败，截至 14:20:04 仍在继续（up.log 共 143 行，11613 B，mtime 14:20:04.578）：
+14:13:48 起 worker 重新出现连续失败，截至 14:26:08 仍未恢复（up.log 共 145 行，mtime 14:26:08.831）。断链观测脚本在 14:26:13 按规则记下第一条真实记录：gap_start_utc=2026-11-07T06:13:48.549Z、gap_minutes=12.3、consecutive_failure_lines=10（evidence/20261107-final/hub-gap-log.txt）。日志尾部原文：
 
 ```
 2026-11-07T06:13:48.549Z [worker] couldn't reach the hub: Error: 中台返回 503
@@ -132,7 +141,11 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 2026-11-07T06:19:03.836Z [worker] couldn't reach the hub: Error: 中台返回 503
 2026-11-07T06:19:34.221Z [worker] couldn't reach the hub: Error: 中台返回 404
 2026-11-07T06:20:04.577Z [worker] couldn't reach the hub: Error: 中台返回 404
+2026-11-07T06:23:22.663Z [worker] couldn't reach the hub: Error: 中台返回 503
+2026-11-07T06:26:08.831Z [worker] couldn't reach the hub: Error: 中台返回 503
 ```
+
+失败在 503 与 404 之间交替，中间夹一次 TypeError: fetch failed（本地 DNS/连接层），间隔 30 s ~ 103 s 不等，与 worker 失败后 PAUSE=30 s 的退避一致。
 
 说明：这与 B1 当时的「11:08:32 之后无新错误」不冲突——11:12 进程重启后到 14:13 之间日志一条没写，14:13:48 才恢复写入，且写的就是失败。按工单第 5 条，隧道守护在 A 侧（计划任务 agent-autoloop-tunnel，每 5 分钟自愈），B 侧未改 config.url、未起隧道。请 A 侧核对 14:13 之后 hub 侧的 worker:b-magicbook14 心跳是否同时中断。
 
@@ -161,3 +174,10 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 1. 本轮变更的进程与任务：无。生产进程仍是 13404 wscript → 1856 background → 17168 up，任务表仍只有 \agent-autoloop（Running）；假运行探针进程已退出，临时家目录已删。
 2. 仍未闭合的缺口：B2 after 快照与「单实例已验证」结论（等真人注销）；登录后心跳时刻与窗口枚举；断链观测未常驻。
 3. 需要 A 侧配合：真人注销窗口的确认；登录后 3 分钟内查 hub.db 的 seen_at；核对 14:13 之后 hub 侧心跳是否与 B 侧 404/503 同步中断。
+
+## 11 交付包口径（本轮补充）
+
+- 包内新增 logon-b2/ 三件：b2-before-1420.txt（B2 登录前快照全文）、capture.ps1（before/after 采集脚本）、PROCEDURE.md（注销重登操作与回滚）。原文件仍在 evidence/20261107-logon/，包内这份是副本，保证交付目录自洽。
+- 行尾统一为 LF：仓库根 .gitattributes 写着 * text=auto eol=lf，PowerShell 重定向产生的 CRLF 入库时会被规范化，于是「包内文件字节」与「INDEX.sha256 记录的哈希」对不上（上一版就是这个问题：44 条 INDEX 在新 clone 里 16 条 mismatch）。本轮把 evidence 下所有文本文件就地 CRLF→LF（内容不变，只动行尾），再重算 INDEX。
+- 校验改在**新 clone 里**做，不在工作目录做：clone → checkout → cd evidence → sha256sum -c 20261107-final/INDEX.sha256，要求 48/48 OK。只在本机工作目录通过不算。
+- 包内不含 master.key、不含 config.json 的 url/worker.key 字段、不含 hub.db；%TEMP% 下命中的测试产物未删除（等指令），仅登记。
