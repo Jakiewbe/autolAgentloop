@@ -130,7 +130,7 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 
 ## 6 本单期间的新现场事实：中台再次不可达
 
-14:13:48 起 worker 重新出现连续失败，截至 14:26:08 仍未恢复（up.log 共 145 行，mtime 14:26:08.831）。断链观测脚本在 14:26:13 按规则记下第一条真实记录：gap_start_utc=2026-11-07T06:13:48.549Z、gap_minutes=12.3、consecutive_failure_lines=10（evidence/20261107-final/hub-gap-log.txt）。日志尾部原文：
+14:13:48 起 worker 重新出现连续失败，截至 14:28:16 仍未恢复（up.log 共 147 行，mtime 14:28:16.410）。断链观测脚本在 14:26:13 按规则记下第一条真实记录（14:28 再跑判 already recorded，未重复）：gap_start_utc=2026-11-07T06:13:48.549Z、gap_minutes=12.3、consecutive_failure_lines=10（evidence/20261107-final/hub-gap-log.txt）。日志尾部原文：
 
 ```
 2026-11-07T06:13:48.549Z [worker] couldn't reach the hub: Error: 中台返回 503
@@ -143,6 +143,8 @@ Get-ChildItem $env:TEMP -Directory -Filter 'agent-autoloop-*' | Select-Object Na
 2026-11-07T06:20:04.577Z [worker] couldn't reach the hub: Error: 中台返回 404
 2026-11-07T06:23:22.663Z [worker] couldn't reach the hub: Error: 中台返回 503
 2026-11-07T06:26:08.831Z [worker] couldn't reach the hub: Error: 中台返回 503
+2026-11-07T06:26:39.199Z [worker] couldn't reach the hub: Error: 中台返回 404
+2026-11-07T06:28:16.410Z [worker] couldn't reach the hub: Error: 中台返回 503
 ```
 
 失败在 503 与 404 之间交替，中间夹一次 TypeError: fetch failed（本地 DNS/连接层），间隔 30 s ~ 103 s 不等，与 worker 失败后 PAUSE=30 s 的退避一致。
