@@ -15,4 +15,4 @@ D:\AutoAgentloop Everyone:(CI)(DENY)(DC)
                  BUILTIN\Users:(I)(OI)(CI)(IO)(GR,GE)
                  Mandatory Label\Low Mandatory Level:(OI)(CI)(NW)
 
-ÒÑ³É¹¦´¦Àí 1 ¸öÎÄ¼ş; ´¦Àí 0 ¸öÎÄ¼şÊ±Ê§°Ü
+å·²æˆåŠŸå¤„ç† 1 ä¸ªæ–‡ä»¶; å¤„ç† 0 ä¸ªæ–‡ä»¶æ—¶å¤±è´¥

@@ -1,6 +1,6 @@
 === A: D-tree child, label cleared to Medium first ===
   label now: Mandatory Label\Low Mandatory Level:(I)(OI)(CI)(NW)
-  D-tree child after icacls Medium => FAIL Ê¹ÓÃ¡°2¡±¸ö²ÎÊýµ÷ÓÃ¡°SetAccessControl¡±Ê±·¢ÉúÒì³£:¡°³¢ÊÔÖ´ÐÐÎ´¾­ÊÚÈ¨µÄ²Ù×÷¡£¡±
+  D-tree child after icacls Medium => FAIL ä½¿ç”¨â€œ2â€ä¸ªå‚æ•°è°ƒç”¨â€œSetAccessControlâ€æ—¶å‘ç”Ÿå¼‚å¸¸:â€œå°è¯•æ‰§è¡Œæœªç»æŽˆæƒçš„æ“ä½œã€‚â€
 === B: TEMP child, label forced to Low ===
   label now: Mandatory Label\Low Mandatory Level:(NW)
   TEMP child after icacls Low => OK

@@ -3,8 +3,8 @@
   [OK  ] SetOwner(chs)
   [OK  ] SetAccessRuleProtection(true,false)
   after: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
-Set-Acl : ¸Ã½ø³Ì²»¾ßÓĞÖ´ĞĞ´Ë²Ù×÷ËùĞèµÄ¡°SeSecurityPrivilege¡±ÌØÈ¨¡£
-ËùÔÚÎ»ÖÃ D:\AutoAgentloop\evidence\20261107-final\scripts\b4-stepwise-probe.ps1:31 ×Ö·û: 6
+Set-Acl : è¯¥è¿›ç¨‹ä¸å…·æœ‰æ‰§è¡Œæ­¤æ“ä½œæ‰€éœ€çš„â€œSeSecurityPrivilegeâ€ç‰¹æƒã€‚
+æ‰€åœ¨ä½ç½® D:\AutoAgentloop\evidence\20261107-final\scripts\b4-stepwise-probe.ps1:31 å­—ç¬¦: 6
 +      Set-Acl -LiteralPath $dir -AclObject $sec3
 +      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : PermissionDenied: (D:\AutoAgentloo...obe-dsub-8811c7:String) [Set-Acl], PrivilegeNotHeld 
@@ -15,7 +15,7 @@ Set-Acl : ¸Ã½ø³Ì²»¾ßÓĞÖ´ĞĞ´Ë²Ù×÷ËùĞèµÄ¡°SeSecurityPrivilege¡±ÌØÈ¨¡£
   [OK  ] AddAccessRule(chs FullControl) + rule removal of inherited
   final: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
 
-ÒÑ³É¹¦´¦Àí 1 ¸öÎÄ¼ş; ´¦Àí 0 ¸öÎÄ¼şÊ±Ê§°Ü
+å·²æˆåŠŸå¤„ç† 1 ä¸ªæ–‡ä»¶; å¤„ç† 0 ä¸ªæ–‡ä»¶æ—¶å¤±è´¥
   cleaned=False
 
 === BASE C:\Users\19082\AppData\Local\Temp CASE temp ===
@@ -23,8 +23,8 @@ Set-Acl : ¸Ã½ø³Ì²»¾ßÓĞÖ´ĞĞ´Ë²Ù×÷ËùĞèµÄ¡°SeSecurityPrivilege¡±ÌØÈ¨¡£
   [OK  ] SetOwner(chs)
   [OK  ] SetAccessRuleProtection(true,false)
   after: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
-Set-Acl : ¸Ã½ø³Ì²»¾ßÓĞÖ´ĞĞ´Ë²Ù×÷ËùĞèµÄ¡°SeSecurityPrivilege¡±ÌØÈ¨¡£
-ËùÔÚÎ»ÖÃ D:\AutoAgentloop\evidence\20261107-final\scripts\b4-stepwise-probe.ps1:31 ×Ö·û: 6
+Set-Acl : è¯¥è¿›ç¨‹ä¸å…·æœ‰æ‰§è¡Œæ­¤æ“ä½œæ‰€éœ€çš„â€œSeSecurityPrivilegeâ€ç‰¹æƒã€‚
+æ‰€åœ¨ä½ç½® D:\AutoAgentloop\evidence\20261107-final\scripts\b4-stepwise-probe.ps1:31 å­—ç¬¦: 6
 +      Set-Acl -LiteralPath $dir -AclObject $sec3
 +      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
     + CategoryInfo          : PermissionDenied: (C:\Users\19082\...obe-temp-c7511e:String) [Set-Acl], PrivilegeNotHeld 
@@ -35,7 +35,7 @@ Set-Acl : ¸Ã½ø³Ì²»¾ßÓĞÖ´ĞĞ´Ë²Ù×÷ËùĞèµÄ¡°SeSecurityPrivilege¡±ÌØÈ¨¡£
   [OK  ] AddAccessRule(chs FullControl) + rule removal of inherited
   final: owner=MAGICBOOK14-ZZ\chs protected=True aces=0
 C:\Users\19082\AppData\Local\Temp\aclprobe-temp-c7511e 
-ÒÑ³É¹¦´¦Àí 1 ¸öÎÄ¼ş; ´¦Àí 0 ¸öÎÄ¼şÊ±Ê§°Ü
+å·²æˆåŠŸå¤„ç† 1 ä¸ªæ–‡ä»¶; å¤„ç† 0 ä¸ªæ–‡ä»¶æ—¶å¤±è´¥
   cleaned=False
 
 === integrity of current process ===

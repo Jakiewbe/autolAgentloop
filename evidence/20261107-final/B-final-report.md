@@ -222,5 +222,11 @@ A 侧给出的事实（`claude.exe` 2.1.153、settings 键名、F1 链路证据�
 ### 10.6 B2 登录时刻的上报协议（就绪，待真人空窗）
 - B 侧职责：报出**登录落定的本地时刻**（精确到分钟，取桌面出现后的第一个整分），并当场跑 `capture.ps1 -Phase after`。
 - A 侧判据：登录后 3 分钟内执行 `facts` 查询，命中条件为存在 `seen_at ∈ (login, login+3min)` 的 `worker:b-magicbook14` 心跳。
-- 边界：这条只证明 worker 起来了并连上中心；"桌面无新增控制台窗口"只能由 B 侧 `capture.ps1` 的 ConsoleWindowClass 枚举给出，A 侧无法替代。 |
+- 边界：这条只证明 worker 起来了并连上中心；"桌面无新增控制台窗口"只能由 B 侧 `capture.ps1` 的 ConsoleWindowClass 枚举给出，A 侧无法替代。
+
+### 10.7 交付包更新（覆盖 9.1 的 18 文件口径）
+- 现在 **29 个文件**：新增 `B4-root-cause.md`、4 个探针脚本（`scripts/b4-root-diagnosis.ps1`、`b4-stepwise-probe.ps1`、`b4-exact-probe.ps1`、`b4-label-probe.ps1`、`b4-owner-clause-probe.ps1` 共 5 个）与 5 份对应日志。
+- `INDEX.sha256` 已重算，`sha256sum -c` → **29/29 OK**。
+- 编码：本轮 b4 系列日志原有 GBK（PowerShell 重定向默认码页），已就地转为 UTF-8 后再入包，避免 git 侧乱码；`b3-after-interrupt.txt`、`b4-icacls-before.txt` 同步转换。
+- 残留检查：探针建的 `D:\AutoAgentloop\labprobe-*`、`aclprobe-*` 与误建的 `work\agent-autoloop\.home`（空目录）全部清除，`git status --porcelain` 仍 0 行。 |
 
