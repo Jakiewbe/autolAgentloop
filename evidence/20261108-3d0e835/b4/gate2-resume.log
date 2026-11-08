@@ -1,0 +1,19 @@
+{
+ "cwd": "C:\\Users\\19082\\AppData\\Local\\Temp\\b6-gate2-中文 恢复-0l1Ppj\\工作 目录 & 空格",
+ "spawns_after_launch": 0,
+ "results": [
+  {
+   "outcome": "done",
+   "summary": "survived"
+  }
+ ],
+ "spawns_total": 1,
+ "workCalls": 3,
+ "logged": [
+  "first: run 4 (W) turn 1 started, pid 1800",
+  "second: run 4: done"
+ ],
+ "stdout": "survived",
+ "pass": true
+}
+GATE2_EXIT=0

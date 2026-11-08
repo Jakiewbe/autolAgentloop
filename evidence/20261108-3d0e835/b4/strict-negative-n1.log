@@ -1,0 +1,344 @@
+✖ the first turn gets the folder flag and no resume (2.9121ms)
+✖ going on in a session puts resume and the id first, and drops the flag that resume refuses (0.8173ms)
+✖ a word can carry a placeholder, and the session can be asked for by name (0.7661ms)
+✖ a Codex stream that finished gives its last message, its session and what it used (0.4555ms)
+✖ one line that is not a JSON object fails a Codex turn, and the line number names it (0.2574ms)
+✖ cleanup noise after the turn completed is a broken line too (0.2121ms)
+✖ a JSON line that is not an object is broken as well (0.1121ms)
+✔ a plain command's own words are its answer (0.1134ms)
+✖ a Codex turn that never completed is not a pass (0.2624ms)
+✖ a Codex turn that never named its session is not a pass (0.2462ms)
+✖ a Codex turn that failed says what it said (0.1494ms)
+✖ Codex is recognised by how it was called, even before it prints anything (0.1368ms)
+✖ a turn still going, or one that died without saying, only reports the session it named (0.1846ms)
+✖ an exit code of its own is the reason (0.1456ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 1
+ℹ fail 13
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 152.0504
+
+✖ failing tests:
+
+test at tests\command-adapter.test.ts:29:1
+✖ the first turn gets the folder flag and no resume (2.9121ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'codex',
+      'exec',
+  +   '{resumeArgs}',
+      '--skip-git-repo-check',
+  +   '{cwdArgs}',
+  -   '-C',
+  -   'C:/work',
+      '--json',
+      'P'
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:30:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'codex', 'exec', '{resumeArgs}', '--skip-git-repo-check', '{cwdArgs}', '--json', 'P' ],
+    expected: [ 'codex', 'exec', '--skip-git-repo-check', '-C', 'C:/work', '--json', 'P' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:33:1
+✖ going on in a session puts resume and the id first, and drops the flag that resume refuses (0.8173ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'codex',
+      'exec',
+  +   '{resumeArgs}',
+  -   'resume',
+  -   't-1',
+      '--skip-git-repo-check',
+  +   '{cwdArgs}',
+      '--json',
+      'P'
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:34:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'codex', 'exec', '{resumeArgs}', '--skip-git-repo-check', '{cwdArgs}', '--json', 'P' ],
+    expected: [ 'codex', 'exec', 'resume', 't-1', '--skip-git-repo-check', '--json', 'P' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:45:1
+✖ a word can carry a placeholder, and the session can be asked for by name (0.7661ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+    [
+      'oc',
+      'run',
+      'P',
+      '--session',
+  +   '{session}'
+  -   's-new'
+    ]
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:47:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: [ 'oc', 'run', 'P', '--session', '{session}' ],
+    expected: [ 'oc', 'run', 'P', '--session', 's-new' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:56:1
+✖ a Codex stream that finished gives its last message, its session and what it used (0.4555ms)
+  AssertionError [ERR_ASSERTION]: the last message is the answer, not the play by play
+  + actual - expected
+  
+  + '{"type":"thread.started","thread_id":"t-9"}\n' +
+  +   '{"type":"turn.started"}\n' +
+  +   '{"type":"item.completed","item":{"type":"agent_message","text":"第一句"}}\n' +
+  +   '{"type":"item.completed","item":{"type":"agent_message","text":"第二句"}}\n' +
+  +   '{"type":"turn.completed","usage":{"input_tokens":10,"output_tokens":3,"cached_input_tokens":4}}'
+  - '第二句'
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:59:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '{"type":"thread.started","thread_id":"t-9"}\n{"type":"turn.started"}\n{"type":"item.completed","item":{"type":"agent_message","text":"第一句"}}\n{"type":"item.completed","item":{"type":"agent_message","text":"第二句"}}\n{"type":"turn.completed","usage":{"input_tokens":10,"output_tokens":3,"cached_input_tokens":4}}',
+    expected: '第二句',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:65:1
+✖ one line that is not a JSON object fails a Codex turn, and the line number names it (0.2574ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'Codex stdout 第 5 行不是 JSON 对象，原始输出保留在日志中'
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:69:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'Codex stdout 第 5 行不是 JSON 对象，原始输出保留在日志中',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:73:1
+✖ cleanup noise after the turn completed is a broken line too (0.2121ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /不是 JSON 对象/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:77:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /不是 JSON 对象/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:80:1
+✖ a JSON line that is not an object is broken as well (0.1121ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /第 4 行不是 JSON 对象/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:82:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /第 4 行不是 JSON 对象/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:91:1
+✖ a Codex turn that never completed is not a pass (0.2624ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'Codex 没有成功完成本轮'
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:93:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'Codex 没有成功完成本轮',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:96:1
+✖ a Codex turn that never named its session is not a pass (0.2462ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - 'Codex 没有返回会话编号'
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:98:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 'Codex 没有返回会话编号',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:101:1
+✖ a Codex turn that failed says what it said (0.1494ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  + actual - expected
+  
+  + undefined
+  - '额度用完了'
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:103:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: '额度用完了',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:108:1
+✖ Codex is recognised by how it was called, even before it prints anything (0.1368ms)
+  AssertionError [ERR_ASSERTION]: The input did not match the regular expression /不是 JSON 对象/. Input:
+  
+  ''
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:110:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: '',
+    expected: /不是 JSON 对象/,
+    operator: 'match',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:113:1
+✖ a turn still going, or one that died without saying, only reports the session it named (0.1846ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly deep-equal:
+  + actual - expected
+  
+  + {}
+  - {
+  -   session: 't-9'
+  - }
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:115:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: {},
+    expected: { session: 't-9' },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\command-adapter.test.ts:118:1
+✖ an exit code of its own is the reason (0.1456ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  undefined !== 's-8'
+  
+      at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/n1-tree/tests/command-adapter.test.ts:122:10)
+      at Test.runInAsyncScope (node:async_hooks:214:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: 's-8',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+N1_EXIT=1

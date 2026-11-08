@@ -1,0 +1,35 @@
+# BEFORE reinstall (product path with 3d0e835 code)  2026-11-08T03:22:06Z
+--- icacls D:\AutoAgentloop\home ---
+D:\AutoAgentloop\home NT AUTHORITY\SYSTEM:(OI)(CI)(F)
+                      MAGICBOOK14-ZZ\chs:(OI)(CI)(F)
+                      Mandatory Label\Low Mandatory Level:(I)(OI)(CI)(NW)
+
+已成功处理 1 个文件; 处理 0 个文件时失败
+--- whoami /user ---
+whoami: extra operand '/user'
+Try 'whoami --help' for more information.
+--- icacls D:\AutoAgentloop (root, for later comparison) ---
+D:\AutoAgentloop Everyone:(CI)(DENY)(DC)
+                 S-1-5-21-2996253060-2469643146-3984577970-3727747411:(OI)(CI)(M)
+                 S-1-5-21-803409395-3282669851-3203730243-4031528268:(OI)(CI)(M)
+                 S-1-5-21-2917529869-3470359602-3510455969-2451035572:(OI)(CI)(RX,W)
+                 S-1-5-21-3060152114-79461432-2005981026-4082952930:(OI)(CI)(RX,W)
+                 S-1-4-468065576-1037340474:(OI)(CI)(W,D,DC)
+                 MAGICBOOK14-ZZ\chs:(WO,S)
+                 BUILTIN\Administrators:(I)(F)
+                 BUILTIN\Administrators:(I)(OI)(CI)(IO)(F)
+                 NT AUTHORITY\SYSTEM:(I)(F)
+                 NT AUTHORITY\SYSTEM:(I)(OI)(CI)(IO)(F)
+                 NT AUTHORITY\Authenticated Users:(I)(M)
+                 NT AUTHORITY\Authenticated Users:(I)(OI)(CI)(IO)(M)
+                 BUILTIN\Users:(I)(RX)
+                 BUILTIN\Users:(I)(OI)(CI)(IO)(GR,GE)
+                 Mandatory Label\Low Mandatory Level:(OI)(CI)(NW)
+
+已成功处理 1 个文件; 处理 0 个文件时失败
+--- Get-Acl D:\AutoAgentloop\home (SDDL) ---
+O:S-1-5-21-4020587617-1314364305-3965834536-1001G:S-1-5-21-4020587617-1314364305-3965834536-513D:PAI(A;OICI;FA;;;SY)(A;OICI;FA;;;S-1-5-21-4020587617-1314364305-3965834536-1001)
+Owner=MAGICBOOK14-ZZ\chs
+AreAccessRulesProtected=True
+--- Get-Acl D:\AutoAgentloop (root SDDL) ---
+O:S-1-5-21-4020587617-1314364305-3965834536-1001G:S-1-5-21-4020587617-1314364305-3965834536-513D:AI(D;CI;DT;;;WD)(A;OICI;0x110156;;;S-1-4-468065576-1037340474)(A;OICI;0x1201bf;;;S-1-5-21-2917529869-3470359602-3510455969-2451035572)(A;OICI;0x1301bf;;;S-1-5-21-2996253060-2469643146-3984577970-3727747411)(A;OICI;0x1201bf;;;S-1-5-21-3060152114-79461432-2005981026-4082952930)(A;;0x180000;;;S-1-5-21-4020587617-1314364305-3965834536-1001)(A;OICI;0x1301bf;;;S-1-5-21-803409395-3282669851-3203730243-4031528268)(A;ID;FA;;;BA)(A;OICIIOID;GA;;;BA)(A;ID;FA;;;SY)(A;OICIIOID;GA;;;SY)(A;ID;0x1301bf;;;AU)(A;OICIIOID;SDGXGWGR;;;AU)(A;ID;0x1200a9;;;BU)(A;OICIIOID;GXGR;;;BU)

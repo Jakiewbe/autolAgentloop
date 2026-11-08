@@ -1,0 +1,10 @@
+PATH                                 UPSTREAM-3d0e835-SHA256                                            OURS-f28c7fa-SHA256                                                CHANGED-BY-US
+plugins/command/agent.ts             5911eca750ac81f3c65b92babe978360221d1676a4706852b10cfb543b793721   71ba0989628b8629199032fbc2577bca4618dd95a99554f69b1a9ef44e8f77a1   yes
+plugins/claude-go/agent.ts           (absent upstream)                                                  235e804ef23a2172e3b2a8a4156a7fffaa6fe6208e240faf3189cafafa8488a7   yes
+worker/worker.ts                     74d7908a1d4fc1cac50d68331d23b6465776793193fbb594107a572916580c97   bd546a1d4278e883e3c02d5c7d185d21efe410ffe43b4f7c02b790e98f77f686   yes
+worker/agents.ts                     062c8e1214da920d4cf9c25b04698307586e0db44555751949a0a00d0416058e   5f835c075b2045c80f51389e67073394042401481fde2d514b3c104281893335   yes
+tests/command-adapter.test.ts        (absent upstream)                                                  935775d5b91140ce57d220fdf0a2259044b210b90f1144be7d7c4e46f6df78c5   yes
+tests/claude-go.test.ts              (absent upstream)                                                  a9361efab1a7ed0bdb5068f2c0a88f8114957dedff35069bb57c0a527a6e8df4   yes
+tests/acp.test.ts                    ccde04b47750d691af5bc33f070d75596060ad8619191b6b697aaa10c4fe387e   343dae96c7ded2829816eab288afa90affdf2bc97bf06876ce1b7d98839c3bc5   yes
+tests/windows.test.ts                25b096f72c2389a98c3da1913ca9b74adb469e3f36fe101379c668f398a13030   2a0229c82782cc8614f7bd1c816acd27bce6bbb1ddb7a81517ac31646e621821   yes
+tests/delivery-scope.test.ts         d64d95eaa43eb20a5f594a5e85d434e9bb2dbd64640f26db2af178fe74b0e989   0e4c4a76556132af091e829ddcbb76dbd5679b8d69d9d6f36895e35421cc27f5   yes

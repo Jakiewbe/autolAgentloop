@@ -1,0 +1,14 @@
+{
+ "cwd": "C:\\Users\\19082\\AppData\\Local\\Temp\\b6-gate1-中文 验收-f9Xo8f\\工作 目录 & 空格",
+ "argument_multiline": true,
+ "parent_before": 25812,
+ "child_before": 16568,
+ "parent_alive_before": true,
+ "child_alive_before": true,
+ "result_before_cancel": false,
+ "outcome": "cancelled",
+ "parent_alive_after": false,
+ "child_alive_after": false,
+ "pass": true
+}
+GATE1_EXIT=0

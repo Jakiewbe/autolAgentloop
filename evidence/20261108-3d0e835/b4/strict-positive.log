@@ -1,0 +1,23 @@
+✔ the first turn gets the folder flag and no resume (1.1821ms)
+✔ going on in a session puts resume and the id first, and drops the flag that resume refuses (0.1223ms)
+✔ a word can carry a placeholder, and the session can be asked for by name (0.1246ms)
+✔ a Codex stream that finished gives its last message, its session and what it used (0.5298ms)
+✔ one line that is not a JSON object fails a Codex turn, and the line number names it (0.4371ms)
+✔ cleanup noise after the turn completed is a broken line too (0.2839ms)
+✔ a JSON line that is not an object is broken as well (0.1553ms)
+✔ a plain command's own words are its answer (0.2658ms)
+✔ a Codex turn that never completed is not a pass (0.1797ms)
+✔ a Codex turn that never named its session is not a pass (0.306ms)
+✔ a Codex turn that failed says what it said (0.1689ms)
+✔ Codex is recognised by how it was called, even before it prints anything (0.1274ms)
+✔ a turn still going, or one that died without saying, only reports the session it named (0.1757ms)
+✔ an exit code of its own is the reason (0.1782ms)
+ℹ tests 14
+ℹ suites 0
+ℹ pass 14
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 155.3578
+POS_EXIT=0
