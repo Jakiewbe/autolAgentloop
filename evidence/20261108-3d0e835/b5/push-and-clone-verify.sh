@@ -32,9 +32,9 @@ if [ $RC -eq 0 ]; then
   echo "clone rc=$CRC seconds=$(( $(date +%s) - S ))" | tee -a "$OUT"
   if [ $CRC -eq 0 ]; then
     echo "HEAD=$(git -C "$C" rev-parse HEAD)" | tee -a "$OUT"
-    echo "--- sha256sum -c manifest-full.sha256 (release tree, 253) ---" | tee -a "$OUT"
+    echo "--- sha256sum -c manifest-full.sha256 (release tree) ---" | tee -a "$OUT"
     ( cd "$C" && sha256sum -c evidence/20261108-3d0e835/b5/manifest-full.sha256 > /tmp/mcheck.txt 2>&1; echo "manifest_rc=$?" | tee -a "$OUT"; echo "manifest_ok=$(grep -c ': OK$' /tmp/mcheck.txt)" | tee -a "$OUT"; echo "manifest_failed=$(grep -c ': FAILED' /tmp/mcheck.txt)" | tee -a "$OUT"; tail -2 /tmp/mcheck.txt | tee -a "$OUT" )
-    echo "--- sha256sum -c INDEX.sha256 (package, 266) ---" | tee -a "$OUT"
+    echo "--- sha256sum -c INDEX.sha256 (package) ---" | tee -a "$OUT"
     ( cd "$C/evidence" && sha256sum -c 20261108-3d0e835/b5/INDEX.sha256 > /tmp/icheck.txt 2>&1; echo "index_rc=$?" | tee -a "$OUT"; echo "index_ok=$(grep -c ': OK$' /tmp/icheck.txt)" | tee -a "$OUT"; echo "index_failed=$(grep -c ': FAILED' /tmp/icheck.txt)" | tee -a "$OUT"; grep ': FAILED' /tmp/icheck.txt | head -5 | tee -a "$OUT" )
     echo "index_sha256_in_clone=$(sha256sum "$C/evidence/20261108-3d0e835/b5/INDEX.sha256" | awk '{print $1}')" | tee -a "$OUT"
   fi

@@ -176,11 +176,12 @@ logged: "first: run 4 (W) turn 1 started, pid 1800" / "second: run 4: done"
 - **全树指纹**：`a66886dc449ad31ad486fb5806062b83e5726262210e093a58b08b6109e3a82a`
 - 9 路径表：b5\nine-paths-table.txt（含上游 sha256 / 本次 sha256 / 是否我们改过）。
 - 封条：b5\SEAL.txt（manifest 指纹、行数、INDEX 行数、生成时间、自校说明）。
-- INDEX：b5\INDEX.sha256（格式 `<hex> *20261108-3d0e835/<相对路径>`，覆盖包内除自身外的全部文件）。
+- INDEX：b5\INDEX.sha256 —— **269 条**（格式 `<hex> *20261108-3d0e835/<相对路径>`，覆盖包内除自身外的全部文件），格式不合规 0 条。
 - 分支：私库 Jakiewbe/autolAgentloop，新分支 **b-3d0e835-20261108**（不覆盖 b-final-20261108，不改 origin，不重写历史）。
-- 推送：私库分支 **b-3d0e835-20261108**，tip **4abcb894532831e54cdd843198eda74ce1d4f0ba**（父 f28c7fa，未改写历史、未推上游、未改 origin）。
+- 推送：私库分支 **b-3d0e835-20261108**（首个 tip 4abcb89，其后因重算 INDEX 追加一次提交；**最终 tip 以包外 clone 日志里的 HEAD 为准**，避免报告自指）。未改写历史、未推上游、未改 origin。
 - 网络：直连 push 连续 3 次失败（`Failed to connect to github.com:443 after 21096/21102/21114 ms`，DNS 给 20.205.243.166 的 443 被掐）；逐 IP 探测 140.82.112.3 与 140.82.121.4 可用（https 200 / ~2 s），改走本机 CONNECT 隧道（b5\push-and-clone-verify.sh，钉 IP，只对本次命令生效）→ **push 5 s 成功**。
-- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone（3 s，HEAD 与 tip 一致）→ `sha256sum -c manifest-full.sha256` **253/253 OK**；`sha256sum -c INDEX.sha256` 见包外日志。日志：`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`。
+- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone（4 s）→ `sha256sum -c manifest-full.sha256` **253/253 OK**、`sha256sum -c INDEX.sha256` **269/269 OK**；clone 内 INDEX 自身 sha256 = `e13ae489fe9d3d5105387f22d43dc70f0845b789d836bc190a2556ad10056b9b`。日志：`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`（包外）。
+- 包内文件数：**270**（含 INDEX 自身）；INDEX 覆盖 269 条 = 270 − 1（INDEX 自身不在自己里，防自指）。
 
 ## B6 B 机切换 —— 未做（阻塞）
 
