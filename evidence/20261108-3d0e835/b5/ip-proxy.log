@@ -1,0 +1,1 @@
+ip-proxy listening 127.0.0.1:18080 pin=github.com,codeload.github.com,objects.githubusercontent.com,api.github.com ips=140.82.112.3,140.82.121.4

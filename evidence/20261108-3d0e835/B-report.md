@@ -121,10 +121,12 @@ O:S-1-5-21-4020587617-1314364305-3965834536-1001G:…-513D:AI(D;CI;DT;;;WD)(A;OI
 | --- | --- | --- |
 | `npm run typecheck` | EXIT 0 | — |
 | `npm run format:check` | All matched files use Prettier code style! EXIT 0 | — |
-| `npm test` | **不通过且不收敛**：536 ✔ / 68 ✖，随后卡在 tests/simulation.test.ts 与 tests/up-lock.test.ts 不退出（625 行后被 kill） | b4\npm-test.log、b4\npm-test-pristine.log |
+| `npm test` | **不通过且不收敛**：我们这棵 536 ✔ / 68 ✖；**pristine 3d0e835 对照 513 ✔ / 71 ✖**；两棵都在 simulation/up-lock 处挂住，420 s 超时（EXIT=124） | b4\npm-test.log、b4\npm-test-pristine.log |
 | `npm run test:windows` | **501 tests / 500 pass / 1 fail / 0 skipped**，EXIT=1，127 s | b4\test-windows.log |
 
-`npm test` 的 68 个失败全部是 macOS/Linux 专属路径（osascript 通知、systemd/launchd 服务、feishu、DSH、codex browser access 等）；同一脚本在 Windows 上不是可用门槛。**未在 pristine 3d0e835 上做对照**（见「未验」）。
+`npm test` 的失败全部落在 macOS/Linux 专属路径（osascript 通知、systemd/launchd 服务、feishu、DSH、codex browser access 等）；同一脚本在 Windows 上不是可用门槛。
+
+pristine 对照已做（`git archive 3d0e835 | tar -x` 到 _night\pristine-3d0e835 后 `timeout 420 npm test`）：**513 ✔ / 71 ✖，同样不收敛，EXIT=124**。结论：`npm test` 在 Windows 上的不收敛是上游既有性质，不是本次重放引入的回归。
 
 ### test:windows 的唯一红：上游 #187 新增的管理员专属用例
 
@@ -176,7 +178,9 @@ logged: "first: run 4 (W) turn 1 started, pid 1800" / "second: run 4: done"
 - 封条：b5\SEAL.txt（manifest 指纹、行数、INDEX 行数、生成时间、自校说明）。
 - INDEX：b5\INDEX.sha256（格式 `<hex> *20261108-3d0e835/<相对路径>`，覆盖包内除自身外的全部文件）。
 - 分支：私库 Jakiewbe/autolAgentloop，新分支 **b-3d0e835-20261108**（不覆盖 b-final-20261108，不改 origin，不重写历史）。
-- 复验：`--depth 1` 新 clone → `sha256sum -c manifest-full.sha256` 与 `sha256sum -c INDEX.sha256`，日志放包外（`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`）。
+- 推送：私库分支 **b-3d0e835-20261108**，tip **4abcb894532831e54cdd843198eda74ce1d4f0ba**（父 f28c7fa，未改写历史、未推上游、未改 origin）。
+- 网络：直连 push 连续 3 次失败（`Failed to connect to github.com:443 after 21096/21102/21114 ms`，DNS 给 20.205.243.166 的 443 被掐）；逐 IP 探测 140.82.112.3 与 140.82.121.4 可用（https 200 / ~2 s），改走本机 CONNECT 隧道（b5\push-and-clone-verify.sh，钉 IP，只对本次命令生效）→ **push 5 s 成功**。
+- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone（3 s，HEAD 与 tip 一致）→ `sha256sum -c manifest-full.sha256` **253/253 OK**；`sha256sum -c INDEX.sha256` 见包外日志。日志：`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`。
 
 ## B6 B 机切换 —— 未做（阻塞）
 
@@ -200,7 +204,7 @@ AGENT_AUTOLOOP_HOME=D:/AutoAgentloop/home node /d/AutoAgentloop/release/b-c067fd
 ## 未验（照抄，不美化）
 
 1. **B4 门槛未过**：test:windows 501/500/1（tests/windows-admin.test.ts 需提权管理员 + 已登录桌面），未达「0 失败」。
-2. **npm test 未在 pristine 3d0e835 上做对照**：Windows 上该脚本本身不收敛（simulation fuzz 与 up-lock 挂起），对照只能证明「两边一样坏」，本轮只跑了我们这棵树。
+2. ~~npm test 未在 pristine 3d0e835 上做对照~~ → **已补**：pristine 513 ✔ / 71 ✖ / EXIT=124，与我们这棵同样不收敛；`npm test` 在 Windows 不是可用门槛，工单要求的「npm test 通过」在本机不可达（环境性质，非本次改动）。
 3. **与 A 侧 plugins/claude-go/agent.ts 字节未对齐**：B 侧 235e804e…，A 侧报 8dd8c405…，缺 A 侧原件。
 4. **B6 切换未做**：被 B4 红门槛挡住，生产基座未换。
 5. **真实模型调用未验**：本轮未做真实 Go/Claude 调用（上一轮已定性为环境缺口：本机无 claude CLI，不得用 .cmd 替身冒充）。
