@@ -1,0 +1,29 @@
+# windows-admin.test.ts · 上游 pristine 3d0e835 对照
+生成：2026-11-08T03:58:05Z（B 机 MAGICBOOK14-ZZ）
+
+## 结论
+pristine 3d0e835（未含任何我们的改动）上，同一条用例同样失败，失败点与错误原文完全一致
+→ 该红是本机环境缺口（该用例要求提权会话 + 已登录桌面），不是本次重放引入的回归。
+
+## 文件同一性
+pristine  tests/windows-admin.test.ts sha256 = 3a1eb1a42c15b9a0d2071b7de985f3f2f33d87e08a6edeb253f479fdfc3d6423
+work tree tests/windows-admin.test.ts sha256 = 3a1eb1a42c15b9a0d2071b7de985f3f2f33d87e08a6edeb253f479fdfc3d6423
+我们对它的改动 = git diff 3d0e835 -- tests/windows-admin.test.ts → 0 行
+
+## pristine 3d0e835 单跑（node --test tests/windows-admin.test.ts）
+ℹ fail 1
+ℹ skipped 0
+ℹ duration_ms 9649.1518
+✖ a process with more rights than the desktop is told apart from one with the desktop's own (2589.6801ms)
+   Error: Command failed: powershell.exe ... Register-ScheduledTask -TaskName 'agent-autoloop-test-Highest-2076' ...
+   Register-ScheduledTask : Access is denied.
+   CategoryInfo : PermissionDenied: (PS_ScheduledTask:Root/Microsoft/...S_ScheduledTask) [Register-ScheduledTask], CimException
+   FullyQualifiedErrorId : HRESULT 0x80070005,Register-ScheduledTask
+   at taskProcess (file:///D:/AutoAgentloop/_night/pristine-3d0e835/tests/windows-admin.test.ts:53:3)
+   at TestContext.<anonymous> (file:///D:/AutoAgentloop/_night/pristine-3d0e835/tests/windows-admin.test.ts:72:20)
+
+## 与本树 test:windows 的关系
+本树 npm run test:windows：tests 501 / pass 500 / fail 1 / skipped 0（同一条用例），见 b4/test-windows.log。
+两棵树上失败形态一致：Register-ScheduledTask -RunLevel Highest → Access is denied (0x80070005)。
+本机账户事实：chs 在 Administrators 组内，但当前会话 IsInRole(Administrator) = False（UAC 过滤令牌）。
+未做：没有改断言、没有设 CI=1 让它 skip、没有提权（本会话无审批通道）。

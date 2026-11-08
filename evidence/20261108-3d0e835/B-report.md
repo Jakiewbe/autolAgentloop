@@ -140,6 +140,7 @@ pristine 对照已做（`git archive 3d0e835 | tar -x` 到 _night\pristine-3d0e8
 - 本机失败原因：`Register-ScheduledTask ... -RunLevel Highest` → `Access is denied.`（HRESULT 0x80070005，CimException）。
 - 账户事实：chs **在** 本机 Administrators 组内，但当前会话是 UAC 过滤后的标准令牌（`IsInRole(Administrator)` = **False**）——即「管理员账户、非提权进程」。该用例在提权会话里才成立。
 - 结论：这是**环境缺口**（需要提权 + 已登录桌面），不是我们重放引入的回归；但它确实让工单的「0 失败」门槛不成立，所以按工单「阻塞即停」不往下切基座（见 B6）。**没有把断言改绿，也没有设 CI=1 让它 skip。**
+- **pristine 对照（补做）**：把未含我们任何改动的 3d0e835 原树 `git archive` 到 _night\pristine-3d0e835，单跑 `node --test tests/windows-admin.test.ts` → **同样 fail 1**，错误原文一致（`Register-ScheduledTask : Access is denied.` / `HRESULT 0x80070005`），且两处 tests/windows-admin.test.ts 的 sha256 完全相同（3a1eb1a4…d6423）、我们对它的 diff 为 0 行。证据：b4\windows-admin-pristine-compare.txt。
 
 ### 三条实战判据（对 release\b-3d0e835-20261108 跑，脚本 b4\battle-criteria.sh）
 
@@ -176,12 +177,12 @@ logged: "first: run 4 (W) turn 1 started, pid 1800" / "second: run 4: done"
 - **全树指纹**：`a66886dc449ad31ad486fb5806062b83e5726262210e093a58b08b6109e3a82a`
 - 9 路径表：b5\nine-paths-table.txt（含上游 sha256 / 本次 sha256 / 是否我们改过）。
 - 封条：b5\SEAL.txt（manifest 指纹、行数、INDEX 行数、生成时间、自校说明）。
-- INDEX：b5\INDEX.sha256 —— **269 条**（格式 `<hex> *20261108-3d0e835/<相对路径>`，覆盖包内除自身外的全部文件），格式不合规 0 条。
+- INDEX：b5\INDEX.sha256 —— 条数以 b5\SEAL.txt 的 `index_lines_expected` 为准（= 包内文件数 − 1，INDEX 自身不列自己），格式 `<hex> *20261108-3d0e835/<相对路径>`，格式不合规 0 条。此处刻意不写死数字：报告本身在包内，写死会与「加一个证据文件就重算」互相追尾。
 - 分支：私库 Jakiewbe/autolAgentloop，新分支 **b-3d0e835-20261108**（不覆盖 b-final-20261108，不改 origin，不重写历史）。
 - 推送：私库分支 **b-3d0e835-20261108**（首个 tip 4abcb89，其后因重算 INDEX 追加一次提交；**最终 tip 以包外 clone 日志里的 HEAD 为准**，避免报告自指）。未改写历史、未推上游、未改 origin。
 - 网络：直连 push 连续 3 次失败（`Failed to connect to github.com:443 after 21096/21102/21114 ms`，DNS 给 20.205.243.166 的 443 被掐）；逐 IP 探测 140.82.112.3 与 140.82.121.4 可用（https 200 / ~2 s），改走本机 CONNECT 隧道（b5\push-and-clone-verify.sh，钉 IP，只对本次命令生效）→ **push 5 s 成功**。
-- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone → `sha256sum -c manifest-full.sha256` **253/253 OK**、`sha256sum -c INDEX.sha256` **269/269 OK**。**INDEX 自身的 sha256 与 clone HEAD 一律只写在包外日志**（`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`），因为任何写进包内的哈希都会随包重算而失效——这是刻意的自指规避，不是缺项。
-- 包内文件数：**270**（含 INDEX 自身）；INDEX 覆盖 269 条 = 270 − 1（INDEX 自身不在自己里，防自指）。
+- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone → `sha256sum -c manifest-full.sha256` **253/253 OK**、`sha256sum -c INDEX.sha256` **全过**（条数见包外日志 /d/AutoAgentloop/evidence/20261108-3d0e835-clone-verify.txt）。末轮复验走**直连**（2.2 s），未用隧道。**INDEX 自身的 sha256 与 clone HEAD 一律只写在包外日志**（`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`），因为任何写进包内的哈希都会随包重算而失效——这是刻意的自指规避，不是缺项。
+- 包内文件数：见 b5\SEAL.txt 的 `package_files`（含 INDEX 自身）；INDEX 覆盖 `package_files − 1` 条（INDEX 自身不在自己里，防自指）。末轮自校：`sha256sum -c INDEX.sha256` 全过、`sha256sum -c manifest-full.sha256` 253/253 全过。
 
 ## B6 B 机切换 —— 未做（阻塞）
 
@@ -210,7 +211,7 @@ AGENT_AUTOLOOP_HOME=D:/AutoAgentloop/home node /d/AutoAgentloop/release/b-c067fd
 4. **B6 切换未做**：被 B4 红门槛挡住，生产基座未换。
 5. **真实模型调用未验**：本轮未做真实 Go/Claude 调用（上一轮已定性为环境缺口：本机无 claude CLI，不得用 .cmd 替身冒充）。
 6. **注销重登未做**（工单允许本轮不做，此处明示）。
-7. **%TEMP% 残留与任务/端口自查**：本轮未重跑快照（test:windows 跑动会自己清任务；如需 A 侧口径的快照，需要单独一轮）。
+7. **%TEMP% 残留与任务/端口自查**：本轮未做跑前/跑后快照（工单 B6 未执行，故未按旧口径采）。已采的是「生产未切换」现场快照 b6\01-production-unchanged.txt（任务 agent-autoloop-09bbb91a Running、LastTaskResult 267009、up.pid 22156、心跳 http=200 job:null、worker/runs 22 个）。
 8. 工单「28 条正例」与实测「14 例 / 22 断言」口径不一致，未凑数。
 
 ## 证据清单
@@ -230,6 +231,8 @@ evidence/20261108-3d0e835/
   b4/test-windows.log        门槛：501/500/1
   b4/npm-test.log            npm test（Windows 不收敛，非门槛）
   b4/npm-test-pristine.log   npm test on pristine 3d0e835
+  b4/windows-admin-pristine-compare.txt  test:windows 唯一红在 pristine 上同样失败（环境缺口）
+  b5/clone-verify-only.sh    只做 clone+校验的重试脚本（网络抖动时用）
   b5/manifest-full.sha256    253 行全树清单
   b5/nine-paths-table.txt    9 路径对照
   b5/SEAL.txt                封条 + 自校

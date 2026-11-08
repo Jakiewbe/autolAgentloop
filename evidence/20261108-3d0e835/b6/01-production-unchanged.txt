@@ -1,0 +1,171 @@
+# ç”Ÿäº§åŸºåº§æœªåˆ‡æ¢ Â· ç°åœºå¿«ç…§ 2026-11-08T03:54:11Z
+--- è®¡åˆ’ä»»åŠ¡ ---
+
+
+TaskName : agent-autoloop-09bbb91a
+State    : Running
+
+
+
+
+
+LastRunTime        : 2026/11/8 3:29:40
+LastTaskResult     : 267009
+NumberOfMissedRuns : 0
+
+
+
+--- è¿›ç¨‹é“¾ ---
+
+
+ProcessId       : 22156
+ParentProcessId : 3048
+Name            : node.exe
+CommandLine     : "C:\Program Files\nodejs\node.exe" --disable-warning=ExperimentalWarning D:\AutoAgentloop\release\b-c
+                  067fdb-20261107\bin\agent-autoloop.ts up
+
+ProcessId       : 19636
+ParentProcessId : 3192
+Name            : DeepSeek Harness.exe
+CommandLine     : "D:\DPH\DeepSeek Harness.exe" D:\DPH\resources\app.asar\dsh\node_modules\@deepseek-ai\dsh-subprocess-
+                  local\lib\runner.js -- C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\bin\
+                  bash.exe -c "set -u
+                  E=/d/AutoAgentloop/evidence/20261108-3d0e835/b6
+                  mkdir -p $E
+                  {
+                  echo \"# Éú²ú»ù×ùÎ´ÇĞ»» ¡¤ ÏÖ³¡¿ìÕÕ $(date -u +%FT%TZ)\"
+                  echo \"--- ¼Æ»®ÈÎÎñ ---\"
+                  powershell -NoProfile -Command \"Get-ScheduledTask -TaskName 'agent-autoloop-09bbb91a' | Select-Objec
+                  t TaskName,State | Format-List; Get-ScheduledTaskInfo -TaskName 'agent-autoloop-09bbb91a' | Select-Ob
+                  ject LastRunTime,LastTaskResult,NumberOfMissedRuns | Format-List\" 2>&1
+                  echo \"--- ½ø³ÌÁ´ ---\"
+                  powershell -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { \$_.CommandLine -matc
+                  h 'agent-autoloop' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | Format-List\" 2>&1
+                  echo \"--- up.pid ---\"
+                  cat /d/AutoAgentloop/home/up.pid 2>&1
+                  echo \"--- HOME ÄÚÈİ ---\"
+                  ls -1 /d/AutoAgentloop/home
+                  echo \"--- release Ê÷ ---\"
+                  ls -1d /d/AutoAgentloop/release/*
+                  echo \"--- Éú²ú»ù×ùµÄ claude-go sha£¨ÈÔÊÇ¾ÉĞĞ£© ---\"
+                  sha256sum /d/AutoAgentloop/release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+                  } > $E/01-production-unchanged.txt 2>&1
+                  grep -E \"TaskName|State|LastTaskResult|ProcessId|^[0-9]+$|b-|235e804e|ed0697ad\" $E/01-production-un
+                  changed.txt | head -25"
+
+ProcessId       : 26948
+ParentProcessId : 19636
+Name            : bash.exe
+CommandLine     : C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\bin\bash.exe -c "set -u
+                  E=/d/AutoAgentloop/evidence/20261108-3d0e835/b6
+                  mkdir -p $E
+                  {
+                  echo \"# Éú²ú»ù×ùÎ´ÇĞ»» ¡¤ ÏÖ³¡¿ìÕÕ $(date -u +%FT%TZ)\"
+                  echo \"--- ¼Æ»®ÈÎÎñ ---\"
+                  powershell -NoProfile -Command \"Get-ScheduledTask -TaskName 'agent-autoloop-09bbb91a' | Select-Objec
+                  t TaskName,State | Format-List; Get-ScheduledTaskInfo -TaskName 'agent-autoloop-09bbb91a' | Select-Ob
+                  ject LastRunTime,LastTaskResult,NumberOfMissedRuns | Format-List\" 2>&1
+                  echo \"--- ½ø³ÌÁ´ ---\"
+                  powershell -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { \$_.CommandLine -matc
+                  h 'agent-autoloop' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | Format-List\" 2>&1
+                  echo \"--- up.pid ---\"
+                  cat /d/AutoAgentloop/home/up.pid 2>&1
+                  echo \"--- HOME ÄÚÈİ ---\"
+                  ls -1 /d/AutoAgentloop/home
+                  echo \"--- release Ê÷ ---\"
+                  ls -1d /d/AutoAgentloop/release/*
+                  echo \"--- Éú²ú»ù×ùµÄ claude-go sha£¨ÈÔÊÇ¾ÉĞĞ£© ---\"
+                  sha256sum /d/AutoAgentloop/release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+                  } > $E/01-production-unchanged.txt 2>&1
+                  grep -E \"TaskName|State|LastTaskResult|ProcessId|^[0-9]+$|b-|235e804e|ed0697ad\" $E/01-production-un
+                  changed.txt | head -25"
+
+ProcessId       : 26852
+ParentProcessId : 26948
+Name            : bash.exe
+CommandLine     : "C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\bin\..\usr\bin\bash.exe" -
+                  c "set -u
+                  E=/d/AutoAgentloop/evidence/20261108-3d0e835/b6
+                  mkdir -p $E
+                  {
+                  echo \"# Éú²ú»ù×ùÎ´ÇĞ»» ¡¤ ÏÖ³¡¿ìÕÕ $(date -u +%FT%TZ)\"
+                  echo \"--- ¼Æ»®ÈÎÎñ ---\"
+                  powershell -NoProfile -Command \"Get-ScheduledTask -TaskName 'agent-autoloop-09bbb91a' | Select-Objec
+                  t TaskName,State | Format-List; Get-ScheduledTaskInfo -TaskName 'agent-autoloop-09bbb91a' | Select-Ob
+                  ject LastRunTime,LastTaskResult,NumberOfMissedRuns | Format-List\" 2>&1
+                  echo \"--- ½ø³ÌÁ´ ---\"
+                  powershell -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { \$_.CommandLine -matc
+                  h 'agent-autoloop' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | Format-List\" 2>&1
+                  echo \"--- up.pid ---\"
+                  cat /d/AutoAgentloop/home/up.pid 2>&1
+                  echo \"--- HOME ÄÚÈİ ---\"
+                  ls -1 /d/AutoAgentloop/home
+                  echo \"--- release Ê÷ ---\"
+                  ls -1d /d/AutoAgentloop/release/*
+                  echo \"--- Éú²ú»ù×ùµÄ claude-go sha£¨ÈÔÊÇ¾ÉĞĞ£© ---\"
+                  sha256sum /d/AutoAgentloop/release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+                  } > $E/01-production-unchanged.txt 2>&1
+                  grep -E \"TaskName|State|LastTaskResult|ProcessId|^[0-9]+$|b-|235e804e|ed0697ad\" $E/01-production-un
+                  changed.txt | head -25"
+
+ProcessId       : 6816
+ParentProcessId : 26852
+Name            : bash.exe
+CommandLine     : "C:\Users\19082\.dsh\profiles\desktop\node_modules\@dsh-ops\bash-win32-x64\bin\..\usr\bin\bash.exe" -
+                  c "set -u
+                  E=/d/AutoAgentloop/evidence/20261108-3d0e835/b6
+                  mkdir -p $E
+                  {
+                  echo \"# Éú²ú»ù×ùÎ´ÇĞ»» ¡¤ ÏÖ³¡¿ìÕÕ $(date -u +%FT%TZ)\"
+                  echo \"--- ¼Æ»®ÈÎÎñ ---\"
+                  powershell -NoProfile -Command \"Get-ScheduledTask -TaskName 'agent-autoloop-09bbb91a' | Select-Objec
+                  t TaskName,State | Format-List; Get-ScheduledTaskInfo -TaskName 'agent-autoloop-09bbb91a' | Select-Ob
+                  ject LastRunTime,LastTaskResult,NumberOfMissedRuns | Format-List\" 2>&1
+                  echo \"--- ½ø³ÌÁ´ ---\"
+                  powershell -NoProfile -Command \"Get-CimInstance Win32_Process | Where-Object { \$_.CommandLine -matc
+                  h 'agent-autoloop' } | Select-Object ProcessId,ParentProcessId,Name,CommandLine | Format-List\" 2>&1
+                  echo \"--- up.pid ---\"
+                  cat /d/AutoAgentloop/home/up.pid 2>&1
+                  echo \"--- HOME ÄÚÈİ ---\"
+                  ls -1 /d/AutoAgentloop/home
+                  echo \"--- release Ê÷ ---\"
+                  ls -1d /d/AutoAgentloop/release/*
+                  echo \"--- Éú²ú»ù×ùµÄ claude-go sha£¨ÈÔÊÇ¾ÉĞĞ£© ---\"
+                  sha256sum /d/AutoAgentloop/release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+                  } > $E/01-production-unchanged.txt 2>&1
+                  grep -E \"TaskName|State|LastTaskResult|ProcessId|^[0-9]+$|b-|235e804e|ed0697ad\" $E/01-production-un
+                  changed.txt | head -25"
+
+ProcessId       : 10444
+ParentProcessId : 6816
+Name            : powershell.exe
+CommandLine     : C:\Windows\System32\WindowsPowerShell\v1.0\powershell.exe -NoProfile -Command "Get-CimInstance Win32_
+                  Process | Where-Object { $_.CommandLine -match 'agent-autoloop' } | Select-Object ProcessId,ParentPro
+                  cessId,Name,CommandLine | Format-List"
+
+
+
+--- up.pid ---
+22156--- HOME å†…å®¹ ---
+config.json
+logs
+up.pid
+worker
+--- release æ ‘ ---
+/d/AutoAgentloop/release/b-3d0e835-20261108
+/d/AutoAgentloop/release/b-c067fdb-20261107
+--- ç”Ÿäº§åŸºåº§çš„ claude-go shaï¼ˆä»æ˜¯æ—§è¡Œï¼‰ ---
+235e804ef23a2172e3b2a8a4156a7fffaa6fe6208e240faf3189cafafa8488a7 */d/AutoAgentloop/release/b-c067fdb-20261107/plugins/claude-go/agent.ts
+--- å¿ƒè·³ï¼ˆworker è‡ªå·± keyï¼Œ2026-11-08T03:54:27Zï¼‰---
+http=000 time=0.000188
+{"job":null,"cancel":[]}
+worker=
+--- runs è®¡æ•° ---
+22
+35-1
+34-1
+33-1
+--- å¿ƒè·³ï¼ˆworker è‡ªå·± keyï¼Œ2026-11-08T03:54:44Zï¼‰---
+http=200 time=0.676707
+{"job":null,"cancel":[]}
+worker=b-magicbook14

@@ -1,13 +1,13 @@
 # SEAL · evidence/20261108-3d0e835
-generated_at=2026-11-08T03:50:40Z
+generated_at=2026-11-08T04:03:25Z
 release_tree=release/b-3d0e835-20261108
 release_commit=f28c7faf86cdada31e70f812716b4a9afe79f6c8 (parent 3d0e8353fd9e5e4d3e45b574806ef6fcd41dba45)
 delivery_branch=b-3d0e835-20261108
 manifest=b5/manifest-full.sha256
 manifest_sha256=a66886dc449ad31ad486fb5806062b83e5726262210e093a58b08b6109e3a82a
 manifest_lines=253
-package_files=269
-index_lines_expected=269
+package_files=276
+index_lines_expected=275
 index_self_sha256=recorded outside the package (D:/AutoAgentloop/evidence/20261108-3d0e835-clone-verify.txt)
 manifest_format=<64hex><two spaces><repo-root-relative path>; find -type f, LC_ALL=C sort -z, no directory excluded
 index_format=<64hex> *20261108-3d0e835/<path relative to evidence/>; sha256sum -b style
