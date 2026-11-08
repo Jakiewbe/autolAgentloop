@@ -342,7 +342,10 @@ export function createWorker({
   function read(entry: Entry, adapter: Adapter, code: number | null): Reading {
     const { out, err } = files(entry);
     try {
-      const reading = adapter.read(snapshot(out), code, code === null ? "" : snapshot(err));
+      // A snapshot of a long output keeps its head and tail only, so a protocol judged line by line is read whole
+      // once it has ended: a missing middle would shift the line number it reports.
+      const stdout = code !== null && existsSync(out) ? readFileSync(out, "utf8") : snapshot(out);
+      const reading = adapter.read(stdout, code, code === null ? "" : snapshot(err), entry.job.agent);
       if (!reading) throw new Error("它什么也没给");
       return reading;
     } catch (error) {
