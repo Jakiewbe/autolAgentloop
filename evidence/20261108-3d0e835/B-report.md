@@ -180,7 +180,7 @@ logged: "first: run 4 (W) turn 1 started, pid 1800" / "second: run 4: done"
 - 分支：私库 Jakiewbe/autolAgentloop，新分支 **b-3d0e835-20261108**（不覆盖 b-final-20261108，不改 origin，不重写历史）。
 - 推送：私库分支 **b-3d0e835-20261108**（首个 tip 4abcb89，其后因重算 INDEX 追加一次提交；**最终 tip 以包外 clone 日志里的 HEAD 为准**，避免报告自指）。未改写历史、未推上游、未改 origin。
 - 网络：直连 push 连续 3 次失败（`Failed to connect to github.com:443 after 21096/21102/21114 ms`，DNS 给 20.205.243.166 的 443 被掐）；逐 IP 探测 140.82.112.3 与 140.82.121.4 可用（https 200 / ~2 s），改走本机 CONNECT 隧道（b5\push-and-clone-verify.sh，钉 IP，只对本次命令生效）→ **push 5 s 成功**。
-- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone（4 s）→ `sha256sum -c manifest-full.sha256` **253/253 OK**、`sha256sum -c INDEX.sha256` **269/269 OK**；clone 内 INDEX 自身 sha256 = `e13ae489fe9d3d5105387f22d43dc70f0845b789d836bc190a2556ad10056b9b`。日志：`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`（包外）。
+- 复验：`--depth 1 --branch b-3d0e835-20261108` 新 clone → `sha256sum -c manifest-full.sha256` **253/253 OK**、`sha256sum -c INDEX.sha256` **269/269 OK**。**INDEX 自身的 sha256 与 clone HEAD 一律只写在包外日志**（`D:\AutoAgentloop\evidence\20261108-3d0e835-clone-verify.txt`），因为任何写进包内的哈希都会随包重算而失效——这是刻意的自指规避，不是缺项。
 - 包内文件数：**270**（含 INDEX 自身）；INDEX 覆盖 269 条 = 270 − 1（INDEX 自身不在自己里，防自指）。
 
 ## B6 B 机切换 —— 未做（阻塞）
